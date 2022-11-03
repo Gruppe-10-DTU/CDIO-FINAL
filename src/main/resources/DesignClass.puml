@@ -24,37 +24,10 @@ class Balance {
 
 
 
-Abstract ChanceCard{
- # name : String
+package ChanceCard {
 }
 
-class Choice {
 
-}
-
-class MoveXSteps {
- - minSteps : int
- - maxSteps : int
-}
-class MoveToColor {
- - colorTargets : String[*]
-}
-
-class MoveToField {
- - fieldName : String
-}
-
-class CharacterSpecific {
- - character : Character
-}
-
-class ChangeBalance {
- - effect : int
-}
-
-class GetOutOfJail {
-
-}
 
 class Die {
  Int faceValue
@@ -70,13 +43,7 @@ class Language {
  + getLanguageValue(String key) : String
 }
 
-ChanceCard <|-- Choice
-ChanceCard <|-- CharacterSpecific
-ChanceCard <|-- ChangeBalance
-ChanceCard <|-- GetOutOfJail
-ChanceCard <|-- MoveXSteps
-ChanceCard <|-- MoveToField
-ChanceCard <|-- MoveToColor
+
 
 Player "1" o-- "0..1" GetOutOfJail
 Player "1" o-- "0..1" CharacterSpecific
