@@ -2,90 +2,68 @@
 skinparam linetype polyline
 skinparam linetype ortho
 
-Class Player {
+class Player {
  - name: String
  - soldSigns: int
  + Player(String name, int balance, Character character)
  + setBalance(int value) : boolean
  + getBalance() : int
 }
-Class Character {
+class Character {
  - name: String
  - image: String
  + Character(String name, String image)
 }
-Class GameBoard{
+package GameBoard{
 }
-Class Balance {
+
+class Balance {
   - balance : int
   + balance(int startingValue)
 }
-Abstract Field {
- # name : string
- # iD : int
-}
 
-Class Property {
- - color : String
- - price : int
- - rent : int
-}
-Class Empty{
 
-}
-
-Class Chance {
-
-}
-
-Class Jail {
-
-}
-
-Class ToJail {
- + jailPlayer(Player player)
-}
 
 Abstract ChanceCard{
  # name : String
 }
 
-Class Choice {
+class Choice {
 
 }
 
-Class MoveXSteps {
+class MoveXSteps {
  - minSteps : int
  - maxSteps : int
 }
-Class MoveToColor {
+class MoveToColor {
  - colorTargets : String[*]
 }
 
-Class MoveToField {
+class MoveToField {
  - fieldName : String
 }
 
-Class CharacterSpecific {
+class CharacterSpecific {
  - character : Character
 }
 
-Class ChangeBalance {
+class ChangeBalance {
  - effect : int
 }
 
-Class GetOutOfJail {
+class GetOutOfJail {
 
 }
 
-Class Die {
+class Die {
  Int faceValue
  - sides : int
  + Die(int sides)
  + Die()
  + roll() : int
 }
-Class Language {
+class Language {
  - String lang
  - languageValues : String[*][]
  + updateLanguage(String language)
@@ -100,12 +78,6 @@ ChanceCard <|-- MoveXSteps
 ChanceCard <|-- MoveToField
 ChanceCard <|-- MoveToColor
 
-Field <|-- Property
-Field <|-- Empty
-Field <|-- Chance
-Field <|-- Jail
-Field <|-- ToJail
-
 Player "1" o-- "0..1" GetOutOfJail
 Player "1" o-- "0..1" CharacterSpecific
 Player "1" o-- "1" Balance
@@ -115,7 +87,7 @@ Game "1" o-left- "1" GameBoard
 Game "1" o-- "20" ChanceCard
 Game"1" o-- "1" Die
 Game "1" o-right- "2..4" Player
-GameBoard "1" *-- "24" Field
+
 Property "1" o-- "0..1" Player
 Jail "1" o-- "0..4" Player
 @enduml
