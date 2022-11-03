@@ -1,8 +1,14 @@
 package game.models;
 import gui_fields.GUI_Field;
 
-public class Field {
-    private int effect;
+public abstract class Field {
+    protected String name;
+    protected int iD;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    /*private int effect;
     private String name;
     private String description;
     public Field(int effect,String name, String description){
@@ -25,5 +31,5 @@ public class Field {
 
     public void setDescription(String description) {
         this.description = description;
-    }
+    }*/
 }
