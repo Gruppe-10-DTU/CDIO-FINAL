@@ -1,0 +1,34 @@
+package chanceCards;
+
+public enum DeckComposition {
+    CHARACTER_SPECIFIC_1,
+    CHARACTER_SPECIFIC_2,
+    CHARACTER_SPECIFIC_3,
+    CHARACTER_SPECIFIC_4,
+
+    MOVE_TO_COLOUR_1,
+    MOVE_TO_COLOUR_2,
+    MOVE_TO_COLOUR_3,
+    MOVE_TO_COLOUR_4,
+    MOVE_TO_COLOUR_5,
+    MOVE_TO_COLOUR_6,
+    MOVE_TO_COLOUR_7,
+
+    MOVE_TO_FIELD_1,
+    MOVE_TO_FIELD_2,
+    MOVE_TO_FIELD_3,
+
+    GET_OUT_OF_JAIL,
+
+    CHANGE_BALANCE_1,
+    CHANGE_BALANCE_2,
+    CHANGE_BALANCE_3,
+
+    CHOICE_1,
+
+    MOVE_X_STEPS;
+
+    DeckComposition(){
+    }
+
+}
