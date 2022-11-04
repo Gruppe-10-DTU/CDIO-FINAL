@@ -2,6 +2,10 @@
 'https://plantuml.com/class-diagram
 skinparam linetype ortho
 
+class Deck{
+ - deck : ChanceCard[]
+}
+
 abstract ChanceCard{
  # name : String
 }
@@ -33,6 +37,8 @@ class ChangeBalance {
 class GetOutOfJail {
 
 }
+
+Deck o-- ChanceCard
 
 ChanceCard <|-- Choice
 ChanceCard <|--- MoveXSteps
