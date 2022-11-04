@@ -1,4 +1,4 @@
-package ChanceCards;
+package chanceCards;
 
 public class MoveToColour extends ChanceCard{
 

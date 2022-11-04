@@ -1,4 +1,4 @@
-package ChanceCards;
+package chanceCards;
 
 public class CharacterSpecific extends ChanceCard{
 
