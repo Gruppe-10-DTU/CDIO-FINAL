@@ -10,34 +10,34 @@ public class Deck {
 
         int deckPosition = 0;
         //Iterates over the enum and creates Cards of different types based on the names
-        for(DeckComposition name : DeckComposition.values()){
-            String type = name.name().replaceAll("_([0-9]+)", "");
+        for(DeckComposition card : DeckComposition.values()){
+            String type = card.getType();
             switch(type){
-                case("CHARACTER_SPECIFIC"):
-                    deck[deckPosition] = new CharacterSpecific();
+                case("CharacterSpecific"):
+                    deck[deckPosition] = new CharacterSpecific(card.name(), "[REPLACE]" ); //replace with language path
                         break;
-                case("MOVE_TO_COLOUR"):
-                    deck[deckPosition] = new MoveToColour();
+                case("MoveToColour"):
+                    deck[deckPosition] = new MoveToColour(card.name(), "[REPLACE]" ); //replace with language path
                         break;
-                case("MOVE_TO_FIELD"):
-                    deck[deckPosition] = new MoveToField();
+                case("MoveToField"):
+                    deck[deckPosition] = new MoveToField(card.name(), "[REPLACE]" ); //replace with language path
                         break;
-                case("GET_OUT_OF_JAIL"):
-                    deck[deckPosition] = new GetOutOfJail();
+                case("GetOutOfJail"):
+                    deck[deckPosition] = new GetOutOfJail(card.name(), "[REPLACE]" ); //replace with language path
                         break;
-                case("CHANGE_BALANCE"):
-                    deck[deckPosition] = new ChangeBalance();
+                case("ChangeBalance"):
+                    deck[deckPosition] = new ChangeBalance(card.name(), "[REPLACE]" ); //replace with language path
                         break;
-                case("CHOICE"):
-                    deck[deckPosition] = new Choice();
+                case("Choice"):
+                    deck[deckPosition] = new Choice(card.name(), "[REPLACE]" ); //replace with language path
                         break;
-                case("MOVE_X_STEPS"):
-                    deck[deckPosition] = new MoveXSteps();
+                case("MoveXSteps"):
+                    deck[deckPosition] = new MoveXSteps(card.name(), "[REPLACE]" ); //replace with language path
                         break;
             }
             deckPosition++;
         }
-        //shuffles the deck so it is ready for a game.
+        //shuffles the deck, so it is ready for a game.
         shuffle();
     }
 
