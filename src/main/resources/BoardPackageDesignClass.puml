@@ -1,5 +1,7 @@
 @startuml
 'https://plantuml.com/class-diagram
+skinparam linetype ortho
+left to right direction
 
 class GameBoard{
  - board : Field[]
@@ -34,10 +36,10 @@ class ToJail {
 
 GameBoard o-- Field
 
-Field <|-- Property
-Field <|-- Empty
+Field <|-left- Property
+Field <|--- Empty
 Field <|-- Chance
 Field <|-- Jail
-Field <|-- ToJail
+Field <|-right- ToJail
 
 @enduml
