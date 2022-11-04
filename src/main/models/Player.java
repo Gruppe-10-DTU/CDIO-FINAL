@@ -1,13 +1,16 @@
-package game.models;
+package main.models;
 
 public class Player {
 
     private final Balance balance = new Balance();
     private String identifier;
 
+    private int location;
+
     //Constructor
     public Player(String name){
         identifier = name;
+
     }
 
     // getter
@@ -18,7 +21,13 @@ public class Player {
     public boolean setBalance(int newBalance) {
         int newValue = balance.getBalance() + newBalance;
         balance.setBalance(Math.max(newValue, 0));
-        return newValue>=0;
+        return newValue>=0;}
+
+
+
+    private int Position(int location){
+        this.location = location;
+        return this.location;
     }
 
     // getter
@@ -29,4 +38,13 @@ public class Player {
     public void setIdentifier(String newIdentifier) {
         this.identifier = newIdentifier;
     }
+    public int getLocation() {
+        return location;
+    }
+
+    public void setLocation(int location, int newLocation) {
+        this.location = (location+newLocation);
+    }
+
+
 }
