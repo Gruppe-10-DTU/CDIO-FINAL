@@ -8,6 +8,14 @@ public class Player {
     private final Balance balance;
     private String identifier;
     private Character character;
+    /**
+     * @param name name
+     * @balance is set to 20 by default, character not set
+     */
+    public Player(String name){
+        this.identifier = name;
+        balance = new Balance(20);
+    }
 
     /**
      * @param name Name of player
