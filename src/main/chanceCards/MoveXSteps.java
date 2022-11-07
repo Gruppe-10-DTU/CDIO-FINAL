@@ -6,11 +6,15 @@ public class MoveXSteps extends ChanceCard{
     private int maxSteps;
 
     /**
-     * Constructor for the Chancecards that allow the player to move from 1 to X steps.
-     * @param Name        Must match a key in the language hashmap
-     * @param Description Must be imported from the language hashmap
+     *
+     * @param Name
+     * @param Description
+     * @param MinimumSteps
+     * @param MaximumSteps
      */
-    public MoveXSteps(String Name, String Description) {
+         public MoveXSteps(String Name, String Description, int MinimumSteps , int MaximumSteps) {
         super(Name, Description);
+        this.minSteps = MinimumSteps;
+        this.maxSteps = MaximumSteps;
     }
 }

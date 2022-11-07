@@ -13,4 +13,6 @@ public abstract class ChanceCard {
         this.name = Name;
         this.description = Description;
     }
+
+    //public abstract void doAction();
 }
