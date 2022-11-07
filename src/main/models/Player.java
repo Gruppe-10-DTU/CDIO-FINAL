@@ -44,6 +44,12 @@ public class Player {
     }
 
 
+    /**
+     * @param name Name of player
+     * @param startingBalance Starting bank account value
+     * @param character Players character token
+     * @param soldSign Amount of properties they can own
+     */
     public Player(String name, int startingBalance, Character character, int soldSign){
         identifier = name;
         balance = new Balance(startingBalance);
@@ -51,13 +57,16 @@ public class Player {
         this.soldSign = soldSign;
     }
 
+    /**
+     * @return Balance of player
+     */
     // getter
     public int getBalance() {
         return balance.getBalance();
     }
 
     /**
-     * @param newBalance The change in balance for the player
+     * @param newBalance The change in balance for the player. Cannot be set below 0
      * @return True if change was possible, false if it was set to 0
      */
     // setter
@@ -67,17 +76,41 @@ public class Player {
         return newValue>=0;
     }
 
+    /**
+     * @return Name of player
+     */
     // getter
     public String getIdentifier() {
         return identifier;
     }
+
+    /**
+     * @param newIdentifier Set name of player
+     */
     // setter
     public void setIdentifier(String newIdentifier) {
         this.identifier = newIdentifier;
     }
 
+    /**
+     * @return Get soldSigns left
+     */
     public int getSoldSign() {
         return soldSign;
+    }
+
+    /**
+     * @param character New character
+     */
+    public void setCharacter(Character character) {
+        this.character = character;
+    }
+
+    /**
+     * @return Character of the player
+     */
+    public Character getCharacter() {
+        return character;
     }
 
     /**
