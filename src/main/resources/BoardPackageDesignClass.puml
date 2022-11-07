@@ -1,0 +1,45 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam linetype ortho
+left to right direction
+
+class GameBoard{
+ - board : Field[]
+}
+
+
+abstract Field {
+ # name : string
+ # iD : int
+}
+
+class Property {
+ - color : String
+ - price : int
+ - rent : int
+}
+class Empty{
+
+}
+
+class Chance {
+
+}
+
+class Jail {
+
+}
+
+class ToJail {
+ + jailPlayer(Player player)
+}
+
+GameBoard o-- Field
+
+Field <|-left- Property
+Field <|--- Empty
+Field <|-- Chance
+Field <|-- Jail
+Field <|-right- ToJail
+
+@enduml

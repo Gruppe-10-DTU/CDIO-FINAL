@@ -1,0 +1,51 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam linetype ortho
+
+class Deck{
+ - deck : ChanceCard[]
+}
+
+abstract ChanceCard{
+ # name : String
+}
+
+class Choice {
+
+}
+
+class MoveXSteps {
+ - minSteps : int
+ - maxSteps : int
+}
+class MoveToColor {
+ - colorTargets : String[*]
+}
+
+class MoveToField {
+ - fieldName : String
+}
+
+class CharacterSpecific {
+ - character : Character
+}
+
+class ChangeBalance {
+ - effect : int
+}
+
+class GetOutOfJail {
+
+}
+
+Deck o-- ChanceCard
+
+ChanceCard <|-- Choice
+ChanceCard <|--- MoveXSteps
+ChanceCard <|-- MoveToColor
+ChanceCard <|-- MoveToField
+ChanceCard <|-- CharacterSpecific
+ChanceCard <|-- ChangeBalance
+ChanceCard <|-- GetOutOfJail
+
+@enduml
