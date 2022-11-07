@@ -80,6 +80,7 @@ public class GameController {
     public String noMoney() {
         return language.getLanguageValue("isZero");
     }
+
     public Player playerMove(Player player, int spaces){
         int oldLocation = player.getLocation();
         if(oldLocation + spaces >= 24){
