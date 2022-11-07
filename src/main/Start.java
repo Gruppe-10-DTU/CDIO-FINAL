@@ -1,5 +1,5 @@
-package game;
-import game.ui.GUI;
+package main;
+import main.ui.GUI;
 
 public class Start {
     //TODO Split ting mere op?

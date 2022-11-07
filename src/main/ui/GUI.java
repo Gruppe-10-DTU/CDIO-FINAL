@@ -1,8 +1,8 @@
-package game.ui;
+package main.ui;
 
-import game.controllers.GUIConverter;
-import game.controllers.GameController;
-import game.models.Player;
+import main.controllers.GUIConverter;
+import main.controllers.GameController;
+import main.models.Player;
 import gui_fields.GUI_Board;
 import gui_fields.GUI_Field;
 import gui_fields.GUI_Player;
