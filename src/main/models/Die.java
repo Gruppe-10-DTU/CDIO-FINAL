@@ -1,4 +1,4 @@
-package game.models;
+package main.models;
 
 public class Die {
     private int sides = 6;
