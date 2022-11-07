@@ -1,4 +1,4 @@
-package chanceCards;
+package main.chanceCards;
 
 public class MoveToField extends ChanceCard{
 

@@ -1,5 +1,4 @@
-package game;
-import game.ui.GUI;
+package main;
 
 public class Start {
     //TODO Split ting mere op?
@@ -8,6 +7,7 @@ public class Start {
     // Lokation af .txt fil?
 
     public static void main(String[] args) {
-        GUI miniMonopoly = new GUI();
+
     }
+
 }
