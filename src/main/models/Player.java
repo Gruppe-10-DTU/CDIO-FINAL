@@ -26,12 +26,6 @@ public class Player {
         return newValue >= 0;
     }
 
-
-    private int Position(int location) {
-        this.location = location;
-        return this.location;
-    }
-
     // getter
     public String getIdentifier() {
         return identifier;

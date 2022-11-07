@@ -2,9 +2,11 @@ package main.controllers;
 
 import junit.framework.TestCase;
 import main.models.Player;
+import org.junit.jupiter.api.DisplayName;
 
 import java.lang.reflect.Field;
 
+@DisplayName("JUnit test for playerMove controller.")
 public class GameControllerTest extends TestCase {
 
     public void testPlayerMove() {
