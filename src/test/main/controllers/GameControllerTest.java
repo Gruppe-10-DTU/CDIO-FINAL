@@ -3,22 +3,16 @@ package main.controllers;
 import junit.framework.TestCase;
 import main.models.Player;
 
+import java.lang.reflect.Field;
+
 public class GameControllerTest extends TestCase {
 
     public void testPlayerMove() {
                 try {
                     //preamble. Makes necessery methods available to this test, even though they are considered private.
                     GameController gc = new GameController();
-                    Player player1 = new Player("player 1");
-                                /*
-                                cheatDiceHolder diceHolder = new cheatDiceHolder();
-
-                                Class c = gc.getClass();
-                                java.lang.reflect.Field fieldDice = c.getDeclaredField("diceHolder");
-                                fieldDice.setAccessible(true);
-                                fieldDice.set(gc, diceHolder);
-
-                                 */
+                    Player player1 = new Player("Player 1");
+                    Player player2 = new Player("Player 2");
 
 
                     //move 1
@@ -38,6 +32,13 @@ public class GameControllerTest extends TestCase {
                     if(player1.getLocation() == 1){
                         System.out.println("Player passed start, position equals P-24.");
                     }
+                    gc.playerMove(player2,2);
+                    assertEquals(2,player2.getLocation());
+                    if(player2.getLocation() == 2){
+                        System.out.println("player 2 moved 2 spaces.");
+                    }
+
+
                 } catch (Exception e) {
                     System.out.println("oops:" + e);
                 }
