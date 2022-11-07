@@ -1,13 +1,18 @@
-package game.models;
+package main.models;
 
 public class Player {
 
-    private final Balance balance = new Balance();
+    private final Balance balance;
     private String identifier;
 
     //Constructor
     public Player(String name){
         identifier = name;
+        balance = new Balance();
+    }
+    public Player(String name, int startingBalance){
+        identifier = name;
+        balance = new Balance(startingBalance);
     }
 
     // getter
