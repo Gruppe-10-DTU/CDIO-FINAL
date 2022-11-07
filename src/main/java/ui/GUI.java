@@ -1,4 +1,4 @@
-package game.ui;
+package ui;
 
 import game.controllers.GUIConverter;
 import game.controllers.GameController;

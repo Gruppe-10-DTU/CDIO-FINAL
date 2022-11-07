@@ -1,4 +1,4 @@
-package game.models;
+package models;
 
 import java.io.BufferedReader;
 import java.io.IOException;

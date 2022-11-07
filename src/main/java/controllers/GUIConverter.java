@@ -1,4 +1,4 @@
-package game.controllers;
+package controllers;
 
 import gui_fields.GUI_Car;
 import gui_fields.GUI_Field;

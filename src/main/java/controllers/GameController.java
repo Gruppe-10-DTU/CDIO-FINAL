@@ -1,4 +1,4 @@
-package game.controllers;
+package controllers;
 
 import game.models.*;
 
