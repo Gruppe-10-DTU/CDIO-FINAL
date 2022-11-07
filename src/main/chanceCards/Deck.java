@@ -58,4 +58,23 @@ public class Deck {
             deck[randomNum] = cardHolder;
         }
     }
+
+    /**
+     * Draw the top card from the deck and put it back at the bottom
+     * @return returns the ChanceCard at index 0 in the deck
+     */
+    public ChanceCard drawCard(){
+        //Draws the top card
+        ChanceCard drawnCard = deck[0];
+
+        //Moves up the rest of the array
+        for (int i = 1; i < deck.length; i++) {
+            deck[i - 1] = deck[i];
+        }
+
+        //Puts the card back at the bottom
+        deck[deck.length - 1] = drawnCard;
+
+        return drawnCard;
+    }
 }
