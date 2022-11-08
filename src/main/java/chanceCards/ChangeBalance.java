@@ -13,4 +13,8 @@ public class ChangeBalance extends ChanceCard{
         super(Name, Description);
         this.effect = Effect;
     }
+
+    public int getEffect() {
+        return effect;
+    }
 }
