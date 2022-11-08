@@ -1,82 +1,92 @@
 package chanceCards;
 
-import chanceCards.DeckComposition.*;
-
+import controllers.CSVReader;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 public class DeckFromCSV {
 
     private ChanceCard[] deck;
 
-    public DeckFromCSV() {
+    /**
+     * Constructs deck from chanceCards.csv file in resources using custom CSVReader
+     * @throws FileNotFoundException in case of missing or misplaced CSV file
+     */
+    public DeckFromCSV() throws FileNotFoundException {
         this.deck = new ChanceCard[20];
         int deckPosition = 0;
         final String DELIMITER = ",";
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader("chancecards.csv"));
-            reader.readLine();
-            int type = 0, name = 1, minVal = 2, maxVal = 3, drawAgain = 4, character = 5, colour1 = 6, colour2 = 7, field = 8;
-            String[] data;
-            String currentLine;
-            while((currentLine = reader.readLine()) != null || deckPosition == deck.length) {
-                data = currentLine.split(DELIMITER);
-                String description = "Description from language file";
-                switch(data[type]) {
-                    case "CharacterSpecific":
-                        deck[deckPosition] = new CharacterSpecific(
-                                data[name],
-                                description,
-                                data[character]);
-                        break;
-                    case "ChangeBalance":
-                        deck[deckPosition]= new ChangeBalance(
-                                data[name],
-                                description,
-                                Integer.parseInt(data[maxVal]));
-                        break;
-                    case "Choice":
-                        deck[deckPosition]= new Choice(
-                                data[name],
-                                description);
-                        break;
-                    case "GetOutOfJail" :
-                        deck[deckPosition]= new GetOutOfJail(
-                                data[name],
-                                description
-                        );
-                        break;
-                    case "MoveToColour" :
-                        deck[deckPosition]= new MoveToColour(
-                                data[name],
-                                description,
-                                Color.getColor(data[colour1]),
-                                Color.getColor(data[colour2])
-                        );
-                        break;
-                    case "MoveToField" :
-                        deck[deckPosition]= new MoveToField(
-                                data[name],
-                                description,
-                                data[field]
-                        );
-                        break;
-                    case "MoveXSteps" :
-                        deck[deckPosition]= new MoveXSteps(
-                                data[name],
-                                description,
-                                Integer.parseInt(data[minVal]),
-                                Integer.parseInt(data[maxVal])
-                        );
-                        break;
-                }
-                deckPosition++;
-            }
-        } catch (IOException ignored) {
-        }
+        CSVReader reader = new CSVReader("chancecards.csv", DELIMITER, true);
 
+        ArrayList<ArrayList<String>> cardData = reader.getDataAsArrList();
+
+        //assigns indexes based of enum for further readability
+        int type = reader.getHeaderIndex("type"),
+                name = reader.getHeaderIndex("name"),
+                minVal = reader.getHeaderIndex("min_value"),
+                maxVal = reader.getHeaderIndex("max_value"),
+                drawAgain = reader.getHeaderIndex("draw_again"),
+                character = reader.getHeaderIndex("character"),
+                colour1 = reader.getHeaderIndex("colour_1"),
+                colour2 = reader.getHeaderIndex("colour_2"),
+                field = reader.getHeaderIndex("field");
+
+        for (ArrayList<String> element: cardData) {
+            String description = "Description from language file";
+            switch (element.get(type)) {
+                case "CharacterSpecific":
+                    deck[deckPosition] = new CharacterSpecific(
+                            element.get(name),
+                            description,
+                            element.get(character)
+                    );
+                    break;
+                case "ChangeBalance":
+                    deck[deckPosition] = new ChangeBalance(
+                            element.get(name),
+                            description,
+                            Integer.parseInt(element.get(maxVal))
+                    );
+                    break;
+                case "Choice":
+                    deck[deckPosition] = new Choice(
+                            element.get(name),
+                            description
+                    );
+                    break;
+                case "GetOutOfJail":
+                    deck[deckPosition] = new GetOutOfJail(
+                            element.get(name),
+                            description
+                    );
+                    break;
+                case "MoveToColour":
+                    deck[deckPosition] = new MoveToColour(
+                            element.get(name),
+                            description,
+                            Color.getColor(element.get(colour1)),
+                            Color.getColor(element.get(colour2))
+                    );
+                    break;
+                case "MoveToField":
+                    deck[deckPosition] = new MoveToField(
+                            element.get(name),
+                            description,
+                            element.get(field)
+                    );
+                    break;
+                case "MoveXSteps":
+                    deck[deckPosition] = new MoveXSteps(
+                            element.get(name),
+                            description,
+                            Integer.parseInt(element.get(minVal)),
+                            Integer.parseInt(element.get(maxVal))
+                    );
+                    break;
+            }
+            deckPosition++;
+        }
     }
 
     /**
