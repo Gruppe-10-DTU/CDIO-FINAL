@@ -2,6 +2,10 @@ package chanceCards;
 
 import chanceCards.DeckComposition.*;
 
+/**
+ * CURRENTLY NOT USED
+ * May be deleted in near future
+ */
 public class DeckFromEnums {
 
     private ChanceCard[] deck;
