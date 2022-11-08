@@ -1,10 +1,7 @@
 package main;
 
 public class Start {
-    //TODO Split ting mere op?
-    // Diceholder til controller?
-    // Language Controller?
-    // Lokation af .txt fil?
+    //TODO gør language statisk.
 
     public static void main(String[] args) {
 
