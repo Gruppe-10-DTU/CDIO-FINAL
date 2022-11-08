@@ -13,6 +13,7 @@ public abstract class ChanceCard {
         this.name = Name;
         this.description = Description;
     }
-
-    //public abstract void doAction();
+    public String getType(){
+        return this.getClass().toString();
+    }
 }
