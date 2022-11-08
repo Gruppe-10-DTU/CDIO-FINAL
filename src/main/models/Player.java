@@ -9,9 +9,10 @@ public class Player {
     private String identifier;
     private Character character;
     private int soldSign = 12;
+    private int location = 0;
     /**
      * @param name name
-     * @defualts Balance is set to 20, soldSign set to 12, character not set
+     * @defaults Balance is set to 20, soldSign set to 12, location set to 0, character not set
      *
      */
     public Player(String name){
@@ -21,7 +22,7 @@ public class Player {
     /**
      * @param name name
      * @param character The player character
-     * @defaults Balance is set to 20 and soldSign set to 12
+     * @defaults Balance is set to 20, location set to 0 and soldSign set to 12
      */
     public Player(String name, Character character){
         this.identifier = name;
@@ -33,7 +34,7 @@ public class Player {
      * @param name Name of player
      * @param startingBalance starting balance
      * @param character Player character
-     * @soldSign set to 12 by default
+     * @defaults set to 12 by default, location set to 0
      */
     public Player(String name, int startingBalance, Character character){
         identifier = name;
@@ -47,6 +48,7 @@ public class Player {
      * @param startingBalance Starting bank account value
      * @param character Players character token
      * @param soldSign Amount of properties they can own
+     * @defaults location set to 0
      */
     public Player(String name, int startingBalance, Character character, int soldSign){
         identifier = name;
@@ -139,6 +141,10 @@ public class Player {
         return location;
     }
 
+    /**
+     * @param location
+     * @param newLocation
+     */
     public void setLocation(int location, int newLocation) {
         this.location = (location + newLocation);
     }
