@@ -1,8 +1,8 @@
 package ui;
-
-import game.controllers.GUIConverter;
-import game.controllers.GameController;
-import game.models.Player;
+/*
+import main.controllers.GUIConverter;
+import main.controllers.GameController;
+import main.models.Player;
 import gui_fields.GUI_Board;
 import gui_fields.GUI_Field;
 import gui_fields.GUI_Player;
@@ -92,3 +92,5 @@ public class GUI {
         gui.setDice(4, 2, dice[0],0,5, 2, dice[1],0);
     }
 }
+
+ */

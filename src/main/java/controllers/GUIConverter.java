@@ -1,10 +1,12 @@
+/*
 package controllers;
 
 import gui_fields.GUI_Car;
 import gui_fields.GUI_Field;
-import game.models.*;
+import main.models.*;
 import gui_fields.GUI_Player;
 import gui_fields.GUI_Street;
+import main.models.Player;
 
 import java.awt.*;
 
@@ -30,3 +32,6 @@ public class GUIConverter {
     }
 
 }
+
+
+ */

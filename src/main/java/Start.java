@@ -1,6 +1,4 @@
-package game;
-import game.ui.GUI;
-
+/*
 public class Start {
     //TODO Split ting mere op?
     // Diceholder til controller?
@@ -11,3 +9,5 @@ public class Start {
         GUI miniMonopoly = new GUI();
     }
 }
+
+ */
