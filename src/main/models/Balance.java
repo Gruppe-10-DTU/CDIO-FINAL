@@ -2,9 +2,18 @@ package main.models;
 
 public class Balance {
     private int balance = 20;
+
+    /**
+     * Set starting balance value
+     * @param balance
+     */
     public Balance(int balance) {
         this.balance = balance;
     }
+
+    /**
+     * Instanciate with default value of 20
+     */
     public Balance() {
 
     }
