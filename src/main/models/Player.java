@@ -27,7 +27,6 @@ public class Player {
         this.identifier = name;
         this.character = character;
         balance = new Balance(20);
-        this.soldSign = 12;
     }
 
     /**
@@ -40,7 +39,6 @@ public class Player {
         identifier = name;
         balance = new Balance(startingBalance);
         this.character = character;
-        this.soldSign = 12;
     }
 
 
@@ -73,7 +71,7 @@ public class Player {
     public boolean setBalance(int newBalance) {
         int newValue = balance.getBalance() + newBalance;
         balance.setBalance(Math.max(newValue, 0));
-        return newValue>=0;
+        return newValue >= 0;
     }
 
     /**
@@ -135,5 +133,13 @@ public class Player {
         }
         this.soldSign++;
         return true;
+    }
+
+    public int getLocation() {
+        return location;
+    }
+
+    public void setLocation(int location, int newLocation) {
+        this.location = (location + newLocation);
     }
 }
