@@ -1,7 +1,7 @@
-package main.controllers;
+/*
+package controllers;
 
-import main.models.*;
-
+import models.*;
 public class GameController {
     DiceHolder diceHolder = new DiceHolder();
     private final int WINCONDITION = 3000;
@@ -81,18 +81,10 @@ public class GameController {
         return language.getLanguageValue("isZero");
     }
 
-    public Player playerMove(Player player, int spaces){
-        int oldLocation = player.getLocation();
-        if(oldLocation + spaces >= 24){
-            player.setLocation(oldLocation, spaces);
-            player.setLocation(player.getLocation(),-24);
-            player.setBalance(2);
-        }else{
-            player.setLocation(oldLocation,spaces);
-        }
-        return player;
-    }
+
     public Integer getTurnCounter() {
         return turnCounter;
     }
 }
+
+ */

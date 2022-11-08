@@ -1,5 +1,5 @@
-package main.ui;
-
+package ui;
+/*
 import main.controllers.GUIConverter;
 import main.controllers.GameController;
 import main.models.Player;
@@ -92,3 +92,5 @@ public class GUI {
         gui.setDice(4, 2, dice[0],0,5, 2, dice[1],0);
     }
 }
+
+ */

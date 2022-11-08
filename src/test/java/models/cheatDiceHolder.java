@@ -1,6 +1,6 @@
-package main.models;
+package models;
 
-public class cheatDiceHolder extends main.models.DiceHolder{
+public class cheatDiceHolder extends DiceHolder{
     public int sum = 0;
 
     public void setSum(int sum) {
