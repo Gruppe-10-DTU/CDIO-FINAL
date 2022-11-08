@@ -12,10 +12,7 @@ public class ChanceController {
     private DeckFromCSV deck;
 
     public ChanceController(){
-        try {
-            this.deck = new DeckFromCSV();
-        } catch (FileNotFoundException ignored){
-        }
+        this.deck = new DeckFromCSV();
         deck.shuffle();
     }
     public void takeChance(Player player){
@@ -23,25 +20,18 @@ public class ChanceController {
 
         switch (card.getType()){
             case "CharacterSpecific":
-
                 break;
             case "ChangeBalance":
-                player.setBalance(card.getEffect());
                 break;
             case "Choice":
-
                 break;
             case "GetOutOfJail":
-
                 break;
             case "MoveToColour":
-
                 break;
             case "MoveToField":
-
                 break;
             case "MoveXSteps":
-
                 break;
 
         }
