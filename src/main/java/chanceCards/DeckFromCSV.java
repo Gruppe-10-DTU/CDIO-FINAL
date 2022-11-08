@@ -8,16 +8,19 @@ import java.util.ArrayList;
 public class DeckFromCSV {
 
     private ChanceCard[] deck;
+    private CSVReader reader;
 
     /**
      * Constructs deck from chanceCards.csv file in resources using custom CSVReader
-     * @throws FileNotFoundException in case of missing or misplaced CSV file
      */
-    public DeckFromCSV() throws FileNotFoundException {
+    public DeckFromCSV() {
         this.deck = new ChanceCard[20];
         int deckPosition = 0;
         final String DELIMITER = ",";
-        CSVReader reader = new CSVReader("chancecards.csv", DELIMITER, true);
+        try {
+            CSVReader reader = new CSVReader("chancecards.csv", DELIMITER, true);
+        }catch(FileNotFoundException ignored){
+        }
 
         ArrayList<ArrayList<String>> cardData = reader.getDataAsArrList();
 
