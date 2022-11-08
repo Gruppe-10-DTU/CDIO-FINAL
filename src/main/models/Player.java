@@ -1,8 +1,5 @@
 package main.models;
 
-/**
- * Player class
- */
 public class Player {
 
     private final Balance balance;
@@ -59,8 +56,17 @@ public class Player {
     public String getIdentifier() {
         return identifier;
     }
+
     // setter
     public void setIdentifier(String newIdentifier) {
         this.identifier = newIdentifier;
+    }
+
+    public int getLocation() {
+        return location;
+    }
+
+    public void setLocation(int location, int newLocation) {
+        this.location = (location + newLocation);
     }
 }
