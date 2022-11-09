@@ -42,4 +42,22 @@ public class PlayerController {
         return player;
     }
 
+    public Player[] getPlayers() {
+        return players;
+    }
+
+    /**
+     * Checks if the plyaers name is going to be unique
+     * @param name Name of new player
+     * @return true if name is unique, otherwise false
+     */
+    public boolean playerUnique(String name){
+        for(Player player : players){
+            if(player == null) return true;
+            if(player.getIdentifier().equals(name)){
+                return false;
+            }
+        }
+        return true;
+    }
 }

@@ -1,14 +1,24 @@
 package ui;
 
+import controllers.GUIConverter;
+import gui_fields.GUI_Car;
+import gui_fields.GUI_Player;
 import gui_main.GUI;
+import models.Player;
+
+import java.util.Arrays;
 
 public class GUIController {
-    private GUI gui;
+    private final GUI gui;
     public GUIController(){
         gui = new GUI();
 
     }
 
+    /**
+     * Ask the user the amount of players in this game session. Min 2, max 4
+     * @return PlayerAmount :  How many players are going to play the game
+     */
     public int playerAmount(){
         return gui.getUserInteger("Please input amount of players",2, 4);
     }
