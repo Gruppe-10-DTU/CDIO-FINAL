@@ -23,7 +23,6 @@ public class PlayerController {
         players[player].setBalance(20-2*(players.length-2));
     }
 
-
     /**
      * @param player
      * Non-primitive Player-class input. Designate what player you want to move.
