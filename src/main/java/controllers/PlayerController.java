@@ -1,5 +1,6 @@
 package controllers;
 import models.*;
+import models.Character;
 import ui.GUIController;
 
 public class PlayerController {
@@ -11,16 +12,15 @@ public class PlayerController {
     /**
      * @param player
      * Primitive int type. From x amount of players in controller, select y player.
-     * @param character
-     * Non-primitive Character class type. Select which of the available characters player is assigned.
+     * @param characterName
+     * String type. Takes characterName for available characters, e.i. Tractor, racecar, etc.
      * @param name
-     * Non-primitive String type. Set player identifier.
+     * String type. Takes players personal identifier e.i. their name, nickname, callingID, etc.
      * @return
      */
-    public void addPlayer(int player, Character character, String name){
-        players[player] = new Player("Player" + player);
-        players[player].setIdentifier(name);
-        players[player].setBalance(20-2*(players.length-2));
+    public void addPlayer(int player, String characterName, String name){
+        Character ch = new Character(characterName, "");
+        players[player] = new Player(name,20-2*(players.length-2),ch );
     }
 
     /**

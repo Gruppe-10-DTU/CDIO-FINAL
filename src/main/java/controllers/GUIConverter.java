@@ -13,7 +13,7 @@ import java.awt.*;
 import static gui_fields.GUI_Car.Type.UFO;
 
 public class GUIConverter {
-
+/*
     public static GUI_Field[] fieldToGui(Field[] fields){
         GUI_Field[] guiFields = new GUI_Field[fields.length];
         for (int i = 0; i < fields.length; i++) {
@@ -21,6 +21,8 @@ public class GUIConverter {
         }
         return guiFields;
     }
+
+ */
     public static GUI_Player[] playerToGUI(Player[] players){
         GUI_Player[] gui_players = new GUI_Player[players.length];
         for (int i = 0; i < players.length; i++) {
@@ -32,4 +34,3 @@ public class GUIConverter {
     }
 
 }
- */
