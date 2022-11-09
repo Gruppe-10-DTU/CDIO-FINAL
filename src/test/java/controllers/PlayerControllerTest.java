@@ -1,8 +1,8 @@
 package controllers;
 
 import junit.framework.TestCase;
+import models.Player;
 import org.junit.jupiter.api.DisplayName;
-import models.*;
 @DisplayName("JUnit test for playerMove controller.")
 public class PlayerControllerTest extends TestCase {
 
