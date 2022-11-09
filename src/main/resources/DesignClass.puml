@@ -50,8 +50,8 @@ Player "1" o-- "0..1" CharacterSpecific
 Player "1" o-- "1" Balance
 Player "1" o-- "1" Character
 Game "1" o-- "1..*" Language
-Game "1" o-left- "1" GameBoard
-Game "1" o-- "20" ChanceCard
+Game "1" o-up- "1" GameBoard
+Game "1" o-left- "20" ChanceCard
 Game"1" o-- "1" Die
 Game "1" o-right- "2..4" Player
 

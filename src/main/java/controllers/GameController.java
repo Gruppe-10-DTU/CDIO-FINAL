@@ -1,7 +1,7 @@
-package game.controllers;
+/*
+package controllers;
 
-import game.models.*;
-
+import models.*;
 public class GameController {
     DiceHolder diceHolder = new DiceHolder();
     private final int WINCONDITION = 3000;
@@ -80,7 +80,11 @@ public class GameController {
     public String noMoney() {
         return language.getLanguageValue("isZero");
     }
+
+
     public Integer getTurnCounter() {
         return turnCounter;
     }
 }
+
+ */

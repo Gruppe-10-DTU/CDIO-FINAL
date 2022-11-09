@@ -1,5 +1,10 @@
 @startuml
 'https://plantuml.com/class-diagram
+skinparam linetype ortho
+
+class Deck{
+ - deck : ChanceCard[]
+}
 
 abstract ChanceCard{
  # name : String
@@ -33,12 +38,14 @@ class GetOutOfJail {
 
 }
 
+Deck o-- ChanceCard
+
 ChanceCard <|-- Choice
+ChanceCard <|--- MoveXSteps
+ChanceCard <|-- MoveToColor
+ChanceCard <|-- MoveToField
 ChanceCard <|-- CharacterSpecific
 ChanceCard <|-- ChangeBalance
 ChanceCard <|-- GetOutOfJail
-ChanceCard <|-- MoveXSteps
-ChanceCard <|-- MoveToField
-ChanceCard <|-- MoveToColor
 
 @enduml
