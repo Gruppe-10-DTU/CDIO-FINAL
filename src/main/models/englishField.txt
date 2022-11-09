@@ -22,4 +22,3 @@ fieldName20=Zoo
 fieldName21=Chance
 fieldName22=Water park
 fieldName23=Beach promenade
-

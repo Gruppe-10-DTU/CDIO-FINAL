@@ -1,11 +1,13 @@
 package game.models.fields;
 
+import game.models.Player;
+
 import game.models.fields.Field;
 
 public class Property extends Field {
     private String color;
     private int price;
-
+    private Player owner;
 
     public String getColor() {
         return color;
@@ -15,11 +17,15 @@ public class Property extends Field {
         return price;
     }
 
+    public Player getOwner() {return owner;}
+
     public void setColor(String color) {
         this.color = color;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setPrice(String price) {
+        this.price = Integer.parseInt(price);
     }
+
+    public void setOwner(Player owner) {this.owner = owner;}
 }
