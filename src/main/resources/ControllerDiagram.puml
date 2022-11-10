@@ -1,6 +1,69 @@
 @startuml
-'https://plantuml.com/class-diagram
+skinparam linetype polyline
+skinparam linetype ortho
 
+Class GUIController{
+ - gui: GUI
+ + getPlayerName(String textOutput): String
+ + getPlayerCharacter(String textOutput, String choices): String
+ + updatePlayer(Player player)
+ + updateProperty(Property property)
+ + movePlayer(Player player)
+ + getColorChoice(String text, String choices): String colorChoice
+ + displayError(String errorText)
+}
+Class GUIConverter{
+ {static} + playersToGUI(Player[] player): GUI_Player[]
+ {static} + fieldsToGUI(Field[] fields): GUI_Field[]
+}
+Class GameController{
+ - turnCounter: int
+ + getActivePlayer(int turnCounter): Player
+ + takeTurn(Player player)
+ - handleChance(Chance card, Player player): Player
+ - buyField(Player player)
+ - endGame()
+ - propertyOwned(Property property): boolean
+}
 
+Class PlayerController{
+ - players: Player[*]
+ + PlayerController(int playerAmount)
+ + addPlayer(String name, String characterName)
+ + nameUnique(String name): boolean
+ + playerMove(Player player, int spaces)
+ + payMoney(Player player, int moneyAmount): boolean
+ + getPlayer()
+ + getRent(Property property): boolean
+}
+
+Class FieldController{
+ + genarateGameFields(ArrayList<ArrayList<String>> arrayList): ArrayList<Object>
+ + playerProbertyValues() : HashMap<Player, int>
+ + moveToColor(String color)
+ + jailPlayer(Player player)
+ + getFieldList() : ArrayList<Object>
+}
+
+Class ChanceController{
+ - deck : Deck
+ + takeChance()
+}
+
+Class Language{
+
+}
+
+Class DiceHolder{
+ + DiceHolder(int diceAmount)
+ + roll() : int
+}
+
+GameController o-- GUIController
+GameController o-- PlayerController
+GameController o-- FieldController
+GameController o-- ChanceController
+GameController o-- DiceHolder
+GameController o-- Language
 
 @enduml
