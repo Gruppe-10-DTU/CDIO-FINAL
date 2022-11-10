@@ -1,0 +1,18 @@
+@startuml
+
+autonumber
+GameController -> PlayerController: payMoney(Player player, property.price)
+PlayerController --> GameController: payMoney boolean
+alt payMoney == false
+    GameController -> GameController: endGame()
+else payMoney == true
+    GameController -> GameController: propertyOwned(Property property)
+    alt Property is owned
+    GameController -> PlayerController: getRent(Property property)
+    PlayerController --> GameController: Property owner
+    else Property is not owned
+    GameController -> FieldController: setOwner(Player player, int property.iD)
+    end
+    GameController -> GUIController: showFieldActions(string output)
+end
+@enduml
