@@ -16,4 +16,12 @@ public abstract class ChanceCard {
     public String getType(){
         return this.getClass().toString();
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }
