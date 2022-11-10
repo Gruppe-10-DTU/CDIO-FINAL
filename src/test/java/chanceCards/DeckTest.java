@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class DeckTest {
 
+
     @Test
     void shuffleChangesDeckOrder() {
         Deck deck1 = new Deck();
