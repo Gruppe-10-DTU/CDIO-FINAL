@@ -42,6 +42,7 @@ Class FieldController{
  + playerProbertyValues() : HashMap<Player, int>
  + moveToColor(String color)
  + jailPlayer(Player player)
+ + getFieldList() : ArrayList<Object>
 }
 
 Class ChanceController{
