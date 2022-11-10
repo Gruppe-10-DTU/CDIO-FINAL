@@ -4,8 +4,6 @@ import chanceCards.*;
 import chanceCards.Choice;
 import models.Player;
 
-import java.awt.*;
-import java.io.FileNotFoundException;
 
 public class ChanceController {
 
@@ -20,18 +18,25 @@ public class ChanceController {
 
         switch (card.getType()){
             case "CharacterSpecific":
+                CharacterSpecific csCard = (CharacterSpecific) card;
                 break;
             case "ChangeBalance":
+                ChangeBalance cbCard = (ChangeBalance) card;
                 break;
             case "Choice":
+                Choice chCard = (Choice) card;
                 break;
             case "GetOutOfJail":
+                GetOutOfJail goojCard = (GetOutOfJail) card;
                 break;
             case "MoveToColour":
+                MoveToColour mtcCard = (MoveToColour) card;
                 break;
             case "MoveToField":
+                MoveToField mtfCard = (MoveToField) card;
                 break;
             case "MoveXSteps":
+                MoveXSteps mxsCard = (MoveXSteps) card;
                 break;
 
         }
