@@ -1,6 +1,8 @@
 package chanceCards;
 
 import controllers.CSVReader;
+import models.Language;
+
 import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -10,6 +12,7 @@ public class Deck {
     private ChanceCard[] deck;
     private CSVReader reader;
 
+
     /**
      * Constructs deck from chanceCards.csv file in resources using custom CSVReader
      */
@@ -17,8 +20,9 @@ public class Deck {
         this.deck = new ChanceCard[20];
         int deckPosition = 0;
         final String DELIMITER = ",";
+
         try {
-            CSVReader reader = new CSVReader("chancecards.csv", DELIMITER, true);
+            reader = new CSVReader(System.getProperty("user.dir")+ "/src/main/resources/chancecards.csv", DELIMITER, true);
         }catch(FileNotFoundException ignored){
         }
 
@@ -35,8 +39,9 @@ public class Deck {
                 colour2 = reader.getHeaderIndex("colour_2"),
                 field = reader.getHeaderIndex("field");
 
+        //Language language = new Language();
         for (ArrayList<String> element: cardData) {
-            String description = "Description from language file";
+            String description = "Testing";//language.getLanguageValue("cc" + element.get(name));
             switch (element.get(type)) {
                 case "CharacterSpecific":
                     deck[deckPosition] = new CharacterSpecific(
