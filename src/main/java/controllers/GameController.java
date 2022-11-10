@@ -1,6 +1,7 @@
 package controllers;
 
 import models.*;
+import org.apache.commons.io.output.StringBuilderWriter;
 import ui.GUIController;
 
 import java.util.Arrays;
@@ -21,12 +22,15 @@ public class GameController {
         StringBuilder sb = new StringBuilder("Car,Tractor,Racecar,UFO");
 
         for (int i = 0; i < playerAmount; i++) {
+
             name = guiController.getName("Please enter your name");
             while(!playerController.playerUnique(name)){
                 guiController.displayError("The name is not unique.");
                 name = guiController.getName("Please enter your name");
             }
-            playerController.addPlayer(i, guiController.selectCharacter("Please select a character", "Car,Tractor,Racecar,UFO"), name);
+            String character = guiController.selectCharacter("Please select a character", String.valueOf(sb));
+            sb.delete(sb.indexOf(character), sb.indexOf(",",sb.indexOf(character)) );
+            playerController.addPlayer(i, character, name);
         }
         guiController.setPlayers(playerController.getPlayers());
     }
