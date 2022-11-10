@@ -1,4 +1,4 @@
-package game.models.fields;
+package models.fields;
 import gui_fields.GUI_Field;
 
 public abstract class Field {

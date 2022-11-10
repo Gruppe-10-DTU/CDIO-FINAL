@@ -1,8 +1,7 @@
-package game.models.fields;
+package models.fields;
 
-import game.models.Player;
 
-import game.models.fields.Field;
+import models.Player;
 
 public class Property extends Field {
     private String color;

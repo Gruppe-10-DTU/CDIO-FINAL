@@ -1,15 +1,24 @@
-package game.models.fields;
+package controllers;
+
+import models.Player;
+import models.fields.*;
+import models.Language;
 
 import java.util.ArrayList;
 
 public class FieldController {
-    public ArrayList<Object> gameFields (String[] array) {
 
+    /**
+     * Creates an arraylist of field objects from a 2d arraylist of field information
+     * @param arrayList
+     * @return an arraylist of field objects
+     */
+    public ArrayList<Object> genarateGameFields (ArrayList<ArrayList<String>> arrayList) {
         ArrayList<Object> fieldArrayList = new ArrayList<>();
-        //Language language = new Language("English");
+        //Language language = new Language();
 
-        for (int i=0; i < array.length; i++) {
-            String fieldType = array[i];
+        for (int i=0; i < arrayList.size(); i++) {
+            String fieldType = arrayList.get(i).get(0);
 
             switch (fieldType) {
                 case "Empty":
@@ -22,11 +31,14 @@ public class FieldController {
                     Start start = new Start();
                     fieldArrayList.add(start);
                     start.setID(i);
+                    //start.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "Property":
                     Property property = new Property();
                     fieldArrayList.add(property);
                     property.setID(i);
+                    property.setPrice(arrayList.get(i).get(2));
+                    property.setColor(arrayList.get(i).get(1));
                     //property.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "Chance":
@@ -53,4 +65,8 @@ public class FieldController {
         return fieldArrayList;
 
     };
+
+    public void jailPlayer(Player player) {
+
+    }
 }

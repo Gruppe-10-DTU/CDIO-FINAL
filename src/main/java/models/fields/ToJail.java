@@ -1,6 +1,6 @@
-package game.models.fields;
+package models.fields;
 
-import game.models.Player;
+import models.Player;
 public class ToJail extends Field {
 
     private int spaceToJail;

@@ -1,6 +1,4 @@
-package game.models.fields;
-
-import game.models.fields.Field;
+package models.fields;
 
 public class Chance extends Field {
     private int number;

@@ -1,4 +1,4 @@
-package game.models.fields;
+package models.fields;
 
 public class Start extends Field{
 
