@@ -24,7 +24,7 @@ public class DeckFromCSV {
 
         ArrayList<ArrayList<String>> cardData = reader.getDataAsArrList();
 
-        //assigns indexes based of enum for further readability
+        //assigns indexes based of csv for further readability
         int type = reader.getHeaderIndex("type"),
                 name = reader.getHeaderIndex("name"),
                 minVal = reader.getHeaderIndex("min_value"),
@@ -55,7 +55,9 @@ public class DeckFromCSV {
                 case "Choice":
                     deck[deckPosition] = new Choice(
                             element.get(name),
-                            description
+                            description,
+                            Integer.parseInt(element.get(maxVal)),
+                            Boolean.getBoolean(element.get(drawAgain))
                     );
                     break;
                 case "GetOutOfJail":
