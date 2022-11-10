@@ -17,7 +17,7 @@ public class winLose {
         checkEqualBalance(equalLS);
 
         if (equalLS.size() > 1) {
-            findMaxTotalBalance();
+            findMaxTotalBalance(equalLS);
         } else {
             String winner = findMaxBalance();
         }
@@ -40,7 +40,8 @@ public class winLose {
     }
 
 
-    private void findMaxTotalBalance() {
+    private void findMaxTotalBalance(List<String> equalLS) {
+        int maxTotal = 0;
 
     }
 
