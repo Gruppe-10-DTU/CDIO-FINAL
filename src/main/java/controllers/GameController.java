@@ -18,6 +18,8 @@ public class GameController {
         int playerAmount = guiController.playerAmount();
         playerController = new PlayerController(playerAmount);
         String name;
+        StringBuilder sb = new StringBuilder("Car,Tractor,Racecar,UFO");
+
         for (int i = 0; i < playerAmount; i++) {
             name = guiController.getName("Please enter your name");
             while(!playerController.playerUnique(name)){
