@@ -19,6 +19,8 @@ public class GameController {
         int playerAmount = guiController.playerAmount();
         playerController = new PlayerController(playerAmount);
         String name;
+        String originalName = "car, racecar, ufo, tractor";
+        String[] splitName = originalName.split(",");
         StringBuilder sb = new StringBuilder("Car,Tractor,Racecar,UFO");
 
         for (int i = 0; i < playerAmount; i++) {
@@ -29,7 +31,7 @@ public class GameController {
                 name = guiController.getName("Please enter your name");
             }
             String character = guiController.selectCharacter("Please select a character", String.valueOf(sb));
-            sb.delete(sb.indexOf(character), sb.indexOf(",",sb.indexOf(character)) );
+            sb.delete(sb.indexOf(character),character.length()+1);
             playerController.addPlayer(i, character, name);
         }
         guiController.setPlayers(playerController.getPlayers());
