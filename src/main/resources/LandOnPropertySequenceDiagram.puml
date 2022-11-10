@@ -1,17 +1,24 @@
 @startuml
 
 autonumber
-GameController -> PlayerController: payMoney(Player player, property.price)
-PlayerController --> GameController: payMoney boolean
-alt payMoney == false
-    GameController -> GameController: endGame()
-else payMoney == true
-    GameController -> GameController: propertyOwned(Property property)
-    alt Property is owned
+GameController -> GameController: propertyOwned(Property property)
+alt Property is owned
     GameController -> PlayerController: getRent(Property property)
-    else Property is not owned
-    GameController -> FieldController: setOwner(Player player, int property.iD)
-    end
-    GameController -> GUIController: showFieldActions(string output)
+    PlayerController --> GameController: getRent boolean
+    alt getRent == false
+        GameController-->GameController: endGame()
+   else
+       GameController -> GUIController: showFieldActions(string output)
+   end
+else Property is not owned
+   GameController -> PlayerController: payMoney(Player player, property.price)
+   PlayerController --> GameController: payMoney boolean
+
+   alt payMoney == false
+    GameController-->GameController: endGame()
+   else
+       GameController -> FieldController: setOwner(Player player, int property.iD)
+       GameController -> GUIController: showFieldActions(string output)
+   end
 end
 @enduml

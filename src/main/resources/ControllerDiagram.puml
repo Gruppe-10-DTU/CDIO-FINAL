@@ -34,7 +34,7 @@ Class PlayerController{
  + playerMove(Player player, int spaces)
  + payMoney(Player player, int moneyAmount): boolean
  + getPlayer()
- + getRent(Property property)
+ + getRent(Property property): boolean
 }
 
 Class FieldController{
