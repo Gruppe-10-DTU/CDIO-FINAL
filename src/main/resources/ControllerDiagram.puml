@@ -18,9 +18,12 @@ Class GUIConverter{
 }
 Class GameController{
  - turnCounter: int
+ + getActivePlayer(int turnCounter): Player
  + takeTurn(Player player)
  - handleChance(Chance card, Player player): Player
  - buyField(Player player)
+ - endGame()
+ - propertyOwned(Property property): boolean
 }
 
 Class PlayerController{
@@ -29,7 +32,9 @@ Class PlayerController{
  + addPlayer(String name, String characterName)
  + nameUnique(String name): boolean
  + playerMove(Player player, int spaces)
+ + payMoney(Player player, int moneyAmount): boolean
  + getPlayer()
+ + getRent(Property property)
 }
 
 Class FieldController{
