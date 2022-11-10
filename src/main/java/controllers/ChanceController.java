@@ -1,7 +1,6 @@
 package controllers;
 
 import chanceCards.*;
-import chanceCards.Choice;
 import models.Player;
 
 
