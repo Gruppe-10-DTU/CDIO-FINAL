@@ -5,7 +5,7 @@ import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-public class DeckFromCSV {
+public class Deck {
 
     private ChanceCard[] deck;
     private CSVReader reader;
@@ -13,7 +13,7 @@ public class DeckFromCSV {
     /**
      * Constructs deck from chanceCards.csv file in resources using custom CSVReader
      */
-    public DeckFromCSV() {
+    public Deck() {
         this.deck = new ChanceCard[20];
         int deckPosition = 0;
         final String DELIMITER = ",";
