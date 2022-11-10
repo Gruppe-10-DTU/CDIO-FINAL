@@ -6,11 +6,17 @@ import models.Player;
 
 public class ChanceController {
 
-    private DeckFromCSV deck;
+    private Deck deck;
 
     public ChanceController(){
-        this.deck = new DeckFromCSV();
+        this.deck = new Deck();
         deck.shuffle();
+    }
+    public ChanceController(boolean TestMode){
+        this.deck = new Deck();
+        if(!TestMode){
+            deck.shuffle();
+        }
     }
     public void takeChance(Player player){
         ChanceCard card = deck.drawCard();
