@@ -20,8 +20,8 @@ public class ChanceController {
     }
     public void takeChance(Player player){
         ChanceCard card = deck.drawCard();
-
-        switch (card.getType()){
+        String type = card.getType().replaceAll("class chanceCards.", "");
+        switch (type){
             case "CharacterSpecific":
                 CharacterSpecific csCard = (CharacterSpecific) card;
                 break;
