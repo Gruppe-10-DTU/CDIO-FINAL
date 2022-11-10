@@ -1,5 +1,5 @@
 package controllers;
-import models.*;
+import models.Player;
 public class PlayerController {
     public PlayerController() {
         Player player = new Player("Player");
