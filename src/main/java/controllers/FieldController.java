@@ -8,17 +8,13 @@ import java.util.ArrayList;
 
 public class FieldController {
 
-    /**
-     * Creates an arraylist of field objects from a 2d arraylist of field information
-     * @param arrayList
-     * @return an arraylist of field objects
-     */
-    public ArrayList<Object> genarateGameFields (ArrayList<ArrayList<String>> arrayList) {
-        ArrayList<Object> fieldArrayList = new ArrayList<>();
-        //Language language = new Language();
+    ArrayList<Object> fieldArrayList = new ArrayList<>();
 
+    public FieldController (ArrayList<ArrayList<String>> arrayList) {
         for (int i=0; i < arrayList.size(); i++) {
             String fieldType = arrayList.get(i).get(0);
+
+            //Language language = new Language();
 
             switch (fieldType) {
                 case "Empty":
@@ -61,12 +57,30 @@ public class FieldController {
                     break;
             }
         }
-
-        return fieldArrayList;
-
-    };
+    }
 
     public void jailPlayer(Player player) {
 
+    }
+
+    public int playerProbertyValues(Player player) {
+        int value = 0;
+        return value;
+    };
+
+    public void moveToColor(String color) {
+
+    }
+
+    public void setOwner(Player player, int probertyId) {
+
+    }
+
+    /*public Object getField(int fieldID) {
+
+    }*/
+
+    public ArrayList<Object> getFieldList() {
+        return fieldArrayList;
     }
 }
