@@ -2,8 +2,10 @@ package models.fields;
 
 import controllers.CSVReader;
 import controllers.FieldController;
+import models.Player;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class main {
     public static void main (String[] args) throws Exception {
@@ -19,7 +21,7 @@ public class main {
 
         FieldController fieldController = new FieldController(fieldList);
 
-
+        HashMap<Player, Integer> value = fieldController.playerPropertyValues();
     };
 
 }

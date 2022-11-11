@@ -2,14 +2,18 @@ package controllers;
 
 import models.Player;
 import models.fields.*;
-import models.Language;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class FieldController {
 
-    ArrayList<Object> fieldArrayList = new ArrayList<>();
+    ArrayList<Field> fieldArrayList = new ArrayList<>();
 
+    /**
+     * The constructer recieves a 2d arraylist and constructs an arraylist of field objects
+     * @param arrayList
+     */
     public FieldController (ArrayList<ArrayList<String>> arrayList) {
         for (int i=0; i < arrayList.size(); i++) {
             String fieldType = arrayList.get(i).get(0);
@@ -59,28 +63,99 @@ public class FieldController {
         }
     }
 
+    /**
+     * Recieves a player, locates the jail field, moves the player and jails them
+     * @param player
+     */
     public void jailPlayer(Player player) {
+        Jail jail = (Jail) fieldArrayList
+                .stream()
+                .filter(field -> field instanceof Jail)
+                .findFirst()
+                .get();
 
+        jail.setInJailAdd(player);
+
+        int jailLocation = jail.getID();
+
+        player.setLocation(jailLocation);
     }
 
-    public int playerProbertyValues(Player player) {
-        int value = 0;
-        return value;
+    /**
+     * Creates a Hashmap collecting the total value of all properties owned by a player
+     * @return Hashmap, key: player objects, value: the total property value of set player
+     */
+    public HashMap<Player, Integer> playerPropertyValues() {
+
+        HashMap<Player, Integer> playerValue = new HashMap<Player, Integer>();
+
+        for (Object field : fieldArrayList) {
+            if (field instanceof Property) {
+                Player owner = ((Property) field).getOwner();
+                if (owner != null) {
+                    if (!playerValue.containsKey(owner)) {
+                        playerValue.put(owner,0);
+                    }
+                    int propertyValue = ((Property) field).getPrice();
+                    int currentSum = playerValue.get(owner);
+
+                    playerValue.put(owner, currentSum + propertyValue);
+                }
+            }
+        }
+        return playerValue;
     };
 
-    public void moveToColor(String color) {
+    /**
+     * Recieves a player and a color and moves the player to the nearest instance of that color
+     * @param color
+     * @param player
+     */
+    public int moveToColor(String color, Player player) {
+        int location = player.getLocation();
+        int newLocation = 0;
+        int spaces = 0;
 
+        int i = location;
+        boolean foundColor = false;
+        while (!foundColor) {
+            i++;
+
+            if (i >= fieldArrayList.size()) {
+                i = 0;
+            }
+
+            if (fieldArrayList.get(i) instanceof Property) {
+                String fieldColor = ((Property) fieldArrayList.get(i)).getColor();
+
+                if (fieldColor.equals(color)) {
+                    newLocation = ((Property) fieldArrayList.get(i)).getID();
+                    foundColor = true;
+                }
+            }
+
+
+            if (newLocation < location) {
+                spaces = newLocation + (24 - location);
+            } else {
+                spaces = newLocation - location;
+            }
+        }
+        return spaces;
     }
 
-    public void setOwner(Player player, int probertyId) {
-
+    public void setOwner(Player player, int propertyId) {
+        Field property = fieldArrayList.get(propertyId);
+            if (property instanceof Property) {
+                ((Property) property).setOwner(player);
+            }
     }
 
-    /*public Object getField(int fieldID) {
+    public Object getField(int fieldID) {
+        return fieldArrayList.get(fieldID);
+    }
 
-    }*/
-
-    public ArrayList<Object> getFieldList() {
+    public ArrayList<Field> getFieldList() {
         return fieldArrayList;
     }
 }
