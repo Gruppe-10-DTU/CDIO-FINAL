@@ -17,4 +17,12 @@ public class MoveToColour extends ChanceCard{
         this.colour_1 = Colour_1;
         this.colour_2 = Colour_2;
     }
+
+    public Color getColour_1() {
+        return colour_1;
+    }
+
+    public Color getColour_2() {
+        return colour_2;
+    }
 }
