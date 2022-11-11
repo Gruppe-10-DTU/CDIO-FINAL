@@ -25,12 +25,12 @@ public class GameController {
 
         for (int i = 0; i < playerAmount; i++) {
 
-            name = guiController.getName("Please enter your name");
+            name = guiController.getName("inputName");
             while(!playerController.playerUnique(name)){
-                guiController.displayError("The name is not unique.");
-                name = guiController.getName("Please enter your name");
+                guiController.displayError("nameNotUnique");
+                name = guiController.getName("inputName");
             }
-            String character = guiController.selectCharacter("Please select a character", String.valueOf(sb));
+            String character = guiController.selectCharacter("selectCharacter", String.valueOf(sb));
             sb.delete(sb.indexOf(character),character.length()+1);
             playerController.addPlayer(i, character, name);
         }
