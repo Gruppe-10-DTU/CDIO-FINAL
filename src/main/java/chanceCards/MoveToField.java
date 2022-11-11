@@ -14,4 +14,8 @@ public class MoveToField extends ChanceCard{
         super(Name, Description);
         this.fieldName = FieldName;
     }
+
+    public String getFieldName() {
+        return fieldName;
+    }
 }
