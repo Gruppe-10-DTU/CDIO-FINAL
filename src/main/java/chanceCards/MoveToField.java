@@ -2,7 +2,7 @@ package chanceCards;
 
 public class MoveToField extends ChanceCard{
 
-    private String fieldName;
+    private final String fieldName;
 
     /**
      * Constructor for the Chancecards that move the player to a specific field.

@@ -2,7 +2,7 @@ package chanceCards;
 
 public class ChangeBalance extends ChanceCard{
 
-    private int effect;
+    private final int effect;
 
     /**
      * Constructor for the Chancecards that have an effect on the players money.

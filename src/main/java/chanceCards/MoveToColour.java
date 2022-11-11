@@ -1,11 +1,10 @@
 package chanceCards;
 
-import java.awt.*;
 
 public class MoveToColour extends ChanceCard{
 
-    private String colour_1;
-    private String colour_2;
+    private final String colour_1;
+    private final String colour_2;
 
     /**
      * Constructor for the Chancecards that move the player to a given colour.

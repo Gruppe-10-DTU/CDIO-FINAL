@@ -1,8 +1,8 @@
 package chanceCards;
 
 public abstract class ChanceCard {
-    protected String name;
-    protected String description;
+    protected final String name;
+    protected final String description;
 
     /**
      * Super constructor

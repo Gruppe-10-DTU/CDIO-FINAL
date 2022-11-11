@@ -2,8 +2,8 @@ package chanceCards;
 
 public class MoveXSteps extends ChanceCard{
 
-    private int minSteps;
-    private int maxSteps;
+    private final int minSteps;
+    private final int maxSteps;
 
     /**
      *
