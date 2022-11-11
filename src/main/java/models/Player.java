@@ -148,4 +148,7 @@ public class Player {
     public void setLocation(int location, int newLocation) {
         this.location = (location + newLocation);
     }
+    public void setLocation(int location){
+        this.location = location;
+    }
 }

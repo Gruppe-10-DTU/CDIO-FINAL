@@ -11,6 +11,7 @@ public class PlayerController {
         players = new Player[playerAmount];
     }
     /**
+     * Adds a new player to the game.
      * @param player
      * Primitive int type. From x amount of players in controller, select y player.
      * @param characterName
@@ -25,6 +26,7 @@ public class PlayerController {
     }
 
     /**
+     * Move designated player x amount of spaces, and check if they passed start.
      * @param player
      * Player-class input : Designate what player you want to move.
      * @param spaces
@@ -48,7 +50,7 @@ public class PlayerController {
     }
 
     /**
-     * Checks if the plyaers name is going to be unique
+     * Compares player name and checks if it is unique.
      * @param name Name of new player
      * @return true if name is unique, otherwise false
      */
@@ -61,6 +63,13 @@ public class PlayerController {
         }
         return true;
     }
+
+    /**
+     * Checks if player can afford to pay x amount of money.
+     * @param player : Player-class. Who has to pay money?
+     * @param amount : How much money do they have to pay?
+     * @return
+     */
     public boolean payMoney(Player player, int amount){
         if(player.getBalance() - amount < 0){
             return false;
@@ -70,13 +79,20 @@ public class PlayerController {
         }
     }
 
+    /**
+     * Checks if player can pay rent on given square.
+     * @param player : Player-class. Who is renting the place?
+     * @param property : Property-class. Property in mention.
+     * @return
+     */
     public boolean getRent(Player player, Property property){
-        if(player.getBalance() - property.getPrice() < 0){
+        if(player.getBalance() < property.getPrice()){
             return false;
         }else{
             player.setBalance(-property.getPrice());
+            property.getOwner().setBalance(property.getPrice());
             return true;
         }
-
     }
+
 }
