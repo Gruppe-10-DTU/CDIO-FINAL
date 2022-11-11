@@ -1,15 +1,13 @@
 package ui;
 
 import controllers.GUIConverter;
-import gui_fields.GUI_Car;
 import gui_fields.GUI_Player;
 import gui_main.GUI;
 import models.Player;
 
-import java.util.Arrays;
-
 public class GUIController {
     private final GUI gui;
+    private GUI_Player[] gui_players;
     public GUIController(){
         gui = new GUI();
 
@@ -34,7 +32,8 @@ public class GUIController {
     }
 
     public void setPlayers(Player[] players){
-        for (GUI_Player player : GUIConverter.playerToGUI(players)) {
+        gui_players = GUIConverter.playerToGUI(players);
+        for (GUI_Player player : gui_players) {
             gui.addPlayer(player);
         }
     }
@@ -45,6 +44,22 @@ public class GUIController {
         return gui.getUserString(getNameText);
     }
 
+    /**
+     * Update a player on the board
+     * @param player Player to be updated
+     */
+    public void updatePlayer(Player player){
+        gui_players[player.getID()].setBalance(player.getBalance());
+        gui_players[player.getID()].getCar().setPosition(gui.getFields()[player.getLocation()]);
+    }
+
+    /**
+     * Update the player to move to a new field
+     * @param player Player to be moved
+     */
+    public void movePlayer(Player player){
+        gui_players[player.getID()].getCar().setPosition(gui.getFields()[player.getLocation()]);
+    }
 }
 
 

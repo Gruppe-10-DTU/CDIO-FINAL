@@ -22,7 +22,7 @@ public class PlayerController {
      */
     public void addPlayer(int player, String characterName, String name){
         Character ch = new Character(characterName, "");
-        players[player] = new Player(name,20-2*(players.length-2),ch );
+        players[player] = new Player(player,name,20-2*(players.length-2),ch );
     }
 
     /**
