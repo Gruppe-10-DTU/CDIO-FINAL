@@ -75,8 +75,8 @@ public class Deck {
                     deck[deckPosition] = new MoveToColour(
                             element.get(name),
                             description,
-                            Color.getColor(element.get(colour1)),
-                            Color.getColor(element.get(colour2))
+                            element.get(colour1),
+                            element.get(colour2)
                     );
                     break;
                 case "MoveToField":
