@@ -10,9 +10,8 @@ public class PlayerControllerTest extends TestCase {
                 try {
                     //preamble. Makes necessery methods available to this test, even though they are considered private.
                     PlayerController pc = new PlayerController();
-                    Player player1 = new Player("Player 1");
-                    Player player2 = new Player("Player 2");
-
+                    Player player1 = new Player(0, "Player 1");
+                    Player player2 = new Player(0, "Player 2");
 
                     //move 1
                     assertEquals(0,player1.getLocation());

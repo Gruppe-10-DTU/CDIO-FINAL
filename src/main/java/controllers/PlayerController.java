@@ -2,7 +2,7 @@ package controllers;
 import models.Player;
 public class PlayerController {
     public PlayerController() {
-        Player player = new Player("Player");
+        Player player = new Player(0, "Player");
     }
     /**
      * @param player
