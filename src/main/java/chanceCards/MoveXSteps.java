@@ -2,8 +2,8 @@ package chanceCards;
 
 public class MoveXSteps extends ChanceCard{
 
-    private final int minSteps;
-    private final int maxSteps;
+    private final int MIN_STEPS;
+    private final int MAX_STEPS;
 
     /**
      *
@@ -14,15 +14,15 @@ public class MoveXSteps extends ChanceCard{
      */
          public MoveXSteps(String Name, String Description, int MinimumSteps , int MaximumSteps) {
         super(Name, Description);
-        this.minSteps = MinimumSteps;
-        this.maxSteps = MaximumSteps;
+        this.MIN_STEPS = MinimumSteps;
+        this.MAX_STEPS = MaximumSteps;
     }
 
     public int getMinSteps() {
-        return minSteps;
+        return MIN_STEPS;
     }
 
     public int getMaxSteps() {
-        return maxSteps;
+        return MAX_STEPS;
     }
 }

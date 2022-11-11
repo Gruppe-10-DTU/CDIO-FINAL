@@ -2,7 +2,7 @@ package chanceCards;
 
 public class CharacterSpecific extends ChanceCard{
 
-    private final String character;
+    private final String CHARACTER;
 
     /**
      * Constructor for the Chancecards that are specific to a given character.
@@ -11,10 +11,10 @@ public class CharacterSpecific extends ChanceCard{
      */
     public CharacterSpecific(String Name, String Description, String CharacterName) {
         super(Name, Description);
-        this.character = CharacterName;
+        this.CHARACTER = CharacterName;
     }
 
     public String getCharacter() {
-        return character;
+        return CHARACTER;
     }
 }
