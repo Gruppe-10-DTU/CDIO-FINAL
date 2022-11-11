@@ -3,13 +3,13 @@ package controllers;
 import junit.framework.TestCase;
 import models.Player;
 import org.junit.jupiter.api.DisplayName;
-@DisplayName("JUnit test for playerMove controller.")
+@DisplayName("JUnit test for playerMove in PlayerController.")
 public class PlayerControllerTest extends TestCase {
 
     public void testPlayerMove() {
                 try {
-                    //preamble. Makes necessery methods available to this test, even though they are considered private.
-                    PlayerController pc = new PlayerController();
+                    //Loads necessary controllers. Creates players..
+                    PlayerController pc = new PlayerController(2);
                     Player player1 = new Player("Player 1");
                     Player player2 = new Player("Player 2");
 
