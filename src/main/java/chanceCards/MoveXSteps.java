@@ -17,4 +17,12 @@ public class MoveXSteps extends ChanceCard{
         this.minSteps = MinimumSteps;
         this.maxSteps = MaximumSteps;
     }
+
+    public int getMinSteps() {
+        return minSteps;
+    }
+
+    public int getMaxSteps() {
+        return maxSteps;
+    }
 }
