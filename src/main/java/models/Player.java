@@ -7,7 +7,7 @@ public class Player {
 
     private final Balance balance;
     private String identifier;
-    private java.lang.Character character;
+    private Character character;
     private int soldSign = 12;
     private int location = 0;
     /**
@@ -24,7 +24,7 @@ public class Player {
      * @param character The player character
      * @defaults Balance is set to 20, location set to 0 and soldSign set to 12
      */
-    public Player(String name, java.lang.Character character){
+    public Player(String name, Character character){
         this.identifier = name;
         this.character = character;
         balance = new Balance(20);
@@ -36,7 +36,7 @@ public class Player {
      * @param character Player character
      * @defaults set to 12 by default, location set to 0
      */
-    public Player(String name, int startingBalance, java.lang.Character character){
+    public Player(String name, int startingBalance, Character character){
         identifier = name;
         balance = new Balance(startingBalance);
         this.character = character;
@@ -50,7 +50,7 @@ public class Player {
      * @param soldSign Amount of properties they can own
      * @defaults location set to 0
      */
-    public Player(String name, int startingBalance, java.lang.Character character, int soldSign){
+    public Player(String name, int startingBalance, Character character, int soldSign){
         identifier = name;
         balance = new Balance(startingBalance);
         this.character = character;
@@ -102,14 +102,14 @@ public class Player {
     /**
      * @param character New character
      */
-    public void setCharacter(java.lang.Character character) {
+    public void setCharacter(Character character) {
         this.character = character;
     }
 
     /**
      * @return Character of the player
      */
-    public java.lang.Character getCharacter() {
+    public Character getCharacter() {
         return character;
     }
 

@@ -1,19 +1,16 @@
-/*
-package controllers;
 
+package controllers;
 import gui_fields.GUI_Car;
 import gui_fields.GUI_Field;
-import main.models.*;
 import gui_fields.GUI_Player;
-import gui_fields.GUI_Street;
-import main.models.Player;
+import models.Player;
 
 import java.awt.*;
 
 import static gui_fields.GUI_Car.Type.UFO;
 
 public class GUIConverter {
-
+/*
     public static GUI_Field[] fieldToGui(Field[] fields){
         GUI_Field[] guiFields = new GUI_Field[fields.length];
         for (int i = 0; i < fields.length; i++) {
@@ -21,10 +18,12 @@ public class GUIConverter {
         }
         return guiFields;
     }
+
+ */
     public static GUI_Player[] playerToGUI(Player[] players){
         GUI_Player[] gui_players = new GUI_Player[players.length];
         for (int i = 0; i < players.length; i++) {
-            GUI_Car car = new GUI_Car(Color.YELLOW , Color.GREEN, UFO, GUI_Car.Pattern.ZEBRA);
+            GUI_Car car = new GUI_Car(Color.YELLOW , Color.GREEN, GUI_Car.Type.getTypeFromString(players[i].getCharacter().getName().toUpperCase()), GUI_Car.Pattern.ZEBRA);
             car.setPrimaryColor(Color.yellow);
             gui_players[i] = new GUI_Player(players[i].getIdentifier(), players[i].getBalance(), car);
         }
@@ -32,6 +31,3 @@ public class GUIConverter {
     }
 
 }
-
-
- */

@@ -8,8 +8,8 @@ public class PlayerControllerTest extends TestCase {
 
     public void testPlayerMove() {
                 try {
-                    //preamble. Makes necessery methods available to this test, even though they are considered private.
-                    PlayerController pc = new PlayerController();
+                    //Loads necessary controllers. Creates players..
+                    PlayerController pc = new PlayerController(2);
                     Player player1 = new Player("Player 1");
                     Player player2 = new Player("Player 2");
 
