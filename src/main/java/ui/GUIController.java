@@ -37,8 +37,13 @@ public class GUIController {
             gui.addPlayer(player);
         }
     }
-    public void displayError(String error){
-        gui.getUserButtonPressed(error, "ok");
+
+    /**
+     * Display a message and get the okay from the player
+     * @param msg Message to display
+     */
+    public void displayMsg(String msg){
+        gui.getUserButtonPressed(msg, "ok");
     }
     public String getName(String getNameText){
         return gui.getUserString(getNameText);

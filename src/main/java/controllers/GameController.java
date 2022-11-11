@@ -1,20 +1,20 @@
 package controllers;
 
 import models.*;
-import org.apache.commons.io.output.StringBuilderWriter;
+import models.fields.Field;
+import models.fields.Property;
 import ui.GUIController;
 
-import java.util.Arrays;
-
 public class GameController {
-    private DiceHolder diceHolder = new DiceHolder();
+    private DiceHolder diceHolder = new DiceHolder(1);
     private int turnCounter = 0;
     private Language language;
     private GUIController guiController;
     private PlayerController playerController;
+    private FieldController fieldController;
     public GameController(){
 
-
+        fieldController = new FieldController();
         guiController = new GUIController();
         int playerAmount = guiController.playerAmount();
         playerController = new PlayerController(playerAmount);
@@ -27,7 +27,7 @@ public class GameController {
 
             name = guiController.getName("Please enter your name");
             while(!playerController.playerUnique(name)){
-                guiController.displayError("The name is not unique.");
+                guiController.displayMsg("The name is not unique.");
                 name = guiController.getName("Please enter your name");
             }
             String character = guiController.selectCharacter("Please select a character", String.valueOf(sb));
@@ -35,27 +35,69 @@ public class GameController {
             playerController.addPlayer(i, character, name);
         }
         guiController.setPlayers(playerController.getPlayers());
-
-    }
-
-    /*
-    //Turn function for the roll button
-    public boolean turn(){
-        Player player = players[turnCounter % 2];
-        boolean returnValue = player.setBalance(fields[diceHolder.sum()-2].getEffect());
-        //If the player hasn't won and didn't roll 10, increase the turn
-        if(!hasWon() && diceHolder.sum() != 10){
-            turnCounter++;
+        while(true){
+            Player player = playerController.getPlayerById(turnCounter);
+            TakeTurn(player);
         }
-        return returnValue;
+
+    }
+    private void EndGame(){
+
     }
 
-     */
-    public int sum(){
-        return diceHolder.sum() - 1;
+    public void TakeTurn(Player player){
+        diceHolder.roll();
+        if(player.getLocation() + diceHolder.sum() >= 24){
+            guiController.displayMsg(language.getLanguageValue("passStart"));
+        }
+        playerController.playerMove(player, diceHolder.sum());
+        guiController.updatePlayer(player);
+        Field field = fieldController.getField(player.getLocation());
+        //Choose logic based on the field type
+        switch (field.getClass().getSimpleName()){
+            case "Property": {
+                Property property = (Property) field;
+                if(property.getOwner() == null && player.getSoldSign()>=0){
+                    guiController.displayMsg("fieldBuy");
+                    if(player.setBalance(-property.getPrice())){
+                        fieldController.setOwner(player, property.getID());
+                        guiController.updatePlayer(player);
+                    }else{
+                        EndGame();
+                    }
+                } else if (player.getSoldSign()<0) {
+                    guiController.displayMsg("You can't buy this since you've run out of houses");
+                } else{
+                    guiController.displayMsg("fieldRent");
+                    if(!playerController.getRent(player, property)){
+                        EndGame();
+                    }else{
+                        guiController.updatePlayer(property.getOwner());
+                    }
+                }
+                break;
+            }
+            case "Chance":{
+                guiController.displayMsg(language.getLanguageValue("fieldChance"));
+                break;
+            }
+            case "Start": {
+                guiController.displayMsg(language.getLanguageValue("fieldLandStart"));
+                break;
+            }
+            case "Empty":{
+                guiController.displayMsg(language.getLanguageValue("fieldFreeParking"));
+                break;
+            }
+            case "ToJail": {
+                guiController.displayMsg("fieldGoToJail");
+                fieldController.jailPlayer(player);
+            }
+            default: {
+                break;
+            }
+        }
+        turnCounter++;
     }
 
-    public Integer getTurnCounter() {
-        return turnCounter;
-    }
 }
