@@ -45,6 +45,14 @@ public class PlayerController {
         return player;
     }
 
+    /**
+     * @param iD will apply modulus so it'll avoid outOfBoundsError
+     * @return Player with the relevant id
+     */
+    public Player getPlayerById(int iD){
+        return players[iD % players.length];
+    }
+
     public Player[] getPlayers() {
         return players;
     }
