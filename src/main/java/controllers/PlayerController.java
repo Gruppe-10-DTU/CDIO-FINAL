@@ -64,6 +64,7 @@ public class PlayerController {
         return true;
     }
 
+
     /**
      * Checks if player can afford to pay x amount of money.
      * @param player : Player-class. Who has to pay money?
