@@ -3,7 +3,7 @@ package controllers;
 import junit.framework.TestCase;
 import models.Player;
 import org.junit.jupiter.api.DisplayName;
-@DisplayName("JUnit test for playerMove controller.")
+@DisplayName("JUnit test for playerMove in PlayerController.")
 public class PlayerControllerTest extends TestCase {
 
     public void testPlayerMove() {

@@ -1,6 +1,7 @@
 package controllers;
 import models.*;
 import models.Character;
+import models.fields.Property;
 import ui.GUIController;
 
 public class PlayerController {
@@ -25,9 +26,9 @@ public class PlayerController {
 
     /**
      * @param player
-     * Non-primitive Player-class input. Designate what player you want to move.
+     * Player-class input : Designate what player you want to move.
      * @param spaces
-     * Primitive int input. Moves designated player x amount of spaces from current position.
+     * Moves designated player x amount of spaces from current position.
      * @return
      */
     public Player playerMove(Player player, int spaces){
@@ -59,5 +60,23 @@ public class PlayerController {
             }
         }
         return true;
+    }
+    public boolean payMoney(Player player, int amount){
+        if(player.getBalance() - amount < 0){
+            return false;
+        }else{
+            player.setBalance(-amount);
+            return true;
+        }
+    }
+
+    public boolean getRent(Player player, Property property){
+        if(player.getBalance() - property.getPrice() < 0){
+            return false;
+        }else{
+            player.setBalance(-property.getPrice());
+            return true;
+        }
+
     }
 }
