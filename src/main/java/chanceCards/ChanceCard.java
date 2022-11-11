@@ -14,7 +14,7 @@ public abstract class ChanceCard {
         this.description = Description;
     }
     public String getType(){
-        return this.getClass().toString();
+        return this.getClass().toString().replaceAll("class chanceCards.", "");
     }
 
     public String getName() {
