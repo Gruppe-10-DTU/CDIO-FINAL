@@ -49,8 +49,11 @@ public class GUIController {
      * @param player Player to be updated
      */
     public void updatePlayer(Player player){
-        gui_players[0].setBalance(player.getBalance());
-        gui_players[0].getCar().setPosition(gui.getFields()[player.getLocation()]);
+        gui_players[player.getID()].setBalance(player.getBalance());
+        gui_players[player.getID()].getCar().setPosition(gui.getFields()[player.getLocation()]);
+    }
+    public void movePlayer(Player player){
+        gui_players[player.getID()].getCar().setPosition(gui.getFields()[player.getLocation()]);
     }
 
 
