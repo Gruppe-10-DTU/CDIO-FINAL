@@ -4,6 +4,7 @@ skinparam linetype ortho
 
 Class GUIController{
  - gui: GUI
+ - gui_players: GUI_Player
  + getPlayerName(String textOutput): String
  + getPlayerCharacter(String textOutput, String choices): String
  + updatePlayer(Player player)
