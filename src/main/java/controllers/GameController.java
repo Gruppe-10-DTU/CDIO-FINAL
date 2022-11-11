@@ -35,6 +35,7 @@ public class GameController {
             playerController.addPlayer(i, character, name);
         }
         guiController.setPlayers(playerController.getPlayers());
+
     }
 
     /*

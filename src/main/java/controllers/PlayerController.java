@@ -81,7 +81,7 @@ public class PlayerController {
     }
 
     /**
-     * Checks if player can pay rent on given square.
+     * Checks if given player can afford to pay rent of specified square.
      * @param player : Player-class. Who is renting the place?
      * @param property : Property-class. Property in mention.
      * @return
