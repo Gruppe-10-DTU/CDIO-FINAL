@@ -1,3 +1,8 @@
+inputPlayerName=Venligst indtast antal spillere
+inputName=Venligst indtast dit navn
+nameNotUnique=Navnet er ikke unikt.
+selectCharacter=Vælg en karakter
+buttonOk=ok
 options=Indstillinger
 won={0} hsr vundet!
 start={0} Slå med terningen
