@@ -30,8 +30,10 @@ public class GameController {
                 guiController.displayError("nameNotUnique");
                 name = guiController.getName("inputName");
             }
+
             String character = guiController.selectCharacter("selectCharacter", String.valueOf(sb));
             sb.delete(sb.indexOf(character),character.length()+1);
+
             playerController.addPlayer(i, character, name);
         }
         guiController.setPlayers(playerController.getPlayers());
