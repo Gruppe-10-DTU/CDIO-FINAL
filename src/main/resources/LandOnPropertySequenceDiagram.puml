@@ -3,13 +3,14 @@
 autonumber
 GameController -> GameController: propertyOwned(Property property)
 alt Property is owned
-    GameController -> PlayerController: getRent(Property property)
-    PlayerController --> GameController: getRent boolean
-    alt getRent == false
-        GameController-->GameController: endGame()
-   else
-       GameController -> GUIController: showFieldActions(string output)
-   end
+    GameController -> PlayerController: payRent(Property property, Player player)
+    PlayerController --> GameController: payRent boolean
+    alt payRent == false
+            GameController-->GameController: endGame()
+       else
+           GameController -> GUIController: showFieldActions(string output)
+       end
+
 else Property is not owned
    GameController -> PlayerController: payMoney(Player player, property.price)
    PlayerController --> GameController: payMoney boolean
