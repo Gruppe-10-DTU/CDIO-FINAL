@@ -15,7 +15,7 @@ public class GameController {
     public GameController(){
 
         fieldController = new FieldController();
-        guiController = new GUIController();
+        guiController = new GUIController(fieldController.getFieldList());
         int playerAmount = guiController.playerAmount();
         playerController = new PlayerController(playerAmount);
         String name;

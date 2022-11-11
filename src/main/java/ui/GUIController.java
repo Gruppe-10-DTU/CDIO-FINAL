@@ -4,12 +4,19 @@ import controllers.GUIConverter;
 import gui_fields.GUI_Player;
 import gui_main.GUI;
 import models.Player;
+import models.fields.Field;
+
+import java.util.ArrayList;
 
 public class GUIController {
     private final GUI gui;
     private GUI_Player[] gui_players;
     public GUIController(){
-        gui = new GUI();
+        gui= new GUI();
+    }
+    public GUIController(ArrayList<Field> fieldList){
+
+        gui = new GUI(GUIConverter.fieldListToGUI(fieldList));
 
     }
 
