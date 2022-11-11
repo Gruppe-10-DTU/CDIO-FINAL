@@ -52,12 +52,14 @@ public class GUIController {
         gui_players[player.getID()].setBalance(player.getBalance());
         gui_players[player.getID()].getCar().setPosition(gui.getFields()[player.getLocation()]);
     }
+
+    /**
+     * Update the player to move to a new field
+     * @param player Player to be moved
+     */
     public void movePlayer(Player player){
         gui_players[player.getID()].getCar().setPosition(gui.getFields()[player.getLocation()]);
     }
-
-
-
 }
 
 
