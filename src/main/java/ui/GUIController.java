@@ -18,7 +18,7 @@ public class GUIController {
      * @return PlayerAmount :  How many players are going to play the game
      */
     public int playerAmount(){
-        return gui.getUserInteger("Please input amount of players",2, 4);
+        return gui.getUserInteger("inputPlayerName",2, 4);
     }
 
 
@@ -38,7 +38,7 @@ public class GUIController {
         }
     }
     public void displayError(String error){
-        gui.getUserButtonPressed(error, "ok");
+        gui.getUserButtonPressed(error, "buttonOk");
     }
     public String getName(String getNameText){
         return gui.getUserString(getNameText);
