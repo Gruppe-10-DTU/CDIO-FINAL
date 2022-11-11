@@ -97,6 +97,7 @@ public class Deck {
             }
             deckPosition++;
         }
+        reader = null;
     }
 
     /**
