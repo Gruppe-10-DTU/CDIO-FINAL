@@ -31,7 +31,7 @@ public class GameController {
                 name = guiController.getName("Please enter your name");
             }
             String character = guiController.selectCharacter("Please select a character", String.valueOf(sb));
-            sb.delete(sb.indexOf(character),character.length()+1);
+            sb.delete(sb.indexOf(character),sb.indexOf(character)+character.length()+1);
             playerController.addPlayer(i, character, name);
         }
         guiController.setPlayers(playerController.getPlayers());

@@ -159,4 +159,8 @@ public class Player {
     public int getID() {
         return iD;
     }
+
+    public void setLocation(int location) {
+        this.location = location;
+    }
 }
