@@ -12,15 +12,16 @@ public class winLose {
     /**
      * Checks if either one player has the most balance, or checks all players with equal balance for the one with the most value in properties
      */
-    public void checkAllBalance() {
+    public String checkAllBalance() {
         List<String> equalLS = new ArrayList<>();
+        String winner;
         checkEqualBalance(equalLS);
-
         if (equalLS.size() > 1) {
-            findMaxTotalBalance(equalLS);
+            winner = findMaxTotalBalance(equalLS);
         } else {
-            String winner = findMaxBalance();
+            winner = findMaxBalance();
         }
+        return winner;
     }
 
     /**
@@ -39,10 +40,22 @@ public class winLose {
         return currLeader;
     }
 
-
-    private void findMaxTotalBalance(List<String> equalLS) {
+    /**
+     * Finds the maximum total value of the players with the same balance
+     * @param equalLS
+     * @return
+     */
+    private String findMaxTotalBalance(List<String> equalLS) {
+        Player winner = null;
         int maxTotal = 0;
-
+        for (Player player : players) {
+            int playerBal = player.getBalance();
+            if(maxTotal < playerBal && equalLS.contains(player.getIdentifier())){
+                maxTotal = playerBal;
+                winner = player;
+            }
+        }
+        return winner != null ? winner.getIdentifier() : null;
     }
 
     /**
