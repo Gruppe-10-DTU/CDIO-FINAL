@@ -19,7 +19,6 @@ public class Jail extends Field {
     public boolean isInJail (Player player) {
         return inJail.contains(player);
     }
-
     /**
      *
      * @param player
