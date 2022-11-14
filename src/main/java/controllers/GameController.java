@@ -5,6 +5,7 @@ import org.apache.commons.io.output.StringBuilderWriter;
 import ui.GUIController;
 
 import java.util.Arrays;
+import java.util.Locale;
 
 public class GameController {
     private DiceHolder diceHolder = new DiceHolder();
@@ -13,8 +14,7 @@ public class GameController {
     private GUIController guiController;
     private PlayerController playerController;
     public GameController(){
-
-
+        language = new Language(System.getProperty("user.language"));
         guiController = new GUIController();
         int playerAmount = guiController.playerAmount();
         playerController = new PlayerController(playerAmount);
