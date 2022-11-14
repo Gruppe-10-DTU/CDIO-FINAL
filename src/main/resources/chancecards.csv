@@ -14,8 +14,8 @@ MoveToField,MOVE_TO_FIELD_1,,,,,,,START
 MoveToField,MOVE_TO_FIELD_2,,,,,,,SKATE_PARK
 MoveToField,MOVE_TO_FIELD_3,,,,,,,BEACH_WALK
 ChangeBalance,CHANGE_BALANCE_1,,1,true,,,,
-ChangeBalance,CHANGE_BALANCE_2,,2,,,,,
-ChangeBalance,CHANGE_BALANCE_3,,-2,,,,,
+ChangeBalance,CHANGE_BALANCE_2,,2,false,,,,
+ChangeBalance,CHANGE_BALANCE_3,,-2,false,,,,
 GetOutOfJail,GET_OUT_OF_JAIL_1,,,,,,,
 Choice,CHOICE_1,,1,true,,,,
 MoveXSteps,MOVE_X_STEPS,1,5,,,,,
