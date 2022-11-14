@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Language;
 import models.Player;
 import models.fields.*;
 
@@ -14,7 +15,7 @@ public class FieldController {
     /**
      * The constructer recieves a 2d arraylist and constructs an arraylist of field objects
      */
-    public FieldController () {
+    public FieldController (Language language) {
         String path = System.getProperty("user.dir") + "/src/main/java/models/Fields.csv";
 
         CSVReader csvReader = null;
@@ -27,20 +28,18 @@ public class FieldController {
         for (int i=0; i < fieldData.size(); i++) {
             String fieldType = fieldData.get(i).get(0);
 
-            //Language language = new Language();
-
             switch (fieldType) {
                 case "Empty":
                     Empty empty = new Empty();
                     fieldArrayList.add(empty);
                     empty.setID(i);
-                    //empty.setName(language.getLanguageValue("fieldName" + i));
+                    empty.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "Start":
                     Start start = new Start();
                     fieldArrayList.add(start);
                     start.setID(i);
-                    //start.setName(language.getLanguageValue("fieldName" + i));
+                    start.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "Property":
                     Property property = new Property();
@@ -48,25 +47,25 @@ public class FieldController {
                     property.setID(i);
                     property.setPrice(fieldData.get(i).get(2));
                     property.setColor(fieldData.get(i).get(1));
-                    //property.setName(language.getLanguageValue("fieldName" + i));
+                    property.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "Chance":
                     Chance chance = new Chance();
                     fieldArrayList.add(chance);
                     chance.setID(i);
-                    //chance.setName(language.getLanguageValue("fieldName" + i));
+                    chance.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "ToJail":
                     ToJail toJail = new ToJail(-12);
                     fieldArrayList.add(toJail);
                     toJail.setID(i);
-                    //toJail.setName(language.getLanguageValue("fieldName" + i));
+                    toJail.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "Jail":
                     Jail jail = new Jail();
                     fieldArrayList.add(jail);
                     jail.setID(i);
-                    //jail.setName(language.getLanguageValue("fieldName" + i));
+                    jail.setName(language.getLanguageValue("fieldName" + i));
                     break;
             }
         }
