@@ -1,5 +1,6 @@
 package models;
 
+import org.junit.jupiter.api.Test;
 public class cheatDiceHolder extends DiceHolder{
     public int sum = 0;
 

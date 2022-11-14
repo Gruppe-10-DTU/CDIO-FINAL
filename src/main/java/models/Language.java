@@ -11,7 +11,7 @@ public class Language {
     private HashMap<String, String> languageValues;
 
     public Language() {
-        updateLanguage("/game/src/game/english.txt");
+        updateLanguage("English");
     }
     public Language(String language){
         updateLanguage(language);
@@ -31,17 +31,18 @@ public class Language {
     public void updateLanguage(String language) {
         String target;
         switch (language){
-            case "English":
-                target = "english.txt";
+            case "en":
+                target = "/english.txt";
                 break;
-            case "Danish":
-                target = "danish.txt";
+            case "da":
+                target = "/danish.txt";
                 break;
             default:
-                target = "english.txt";
+                target = "/english.txt";
                 break;
         }
-        InputStream file = this.getClass().getResourceAsStream(target);
+        Class c = this.getClass();
+        InputStream file = c.getResourceAsStream("/danish.txt");
 
         languageValues = new HashMap<String, String>();
         try {

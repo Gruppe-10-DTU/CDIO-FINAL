@@ -4,39 +4,44 @@ package models;
  * Player class
  */
 public class Player {
-
+    private final int iD;
     private final Balance balance;
     private String identifier;
-    private java.lang.Character character;
+    private Character character;
     private int soldSign = 12;
     private int location = 0;
     /**
+     * @param iD   id of the player
      * @param name name
      * @defaults Balance is set to 20, soldSign set to 12, location set to 0, character not set
-     *
      */
-    public Player(String name){
+    public Player(int iD, String name){
+        this.iD = iD;
         this.identifier = name;
         balance = new Balance(20);
     }
     /**
-     * @param name name
+     * @param iD        id of the player
+     * @param name      name
      * @param character The player character
      * @defaults Balance is set to 20, location set to 0 and soldSign set to 12
      */
-    public Player(String name, java.lang.Character character){
+    public Player(int iD, String name, Character character){
+        this.iD = iD;
         this.identifier = name;
         this.character = character;
         balance = new Balance(20);
     }
 
     /**
-     * @param name Name of player
+     * @param iD              id of the player
+     * @param name            Name of player
      * @param startingBalance starting balance
-     * @param character Player character
+     * @param character       Player character
      * @defaults set to 12 by default, location set to 0
      */
-    public Player(String name, int startingBalance, java.lang.Character character){
+    public Player(int iD, String name, int startingBalance, Character character){
+        this.iD = iD;
         identifier = name;
         balance = new Balance(startingBalance);
         this.character = character;
@@ -44,13 +49,15 @@ public class Player {
 
 
     /**
-     * @param name Name of player
+     * @param iD
+     * @param name            Name of player
      * @param startingBalance Starting bank account value
-     * @param character Players character token
-     * @param soldSign Amount of properties they can own
+     * @param character       Players character token
+     * @param soldSign        Amount of properties they can own
      * @defaults location set to 0
      */
-    public Player(String name, int startingBalance, java.lang.Character character, int soldSign){
+    public Player(int iD, String name, int startingBalance, Character character, int soldSign){
+        this.iD = iD;
         identifier = name;
         balance = new Balance(startingBalance);
         this.character = character;
@@ -102,14 +109,14 @@ public class Player {
     /**
      * @param character New character
      */
-    public void setCharacter(java.lang.Character character) {
+    public void setCharacter(Character character) {
         this.character = character;
     }
 
     /**
      * @return Character of the player
      */
-    public java.lang.Character getCharacter() {
+    public Character getCharacter() {
         return character;
     }
 
@@ -147,5 +154,13 @@ public class Player {
      */
     public void setLocation(int location, int newLocation) {
         this.location = (location + newLocation);
+    }
+
+    public int getID() {
+        return iD;
+    }
+
+    public void setLocation(int location) {
+        this.location = location;
     }
 }

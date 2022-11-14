@@ -20,7 +20,7 @@ class FieldControllerTest {
 
 
     public Player createMockPlayer() {
-        Player mockPlayer = new Player("mockPlayer");
+        Player mockPlayer = new Player(1, "mockPlayer");
 
         return mockPlayer;
     }

@@ -1,23 +1,22 @@
 package models;
 
 import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
 public class PlayerTest extends TestCase {
-
+@Test
     public void testSetBalanceValidate() {
-        Character ch = new Character("test", "img0.jpg");
-        Player player = new Player("name");
+        Player player = new Player(0, "name");
 
-        assertEquals(true, player.setBalance(-10));
+        assertTrue(player.setBalance(-10));
         assertEquals(10, player.getBalance());
     }
-
+@Test
     public void testSetBalanceNotNegative() {
-        Character ch = new Character("test", "img0.jpg");
-        Player player = new Player("name" );
+        Player player = new Player(0, "name" );
 
-        assertEquals(true, player.setBalance(-20));
-        assertEquals(false, player.setBalance(-1));
+        assertTrue(player.setBalance(-20));
+        assertFalse(player.setBalance(-1));
         assertEquals(0, player.getBalance());
     }
 }

@@ -10,8 +10,4 @@ public class ToJail extends Field {
     }
 
 
-    public void jailPlayer (Player player) {
-
-        player.setLocation(player.getLocation(), spaceToJail);
-    }
 }
