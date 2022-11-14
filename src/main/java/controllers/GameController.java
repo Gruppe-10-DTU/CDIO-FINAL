@@ -1,5 +1,7 @@
 package controllers;
 
+import chanceCards.*;
+import chanceCards.Choice;
 import models.*;
 import models.fields.Field;
 import models.fields.Property;
@@ -19,7 +21,9 @@ public class GameController implements ActionListener {
     private Language language;
     private GUIController guiController;
     private PlayerController playerController;
+    private Player currentPlayer;
     private FieldController fieldController;
+    private Deck deck;
     private Popup p;
 
     public GameController() {
@@ -27,6 +31,8 @@ public class GameController implements ActionListener {
 
         fieldController = new FieldController(language);
         guiController = new GUIController(fieldController.getFieldList());
+        deck = new Deck();
+        deck.shuffle();
         int playerAmount = guiController.playerAmount();
         playerController = new PlayerController(playerAmount);
         String name;
@@ -48,8 +54,8 @@ public class GameController implements ActionListener {
         }
         guiController.setPlayers(playerController.getPlayers());
         while (!isOver) {
-            Player player = playerController.getPlayerById(turnCounter);
-            TakeTurn(player);
+            this.currentPlayer = playerController.getPlayerById(turnCounter);
+            TakeTurn(currentPlayer);
         }
 
     }
@@ -112,6 +118,7 @@ public class GameController implements ActionListener {
             }
             case "Chance": {
                 guiController.displayMsg(language.getLanguageValue("fieldChance"));
+                takeChance();
                 break;
             }
             case "Start": {
@@ -132,6 +139,42 @@ public class GameController implements ActionListener {
             }
         }
         turnCounter++;
+    }
+    public void takeChance(){
+        ChanceCard card = deck.drawCard();
+        String type = card.getType().replaceAll("class chanceCards.", "");
+        switch (type){
+            case "CharacterSpecific":
+                CharacterSpecific csCard = (CharacterSpecific) card;
+                break;
+            case "ChangeBalance":
+                ChangeBalance cbCard = (ChangeBalance) card;
+                int value = cbCard.getEffect();
+                if(cbCard.getFromOthers()){
+                    for (Player player: playerController.getPlayers()) {
+                        player.setBalance(-1 * value);
+                    }
+                    value *= playerController.getPlayers().length;
+                }
+                currentPlayer.setBalance(value);
+                break;
+            case "Choice":
+                chanceCards.Choice chCard = (Choice) card;
+                break;
+            case "GetOutOfJail":
+                GetOutOfJail goojCard = (GetOutOfJail) card;
+                break;
+            case "MoveToColour":
+                MoveToColour mtcCard = (MoveToColour) card;
+                break;
+            case "MoveToField":
+                MoveToField mtfCard = (MoveToField) card;
+                break;
+            case "MoveXSteps":
+                MoveXSteps mxsCard = (MoveXSteps) card;
+                break;
+
+        }
     }
 
 
