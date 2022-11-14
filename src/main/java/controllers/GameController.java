@@ -4,8 +4,7 @@ import models.*;
 import org.apache.commons.io.output.StringBuilderWriter;
 import ui.GUIController;
 
-import java.util.Arrays;
-import java.util.Locale;
+import java.util.*;
 
 public class GameController {
     private DiceHolder diceHolder = new DiceHolder();
@@ -59,5 +58,66 @@ public class GameController {
 
     public Integer getTurnCounter() {
         return turnCounter;
+    }
+    public String checkAllBalance() {
+        List<String> equalLS = new ArrayList<>();
+        Player[] players = playerController.getPlayers();
+        String winner;
+        checkEqualBalance(equalLS, players);
+        if (equalLS.size() > 1) {
+            winner = findMaxTotalBalance(equalLS, players);
+        } else {
+            winner = findMaxBalance(players);
+        }
+        return winner;
+    }
+
+    /**
+     * Finds and returns the player with the biggest balance
+     * @return
+     */
+    private String findMaxBalance(Player[] players) {
+        int currMax = 0;
+        String currLeader = "";
+        for (Player player : players) {
+            if (player.getBalance() > currMax) {
+                currMax = player.getBalance();
+                currLeader = player.getIdentifier();
+            }
+        }
+        return currLeader;
+    }
+
+    /**
+     * Finds the maximum total value of the players with the same balance
+     * @param equalLS
+     * @return
+     */
+    private String findMaxTotalBalance(List<String> equalLS, Player[] players) {
+        HashMap<Player, Integer> playerProp = fieldController.playerPropertyValues();
+        Player winner = null;
+        int maxTotal = 0;
+        for (Player player : players) {
+            int playerBal = player.getBalance();
+            if(maxTotal < playerBal && equalLS.contains(player.getIdentifier())){
+                maxTotal = playerBal;
+                winner = player;
+            }
+        }
+        return winner != null ? winner.getIdentifier() : null;
+    }
+
+    /**
+     * Adds players to the list if they have the same balance
+     * @param equalLS
+     */
+    public void checkEqualBalance(List<String> equalLS, Player[] players) {
+        for (Player playerFst : players) {
+            for (Player playerNxt : players) {
+                if (playerFst.getBalance() == playerNxt.getBalance() && !playerFst.getIdentifier().equals(playerNxt.getIdentifier()) &&  !equalLS.contains(playerNxt.getIdentifier())) {
+                    equalLS.add(playerNxt.getIdentifier());
+                }
+            }
+        }
     }
 }
