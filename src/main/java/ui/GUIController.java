@@ -106,6 +106,12 @@ public class GUIController {
         street.setHouses(1);
         street.setSubText(property.getOwner().getIdentifier());
     }
+
+    public void displayMsgNoBtn(String msg){
+        gui.showMessage(msg);
+    }
+
+    public void endGame(){gui.close();};
 }
 
 
