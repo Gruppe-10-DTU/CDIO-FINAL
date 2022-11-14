@@ -16,6 +16,11 @@ public class GUIController {
     public GUIController(){
         gui= new GUI();
     }
+
+    /**
+     * Create a gui with custom fields
+     * @param fieldList List of fields
+     */
     public GUIController(ArrayList<Field> fieldList){
 
         gui = new GUI(GUIConverter.fieldListToGUI(fieldList));
@@ -40,6 +45,10 @@ public class GUIController {
         return gui.getUserSelection(selectCharacterText, choices.split(","));
     }
 
+    /**
+     * Insert the players into the GUI
+     * @param players Players in the game
+     */
     public void setPlayers(Player[] players){
         gui_players = GUIConverter.playerToGUI(players);
         for (GUI_Player player : gui_players) {
@@ -75,6 +84,9 @@ public class GUIController {
         gui_players[player.getID()].getCar().setPosition(gui.getFields()[player.getLocation()]);
     }
 
+    /**
+     * @param rolls Array of ints. Can show up to two dice
+     */
     public void displayDice(int[] rolls) {
         if(rolls.length == 1){
             gui.setDice(rolls[0],0);
@@ -82,6 +94,11 @@ public class GUIController {
             gui.setDice(rolls[0],rolls[1]);
         }
     }
+
+    /**
+     * Set the owner on the property
+     * @param property Property to be changed
+     */
     public void updateField(Property property){
         GUI_Street street = (GUI_Street) gui.getFields()[property.getID()];
         street.setOwnableLabel(property.getOwner().getIdentifier());
