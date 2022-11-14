@@ -5,11 +5,11 @@ import models.Player;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-@DisplayName("JUnit test for playerMove in PlayerController.")
 public class PlayerControllerTest extends TestCase {
 @Test
+@DisplayName("playerMove test")
     public void testPlayerMove() {
-                try {
+
                     //Loads necessary controllers. Creates players..
                     PlayerController pc = new PlayerController(2);
                     Player player1 = new Player(0,"Player 1");
@@ -31,8 +31,16 @@ public class PlayerControllerTest extends TestCase {
                     assertEquals(2,player2.getLocation());
 
 
-                } catch (Exception e) {
-                    System.out.println("oops:" + e);
-                }
-            }
-        }
+    }
+    @Test
+    @DisplayName("Unique Player identifier test & addPlayer")
+    public void testUniquePlayer(){
+        String name = "Åge";
+        PlayerController pc = new PlayerController(2);
+        pc.addPlayer(0,"UFO","Svend");
+        assertEquals(true,pc.playerUnique(name));
+        pc.addPlayer(1,"UFO","Åge");
+        assertEquals(false, pc.playerUnique(name));
+
+    }
+}
