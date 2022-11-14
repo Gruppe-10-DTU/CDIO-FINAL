@@ -111,6 +111,13 @@ public class GUIController {
         gui.showMessage(msg);
     }
 
+    public void showChanceCard(String message){
+        gui.displayChanceCard(message);
+    }
+    public void showChanceCardChoice(String option1, String option2){
+        gui.getUserSelection("", option1,option2);
+    }
+
     public void endGame(){gui.close();};
 }
 
