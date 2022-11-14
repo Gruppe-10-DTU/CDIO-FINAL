@@ -16,8 +16,6 @@ public class Deck {
      * Constructs deck from chanceCards.csv file in resources using custom CSVReader
      */
     public Deck() {
-        this.deck = new ChanceCard[20];
-        int deckPosition = 0;
         final String DELIMITER = ",";
 
         try {
@@ -38,6 +36,8 @@ public class Deck {
                 colour2 = reader.getHeaderIndex("colour_2"),
                 field = reader.getHeaderIndex("field");
 
+        this.deck = new ChanceCard[cardData.size()];
+        int deckPosition = 0;
         Language language = new Language();
         for (ArrayList<String> element: cardData) {
             String description = language.getLanguageValue("cc" + element.get(name));
