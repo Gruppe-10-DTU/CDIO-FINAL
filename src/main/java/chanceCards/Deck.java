@@ -1,6 +1,8 @@
 package chanceCards;
 
 import controllers.CSVReader;
+import models.Language;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
@@ -36,9 +38,9 @@ public class Deck {
                 colour2 = reader.getHeaderIndex("colour_2"),
                 field = reader.getHeaderIndex("field");
 
-        //Language language = new Language();
+        Language language = new Language();
         for (ArrayList<String> element: cardData) {
-            String description = "TEST";//language.getLanguageValue("cc" + element.get(name));
+            String description = language.getLanguageValue("cc" + element.get(name));
             switch (element.get(type)) {
                 case "CharacterSpecific":
                     deck[deckPosition] = new CharacterSpecific(
