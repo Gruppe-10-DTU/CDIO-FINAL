@@ -2,9 +2,11 @@ package ui;
 
 import controllers.GUIConverter;
 import gui_fields.GUI_Player;
+import gui_fields.GUI_Street;
 import gui_main.GUI;
 import models.Player;
 import models.fields.Field;
+import models.fields.Property;
 
 import java.util.ArrayList;
 
@@ -79,6 +81,13 @@ public class GUIController {
         }else{
             gui.setDice(rolls[0],rolls[1]);
         }
+    }
+    public void updateField(Property property){
+        GUI_Street street = (GUI_Street) gui.getFields()[property.getID()];
+        street.setOwnableLabel(property.getOwner().getIdentifier());
+        street.setOwnerName(property.getOwner().getIdentifier());
+        street.setHouses(1);
+        street.setSubText(property.getOwner().getIdentifier());
     }
 }
 
