@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Jail extends Field {
 
-    private ArrayList<Player> inJail;
+    private ArrayList<Player> inJail = new ArrayList<>();
 
     public ArrayList<Player> getInJail() {
         return inJail;
