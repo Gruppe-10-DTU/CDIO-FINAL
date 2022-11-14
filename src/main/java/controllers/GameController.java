@@ -5,16 +5,24 @@ import models.fields.Field;
 import models.fields.Property;
 import ui.GUIController;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.*;
+import java.util.List;
 
-public class GameController {
+public class GameController implements ActionListener {
     private DiceHolder diceHolder = new DiceHolder(1);
     private int turnCounter = 0;
+    private boolean isOver = false;
     private Language language;
     private GUIController guiController;
     private PlayerController playerController;
     private FieldController fieldController;
-    public GameController(){
+    private Popup p;
+
+    public GameController() {
         language = new Language(System.getProperty("user.language"));
 
         fieldController = new FieldController(language);
@@ -29,61 +37,80 @@ public class GameController {
         for (int i = 0; i < playerAmount; i++) {
 
             name = guiController.getName("inputName");
-            while(!playerController.playerUnique(name)){
+            while (!playerController.playerUnique(name)) {
                 guiController.displayMsg("nameNotUnique");
                 name = guiController.getName("inputName");
             }
 
             String character = guiController.selectCharacter("selectCharacter", String.valueOf(sb));
-            sb.delete(sb.indexOf(character),sb.indexOf(character)+character.length()+1);
+            sb.delete(sb.indexOf(character), sb.indexOf(character) + character.length() + 1);
 
             playerController.addPlayer(i, character, name);
         }
         guiController.setPlayers(playerController.getPlayers());
-        while(true){
+        while (!isOver) {
             Player player = playerController.getPlayerById(turnCounter);
             TakeTurn(player);
         }
 
     }
-    private void EndGame(){
 
+    private void EndGame() {
+        String endWinner = checkAllBalance();
+        isOver = true;
+        guiController.displayMsgNoBtn(language.getLanguageValue("winner") + " " + endWinner);
+
+        JFrame f = new JFrame("popup");
+        JLabel l = new JLabel(language.getLanguageValue("winner") + " " + endWinner);
+        PopupFactory pf = new PopupFactory();
+        JPanel p2 = new JPanel();
+        p2.setBackground(Color.red);
+        p2.add(l);
+        p = pf.getPopup(f, p2, 180, 100);
+        JButton b = new JButton(language.getLanguageValue("endGame"));
+        b.addActionListener(this);
+        p2.add(b);
+        p.show();
+
+        for (Player player: playerController.getPlayers()) {
+            System.out.println(player.getBalance());
+        }
     }
 
-    public void TakeTurn(Player player){
+    public void TakeTurn(Player player) {
         diceHolder.roll();
         guiController.displayDice(diceHolder.getRolls());
-        if(player.getLocation() + diceHolder.sum() >= 24){
+        if (player.getLocation() + diceHolder.sum() >= 24) {
             guiController.displayMsg(language.getLanguageValue("passStart"));
         }
         playerController.playerMove(player, diceHolder.sum());
         guiController.updatePlayer(player);
         Field field = fieldController.getField(player.getLocation());
         //Choose logic based on the field type
-        switch (field.getClass().getSimpleName()){
+        switch (field.getClass().getSimpleName()) {
             case "Property": {
                 Property property = (Property) field;
-                if(property.getOwner() == null && player.getSoldSign()>=0){
+                if (property.getOwner() == null && player.getSoldSign() >= 0) {
                     guiController.displayMsg("fieldBuy");
-                    if(player.setBalance(-property.getPrice())){
+                    if (player.setBalance(-property.getPrice())) {
                         fieldController.setOwner(player, property.getID());
                         guiController.updatePlayer(player);
-                    }else{
+                    } else {
                         EndGame();
                     }
-                } else if (player.getSoldSign()<0) {
+                } else if (player.getSoldSign() < 0) {
                     guiController.displayMsg("You can't buy this since you've run out of houses");
-                } else{
+                } else {
                     guiController.displayMsg("fieldRent");
-                    if(!playerController.getRent(player, property)){
+                    if (!playerController.getRent(player, property)) {
                         EndGame();
-                    }else{
+                    } else {
                         guiController.updatePlayer(property.getOwner());
                     }
                 }
                 break;
             }
-            case "Chance":{
+            case "Chance": {
                 guiController.displayMsg(language.getLanguageValue("fieldChance"));
                 break;
             }
@@ -91,7 +118,7 @@ public class GameController {
                 guiController.displayMsg(language.getLanguageValue("fieldLandStart"));
                 break;
             }
-            case "Empty":{
+            case "Empty": {
                 guiController.displayMsg(language.getLanguageValue("fieldFreeParking"));
                 break;
             }
@@ -108,13 +135,14 @@ public class GameController {
     }
 
 
-    public int sum(){
+    public int sum() {
         return diceHolder.sum() - 1;
     }
 
     public Integer getTurnCounter() {
         return turnCounter;
     }
+
     public String checkAllBalance() {
         List<String> equalLS = new ArrayList<>();
         Player[] players = playerController.getPlayers();
@@ -130,6 +158,7 @@ public class GameController {
 
     /**
      * Finds and returns the player with the biggest balance
+     *
      * @return
      */
     private String findMaxBalance(Player[] players) {
@@ -146,6 +175,7 @@ public class GameController {
 
     /**
      * Finds the maximum total value of the players with the same balance
+     *
      * @param equalLS
      * @return
      */
@@ -155,7 +185,7 @@ public class GameController {
         int maxTotal = 0;
         for (Player player : players) {
             int playerBal = player.getBalance() + playerProp.get(player);
-            if(maxTotal < playerBal && equalLS.contains(player.getIdentifier())){
+            if (maxTotal < playerBal && equalLS.contains(player.getIdentifier())) {
                 maxTotal = playerBal;
                 winner = player;
             }
@@ -165,19 +195,23 @@ public class GameController {
 
     /**
      * Adds players to the list if they have the same balance
+     *
      * @param equalLS
      */
     public void checkEqualBalance(List<String> equalLS, Player[] players) {
         for (Player playerFst : players) {
             for (Player playerNxt : players) {
-                if (playerFst.getBalance() == playerNxt.getBalance() && !playerFst.getIdentifier().equals(playerNxt.getIdentifier()) &&  !equalLS.contains(playerNxt.getIdentifier())) {
+                if (playerFst.getBalance() == playerNxt.getBalance() && !playerFst.getIdentifier().equals(playerNxt.getIdentifier()) && !equalLS.contains(playerNxt.getIdentifier())) {
                     equalLS.add(playerNxt.getIdentifier());
                 }
             }
         }
     }
 
-    public void endGame(){
-
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        p.hide();
+        guiController.endGame();
+        System.exit(0);
     }
 }

@@ -80,6 +80,12 @@ public class GUIController {
             gui.setDice(rolls[0],rolls[1]);
         }
     }
+
+    public void displayMsgNoBtn(String msg){
+        gui.showMessage(msg);
+    }
+
+    public void endGame(){gui.close();};
 }
 
 
