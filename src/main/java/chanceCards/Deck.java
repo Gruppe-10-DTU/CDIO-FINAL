@@ -30,7 +30,7 @@ public class Deck {
                 name = reader.getHeaderIndex("name"),
                 minVal = reader.getHeaderIndex("min_value"),
                 maxVal = reader.getHeaderIndex("max_value"),
-                drawAgain = reader.getHeaderIndex("draw_again"),
+                booleanModifier = reader.getHeaderIndex("boolean_modifier"),
                 character = reader.getHeaderIndex("character"),
                 colour1 = reader.getHeaderIndex("colour_1"),
                 colour2 = reader.getHeaderIndex("colour_2"),
@@ -53,7 +53,8 @@ public class Deck {
                     deck[deckPosition] = new ChangeBalance(
                             element.get(name),
                             description,
-                            Integer.parseInt(element.get(maxVal))
+                            Integer.parseInt(element.get(maxVal)),
+                            Boolean.getBoolean(element.get(booleanModifier))
                     );
                     break;
                 case "Choice":
@@ -61,7 +62,7 @@ public class Deck {
                             element.get(name),
                             description,
                             Integer.parseInt(element.get(maxVal)),
-                            Boolean.getBoolean(element.get(drawAgain))
+                            Boolean.getBoolean(element.get(booleanModifier))
                     );
                     break;
                 case "GetOutOfJail":
