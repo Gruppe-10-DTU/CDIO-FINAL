@@ -15,7 +15,7 @@ public class GameController {
     public GameController(){
         language = new Language(System.getProperty("user.language"));
 
-        fieldController = new FieldController();
+        fieldController = new FieldController(language);
         guiController = new GUIController(fieldController.getFieldList());
         int playerAmount = guiController.playerAmount();
         playerController = new PlayerController(playerAmount);
@@ -28,7 +28,7 @@ public class GameController {
 
             name = guiController.getName("inputName");
             while(!playerController.playerUnique(name)){
-                guiController.displayError("nameNotUnique");
+                guiController.displayMsg("nameNotUnique");
                 name = guiController.getName("inputName");
             }
 
