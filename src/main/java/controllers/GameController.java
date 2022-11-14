@@ -50,6 +50,7 @@ public class GameController {
 
     public void TakeTurn(Player player){
         diceHolder.roll();
+        guiController.displayDice(diceHolder.getRolls());
         if(player.getLocation() + diceHolder.sum() >= 24){
             guiController.displayMsg(language.getLanguageValue("passStart"));
         }
@@ -95,6 +96,7 @@ public class GameController {
             case "ToJail": {
                 guiController.displayMsg("fieldGoToJail");
                 fieldController.jailPlayer(player);
+                guiController.updatePlayer(player);
             }
             default: {
                 break;

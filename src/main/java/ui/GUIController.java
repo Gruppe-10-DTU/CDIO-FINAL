@@ -72,6 +72,14 @@ public class GUIController {
     public void movePlayer(Player player){
         gui_players[player.getID()].getCar().setPosition(gui.getFields()[player.getLocation()]);
     }
+
+    public void displayDice(int[] rolls) {
+        if(rolls.length == 1){
+            gui.setDice(rolls[0],0);
+        }else{
+            gui.setDice(rolls[0],rolls[1]);
+        }
+    }
 }
 
 
