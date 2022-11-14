@@ -13,6 +13,7 @@ public class GameController {
     private PlayerController playerController;
     private FieldController fieldController;
     public GameController(){
+        language = new Language(System.getProperty("user.language"));
 
         fieldController = new FieldController();
         guiController = new GUIController(fieldController.getFieldList());
@@ -25,13 +26,15 @@ public class GameController {
 
         for (int i = 0; i < playerAmount; i++) {
 
-            name = guiController.getName("Please enter your name");
+            name = guiController.getName("inputName");
             while(!playerController.playerUnique(name)){
-                guiController.displayMsg("The name is not unique.");
-                name = guiController.getName("Please enter your name");
+                guiController.displayError("nameNotUnique");
+                name = guiController.getName("inputName");
             }
-            String character = guiController.selectCharacter("Please select a character", String.valueOf(sb));
+
+            String character = guiController.selectCharacter("selectCharacter", String.valueOf(sb));
             sb.delete(sb.indexOf(character),sb.indexOf(character)+character.length()+1);
+
             playerController.addPlayer(i, character, name);
         }
         guiController.setPlayers(playerController.getPlayers());

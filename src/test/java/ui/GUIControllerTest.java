@@ -3,10 +3,11 @@ package ui;
 import junit.framework.TestCase;
 import models.Character;
 import models.Player;
+import org.junit.jupiter.api.Test;
 
 public class GUIControllerTest extends TestCase {
 
-
+@Test
     public void testUpdatePlayer() {
         GUIController gui = new GUIController();
         Character character = new Character("UFO", "");
