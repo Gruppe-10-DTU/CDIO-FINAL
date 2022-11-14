@@ -143,6 +143,7 @@ public class GameController implements ActionListener {
     public void takeChance(){
         ChanceCard card = deck.drawCard();
         String type = card.getType().replaceAll("class chanceCards.", "");
+        guiController.showChanceCard(card.getDescription());
         switch (type){
             case "CharacterSpecific":
                 CharacterSpecific csCard = (CharacterSpecific) card;
