@@ -32,7 +32,7 @@ public class GameController {
             }
 
             String character = guiController.selectCharacter("selectCharacter", String.valueOf(sb));
-            sb.delete(sb.indexOf(character),character.length()+1);
+            sb.delete(sb.indexOf(character),sb.indexOf(character)+character.length()+1);
 
             playerController.addPlayer(i, character, name);
         }
