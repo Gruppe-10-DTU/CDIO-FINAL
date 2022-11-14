@@ -2,6 +2,7 @@ package controllers;
 
 import models.Player;
 import models.fields.Jail;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -26,15 +27,18 @@ class FieldControllerTest {
     }
 
     @Test
-    void jailPlayer() {
-        ArrayList<Object> mockFieldData = new ArrayList<>();
-
-        Jail mockJail = new Jail();
-        mockJail.setID(10);
-        mockFieldData.add(mockJail);
-
-
-    }
+    @DisplayName("Jail & un-jail specified player")
+        void jailPlayer() {
+            ArrayList<Object> mockFieldData = new ArrayList<>();
+            Player player1 = new Player(0,"Svend");
+            Jail mockJail = new Jail();
+            mockJail.setID(10);
+            mockFieldData.add(mockJail);
+            mockJail.setInJailAdd(player1);
+            assertEquals(true, mockJail.isInJail(player1));
+            mockJail.setInJailRemove(player1);
+            assertEquals(false,mockJail.isInJail(player1));
+        }
 
     @Test
     void playerPropertyValues() {

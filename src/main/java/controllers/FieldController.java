@@ -1,8 +1,10 @@
 package controllers;
 
+import models.Language;
 import models.Player;
 import models.fields.*;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -12,52 +14,58 @@ public class FieldController {
 
     /**
      * The constructer recieves a 2d arraylist and constructs an arraylist of field objects
-     * @param arrayList
      */
-    public FieldController (ArrayList<ArrayList<String>> arrayList) {
-        for (int i=0; i < arrayList.size(); i++) {
-            String fieldType = arrayList.get(i).get(0);
+    public FieldController (Language language) {
+        String path = System.getProperty("user.dir") + "/src/main/java/models/Fields.csv";
 
-            //Language language = new Language();
+        CSVReader csvReader = null;
+        try {
+            csvReader = new CSVReader(path,",",true);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        ArrayList<ArrayList<String>> fieldData = csvReader.getDataAsArrList();
+        for (int i=0; i < fieldData.size(); i++) {
+            String fieldType = fieldData.get(i).get(0);
 
             switch (fieldType) {
                 case "Empty":
                     Empty empty = new Empty();
                     fieldArrayList.add(empty);
                     empty.setID(i);
-                    //empty.setName(language.getLanguageValue("fieldName" + i));
+                    empty.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "Start":
                     Start start = new Start();
                     fieldArrayList.add(start);
                     start.setID(i);
-                    //start.setName(language.getLanguageValue("fieldName" + i));
+                    start.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "Property":
                     Property property = new Property();
                     fieldArrayList.add(property);
                     property.setID(i);
-                    property.setPrice(arrayList.get(i).get(2));
-                    property.setColor(arrayList.get(i).get(1));
-                    //property.setName(language.getLanguageValue("fieldName" + i));
+                    property.setPrice(fieldData.get(i).get(2));
+                    property.setColor(fieldData.get(i).get(1));
+                    property.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "Chance":
                     Chance chance = new Chance();
                     fieldArrayList.add(chance);
                     chance.setID(i);
-                    //chance.setName(language.getLanguageValue("fieldName" + i));
+                    chance.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "ToJail":
                     ToJail toJail = new ToJail(-12);
                     fieldArrayList.add(toJail);
                     toJail.setID(i);
-                    //toJail.setName(language.getLanguageValue("fieldName" + i));
+                    toJail.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "Jail":
                     Jail jail = new Jail();
                     fieldArrayList.add(jail);
                     jail.setID(i);
-                    //jail.setName(language.getLanguageValue("fieldName" + i));
+                    jail.setName(language.getLanguageValue("fieldName" + i));
                     break;
             }
         }
@@ -65,7 +73,6 @@ public class FieldController {
 
     /**
      * Recieves a player, locates the jail field, moves the player and jails them
-     * @param player
      */
     public void jailPlayer(Player player) {
         Jail jail = (Jail) fieldArrayList
@@ -104,12 +111,13 @@ public class FieldController {
             }
         }
         return playerValue;
-    };
+    }
 
     /**
      * Recieves a player and a color and moves the player to the nearest instance of that color
-     * @param color
-     * @param player
+     * @param color color of the field
+     * @param player the plyaer that's moved
+     * @return int location of the field
      */
     public int moveToColor(String color, Player player) {
         int location = player.getLocation();
@@ -151,7 +159,7 @@ public class FieldController {
             }
     }
 
-    public Object getField(int fieldID) {
+    public Field getField(int fieldID) {
         return fieldArrayList.get(fieldID);
     }
 

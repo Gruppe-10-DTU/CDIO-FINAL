@@ -1,25 +1,18 @@
 
 package controllers;
-import gui_fields.GUI_Car;
-import gui_fields.GUI_Field;
-import gui_fields.GUI_Player;
+import gui_fields.*;
+import gui_resources.Attrs;
 import models.Player;
+import models.fields.Field;
+import models.fields.Property;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 import static gui_fields.GUI_Car.Type.UFO;
 
 public class GUIConverter {
-/*
-    public static GUI_Field[] fieldToGui(Field[] fields){
-        GUI_Field[] guiFields = new GUI_Field[fields.length];
-        for (int i = 0; i < fields.length; i++) {
-            guiFields[i] = new GUI_Street(fields[i].getName(), "",fields[i].getDescription(), Integer.toString(fields[i].getEffect()), Color.white, Color.black );
-        }
-        return guiFields;
-    }
 
- */
     public static GUI_Player[] playerToGUI(Player[] players){
         GUI_Player[] gui_players = new GUI_Player[players.length];
         for (int i = 0; i < players.length; i++) {
@@ -30,4 +23,39 @@ public class GUIConverter {
         return gui_players;
     }
 
+    public static GUI_Field[] fieldListToGUI(ArrayList<Field> fieldList) {
+        GUI_Field[] fields = new GUI_Field[fieldList.size()];
+        for (Field field : fieldList
+             ) {
+            switch (field.getClass().getSimpleName()) {
+                case "Property": {
+                    Property prop = (Property) field;
+                    fields[field.getID()] = new GUI_Street(field.getName(), "", "", Integer.toString(prop.getPrice()), GUI_Board.BASECOLOR, Color.getColor(prop.getColor()));
+                    break;
+                }
+                case "Chance": {
+                    fields[field.getID()] = new GUI_Chance("", field.getName(), "", Color.white, Color.black);
+                    break;
+                }
+                case "Start": {
+                    fields[field.getID()] = new GUI_Start(field.getName(), field.getName(), "", Color.white, Color.black);
+                    break;
+                }
+                case "Jail": {
+                    fields[field.getID()] = new GUI_Jail();
+                    break;
+                }
+                case "ToJail": {
+                    fields[field.getID()] = new GUI_Refuge(Attrs.getImagePath("GUI_Field.Image.GoToJail"), field.getName(),"","", GUI_Board.BASECOLOR, GUI_Board.BASECOLOR);
+                    break;
+                }
+                default: {
+                    //fields[field.getID()] = new GUI_Empty(Color.white, Color.white, "", "", "");
+                    fields[field.getID()] = new GUI_Refuge("default",field.getName(), field.getName(), field.getName(), Color.white, Color.black);
+                    break;
+                }
+            }
+        }
+        return fields;
+    }
 }

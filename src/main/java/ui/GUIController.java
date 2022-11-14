@@ -4,12 +4,19 @@ import controllers.GUIConverter;
 import gui_fields.GUI_Player;
 import gui_main.GUI;
 import models.Player;
+import models.fields.Field;
+
+import java.util.ArrayList;
 
 public class GUIController {
     private final GUI gui;
     private GUI_Player[] gui_players;
     public GUIController(){
-        gui = new GUI();
+        gui= new GUI();
+    }
+    public GUIController(ArrayList<Field> fieldList){
+
+        gui = new GUI(GUIConverter.fieldListToGUI(fieldList));
 
     }
 
@@ -18,7 +25,7 @@ public class GUIController {
      * @return PlayerAmount :  How many players are going to play the game
      */
     public int playerAmount(){
-        return gui.getUserInteger("inputPlayerName",2, 4);
+        return gui.getUserInteger("Please input amount of players",2, 4);
     }
 
 
@@ -37,8 +44,13 @@ public class GUIController {
             gui.addPlayer(player);
         }
     }
-    public void displayError(String error){
-        gui.getUserButtonPressed(error, "buttonOk");
+
+    /**
+     * Display a message and get the okay from the player
+     * @param msg Message to display
+     */
+    public void displayMsg(String msg){
+        gui.getUserButtonPressed(msg, "ok");
     }
     public String getName(String getNameText){
         return gui.getUserString(getNameText);
@@ -59,6 +71,14 @@ public class GUIController {
      */
     public void movePlayer(Player player){
         gui_players[player.getID()].getCar().setPosition(gui.getFields()[player.getLocation()]);
+    }
+
+    public void displayDice(int[] rolls) {
+        if(rolls.length == 1){
+            gui.setDice(rolls[0],0);
+        }else{
+            gui.setDice(rolls[0],rolls[1]);
+        }
     }
 }
 
