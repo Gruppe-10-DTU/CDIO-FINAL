@@ -107,7 +107,7 @@ public class GameController {
         turnCounter++;
     }
 
-     */
+
     public int sum(){
         return diceHolder.sum() - 1;
     }
@@ -151,16 +151,16 @@ public class GameController {
      */
     private String findMaxTotalBalance(List<String> equalLS, Player[] players) {
         HashMap<Player, Integer> playerProp = fieldController.playerPropertyValues();
-        Player winner = null;
+        Player winner = new Player(99, "");
         int maxTotal = 0;
         for (Player player : players) {
-            int playerBal = player.getBalance();
+            int playerBal = player.getBalance() + playerProp.get(player);
             if(maxTotal < playerBal && equalLS.contains(player.getIdentifier())){
                 maxTotal = playerBal;
                 winner = player;
             }
         }
-        return winner != null ? winner.getIdentifier() : null;
+        return winner.getIdentifier();
     }
 
     /**
@@ -175,5 +175,9 @@ public class GameController {
                 }
             }
         }
+    }
+
+    public void endGame(){
+
     }
 }
