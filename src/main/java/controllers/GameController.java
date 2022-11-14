@@ -21,7 +21,6 @@ public class GameController {
         playerController = new PlayerController(playerAmount);
         String name;
         String originalName = "car, racecar, ufo, tractor";
-        String[] splitName = originalName.split(",");
         StringBuilder sb = new StringBuilder("Car,Tractor,Racecar,UFO");
 
         for (int i = 0; i < playerAmount; i++) {
@@ -61,10 +60,11 @@ public class GameController {
         switch (field.getClass().getSimpleName()){
             case "Property": {
                 Property property = (Property) field;
-                if(property.getOwner() == null && player.getSoldSign()>=0){
+                if(property.getOwner() == null && player.decreaseSoldSign()){
                     guiController.displayMsg("fieldBuy");
                     if(player.setBalance(-property.getPrice())){
                         fieldController.setOwner(player, property.getID());
+                        guiController.updateField(property);
                         guiController.updatePlayer(player);
                     }else{
                         EndGame();
