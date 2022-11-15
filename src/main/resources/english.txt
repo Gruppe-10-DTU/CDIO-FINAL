@@ -63,3 +63,4 @@ ccCHANGE_BALANCE_3=You've eaten too much candy. Pay 2M to the bank.
 ccGET_OUT_OF_JAIL_1=You are released from jail with no charge. Keep this card until you need it.
 ccCHOICE_1=Move 1 field or draw another chance card
 ccMOVE_X_STEPS_1=Move up to 5 fields forward.
+ccDrawAgain=Draw another chance card.

@@ -63,3 +63,4 @@ ccCHANGE_BALANCE_3=Du har spist for meget slik. Betal 2M til banken.
 ccGET_OUT_OF_JAIL_1=Du løslades uden omkostninger. Behold dette kort, indtil du får brug for det.
 ccCHOICE_1=Ryk 1 felt frem eller tag et nyt Chancekort.
 ccMOVE_X_STEPS_1=Ryk op til 5 felter frem.
+ccDrawAgain=Træk et nyt chance kort.
