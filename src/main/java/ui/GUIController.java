@@ -114,11 +114,11 @@ public class GUIController {
     public void showChanceCard(String message){
         gui.displayChanceCard(message);
     }
-    public void showChanceCardChoice(String option1, String option2){
-        gui.getUserSelection("", option1,option2);
+    public String showChanceCardChoice(String message, String option1, String option2){
+        return gui.getUserSelection(message, option1,option2);
     }
 
-    public void endGame(){gui.close();};
+    public void endGame(){gui.close();}
 }
 
 

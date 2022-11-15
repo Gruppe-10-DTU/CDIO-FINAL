@@ -161,6 +161,14 @@ public class GameController implements ActionListener {
                 break;
             case "Choice":
                 chanceCards.Choice chCard = (Choice) card;
+                String option1 = language.getLanguageValue("MoveXFields", String.valueOf(chCard.getMove()));
+                String option2 = language.getLanguageValue("ccDrawAgain");
+                String choice = guiController.showChanceCardChoice(language.getLanguageValue("ccChoice"), option1, option2);
+                if(choice.equals(option1)){
+                    playerController.playerMove(currentPlayer, chCard.getMove());
+                } else if (choice.equals(option2)) {
+                    takeChance();
+                }
                 break;
             case "GetOutOfJail":
                 GetOutOfJail goojCard = (GetOutOfJail) card;
