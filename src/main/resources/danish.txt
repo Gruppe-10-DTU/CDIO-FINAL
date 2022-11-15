@@ -65,3 +65,4 @@ ccCHOICE_1=Ryk 1 felt frem eller tag et nyt Chancekort.
 ccMOVE_X_STEPS_1=Ryk op til 5 felter frem.
 ccDrawAgain=Træk et nyt chance kort.
 ccMoveXFields=Ryk {0} felter frem.
+ccChoice=Vælg en af mulighederne.

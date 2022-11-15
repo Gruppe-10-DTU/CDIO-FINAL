@@ -65,3 +65,4 @@ ccCHOICE_1=Move 1 field or draw another chance card
 ccMOVE_X_STEPS_1=Move up to 5 fields forward.
 ccDrawAgain=Draw another chance card.
 ccMoveXFields=Move {0} fields forward.
+ccChoice=Please choose an option.
