@@ -1,4 +1,5 @@
 package controllers;
+import chanceCards.CharacterSpecific;
 import models.*;
 import models.Character;
 import models.fields.Property;
@@ -104,4 +105,15 @@ public class PlayerController {
         }
     }
 
+    /**
+     * gives the player a character specific chance card
+     * @param CharacterName pass
+     */
+    public void addCharacterCard(CharacterSpecific CharacterName){
+        for (Player player : players) {
+            if (player.getCharacter().getName().equals(CharacterName.getCharacter())){
+                player.setCharacterSpecific(CharacterName);
+            }
+        }
+    }
 }
