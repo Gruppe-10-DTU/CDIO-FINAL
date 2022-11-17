@@ -31,7 +31,7 @@ public class GameController implements ActionListener {
 
         fieldController = new FieldController(language);
         guiController = new GUIController(fieldController.getFieldList());
-        deck = new Deck();
+        deck = new Deck(language);
         deck.shuffle();
         int playerAmount = guiController.playerAmount();
         playerController = new PlayerController(playerAmount);
