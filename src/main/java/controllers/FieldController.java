@@ -12,10 +12,14 @@ public class FieldController {
 
     ArrayList<Field> fieldArrayList = new ArrayList<>();
 
+    Language language;
+
     /**
-     * The constructer recieves a 2d arraylist and constructs an arraylist of field objects
+     * The constructer recieves the language and constructs an arraylist of field objects in the corect language
      */
     public FieldController (Language language) {
+        this.language = language;
+
         String path = System.getProperty("user.dir") + "/src/main/java/models/Fields.csv";
 
         CSVReader csvReader = null;
@@ -25,6 +29,12 @@ public class FieldController {
             throw new RuntimeException(e);
         }
         ArrayList<ArrayList<String>> fieldData = csvReader.getDataAsArrList();
+
+        createFieldArray(fieldData);
+    }
+
+    protected void createFieldArray(ArrayList<ArrayList<String>> fieldData) {
+
         for (int i=0; i < fieldData.size(); i++) {
             String fieldType = fieldData.get(i).get(0);
 
@@ -75,16 +85,11 @@ public class FieldController {
      * Recieves a player, locates the jail field, moves the player and jails them
      */
     public void jailPlayer(Player player) {
-        Jail jail = (Jail) fieldArrayList
-                .stream()
-                .filter(field -> field instanceof Jail)
-                .findFirst()
-                .get();
 
         for (Object field : fieldArrayList) {
             if (field instanceof Jail) {
                 ((Jail) field).setInJailAdd(player);
-                int jailLocation = jail.getID();
+                int jailLocation = ((Jail) field).getID();
                 player.setLocation(jailLocation);
                 break;
             }
