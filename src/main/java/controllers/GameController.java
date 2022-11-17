@@ -179,19 +179,20 @@ public class GameController implements ActionListener {
             case "MoveToColour":
                 MoveToColour mtcCard = (MoveToColour) card;
                 option1 = language.getLanguageValue(mtcCard.getColour_1().toUpperCase());
-                if(mtcCard.getColour_2() == null | mtcCard.getColour_2().equals("")){
+                if(mtcCard.getColour_2() == null || mtcCard.getColour_2().equals("")){
                     fieldController.moveToColor(mtcCard.getColour_1(), currentPlayer);
                     break;
                 }else {
                     option2 = language.getLanguageValue(mtcCard.getColour_2().toUpperCase());
                     choice = guiController.showChanceCardChoice(language.getLanguageValue("ccChoice"), option1, option2);
                 }
-
-                if(choice.equals(option1)){
-                    fieldController.moveToColor(mtcCard.getColour_1(), currentPlayer);
-                } else if (choice.equals(option2)) {
-                    fieldController.moveToColor(mtcCard.getColour_2(), currentPlayer);
+                int fieldsToMove;
+                if(choice.equals(option2)){
+                    fieldsToMove = fieldController.moveToColor(mtcCard.getColour_2(), currentPlayer);
+                } else  {
+                    fieldsToMove = fieldController.moveToColor(mtcCard.getColour_1(), currentPlayer);
                 }
+                playerController.playerMove(currentPlayer, fieldsToMove);
                 break;
             case "MoveToField":
                 MoveToField mtfCard = (MoveToField) card;
