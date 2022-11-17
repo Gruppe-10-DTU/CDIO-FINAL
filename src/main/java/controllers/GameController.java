@@ -109,6 +109,11 @@ public class GameController implements ActionListener {
             playerController.playerMove(player, diceHolder.sum());
             guiController.updatePlayer(player);
         }
+        landOnField(player);
+        turnCounter++;
+    }
+
+    private void landOnField(Player player) {
         Field field = fieldController.getField(player.getLocation());
         //Choose logic based on the field type
         switch (field.getClass().getSimpleName()) {
@@ -157,8 +162,8 @@ public class GameController implements ActionListener {
                 break;
             }
         }
-        turnCounter++;
     }
+
     public void takeChance(){
         ChanceCard card = deck.drawCard();
         String type = card.getType().replaceAll("class chanceCards.", "");
@@ -188,6 +193,7 @@ public class GameController implements ActionListener {
                 choice = guiController.showChanceCardChoice(language.getLanguageValue("ccChoice"), option1, option2);
                 if(choice.equals(option1)){
                     playerController.playerMove(currentPlayer, chCard.getMove());
+                    landOnField(currentPlayer);
                 } else if (choice.equals(option2)) {
                     takeChance();
                 }
@@ -216,12 +222,13 @@ public class GameController implements ActionListener {
                 break;
             case "MoveToField":
                 MoveToField mtfCard = (MoveToField) card;
-
+                //landOnField(currentPlayer);
                 break;
             case "MoveXSteps":
                 MoveXSteps mxsCard = (MoveXSteps) card;
                 int move = guiController.getXStepsToMove(language.getLanguageValue(""), mxsCard.getMinSteps(),mxsCard.getMaxSteps());
                 playerController.playerMove(currentPlayer, move);
+                //landOnField(currentPlayer);
                 break;
         }
         guiController.updatePlayer(currentPlayer);
