@@ -58,11 +58,10 @@ Class DiceHolder{
  + DiceHolder(int diceAmount)
  + roll() : int
 }
-
-GameController o-- GUIController
-GameController o-- PlayerController
-GameController o-- FieldController
-GameController o-- ChanceController
+GameController o-up- ChanceController
+GameController o-up- GUIController
+GameController o-left- PlayerController
+GameController o-down- FieldController
 GameController o-- DiceHolder
 GameController o-- Language
 
