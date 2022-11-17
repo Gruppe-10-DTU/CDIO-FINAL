@@ -1,5 +1,6 @@
 package chanceCards;
 
+import models.Language;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,8 +13,9 @@ class DeckTest {
      */
     @Test
     void shuffleChangesDeckOrder() {
-        Deck deck1 = new Deck();
-        Deck deck2 = new Deck();
+        Language language = new Language();
+        Deck deck1 = new Deck(language);
+        Deck deck2 = new Deck(language);
         deck2.shuffle();
         int count = 0;
         for (int i = 0; i < deck1.getDeckSize(); i++) {
@@ -29,7 +31,8 @@ class DeckTest {
      */
     @Test
     void drawCardReturnsAnObject() {
-        Deck deck = new Deck();
+        Language language = new Language();
+        Deck deck = new Deck(language);
         for (int i = 0; i < deck.getDeckSize(); i++) {
             assertNotNull(deck.drawCard());
         }
