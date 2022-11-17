@@ -74,3 +74,7 @@ BLUE=Blå
 PINK=Pink
 YELLOW=Gul
 BROWN=Brun
+rollText=Kast med terningen
+rollButton=Kast
+outOfJailFree=Du kunne heldigvis komme ud af fængslet gratis
+outOfJailPay=Du skulle desværre betale {0} for at komme ud af fængslet.

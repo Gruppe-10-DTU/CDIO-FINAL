@@ -22,7 +22,6 @@ public class GUIController {
      * @param fieldList List of fields
      */
     public GUIController(ArrayList<Field> fieldList){
-
         gui = new GUI(GUIConverter.fieldListToGUI(fieldList));
 
     }
@@ -84,6 +83,7 @@ public class GUIController {
         gui_players[player.getID()].getCar().setPosition(gui.getFields()[player.getLocation()]);
     }
 
+
     /**
      * @param rolls Array of ints. Can show up to two dice
      */
@@ -122,6 +122,10 @@ public class GUIController {
     }
 
     public void endGame(){gui.close();}
+
+    public void getRoll(String rollText, String rollButton) {
+        gui.getUserButtonPressed(rollText, rollButton);
+    }
 }
 
 

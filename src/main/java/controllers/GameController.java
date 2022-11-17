@@ -4,6 +4,7 @@ import chanceCards.*;
 import chanceCards.Choice;
 import models.*;
 import models.fields.Field;
+import models.fields.Jail;
 import models.fields.Property;
 import ui.GUIController;
 
@@ -83,13 +84,31 @@ public class GameController implements ActionListener {
     }
 
     public void TakeTurn(Player player) {
+        if(player.getLocation() == 6){
+           Jail jail = (Jail) fieldController.getField(6);
+           if(jail.isInJail(player)){
+               if(player.getGetOutOfJail() != null){
+                   player.setGetOutOfJail(null);
+                   guiController.displayMsg(language.getLanguageValue("outOfJailFree"));
+               }else if(!player.setBalance(-2)){
+                   EndGame();
+               }else{
+                   guiController.displayMsg(language.getLanguageValue("outOfJailPay", "2"));
+               }
+               guiController.updatePlayer(player);
+           }
+        }
+        guiController.getRoll(language.getLanguageValue("rollText"), language.getLanguageValue("rollButton"));
         diceHolder.roll();
         guiController.displayDice(diceHolder.getRolls());
         if (player.getLocation() + diceHolder.sum() >= 24) {
+            player = playerController.playerMove(player, diceHolder.sum());
+            guiController.updatePlayer(player);
             guiController.displayMsg(language.getLanguageValue("passStart"));
+        }else{
+            playerController.playerMove(player, diceHolder.sum());
+            guiController.updatePlayer(player);
         }
-        playerController.playerMove(player, diceHolder.sum());
-        guiController.updatePlayer(player);
         Field field = fieldController.getField(player.getLocation());
         //Choose logic based on the field type
         switch (field.getClass().getSimpleName()) {
@@ -175,6 +194,7 @@ public class GameController implements ActionListener {
                 break;
             case "GetOutOfJail":
                 GetOutOfJail goojCard = (GetOutOfJail) card;
+                currentPlayer.setGetOutOfJail(goojCard);
                 break;
             case "MoveToColour":
                 MoveToColour mtcCard = (MoveToColour) card;
@@ -203,7 +223,6 @@ public class GameController implements ActionListener {
                 int move = guiController.getXStepsToMove(language.getLanguageValue(""), mxsCard.getMinSteps(),mxsCard.getMaxSteps());
                 playerController.playerMove(currentPlayer, move);
                 break;
-
         }
         guiController.updatePlayer(currentPlayer);
         guiController.displayMsg("Chance");
