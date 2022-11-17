@@ -42,13 +42,13 @@ public class GameController implements ActionListener {
 
         for (int i = 0; i < playerAmount; i++) {
 
-            name = guiController.getName("inputName");
+            name = guiController.getName(language.getLanguageValue("inputName"));
             while (!playerController.playerUnique(name)) {
-                guiController.displayMsg("nameNotUnique");
-                name = guiController.getName("inputName");
+                guiController.displayMsg(language.getLanguageValue("nameNotUnique"));
+                name = guiController.getName(language.getLanguageValue("inputName"));
             }
 
-            String character = guiController.selectCharacter("selectCharacter", String.valueOf(sb));
+            String character = guiController.selectCharacter(language.getLanguageValue("selectCharacter"), String.valueOf(sb));
             sb.delete(sb.indexOf(character), sb.indexOf(character) + character.length() + 1);
 
             playerController.addPlayer(i, character, name);
