@@ -82,7 +82,7 @@ public class Deck {
                     deck[deckPosition] = new MoveToField(
                             element.get(name),
                             description,
-                            element.get(field)
+                            Integer.parseInt(element.get(field))
                     );
                     break;
                 case "MoveXSteps":

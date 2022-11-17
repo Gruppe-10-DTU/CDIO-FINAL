@@ -2,20 +2,20 @@ package chanceCards;
 
 public class MoveToField extends ChanceCard{
 
-    private final String FIELD_NAME;
+    private final int FIELD_ID;
 
     /**
      * Constructor for the Chancecards that move the player to a specific field.
      * @param Name        Must match a key in the language hashmap
      * @param Description Must be imported from the language hashmap
-     * @param FIELD_NAME   The name of the field to move to
+     * @param FIELD_ID   The name of the field to move to
      */
-    public MoveToField(String Name, String Description, String FIELD_NAME) {
+    public MoveToField(String Name, String Description, int FIELD_ID) {
         super(Name, Description);
-        this.FIELD_NAME = FIELD_NAME;
+        this.FIELD_ID = FIELD_ID;
     }
 
-    public String getFieldName() {
-        return FIELD_NAME;
+    public int getFieldID() {
+        return FIELD_ID;
     }
 }
