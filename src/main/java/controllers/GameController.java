@@ -179,7 +179,7 @@ public class GameController implements ActionListener {
             case "MoveToColour":
                 MoveToColour mtcCard = (MoveToColour) card;
                 option1 = language.getLanguageValue(mtcCard.getColour_1().toUpperCase());
-                if(mtcCard.getColour_2() == null){
+                if(mtcCard.getColour_2() == null | mtcCard.getColour_2().equals("")){
                     fieldController.moveToColor(mtcCard.getColour_1(), currentPlayer);
                     break;
                 }else {
@@ -204,6 +204,7 @@ public class GameController implements ActionListener {
                 break;
 
         }
+        guiController.updatePlayer(currentPlayer);
         guiController.displayMsg("Chance");
     }
 
