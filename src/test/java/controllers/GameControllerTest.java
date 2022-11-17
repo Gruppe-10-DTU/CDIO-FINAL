@@ -13,11 +13,11 @@ class GameControllerTest {
     Player player2 = new Player(1, "TestPlayer2");
     List<String> equalLS = new ArrayList<>();
     Player[] players = {player1,player2};
-    GameController GC = new GameController();
+//    GameControllerTester GC = new GameControllerTester();
 
     @Test
     void testBalance() {
-
+//        assertEquals("TestPlayer1",GC.checkAllBalance());
     }
 
 }

@@ -92,11 +92,11 @@ public class GUIConverter {
                     break;
                 }
                 case "Jail": {
-                    fields[field.getID()] = new GUI_Jail();
+                    fields[field.getID()] = new GUI_Jail("Default",field.getName(),field.getName(), field.getName(),new Color(125, 125, 125), Color.BLACK);
                     break;
                 }
                 case "ToJail": {
-                    fields[field.getID()] = new GUI_Refuge(Attrs.getImagePath("GUI_Field.Image.GoToJail"), field.getName(),"","", GUI_Board.BASECOLOR, GUI_Board.BASECOLOR);
+                    fields[field.getID()] = new GUI_Jail("Default",field.getName(),field.getName(), field.getName(),new Color(125, 125, 125), Color.BLACK);
                     break;
                 }
                 default: {
