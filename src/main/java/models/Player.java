@@ -1,5 +1,6 @@
 package models;
 
+import chanceCards.CharacterSpecific;
 import chanceCards.GetOutOfJail;
 
 /**
@@ -13,6 +14,7 @@ public class Player {
     private int soldSign = 12;
     private int location = 0;
     private GetOutOfJail getOutOfJail;
+    private CharacterSpecific characterSpecific;
     /**
      * @param iD   id of the player
      * @param name name
@@ -170,7 +172,16 @@ public class Player {
     public GetOutOfJail getGetOutOfJail() {
         return getOutOfJail;
     }
+
     public void setGetOutOfJail(GetOutOfJail getOutOfJail) {
         this.getOutOfJail = getOutOfJail;
+    }
+
+    public CharacterSpecific getCharacterSpecific() {
+        return characterSpecific;
+    }
+
+    public void setCharacterSpecific(CharacterSpecific characterSpecific) {
+        this.characterSpecific = characterSpecific;
     }
 }

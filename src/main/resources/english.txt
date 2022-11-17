@@ -86,3 +86,4 @@ fieldBuy=You have landed on {0}, please purchase it
 fieldRent=You have landed on an occupied field please pay rent to {0}
 buy=You bought it for {0}M
 pay=You paid {0}M in rent
+emtpyFieldChoice=Please choose a field to buy

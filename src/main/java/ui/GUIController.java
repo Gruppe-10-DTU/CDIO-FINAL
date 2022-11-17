@@ -9,6 +9,7 @@ import models.fields.Field;
 import models.fields.Property;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GUIController {
     private final GUI gui;
@@ -126,6 +127,15 @@ public class GUIController {
 
     public void getRoll(String rollText, String rollButton) {
         gui.getUserButtonPressed(rollText, rollButton);
+    }
+
+    /**
+     * @param emtpyFieldChoice Text to display
+     * @param properties The choices you have
+     */
+    public int getPropertyChoice(String emtpyFieldChoice, Property[] properties) {
+        String choice = gui.getUserSelection(emtpyFieldChoice, Arrays.stream(properties).map(Field::getName).toArray(String[]::new));
+        return Arrays.stream(properties).filter(field->field.getName()==choice).findFirst().get().getID();
     }
 }
 

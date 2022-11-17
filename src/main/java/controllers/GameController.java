@@ -105,18 +105,33 @@ public class GameController implements ActionListener {
                guiController.updatePlayer(player);
            }
         }
-        guiController.getRoll(language.getLanguageValue("rollText", player.getIdentifier()), language.getLanguageValue("rollButton"));
-        diceHolder.roll();
-        guiController.displayDice(diceHolder.getRolls());
-        if (player.getLocation() + diceHolder.sum() >= 24) {
-            player = playerController.playerMove(player, diceHolder.sum());
-            guiController.updatePlayer(player);
-            guiController.displayMsg(language.getLanguageValue("passStart"));
-        }else{
-            playerController.playerMove(player, diceHolder.sum());
-            guiController.updatePlayer(player);
+        if(player.getCharacterSpecific() != null){
+            player.setCharacterSpecific(null);
+            Property[] emptyProperties = fieldController.getFreeFields();
+            if(emptyProperties.length == 0){
+                int target = guiController.getPropertyChoice(language.getLanguageValue("emtpyFieldChoice"),emptyProperties);
+                int spaces;
+                if (target < player.getLocation()) {
+                    spaces = player.getLocation() + 24 - target;
+                } else {
+                    spaces = player.getLocation() - target;
+                }
+                playerController.playerMove(player, spaces);
+            }
+        }else {
+            guiController.getRoll(language.getLanguageValue("rollText", player.getIdentifier()), language.getLanguageValue("rollButton"));
+            diceHolder.roll();
+            guiController.displayDice(diceHolder.getRolls());
+            if (player.getLocation() + diceHolder.sum() >= 24) {
+                player = playerController.playerMove(player, diceHolder.sum());
+                guiController.updatePlayer(player);
+                guiController.displayMsg(language.getLanguageValue("passStart"));
+            } else {
+                playerController.playerMove(player, diceHolder.sum());
+                guiController.updatePlayer(player);
+            }
+            landOnField(player);
         }
-        landOnField(player);
         turnCounter++;
     }
 
@@ -186,6 +201,7 @@ public class GameController implements ActionListener {
         int fieldsToMove;
         switch (type){
             case "CharacterSpecific":
+                //Add the card to the correct player, then take a new chance card
                 CharacterSpecific csCard = (CharacterSpecific) card;
                 break;
             case "ChangeBalance":

@@ -177,7 +177,9 @@ public class FieldController {
             ((Property) property).setOwner(player);
         }
     }
-
+    public Property[] getFreeFields(){
+        return fieldArrayList.stream().filter(field -> field instanceof Property && ((Property) field).getOwner() == null).toArray(Property[]::new);
+    }
     public Field getField(int fieldID) {
         return fieldArrayList.get(fieldID);
     }

@@ -86,3 +86,4 @@ fieldBuy=Du har landet på {0} og skal derfor købe det.
 fieldRent=Denne ejendom har allerede en ejer og du skal derfor betale leje til {0}
 buy=Du købte ejendommen for {0}M
 pay=Du betalte {0}M i leje
+emtpyFieldChoice=Vælg et felt du vil købe
