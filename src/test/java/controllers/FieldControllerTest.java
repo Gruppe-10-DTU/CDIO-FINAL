@@ -3,8 +3,10 @@ package controllers;
 import models.Player;
 import models.fields.Field;
 import models.fields.Jail;
+
 import models.fields.Property;
 import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -40,6 +42,7 @@ class FieldControllerTest {
 
     }
 
+
     @Test
     void jailPlayer() {
         FieldController fieldcontroller = new FieldController(CSVMock);
@@ -47,6 +50,7 @@ class FieldControllerTest {
         fieldcontroller.jailPlayer(mockPlayer1);
 
         int jailIndex = 0;
+
 
         for (Object field : fieldcontroller.fieldArrayList) {
             if ( field instanceof Jail) {

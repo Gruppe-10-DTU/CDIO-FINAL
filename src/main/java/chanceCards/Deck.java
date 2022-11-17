@@ -3,7 +3,6 @@ package chanceCards;
 import controllers.CSVReader;
 import models.Language;
 
-import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
@@ -17,8 +16,6 @@ public class Deck {
      * Constructs deck from chanceCards.csv file in resources using custom CSVReader
      */
     public Deck() {
-        this.deck = new ChanceCard[20];
-        int deckPosition = 0;
         final String DELIMITER = ",";
 
         try {
@@ -33,15 +30,17 @@ public class Deck {
                 name = reader.getHeaderIndex("name"),
                 minVal = reader.getHeaderIndex("min_value"),
                 maxVal = reader.getHeaderIndex("max_value"),
-                drawAgain = reader.getHeaderIndex("draw_again"),
+                booleanModifier = reader.getHeaderIndex("boolean_modifier"),
                 character = reader.getHeaderIndex("character"),
                 colour1 = reader.getHeaderIndex("colour_1"),
                 colour2 = reader.getHeaderIndex("colour_2"),
                 field = reader.getHeaderIndex("field");
 
-        //Language language = new Language();
+        this.deck = new ChanceCard[cardData.size()];
+        int deckPosition = 0;
+        Language language = new Language();
         for (ArrayList<String> element: cardData) {
-            String description = "Testing";//language.getLanguageValue("cc" + element.get(name));
+            String description = language.getLanguageValue("cc" + element.get(name));
             switch (element.get(type)) {
                 case "CharacterSpecific":
                     deck[deckPosition] = new CharacterSpecific(
@@ -54,7 +53,8 @@ public class Deck {
                     deck[deckPosition] = new ChangeBalance(
                             element.get(name),
                             description,
-                            Integer.parseInt(element.get(maxVal))
+                            Integer.parseInt(element.get(maxVal)),
+                            Boolean.getBoolean(element.get(booleanModifier))
                     );
                     break;
                 case "Choice":
@@ -62,7 +62,7 @@ public class Deck {
                             element.get(name),
                             description,
                             Integer.parseInt(element.get(maxVal)),
-                            Boolean.getBoolean(element.get(drawAgain))
+                            Boolean.getBoolean(element.get(booleanModifier))
                     );
                     break;
                 case "GetOutOfJail":
@@ -135,5 +135,8 @@ public class Deck {
         deck[deck.length - 1] = drawnCard;
 
         return drawnCard;
+    }
+    public int getDeckSize(){
+        return this.deck.length;
     }
 }

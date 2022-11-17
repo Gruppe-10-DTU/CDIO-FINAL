@@ -1,4 +1,4 @@
-TYPE,NAME,MIN_VALUE,MAX_VALUE,DRAW_AGAIN,CHARACTER,COLOUR_2,COLOUR_1,FIELD
+TYPE,NAME,MIN_VALUE,MAX_VALUE,BOOLEAN_MODIFIER,CHARACTER,COLOUR_2,COLOUR_1,FIELD
 CharacterSpecific,CHAR_SPECIFIC_1,,,true,CAR,,,
 CharacterSpecific,CHAR_SPECIFIC_2,,,true,SHIP,,,
 CharacterSpecific,CHAR_SPECIFIC_3,,,true,DOG,,,
@@ -13,9 +13,9 @@ MoveToColour,MOVE_TO_COLOUR_7,,,,,BROWN,YELLOW,
 MoveToField,MOVE_TO_FIELD_1,,,,,,,START
 MoveToField,MOVE_TO_FIELD_2,,,,,,,SKATE_PARK
 MoveToField,MOVE_TO_FIELD_3,,,,,,,BEACH_WALK
-ChangeBalance,CHANGE_BALANCE_1,,1,,,,,
-ChangeBalance,CHANGE_BALANCE_2,,2,,,,,
-ChangeBalance,CHANGE_BALANCE_3,,-2,,,,,
+ChangeBalance,CHANGE_BALANCE_1,,1,true,,,,
+ChangeBalance,CHANGE_BALANCE_2,,2,false,,,,
+ChangeBalance,CHANGE_BALANCE_3,,-2,false,,,,
 GetOutOfJail,GET_OUT_OF_JAIL_1,,,,,,,
 Choice,CHOICE_1,,1,true,,,,
 MoveXSteps,MOVE_X_STEPS,1,5,,,,,

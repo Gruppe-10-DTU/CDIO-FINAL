@@ -15,4 +15,12 @@ public class Choice extends ChanceCard{
         this.MOVE = MOVE;
         this.DRAW_AGAIN = DrawAgain;
     }
+
+    public int getMove() {
+        return MOVE;
+    }
+
+    public boolean isDrawAgain() {
+        return DRAW_AGAIN;
+    }
 }

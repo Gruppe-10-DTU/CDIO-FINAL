@@ -2,14 +2,28 @@ package ui;
 
 import controllers.GUIConverter;
 import gui_fields.GUI_Player;
+import gui_fields.GUI_Street;
 import gui_main.GUI;
 import models.Player;
+import models.fields.Field;
+import models.fields.Property;
+
+import java.util.ArrayList;
 
 public class GUIController {
     private final GUI gui;
     private GUI_Player[] gui_players;
     public GUIController(){
-        gui = new GUI();
+        gui= new GUI();
+    }
+
+    /**
+     * Create a gui with custom fields
+     * @param fieldList List of fields
+     */
+    public GUIController(ArrayList<Field> fieldList){
+
+        gui = new GUI(GUIConverter.fieldListToGUI(fieldList));
 
     }
 
@@ -18,7 +32,7 @@ public class GUIController {
      * @return PlayerAmount :  How many players are going to play the game
      */
     public int playerAmount(){
-        return gui.getUserInteger("inputPlayerName",2, 4);
+        return gui.getUserInteger("Please input amount of players",2, 4);
     }
 
 
@@ -31,14 +45,23 @@ public class GUIController {
         return gui.getUserSelection(selectCharacterText, choices.split(","));
     }
 
+    /**
+     * Insert the players into the GUI
+     * @param players Players in the game
+     */
     public void setPlayers(Player[] players){
         gui_players = GUIConverter.playerToGUI(players);
         for (GUI_Player player : gui_players) {
             gui.addPlayer(player);
         }
     }
-    public void displayError(String error){
-        gui.getUserButtonPressed(error, "buttonOk");
+
+    /**
+     * Display a message and get the okay from the player
+     * @param msg Message to display
+     */
+    public void displayMsg(String msg){
+        gui.getUserButtonPressed(msg, "ok");
     }
     public String getName(String getNameText){
         return gui.getUserString(getNameText);
@@ -60,6 +83,42 @@ public class GUIController {
     public void movePlayer(Player player){
         gui_players[player.getID()].getCar().setPosition(gui.getFields()[player.getLocation()]);
     }
+
+    /**
+     * @param rolls Array of ints. Can show up to two dice
+     */
+    public void displayDice(int[] rolls) {
+        if(rolls.length == 1){
+            gui.setDice(rolls[0],0);
+        }else{
+            gui.setDice(rolls[0],rolls[1]);
+        }
+    }
+
+    /**
+     * Set the owner on the property
+     * @param property Property to be changed
+     */
+    public void updateField(Property property){
+        GUI_Street street = (GUI_Street) gui.getFields()[property.getID()];
+        street.setOwnableLabel(property.getOwner().getIdentifier());
+        street.setOwnerName(property.getOwner().getIdentifier());
+        street.setHouses(1);
+        street.setSubText(property.getOwner().getIdentifier());
+    }
+
+    public void displayMsgNoBtn(String msg){
+        gui.showMessage(msg);
+    }
+
+    public void showChanceCard(String message){
+        gui.displayChanceCard(message);
+    }
+    public String showChanceCardChoice(String message, String option1, String option2){
+        return gui.getUserSelection(message, option1,option2);
+    }
+
+    public void endGame(){gui.close();}
 }
 
 
