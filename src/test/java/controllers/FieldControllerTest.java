@@ -37,12 +37,15 @@ class FieldControllerTest {
         CSVMock.add(new ArrayList<>(Arrays.asList("Property","PINK","1")));
         CSVMock.add(new ArrayList<>(Arrays.asList("ToJail")));
         CSVMock.add(new ArrayList<>(Arrays.asList("Property","RED","2")));
+
+        fieldcontroller.createFieldArray(CSVMock);
     }
+
 
 
     @Test
     void construct() {
-        fieldcontroller.createFieldArray(CSVMock);
+
         assertEquals(8, fieldcontroller.fieldArrayList.size());
     }
 
