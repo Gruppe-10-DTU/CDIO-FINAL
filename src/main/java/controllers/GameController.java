@@ -108,7 +108,7 @@ public class GameController implements ActionListener {
         if(player.getCharacterSpecific() != null){
             player.setCharacterSpecific(null);
             Property[] emptyProperties = fieldController.getFreeFields();
-            if(emptyProperties.length == 0){
+            if(emptyProperties.length != 0){
                 int target = guiController.getPropertyChoice(language.getLanguageValue("emtpyFieldChoice"),emptyProperties);
                 int spaces;
                 if (target < player.getLocation()) {
