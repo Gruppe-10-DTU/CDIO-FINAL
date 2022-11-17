@@ -1,5 +1,7 @@
 package models;
 
+import chanceCards.GetOutOfJail;
+
 /**
  * Player class
  */
@@ -10,6 +12,7 @@ public class Player {
     private Character character;
     private int soldSign = 12;
     private int location = 0;
+    private GetOutOfJail getOutOfJail;
     /**
      * @param iD   id of the player
      * @param name name
@@ -162,5 +165,12 @@ public class Player {
 
     public void setLocation(int location) {
         this.location = location;
+    }
+
+    public GetOutOfJail getGetOutOfJail() {
+        return getOutOfJail;
+    }
+    public void setGetOutOfJail(GetOutOfJail getOutOfJail) {
+        this.getOutOfJail = getOutOfJail;
     }
 }
