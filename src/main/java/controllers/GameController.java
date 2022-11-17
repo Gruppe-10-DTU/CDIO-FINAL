@@ -219,29 +219,23 @@ public class GameController implements ActionListener {
                 break;
             case "MoveToColour":
                 MoveToColour mtcCard = (MoveToColour) card;
-                option1 = language.getLanguageValue(mtcCard.getColour_1().toUpperCase());
                 if(mtcCard.getColour_2() == null || mtcCard.getColour_2().equals("")){
-                    fieldsToMove = fieldController.moveToColor(mtcCard.getColour_2(), currentPlayer);
-                    playerController.playerMove(currentPlayer, fieldsToMove);
-                    guiController.updatePlayer(currentPlayer);
-                    if (fieldController.getFreeField(currentPlayer, currentPlayer.getLocation())){
-                        fieldController.setOwner(currentPlayer, currentPlayer.getLocation());
-                    } else landOnField(currentPlayer);
-                    break;
+                    fieldsToMove = fieldController.moveToColor(mtcCard.getColour_1(), currentPlayer);
                 }else {
+                    option1 = language.getLanguageValue(mtcCard.getColour_1().toUpperCase());
                     option2 = language.getLanguageValue(mtcCard.getColour_2().toUpperCase());
                     choice = guiController.showChanceCardChoice(language.getLanguageValue("ccChoice"), option1, option2);
-                }
-
-                if(choice.equals(option2)){
-                    fieldsToMove = fieldController.moveToColor(mtcCard.getColour_2(), currentPlayer);
-                } else  {
-                    fieldsToMove = fieldController.moveToColor(mtcCard.getColour_1(), currentPlayer);
+                    if(choice.equals(option2)){
+                        fieldsToMove = fieldController.moveToColor(mtcCard.getColour_2(), currentPlayer);
+                    } else  {
+                        fieldsToMove = fieldController.moveToColor(mtcCard.getColour_1(), currentPlayer);
+                    }
                 }
                 playerController.playerMove(currentPlayer, fieldsToMove);
                 guiController.updatePlayer(currentPlayer);
                 if (fieldController.getFreeField(currentPlayer, currentPlayer.getLocation())){
                     fieldController.setOwner(currentPlayer, currentPlayer.getLocation());
+                    guiController.updateField((Property)fieldController.getField(currentPlayer.getLocation()));
                 } else landOnField(currentPlayer);
                 break;
             case "MoveToField":
@@ -263,7 +257,7 @@ public class GameController implements ActionListener {
                 landOnField(currentPlayer);
                 break;
         }
-        guiController.displayMsg("Chance");
+        //guiController.displayMsg("Chance");
     }
 
 

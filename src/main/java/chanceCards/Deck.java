@@ -138,4 +138,14 @@ public class Deck {
     public int getDeckSize(){
         return this.deck.length;
     }
+
+    public void rigDeck(int Offset) {
+        for (int j = 0; j < Offset; j++) {
+            ChanceCard temp = deck[0];
+            for (int i = 1; i < deck.length; i++) {
+                deck[i - 1] = deck[i];
+            }
+            deck[deck.length -1] = temp;
+        }
+    }
 }
