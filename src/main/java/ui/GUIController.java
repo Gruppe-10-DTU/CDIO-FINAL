@@ -127,6 +127,9 @@ public class GUIController {
     public void getRoll(String rollText, String rollButton) {
         gui.getUserButtonPressed(rollText, rollButton);
     }
+    public void showRoll(int roll){
+        gui.setDie(roll);
+    }
 }
 
 

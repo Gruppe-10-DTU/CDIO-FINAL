@@ -107,6 +107,7 @@ public class GameController implements ActionListener {
         }
         guiController.getRoll(language.getLanguageValue("rollText", player.getIdentifier()), language.getLanguageValue("rollButton"));
         diceHolder.roll();
+        guiController.showRoll(diceHolder.sum());
         guiController.displayDice(diceHolder.getRolls());
         if (player.getLocation() + diceHolder.sum() >= 24) {
             player = playerController.playerMove(player, diceHolder.sum());
