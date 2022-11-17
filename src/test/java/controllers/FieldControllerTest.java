@@ -66,6 +66,7 @@ class FieldControllerTest {
         assertEquals(jailIndex, mockPlayer1.getLocation());
     }
 
+
     @Test
     void FreePlayer() {
         //Jail the player
