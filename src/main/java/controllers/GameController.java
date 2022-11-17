@@ -83,6 +83,10 @@ public class GameController implements ActionListener {
         }
     }
 
+    /**
+     * Logic to handle a players turn
+     * @param player Active player
+     */
     public void TakeTurn(Player player) {
         if(player.getLocation() == 6){
            Jail jail = (Jail) fieldController.getField(6);
@@ -113,6 +117,9 @@ public class GameController implements ActionListener {
         turnCounter++;
     }
 
+    /**
+     * @param player All logic controlling what happens when you land on a field
+     */
     private void landOnField(Player player) {
         Field field = fieldController.getField(player.getLocation());
         //Choose logic based on the field type
