@@ -74,11 +74,23 @@ public class FieldController {
                 .findFirst()
                 .get();
 
-        jail.setInJailAdd(player);
+        for (Object field : fieldArrayList) {
+            if (field instanceof Jail) {
+                ((Jail) field).setInJailAdd(player);
+                int jailLocation = jail.getID();
+                player.setLocation(jailLocation);
+                break;
+            }
+        }
+    }
 
-        int jailLocation = jail.getID();
-
-        player.setLocation(jailLocation);
+    public void freePlayer(Player player) {
+        for (Object field : fieldArrayList) {
+            if ( field instanceof Jail) {
+                ((Jail) field).setInJailRemove(player);
+                break;
+            }
+        }
     }
 
     /**
@@ -136,7 +148,7 @@ public class FieldController {
 
 
             if (newLocation < location) {
-                spaces = newLocation + (24 - location);
+                spaces = newLocation + (fieldArrayList.size() - location);
             } else {
                 spaces = newLocation - location;
             }
