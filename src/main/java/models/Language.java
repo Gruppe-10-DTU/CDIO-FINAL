@@ -42,7 +42,7 @@ public class Language {
                 break;
         }
         Class c = this.getClass();
-        InputStream file = c.getResourceAsStream("/danish.txt");
+        InputStream file = c.getResourceAsStream(target);
 
         languageValues = new HashMap<String, String>();
         try {
