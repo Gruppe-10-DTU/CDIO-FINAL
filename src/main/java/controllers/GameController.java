@@ -34,7 +34,7 @@ public class GameController implements ActionListener {
         guiController = new GUIController(fieldController.getFieldList());
         deck = new Deck(language);
         deck.shuffle();
-        int playerAmount = guiController.playerAmount();
+        int playerAmount = guiController.playerAmount(language.getLanguageValue("playerAmount"));
         playerController = new PlayerController(playerAmount);
         String name;
         String originalName = "car, racecar, ufo, tractor";
@@ -102,7 +102,7 @@ public class GameController implements ActionListener {
                guiController.updatePlayer(player);
            }
         }
-        guiController.getRoll(language.getLanguageValue("rollText"), language.getLanguageValue("rollButton"));
+        guiController.getRoll(language.getLanguageValue("rollText", player.getIdentifier()), language.getLanguageValue("rollButton"));
         diceHolder.roll();
         guiController.displayDice(diceHolder.getRolls());
         if (player.getLocation() + diceHolder.sum() >= 24) {
@@ -127,22 +127,24 @@ public class GameController implements ActionListener {
             case "Property": {
                 Property property = (Property) field;
                 if(property.getOwner() == null && player.decreaseSoldSign()){
-                    guiController.displayMsg("fieldBuy");
+                    guiController.displayMsg(language.getLanguageValue("fieldBuy", property.getName()));
                     if (player.setBalance(-property.getPrice())) {
                         fieldController.setOwner(player, property.getID());
                         guiController.updateField(property);
                         guiController.updatePlayer(player);
+                        guiController.displayMsg(language.getLanguageValue("buy", Integer.toString(property.getPrice())));
                     } else {
                         EndGame();
                     }
                 } else if (player.getSoldSign() < 0) {
-                    guiController.displayMsg("You can't buy this since you've run out of houses");
+                    guiController.displayMsg(language.getLanguageValue("noMoreHouses"));
                 } else {
-                    guiController.displayMsg("fieldRent");
+                    guiController.displayMsg(language.getLanguageValue("fieldRent", property.getOwner().getIdentifier()));
                     if (!playerController.getRent(player, property)) {
                         EndGame();
                     } else {
                         guiController.updatePlayer(property.getOwner());
+                        guiController.displayMsg(language.getLanguageValue("pay", Integer.toString(property.getPrice())));
                     }
                 }
                 break;
@@ -233,7 +235,7 @@ public class GameController implements ActionListener {
                 break;
             case "MoveXSteps":
                 MoveXSteps mxsCard = (MoveXSteps) card;
-                int move = guiController.getXStepsToMove(language.getLanguageValue(""), mxsCard.getMinSteps(),mxsCard.getMaxSteps());
+                int move = guiController.getXStepsToMove(language.getLanguageValue("moveXStepsChoice"), mxsCard.getMinSteps(),mxsCard.getMaxSteps());
                 playerController.playerMove(currentPlayer, move);
                 //landOnField(currentPlayer);
                 break;
