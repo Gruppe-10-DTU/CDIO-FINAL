@@ -216,7 +216,9 @@ public class GameController implements ActionListener {
                 MoveToColour mtcCard = (MoveToColour) card;
                 option1 = language.getLanguageValue(mtcCard.getColour_1().toUpperCase());
                 if(mtcCard.getColour_2() == null || mtcCard.getColour_2().equals("")){
-                    fieldController.moveToColor(mtcCard.getColour_1(), currentPlayer);
+                    fieldsToMove = fieldController.moveToColor(mtcCard.getColour_2(), currentPlayer);
+                    playerController.playerMove(currentPlayer, fieldsToMove);
+                    guiController.updatePlayer(currentPlayer);
                     break;
                 }else {
                     option2 = language.getLanguageValue(mtcCard.getColour_2().toUpperCase());
