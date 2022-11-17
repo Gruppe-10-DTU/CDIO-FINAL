@@ -61,6 +61,9 @@ public class GameController implements ActionListener {
 
     }
 
+    /**
+     * Functions to display the winner and give the users an option to close the game
+     */
     private void EndGame() {
         String endWinner = checkAllBalance();
         isOver = true;
@@ -270,6 +273,10 @@ public class GameController implements ActionListener {
         return turnCounter;
     }
 
+    /**
+     * Checks if there are more than one with the same balance then returns the one with most property, otherwise returns the one with the most balance
+     * @return winner
+     */
     public String checkAllBalance() {
         List<String> equalLS = new ArrayList<>();
         Player[] players = playerController.getPlayers();
@@ -285,7 +292,6 @@ public class GameController implements ActionListener {
 
     /**
      * Finds and returns the player with the biggest balance
-     *
      * @return
      */
     private String findMaxBalance(Player[] players) {
@@ -302,9 +308,8 @@ public class GameController implements ActionListener {
 
     /**
      * Finds the maximum total value of the players with the same balance
-     *
      * @param equalLS
-     * @return
+     * @return winner
      */
     private String findMaxTotalBalance(List<String> equalLS, Player[] players) {
         HashMap<Player, Integer> playerProp = fieldController.playerPropertyValues();
@@ -322,7 +327,6 @@ public class GameController implements ActionListener {
 
     /**
      * Adds players to the list if they have the same balance
-     *
      * @param equalLS
      */
     public void checkEqualBalance(List<String> equalLS, Player[] players) {
@@ -335,6 +339,10 @@ public class GameController implements ActionListener {
         }
     }
 
+    /**
+     * Listener for popup close button
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         p.hide();
