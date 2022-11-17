@@ -178,6 +178,7 @@ public class GameController implements ActionListener {
         String option1;
         String option2;
         String choice;
+        int fieldsToMove;
         switch (type){
             case "CharacterSpecific":
                 CharacterSpecific csCard = (CharacterSpecific) card;
@@ -192,6 +193,7 @@ public class GameController implements ActionListener {
                     value *= playerController.getPlayers().length;
                 }
                 currentPlayer.setBalance(value);
+                guiController.updatePlayer(currentPlayer);
                 break;
             case "Choice":
                 chanceCards.Choice chCard = (Choice) card;
@@ -204,6 +206,7 @@ public class GameController implements ActionListener {
                 } else if (choice.equals(option2)) {
                     takeChance();
                 }
+                guiController.updatePlayer(currentPlayer);
                 break;
             case "GetOutOfJail":
                 GetOutOfJail goojCard = (GetOutOfJail) card;
@@ -219,26 +222,34 @@ public class GameController implements ActionListener {
                     option2 = language.getLanguageValue(mtcCard.getColour_2().toUpperCase());
                     choice = guiController.showChanceCardChoice(language.getLanguageValue("ccChoice"), option1, option2);
                 }
-                int fieldsToMove;
+
                 if(choice.equals(option2)){
                     fieldsToMove = fieldController.moveToColor(mtcCard.getColour_2(), currentPlayer);
                 } else  {
                     fieldsToMove = fieldController.moveToColor(mtcCard.getColour_1(), currentPlayer);
                 }
                 playerController.playerMove(currentPlayer, fieldsToMove);
+                guiController.updatePlayer(currentPlayer);
                 break;
             case "MoveToField":
                 MoveToField mtfCard = (MoveToField) card;
-                //landOnField(currentPlayer);
+                if(currentPlayer.getLocation() > mtfCard.getFieldID()){
+                    fieldsToMove = (fieldController.getFieldList().size() + mtfCard.getFieldID())- currentPlayer.getLocation();
+                } else {
+                    fieldsToMove = mtfCard.getFieldID() - currentPlayer.getLocation();
+                }
+                playerController.playerMove(currentPlayer, fieldsToMove);
+                guiController.updatePlayer(currentPlayer);
+                landOnField(currentPlayer);
                 break;
             case "MoveXSteps":
                 MoveXSteps mxsCard = (MoveXSteps) card;
                 int move = guiController.getXStepsToMove(language.getLanguageValue(""), mxsCard.getMinSteps(),mxsCard.getMaxSteps());
                 playerController.playerMove(currentPlayer, move);
-                //landOnField(currentPlayer);
+                guiController.updatePlayer(currentPlayer);
+                landOnField(currentPlayer);
                 break;
         }
-        guiController.updatePlayer(currentPlayer);
         guiController.displayMsg("Chance");
     }
 
