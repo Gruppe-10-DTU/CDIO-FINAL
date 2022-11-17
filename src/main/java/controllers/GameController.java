@@ -61,6 +61,9 @@ public class GameController implements ActionListener {
 
     }
 
+    /**
+     * Functions to display the winner and give the users an option to close the game
+     */
     private void EndGame() {
         String endWinner = checkAllBalance();
         isOver = true;
@@ -180,6 +183,7 @@ public class GameController implements ActionListener {
         String option1;
         String option2;
         String choice;
+        int fieldsToMove;
         switch (type){
             case "CharacterSpecific":
                 CharacterSpecific csCard = (CharacterSpecific) card;
@@ -194,6 +198,7 @@ public class GameController implements ActionListener {
                     value *= playerController.getPlayers().length;
                 }
                 currentPlayer.setBalance(value);
+                guiController.updatePlayer(currentPlayer);
                 break;
             case "Choice":
                 chanceCards.Choice chCard = (Choice) card;
@@ -206,6 +211,7 @@ public class GameController implements ActionListener {
                 } else if (choice.equals(option2)) {
                     takeChance();
                 }
+                guiController.updatePlayer(currentPlayer);
                 break;
             case "GetOutOfJail":
                 GetOutOfJail goojCard = (GetOutOfJail) card;
@@ -215,32 +221,42 @@ public class GameController implements ActionListener {
                 MoveToColour mtcCard = (MoveToColour) card;
                 option1 = language.getLanguageValue(mtcCard.getColour_1().toUpperCase());
                 if(mtcCard.getColour_2() == null || mtcCard.getColour_2().equals("")){
-                    fieldController.moveToColor(mtcCard.getColour_1(), currentPlayer);
+                    fieldsToMove = fieldController.moveToColor(mtcCard.getColour_2(), currentPlayer);
+                    playerController.playerMove(currentPlayer, fieldsToMove);
+                    guiController.updatePlayer(currentPlayer);
                     break;
                 }else {
                     option2 = language.getLanguageValue(mtcCard.getColour_2().toUpperCase());
                     choice = guiController.showChanceCardChoice(language.getLanguageValue("ccChoice"), option1, option2);
                 }
-                int fieldsToMove;
+
                 if(choice.equals(option2)){
                     fieldsToMove = fieldController.moveToColor(mtcCard.getColour_2(), currentPlayer);
                 } else  {
                     fieldsToMove = fieldController.moveToColor(mtcCard.getColour_1(), currentPlayer);
                 }
                 playerController.playerMove(currentPlayer, fieldsToMove);
+                guiController.updatePlayer(currentPlayer);
                 break;
             case "MoveToField":
                 MoveToField mtfCard = (MoveToField) card;
-                //landOnField(currentPlayer);
+                if(currentPlayer.getLocation() > mtfCard.getFieldID()){
+                    fieldsToMove = (fieldController.getFieldList().size() + mtfCard.getFieldID())- currentPlayer.getLocation();
+                } else {
+                    fieldsToMove = mtfCard.getFieldID() - currentPlayer.getLocation();
+                }
+                playerController.playerMove(currentPlayer, fieldsToMove);
+                guiController.updatePlayer(currentPlayer);
+                landOnField(currentPlayer);
                 break;
             case "MoveXSteps":
                 MoveXSteps mxsCard = (MoveXSteps) card;
                 int move = guiController.getXStepsToMove(language.getLanguageValue("moveXStepsChoice"), mxsCard.getMinSteps(),mxsCard.getMaxSteps());
                 playerController.playerMove(currentPlayer, move);
-                //landOnField(currentPlayer);
+                guiController.updatePlayer(currentPlayer);
+                landOnField(currentPlayer);
                 break;
         }
-        guiController.updatePlayer(currentPlayer);
         guiController.displayMsg("Chance");
     }
 
@@ -253,6 +269,10 @@ public class GameController implements ActionListener {
         return turnCounter;
     }
 
+    /**
+     * Checks if there are more than one with the same balance then returns the one with most property, otherwise returns the one with the most balance
+     * @return winner
+     */
     public String checkAllBalance() {
         List<String> equalLS = new ArrayList<>();
         Player[] players = playerController.getPlayers();
@@ -268,7 +288,6 @@ public class GameController implements ActionListener {
 
     /**
      * Finds and returns the player with the biggest balance
-     *
      * @return
      */
     private String findMaxBalance(Player[] players) {
@@ -285,9 +304,8 @@ public class GameController implements ActionListener {
 
     /**
      * Finds the maximum total value of the players with the same balance
-     *
      * @param equalLS
-     * @return
+     * @return winner
      */
     private String findMaxTotalBalance(List<String> equalLS, Player[] players) {
         HashMap<Player, Integer> playerProp = fieldController.playerPropertyValues();
@@ -305,7 +323,6 @@ public class GameController implements ActionListener {
 
     /**
      * Adds players to the list if they have the same balance
-     *
      * @param equalLS
      */
     public void checkEqualBalance(List<String> equalLS, Player[] players) {
@@ -318,6 +335,10 @@ public class GameController implements ActionListener {
         }
     }
 
+    /**
+     * Listener for popup close button
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         p.hide();

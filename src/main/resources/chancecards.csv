@@ -10,9 +10,9 @@ MoveToColour,MOVE_TO_COLOUR_4,,,,,ORANGE,GREEN,
 MoveToColour,MOVE_TO_COLOUR_5,,,,,PINK,BLUE,
 MoveToColour,MOVE_TO_COLOUR_6,,,,,CYAN,RED,
 MoveToColour,MOVE_TO_COLOUR_7,,,,,BROWN,YELLOW,
-MoveToField,MOVE_TO_FIELD_1,,,,,,,START
-MoveToField,MOVE_TO_FIELD_2,,,,,,,SKATE_PARK
-MoveToField,MOVE_TO_FIELD_3,,,,,,,BEACH_WALK
+MoveToField,MOVE_TO_FIELD_1,,,,,,,0
+MoveToField,MOVE_TO_FIELD_2,,,,,,,10
+MoveToField,MOVE_TO_FIELD_3,,,,,,,23
 ChangeBalance,CHANGE_BALANCE_1,,1,true,,,,
 ChangeBalance,CHANGE_BALANCE_2,,2,false,,,,
 ChangeBalance,CHANGE_BALANCE_3,,-2,false,,,,
