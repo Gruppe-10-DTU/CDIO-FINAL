@@ -33,7 +33,7 @@ public class GameController implements ActionListener {
         fieldController = new FieldController(language);
         guiController = new GUIController(fieldController.getFieldList());
         deck = new Deck(language);
-        deck.shuffle();
+        //deck.shuffle();
         int playerAmount = guiController.playerAmount(language.getLanguageValue("playerAmount"));
         playerController = new PlayerController(playerAmount);
         String name;
@@ -203,6 +203,9 @@ public class GameController implements ActionListener {
             case "CharacterSpecific":
                 //Add the card to the correct player, then take a new chance card
                 CharacterSpecific csCard = (CharacterSpecific) card;
+                playerController.addCharacterCard(csCard);
+                guiController.displayMsg(language.getLanguageValue("ccDrawAgain"));
+                takeChance();
                 break;
             case "ChangeBalance":
                 ChangeBalance cbCard = (ChangeBalance) card;
