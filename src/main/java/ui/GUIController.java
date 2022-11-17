@@ -28,10 +28,11 @@ public class GUIController {
 
     /**
      * Ask the user the amount of players in this game session. Min 2, max 4
+     * @param playerAmountText Text to ask players how many are player
      * @return PlayerAmount :  How many players are going to play the game
      */
-    public int playerAmount(){
-        return gui.getUserInteger("Please input amount of players",2, 4);
+    public int playerAmount(String playerAmountText){
+        return gui.getUserInteger(playerAmountText,2, 4);
     }
 
 
