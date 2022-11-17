@@ -164,7 +164,7 @@ public class GameController implements ActionListener {
                 break;
             case "Choice":
                 chanceCards.Choice chCard = (Choice) card;
-                option1 = language.getLanguageValue("MoveXFields", String.valueOf(chCard.getMove()));
+                option1 = language.getLanguageValue("ccMoveXFields", String.valueOf(chCard.getMove()));
                 option2 = language.getLanguageValue("ccDrawAgain");
                 choice = guiController.showChanceCardChoice(language.getLanguageValue("ccChoice"), option1, option2);
                 if(choice.equals(option1)){
@@ -179,12 +179,18 @@ public class GameController implements ActionListener {
             case "MoveToColour":
                 MoveToColour mtcCard = (MoveToColour) card;
                 option1 = language.getLanguageValue(mtcCard.getColour_1().toUpperCase());
-                option2 = language.getLanguageValue(mtcCard.getColour_2().toUpperCase());
-                choice = guiController.showChanceCardChoice(language.getLanguageValue("ccChoice"), option1, option2);
+                if(mtcCard.getColour_2() == null){
+                    fieldController.moveToColor(mtcCard.getColour_1(), currentPlayer);
+                    break;
+                }else {
+                    option2 = language.getLanguageValue(mtcCard.getColour_2().toUpperCase());
+                    choice = guiController.showChanceCardChoice(language.getLanguageValue("ccChoice"), option1, option2);
+                }
+
                 if(choice.equals(option1)){
-                    fieldController.moveToColor(option1, currentPlayer);
+                    fieldController.moveToColor(mtcCard.getColour_1(), currentPlayer);
                 } else if (choice.equals(option2)) {
-                    fieldController.moveToColor(option2, currentPlayer);
+                    fieldController.moveToColor(mtcCard.getColour_2(), currentPlayer);
                 }
                 break;
             case "MoveToField":
@@ -193,9 +199,12 @@ public class GameController implements ActionListener {
                 break;
             case "MoveXSteps":
                 MoveXSteps mxsCard = (MoveXSteps) card;
+                int move = guiController.getXStepsToMove(language.getLanguageValue(""), mxsCard.getMinSteps(),mxsCard.getMaxSteps());
+                playerController.playerMove(currentPlayer, move);
                 break;
 
         }
+        guiController.displayMsg("Chance");
     }
 
 
