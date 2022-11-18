@@ -33,7 +33,7 @@ public class GameController implements ActionListener {
         fieldController = new FieldController(language);
         guiController = new GUIController(fieldController.getFieldList());
         deck = new Deck(language);
-        //deck.shuffle();
+        deck.shuffle();
         int playerAmount = guiController.playerAmount(language.getLanguageValue("playerAmount"));
         playerController = new PlayerController(playerAmount);
         String name;
@@ -111,16 +111,23 @@ public class GameController implements ActionListener {
             if(emptyProperties.length != 0){
                 int target = guiController.getPropertyChoice(language.getLanguageValue("emtpyFieldChoice"),emptyProperties);
                 int spaces;
+
                 if (target < player.getLocation()) {
-                    spaces = player.getLocation() + 24 - target;
+                    spaces = (fieldController.fieldArrayList.size() - player.getLocation()) + target;
                 } else {
-                    spaces = player.getLocation() - target;
+                    spaces = target - player.getLocation();
                 }
                 playerController.playerMove(player, spaces);
+                guiController.updatePlayer(player);
+                landOnField(player);
+            } else{
+                // Needs a handler for if all fields are bought
+                EndGame();
             }
         }else {
             guiController.getRoll(language.getLanguageValue("rollText", player.getIdentifier()), language.getLanguageValue("rollButton"));
             diceHolder.roll();
+            guiController.showRoll(diceHolder.sum());
             guiController.displayDice(diceHolder.getRolls());
             if (player.getLocation() + diceHolder.sum() >= 24) {
                 player = playerController.playerMove(player, diceHolder.sum());
