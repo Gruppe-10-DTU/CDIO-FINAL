@@ -1,7 +1,6 @@
 package controllers;
 
-import chanceCards.*;
-import chanceCards.Choice;
+import models.chanceCards.*;
 import models.*;
 import models.fields.Field;
 import models.fields.Jail;
@@ -230,7 +229,7 @@ public class GameController implements ActionListener {
                 guiController.updatePlayer(currentPlayer);
                 break;
             case "Choice":
-                chanceCards.Choice chCard = (Choice) card;
+                ChoiceCard chCard = (ChoiceCard) card;
                 option1 = language.getLanguageValue("ccMoveXFields", String.valueOf(chCard.getMove()));
                 option2 = language.getLanguageValue("ccDrawAgain");
                 choice = guiController.showChanceCardChoice(language.getLanguageValue("ccChoice"), option1, option2);

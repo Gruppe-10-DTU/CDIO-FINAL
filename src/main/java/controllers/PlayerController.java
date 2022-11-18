@@ -1,9 +1,8 @@
 package controllers;
-import chanceCards.CharacterSpecific;
+import models.chanceCards.CharacterSpecific;
 import models.*;
 import models.Character;
 import models.fields.Property;
-import ui.GUIController;
 
 public class PlayerController {
     //make int Amount variable until GUI controller complete

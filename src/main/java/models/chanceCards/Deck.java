@@ -1,4 +1,4 @@
-package chanceCards;
+package models.chanceCards;
 
 import controllers.CSVReader;
 import models.Language;
@@ -57,7 +57,7 @@ public class Deck {
                     );
                     break;
                 case "Choice":
-                    deck[deckPosition] = new Choice(
+                    deck[deckPosition] = new ChoiceCard(
                             element.get(name),
                             description,
                             Integer.parseInt(element.get(maxVal)),

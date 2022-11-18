@@ -1,4 +1,4 @@
-package chanceCards;
+package models.chanceCards;
 
 
 public class MoveToColour extends ChanceCard{
