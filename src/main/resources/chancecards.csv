@@ -2,7 +2,7 @@ TYPE,NAME,MIN_VALUE,MAX_VALUE,BOOLEAN_MODIFIER,CHARACTER,COLOUR_2,COLOUR_1,FIELD
 CharacterSpecific,CHAR_SPECIFIC_1,,,true,Car,,,
 CharacterSpecific,CHAR_SPECIFIC_2,,,true,Tractor,,,
 CharacterSpecific,CHAR_SPECIFIC_3,,,true,Racecar,,,
-CharacterSpecific,CHAR_SPECIFIC_4,,,true,Ufo,,,
+CharacterSpecific,CHAR_SPECIFIC_4,,,true,UFO,,,
 MoveToColour,MOVE_TO_COLOUR_1,,,,,,ORANGE,
 MoveToColour,MOVE_TO_COLOUR_2,,,,,,CYAN,
 MoveToColour,MOVE_TO_COLOUR_3,,,,,,RED,
