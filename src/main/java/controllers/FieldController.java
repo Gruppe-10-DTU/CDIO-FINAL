@@ -192,4 +192,19 @@ public class FieldController {
         Property property = (Property) fieldArrayList.get(PropertyID);
         return property.getOwner() == null;
     }
+
+    /**
+     * see if a propertys neighbor have the same owner
+     * @param property the property in question
+     * @return true if the same owner, otherwise false
+     */
+    public boolean sameOwner(Property property){
+        if(property.getID() % 3 == 1){
+            //If the property is the first one, %3 will always be one and we'll add one to get the neighbor and compare the owners
+            return property.getOwner().equals(((Property) fieldArrayList.get(property.getID()+1)).getOwner());
+        }else{
+            //If the property is the second one, %3 will always be 2 and we'll subtract one to get the neighbor and compare the owners
+            return property.getOwner().equals(((Property) fieldArrayList.get(property.getID()-1)).getOwner());
+        }
+    }
 }
