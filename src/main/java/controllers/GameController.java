@@ -222,6 +222,7 @@ public class GameController implements ActionListener {
                 if(cbCard.getFromOthers()){
                     for (Player player: playerController.getPlayers()) {
                         player.setBalance(-1 * value);
+                        guiController.updatePlayer(player);
                     }
                     value *= playerController.getPlayers().length;
                 }
