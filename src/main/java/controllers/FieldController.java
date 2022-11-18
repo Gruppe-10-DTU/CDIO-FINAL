@@ -194,9 +194,9 @@ public class FieldController {
     }
 
     /**
-     *
-     * @param property
-     * @return
+     * see if a propertys neighbor have the same owner
+     * @param property the property in question
+     * @return true if the same owner, otherwise false
      */
     public boolean sameOwner(Property property){
         if(property.getID() % 3 == 1){
