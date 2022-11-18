@@ -33,7 +33,7 @@ public class GameController implements ActionListener {
         fieldController = new FieldController(language);
         guiController = new GUIController(fieldController.getFieldList());
         deck = new Deck(language);
-        //deck.shuffle();
+        deck.shuffle();
         int playerAmount = guiController.playerAmount(language.getLanguageValue("playerAmount"));
         playerController = new PlayerController(playerAmount);
         String name;
@@ -110,16 +110,23 @@ public class GameController implements ActionListener {
             if(emptyProperties.length != 0){
                 int target = guiController.getPropertyChoice(language.getLanguageValue("emtpyFieldChoice"),emptyProperties);
                 int spaces;
+
                 if (target < player.getLocation()) {
-                    spaces = player.getLocation() + 24 - target;
+                    spaces = (fieldController.fieldArrayList.size() - player.getLocation()) + target;
                 } else {
-                    spaces = player.getLocation() - target;
+                    spaces = target - player.getLocation();
                 }
                 playerController.playerMove(player, spaces);
+                guiController.updatePlayer(player);
+                landOnField(player);
+            } else{
+                // Needs a handler for if all fields are bought
+                EndGame();
             }
         }else {
             guiController.getRoll(language.getLanguageValue("rollText", player.getIdentifier()), language.getLanguageValue("rollButton"));
             diceHolder.roll();
+            guiController.showRoll(diceHolder.sum());
             guiController.displayDice(diceHolder.getRolls());
             if (player.getLocation() + diceHolder.sum() >= 24) {
                 player = playerController.playerMove(player, diceHolder.sum());
@@ -168,7 +175,10 @@ public class GameController implements ActionListener {
             }
             case "Chance": {
                 guiController.displayMsg(language.getLanguageValue("fieldChance"));
-                takeChance();
+                boolean drawAgain = false;
+                do {
+                    drawAgain = takeChance();
+                }while (drawAgain);
                 break;
             }
             case "Start": {
@@ -190,7 +200,7 @@ public class GameController implements ActionListener {
         }
     }
 
-    public void takeChance(){
+    public boolean takeChance(){
         ChanceCard card = deck.drawCard();
         String type = card.getType().replaceAll("class chanceCards.", "");
         guiController.showChanceCard(card.getDescription());
@@ -204,8 +214,7 @@ public class GameController implements ActionListener {
                 CharacterSpecific csCard = (CharacterSpecific) card;
                 playerController.addCharacterCard(csCard);
                 guiController.displayMsg(language.getLanguageValue("ccDrawAgain"));
-                takeChance();
-                break;
+                return true;
             case "ChangeBalance":
                 ChangeBalance cbCard = (ChangeBalance) card;
                 int value = cbCard.getEffect();
@@ -226,10 +235,10 @@ public class GameController implements ActionListener {
                 if(choice.equals(option1)){
                     playerController.playerMove(currentPlayer, chCard.getMove());
                     landOnField(currentPlayer);
+                    guiController.updatePlayer(currentPlayer);
                 } else if (choice.equals(option2)) {
-                    takeChance();
+                    return true;
                 }
-                guiController.updatePlayer(currentPlayer);
                 break;
             case "GetOutOfJail":
                 GetOutOfJail goojCard = (GetOutOfJail) card;
@@ -275,7 +284,7 @@ public class GameController implements ActionListener {
                 landOnField(currentPlayer);
                 break;
         }
-        //guiController.displayMsg("Chance");
+        return false;
     }
 
 

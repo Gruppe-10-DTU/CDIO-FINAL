@@ -137,6 +137,9 @@ public class GUIController {
         String choice = gui.getUserSelection(emtpyFieldChoice, Arrays.stream(properties).map(Field::getName).toArray(String[]::new));
         return Arrays.stream(properties).filter(field->field.getName()==choice).findFirst().get().getID();
     }
+    public void showRoll(int roll){
+        gui.setDie(roll);
+    }
 }
 
 
