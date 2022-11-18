@@ -53,7 +53,7 @@ public class Deck {
                             element.get(name),
                             description,
                             Integer.parseInt(element.get(maxVal)),
-                            Boolean.getBoolean(element.get(booleanModifier))
+                            Boolean.parseBoolean(element.get(booleanModifier))
                     );
                     break;
                 case "Choice":
@@ -61,7 +61,7 @@ public class Deck {
                             element.get(name),
                             description,
                             Integer.parseInt(element.get(maxVal)),
-                            Boolean.getBoolean(element.get(booleanModifier))
+                            Boolean.parseBoolean(element.get(booleanModifier))
                     );
                     break;
                 case "GetOutOfJail":
