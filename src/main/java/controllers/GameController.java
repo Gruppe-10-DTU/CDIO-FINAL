@@ -285,6 +285,7 @@ public class GameController implements ActionListener {
                 landOnField(currentPlayer);
                 break;
         }
+        guiController.updatePlayer(currentPlayer);
         return false;
     }
 
