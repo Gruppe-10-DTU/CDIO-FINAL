@@ -169,7 +169,10 @@ public class GameController implements ActionListener {
             }
             case "Chance": {
                 guiController.displayMsg(language.getLanguageValue("fieldChance"));
-                takeChance();
+                boolean drawAgain = false;
+                do {
+                    drawAgain = takeChance();
+                }while (drawAgain);
                 break;
             }
             case "Start": {
@@ -191,7 +194,7 @@ public class GameController implements ActionListener {
         }
     }
 
-    public void takeChance(){
+    public boolean takeChance(){
         ChanceCard card = deck.drawCard();
         String type = card.getType().replaceAll("class chanceCards.", "");
         guiController.showChanceCard(card.getDescription());
@@ -205,8 +208,7 @@ public class GameController implements ActionListener {
                 CharacterSpecific csCard = (CharacterSpecific) card;
                 playerController.addCharacterCard(csCard);
                 guiController.displayMsg(language.getLanguageValue("ccDrawAgain"));
-                takeChance();
-                break;
+                return true;
             case "ChangeBalance":
                 ChangeBalance cbCard = (ChangeBalance) card;
                 int value = cbCard.getEffect();
@@ -227,10 +229,10 @@ public class GameController implements ActionListener {
                 if(choice.equals(option1)){
                     playerController.playerMove(currentPlayer, chCard.getMove());
                     landOnField(currentPlayer);
+                    guiController.updatePlayer(currentPlayer);
                 } else if (choice.equals(option2)) {
-                    takeChance();
+                    return true;
                 }
-                guiController.updatePlayer(currentPlayer);
                 break;
             case "GetOutOfJail":
                 GetOutOfJail goojCard = (GetOutOfJail) card;
@@ -276,7 +278,7 @@ public class GameController implements ActionListener {
                 landOnField(currentPlayer);
                 break;
         }
-        //guiController.displayMsg("Chance");
+        return false;
     }
 
 
