@@ -36,7 +36,6 @@ public class GameController implements ActionListener {
         int playerAmount = guiController.playerAmount(language.getLanguageValue("playerAmount"));
         playerController = new PlayerController(playerAmount);
         String name;
-        String originalName = "car, racecar, ufo, tractor";
         StringBuilder sb = new StringBuilder("Car,Tractor,Racecar,UFO");
 
         for (int i = 0; i < playerAmount; i++) {
@@ -155,7 +154,6 @@ public class GameController implements ActionListener {
                     if (player.setBalance(-property.getPrice())) {
                         fieldController.setOwner(player, property.getID());
                         guiController.updateField(property);
-                        guiController.updatePlayer(player);
                         guiController.displayMsg(language.getLanguageValue("buy", Integer.toString(property.getPrice())));
                     } else {
                         EndGame();
@@ -164,11 +162,13 @@ public class GameController implements ActionListener {
                     guiController.displayMsg(language.getLanguageValue("noMoreHouses"));
                 } else {
                     guiController.displayMsg(language.getLanguageValue("fieldRent", property.getOwner().getIdentifier()));
-                    if (!playerController.getRent(player, property)) {
+                    if (!playerController.getRent(player, property, fieldController.sameOwner(property))) {
                         EndGame();
                     } else {
+                        guiController.updatePlayer(player);
                         guiController.updatePlayer(property.getOwner());
-                        guiController.displayMsg(language.getLanguageValue("pay", Integer.toString(property.getPrice())));
+                        int rent = fieldController.sameOwner(property) ? property.getPrice()*2 : property.getPrice();
+                        guiController.displayMsg(language.getLanguageValue("pay", Integer.toString(rent)));
                     }
                 }
                 break;
@@ -285,6 +285,7 @@ public class GameController implements ActionListener {
                 landOnField(currentPlayer);
                 break;
         }
+        guiController.updatePlayer(currentPlayer);
         return false;
     }
 
