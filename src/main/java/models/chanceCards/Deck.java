@@ -139,6 +139,10 @@ public class Deck {
         return this.deck.length;
     }
 
+    /**
+     * A method for testing specific cards in a game scenario
+     * @param Offset changes the drawn card
+     */
     public void rigDeck(int Offset) {
         for (int j = 0; j < Offset; j++) {
             ChanceCard temp = deck[0];
