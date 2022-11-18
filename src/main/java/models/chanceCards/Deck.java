@@ -19,7 +19,7 @@ public class Deck {
         final String DELIMITER = ",";
 
         try {
-            reader = new CSVReader(System.getProperty("user.dir")+ "src/main/resources/GamePack/chancecards.csv", DELIMITER, true);
+            reader = new CSVReader(System.getProperty("user.dir")+ "/src/main/resources/GamePack/chancecards.csv", DELIMITER, true);
         }catch(FileNotFoundException ignored){
         }
 

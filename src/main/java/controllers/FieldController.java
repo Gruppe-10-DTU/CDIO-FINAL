@@ -20,7 +20,7 @@ public class FieldController {
     public FieldController(Language language) {
         this.language = language;
 
-        String path = System.getProperty("user.dir") + "src/main/resources/GamePack/Fields.csv";
+        String path = System.getProperty("user.dir") + "/src/main/resources/GamePack/Fields.csv";
 
         CSVReader csvReader = null;
         try {
