@@ -80,7 +80,7 @@ public class GUIConverter {
                         }
                     }
 
-                    fields[field.getID()] = new GUI_Street(field.getName(), "", "", Integer.toString(prop.getPrice()), fieldColor, textColor);
+                    fields[field.getID()] = new GUI_Street(field.getName(), " ", field.getName(), Integer.toString(prop.getPrice()), fieldColor, textColor);
                     break;
                 }
                 case "Chance": {
@@ -88,7 +88,7 @@ public class GUIConverter {
                     break;
                 }
                 case "Start": {
-                    fields[field.getID()] = new GUI_Start(field.getName(), field.getName(), "", Color.white, Color.black);
+                    fields[field.getID()] = new GUI_Start(field.getName(), "", "", Color.white, Color.black);
                     break;
                 }
                 case "Jail": {

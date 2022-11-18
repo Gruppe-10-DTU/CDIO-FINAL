@@ -105,8 +105,8 @@ public class GUIController {
      */
     public void updateField(Property property){
         GUI_Street street = (GUI_Street) gui.getFields()[property.getID()];
-        street.setOwnableLabel(property.getOwner().getIdentifier());
-        street.setOwnerName(property.getOwner().getIdentifier());
+   //     street.setOwnableLabel(property.getOwner().getIdentifier());
+    //    street.setOwnerName(property.getOwner().getIdentifier());
         street.setHouses(1);
         street.setSubText(property.getOwner().getIdentifier());
     }
@@ -158,6 +158,7 @@ public class GUIController {
             }
         }
     }
+
 }
 
 
