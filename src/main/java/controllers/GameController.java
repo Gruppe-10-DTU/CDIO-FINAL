@@ -168,7 +168,8 @@ public class GameController implements ActionListener {
                     } else {
                         guiController.updatePlayer(player);
                         guiController.updatePlayer(property.getOwner());
-                        guiController.displayMsg(language.getLanguageValue("pay", Integer.toString(property.getPrice())));
+                        int rent = fieldController.sameOwner(property) ? property.getPrice()*2 : property.getPrice();
+                        guiController.displayMsg(language.getLanguageValue("pay", Integer.toString(rent)));
                     }
                 }
                 break;
