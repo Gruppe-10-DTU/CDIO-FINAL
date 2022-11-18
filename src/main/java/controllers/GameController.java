@@ -199,6 +199,7 @@ public class GameController implements ActionListener {
                 break;
             }
         }
+        guiController.updateBoard(playerController, fieldController);
     }
 
     public boolean takeChance(){
