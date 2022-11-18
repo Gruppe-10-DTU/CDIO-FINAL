@@ -37,7 +37,7 @@ class FieldControllerTest {
         CSVMock.add(new ArrayList<>(Arrays.asList("Property","PINK","1")));
         CSVMock.add(new ArrayList<>(Arrays.asList("ToJail")));
         CSVMock.add(new ArrayList<>(Arrays.asList("Property","RED","2")));
-
+        CSVMock.add(new ArrayList<>(Arrays.asList("Property","RED","2")));
         fieldcontroller.createFieldArray(CSVMock);
     }
 
@@ -117,7 +117,7 @@ class FieldControllerTest {
         HashMap playerValues = fieldcontroller.playerPropertyValues();
 
         assertEquals(5, playerValues.get(mockPlayer1));
-        assertEquals(1, playerValues.get(mockPlayer2));
+        assertEquals(3, playerValues.get(mockPlayer2));
     }
 
     @Test
@@ -134,4 +134,28 @@ class FieldControllerTest {
     }
 
 
+    @Test
+    void sameOwner() {
+        Player player1 = new Player(0,"test");
+        Field field;
+        fieldcontroller.setOwner(player1, 8);
+
+        Property property = (Property) fieldcontroller.getField(8);
+        assertFalse(fieldcontroller.sameOwner(property));
+        fieldcontroller.setOwner(player1, 7);
+        assertTrue(fieldcontroller.sameOwner(property));
+
+        //Reset
+        fieldcontroller.setOwner(null, 7);
+        fieldcontroller.setOwner(null, 8);
+
+        //Other way
+        fieldcontroller.setOwner(player1, 7);
+
+        property = (Property) fieldcontroller.getField(7);
+        assertFalse(fieldcontroller.sameOwner(property));
+        fieldcontroller.setOwner(player1, 8);
+        assertTrue(fieldcontroller.sameOwner(property));
+
+    }
 }
