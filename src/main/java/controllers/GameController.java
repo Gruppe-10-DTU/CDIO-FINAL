@@ -203,7 +203,7 @@ public class GameController implements ActionListener {
 
     public boolean takeChance(){
         ChanceCard card = deck.drawCard();
-        String type = card.getType().replaceAll("class chanceCards.", "");
+        String type = card.getType().replaceAll("class models.chanceCards.", "");
         guiController.showChanceCard(card.getDescription());
         String option1;
         String option2;
@@ -229,7 +229,7 @@ public class GameController implements ActionListener {
                 currentPlayer.setBalance(value);
                 guiController.updatePlayer(currentPlayer);
                 break;
-            case "Choice":
+            case "ChoiceCard":
                 ChoiceCard chCard = (ChoiceCard) card;
                 option1 = language.getLanguageValue("ccMoveXFields", String.valueOf(chCard.getMove()));
                 option2 = language.getLanguageValue("ccDrawAgain");
