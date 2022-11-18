@@ -1,4 +1,4 @@
-package chanceCards;
+package models.chanceCards;
 
 public class GetOutOfJail extends ChanceCard{
 

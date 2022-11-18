@@ -32,13 +32,13 @@ public class Language {
         String target;
         switch (language){
             case "en":
-                target = "/english.txt";
+                target = "/LanguagePack/english.txt";
                 break;
             case "da":
-                target = "/danish.txt";
+                target = "/LanguagePack/danish.txt";
                 break;
             default:
-                target = "/english.txt";
+                target = "/LanguagePack/english.txt";
                 break;
         }
         Class c = this.getClass();

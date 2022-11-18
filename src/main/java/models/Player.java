@@ -1,7 +1,7 @@
 package models;
 
-import chanceCards.CharacterSpecific;
-import chanceCards.GetOutOfJail;
+import models.chanceCards.CharacterSpecific;
+import models.chanceCards.GetOutOfJail;
 
 /**
  * Player class

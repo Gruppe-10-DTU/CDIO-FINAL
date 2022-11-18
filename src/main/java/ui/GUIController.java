@@ -1,6 +1,8 @@
 package ui;
 
+import controllers.FieldController;
 import controllers.GUIConverter;
+import controllers.PlayerController;
 import gui_fields.GUI_Player;
 import gui_fields.GUI_Street;
 import gui_main.GUI;
@@ -141,6 +143,21 @@ public class GUIController {
         gui.setDie(roll);
     }
 
+    /**
+     * Iterates thrhrough every player and every field and updates the gui
+     * @param playerController provides the players
+     * @param fieldController provides the fields
+     */
+    public void updateBoard(PlayerController playerController, FieldController fieldController){
+        for (Player player : playerController.getPlayers()) {
+            updatePlayer(player);
+        }
+        for (Field field: fieldController.getFieldList()) {
+            if ( field instanceof Property && ((Property) field).getOwner() != null){
+                updateField((Property) field);
+            }
+        }
+    }
 
 }
 

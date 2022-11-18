@@ -1,7 +1,6 @@
 package controllers;
 
-import chanceCards.*;
-import chanceCards.Choice;
+import models.chanceCards.*;
 import models.*;
 import models.fields.Field;
 import models.fields.Jail;
@@ -37,7 +36,6 @@ public class GameController implements ActionListener {
         int playerAmount = guiController.playerAmount(language.getLanguageValue("playerAmount"));
         playerController = new PlayerController(playerAmount);
         String name;
-        String originalName = "car, racecar, ufo, tractor";
         StringBuilder sb = new StringBuilder("Car,Tractor,Racecar,UFO");
 
         for (int i = 0; i < playerAmount; i++) {
@@ -156,7 +154,6 @@ public class GameController implements ActionListener {
                     if (player.setBalance(-property.getPrice())) {
                         fieldController.setOwner(player, property.getID());
                         guiController.updateField(property);
-                        guiController.updatePlayer(player);
                         guiController.displayMsg(language.getLanguageValue("buy", Integer.toString(property.getPrice())));
                     } else {
                         EndGame();
@@ -165,11 +162,13 @@ public class GameController implements ActionListener {
                     guiController.displayMsg(language.getLanguageValue("noMoreHouses"));
                 } else {
                     guiController.displayMsg(language.getLanguageValue("fieldRent", property.getOwner().getIdentifier()));
-                    if (!playerController.getRent(player, property)) {
+                    if (!playerController.getRent(player, property, fieldController.sameOwner(property))) {
                         EndGame();
                     } else {
+                        guiController.updatePlayer(player);
                         guiController.updatePlayer(property.getOwner());
-                        guiController.displayMsg(language.getLanguageValue("pay", Integer.toString(property.getPrice())));
+                        int rent = fieldController.sameOwner(property) ? property.getPrice()*2 : property.getPrice();
+                        guiController.displayMsg(language.getLanguageValue("pay", Integer.toString(rent)));
                     }
                 }
                 break;
@@ -199,11 +198,12 @@ public class GameController implements ActionListener {
                 break;
             }
         }
+        guiController.updateBoard(playerController, fieldController);
     }
 
     public boolean takeChance(){
         ChanceCard card = deck.drawCard();
-        String type = card.getType().replaceAll("class chanceCards.", "");
+        String type = card.getType().replaceAll("class models.chanceCards.", "");
         guiController.showChanceCard(card.getDescription());
         String option1;
         String option2;
@@ -222,14 +222,15 @@ public class GameController implements ActionListener {
                 if(cbCard.getFromOthers()){
                     for (Player player: playerController.getPlayers()) {
                         player.setBalance(-1 * value);
+                        guiController.updatePlayer(player);
                     }
                     value *= playerController.getPlayers().length;
                 }
                 currentPlayer.setBalance(value);
                 guiController.updatePlayer(currentPlayer);
                 break;
-            case "Choice":
-                chanceCards.Choice chCard = (Choice) card;
+            case "ChoiceCard":
+                ChoiceCard chCard = (ChoiceCard) card;
                 option1 = language.getLanguageValue("ccMoveXFields", String.valueOf(chCard.getMove()));
                 option2 = language.getLanguageValue("ccDrawAgain");
                 choice = guiController.showChanceCardChoice(language.getLanguageValue("ccChoice"), option1, option2);
@@ -285,6 +286,7 @@ public class GameController implements ActionListener {
                 landOnField(currentPlayer);
                 break;
         }
+        guiController.updatePlayer(currentPlayer);
         return false;
     }
 

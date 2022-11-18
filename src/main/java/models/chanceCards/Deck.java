@@ -1,4 +1,4 @@
-package chanceCards;
+package models.chanceCards;
 
 import controllers.CSVReader;
 import models.Language;
@@ -19,7 +19,7 @@ public class Deck {
         final String DELIMITER = ",";
 
         try {
-            reader = new CSVReader(System.getProperty("user.dir")+ "/src/main/resources/chancecards.csv", DELIMITER, true);
+            reader = new CSVReader(System.getProperty("user.dir")+ "/src/main/resources/GamePack/chancecards.csv", DELIMITER, true);
         }catch(FileNotFoundException ignored){
         }
 
@@ -57,7 +57,7 @@ public class Deck {
                     );
                     break;
                 case "Choice":
-                    deck[deckPosition] = new Choice(
+                    deck[deckPosition] = new ChoiceCard(
                             element.get(name),
                             description,
                             Integer.parseInt(element.get(maxVal)),

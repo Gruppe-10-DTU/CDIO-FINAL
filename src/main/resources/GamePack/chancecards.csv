@@ -11,8 +11,8 @@ MoveToColour,MOVE_TO_COLOUR_5,,,,,PINK,BLUE,
 MoveToColour,MOVE_TO_COLOUR_6,,,,,CYAN,RED,
 MoveToColour,MOVE_TO_COLOUR_7,,,,,BROWN,YELLOW,
 MoveToField,MOVE_TO_FIELD_1,,,,,,,0
-MoveToField,MOVE_TO_FIELD_2,,,,,,,10
-MoveToField,MOVE_TO_FIELD_3,,,,,,,23
+MoveToField,MOVE_TO_FIELD_2,,,,,,,23
+MoveToField,MOVE_TO_FIELD_3,,,,,,,10
 ChangeBalance,CHANGE_BALANCE_1,,1,true,,,,
 ChangeBalance,CHANGE_BALANCE_2,,2,false,,,,
 ChangeBalance,CHANGE_BALANCE_3,,-2,false,,,,

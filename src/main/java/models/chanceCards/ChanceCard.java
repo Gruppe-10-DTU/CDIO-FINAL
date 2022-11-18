@@ -1,4 +1,4 @@
-package chanceCards;
+package models.chanceCards;
 
 public abstract class ChanceCard {
     protected final String NAME;

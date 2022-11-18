@@ -20,7 +20,7 @@ public class FieldController {
     public FieldController(Language language) {
         this.language = language;
 
-        String path = System.getProperty("user.dir") + "/src/main/java/models/Fields.csv";
+        String path = System.getProperty("user.dir") + "/src/main/resources/GamePack/Fields.csv";
 
         CSVReader csvReader = null;
         try {
@@ -191,5 +191,22 @@ public class FieldController {
     public boolean getFreeField(Player Player, int PropertyID) {
         Property property = (Property) fieldArrayList.get(PropertyID);
         return property.getOwner() == null;
+    }
+
+    /**
+     * see if a propertys neighbor have the same owner
+     * @param property the property in question
+     * @return true if the same owner, otherwise false
+     */
+    public boolean sameOwner(Property property){
+        Property property2;
+        if(property.getID() % 3 == 1){
+            //If the property is the first one, %3 will always be one and we'll add one to get the neighbor and compare the owners
+            property2 = (Property) fieldArrayList.get(property.getID()+1);
+        }else{
+            //If the property is the second one, %3 will always be 2 and we'll subtract one to get the neighbor and compare the owners
+            property2 = (Property) fieldArrayList.get(property.getID()-1);
+        }
+        return property2.getOwner() != null && property.getOwner().equals(property2.getOwner());
     }
 }
