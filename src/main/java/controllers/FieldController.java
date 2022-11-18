@@ -209,4 +209,7 @@ public class FieldController {
         }
         return property2.getOwner() != null && property.getOwner().equals(property2.getOwner());
     }
+    public boolean sellField(Property property, Player buyer){
+        return true;
+    }
 }

@@ -18,7 +18,7 @@ public class Player {
     /**
      * @param iD   id of the player
      * @param name name
-     * @defaults Balance is set to 20, soldSign set to 12, location set to 0, character not set
+     * @default Balance is set to 20, soldSign set to 12, location set to 0, character not set
      */
     public Player(int iD, String name){
         this.iD = iD;
@@ -29,7 +29,7 @@ public class Player {
      * @param iD        id of the player
      * @param name      name
      * @param character The player character
-     * @defaults Balance is set to 20, location set to 0 and soldSign set to 12
+     * @default Balance is set to 20, location set to 0 and soldSign set to 12
      */
     public Player(int iD, String name, Character character){
         this.iD = iD;
@@ -54,7 +54,7 @@ public class Player {
 
 
     /**
-     * @param iD
+     * @param iD              ID of player
      * @param name            Name of player
      * @param startingBalance Starting bank account value
      * @param character       Players character token
@@ -79,13 +79,16 @@ public class Player {
 
     /**
      * @param newBalance The change in balance for the player. Cannot be set below 0
-     * @return True if change was possible, false if it was set to 0
+     * @return True if change was possible, false if balance wasn't changed
      */
     // setter
     public boolean setBalance(int newBalance) {
         int newValue = balance.getBalance() + newBalance;
-        balance.setBalance(Math.max(newValue, 0));
-        return newValue >= 0;
+        if(newValue>=0){
+            balance.setBalance(newValue);
+            return true;
+        }
+        return false;
     }
 
     /**

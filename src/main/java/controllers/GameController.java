@@ -226,7 +226,9 @@ public class GameController implements ActionListener {
                     }
                     value *= playerController.getPlayers().length;
                 }
-                currentPlayer.setBalance(value);
+                if(!currentPlayer.setBalance(value)){
+                    EndGame();
+                }
                 guiController.updatePlayer(currentPlayer);
                 break;
             case "Choice":

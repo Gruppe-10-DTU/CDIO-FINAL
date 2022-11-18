@@ -80,12 +80,7 @@ public class PlayerController {
      * @return
      */
     public boolean payMoney(Player player, int amount){
-        if(player.getBalance() - amount < 0){
-            return false;
-        }else{
-            player.setBalance(-amount);
-            return true;
-        }
+        return player.setBalance(-amount);
     }
 
     /**
@@ -96,13 +91,11 @@ public class PlayerController {
      */
     public boolean getRent(Player player, Property property, boolean doubleRent){
         int rent = doubleRent ? property.getPrice() * 2: property.getPrice();
-        if(player.getBalance() < rent){
-            return false;
-        }else{
-            player.setBalance(-rent);
+        if( player.setBalance(-rent)){
             property.getOwner().setBalance(rent);
             return true;
         }
+        return false;
     }
 
     /**
