@@ -148,7 +148,6 @@ public class GameController implements ActionListener {
                     if (player.setBalance(-property.getPrice())) {
                         fieldController.setOwner(player, property.getID());
                         guiController.updateField(property);
-                        guiController.updatePlayer(player);
                         guiController.displayMsg(language.getLanguageValue("buy", Integer.toString(property.getPrice())));
                     } else {
                         EndGame();
@@ -160,6 +159,7 @@ public class GameController implements ActionListener {
                     if (!playerController.getRent(player, property, fieldController.sameOwner(property))) {
                         EndGame();
                     } else {
+                        guiController.updatePlayer(player);
                         guiController.updatePlayer(property.getOwner());
                         guiController.displayMsg(language.getLanguageValue("pay", Integer.toString(property.getPrice())));
                     }
