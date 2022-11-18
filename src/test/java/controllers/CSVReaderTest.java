@@ -58,5 +58,6 @@ class CSVReaderTest {
         assertEquals(reader.getHeaderIndex("Header1"), 0);
         assertEquals(reader.getHeaderIndex("Header2"), 1);
         assertEquals(reader.getHeaderIndex("Header3"), 2);
+        assertEquals(reader.getHeaderIndex("Not a header"), -1);
     }
 }
