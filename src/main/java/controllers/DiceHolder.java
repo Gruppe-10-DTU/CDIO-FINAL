@@ -1,4 +1,6 @@
-package models;
+package controllers;
+
+import models.Die;
 
 import java.util.Arrays;
 
@@ -45,14 +47,6 @@ public class DiceHolder {
             totalValue += roll;
         }
         return totalValue;
-    }
-
-    //See if the n die are equal
-    public boolean isEqual() {
-        if (Arrays.stream(rolls).distinct().count() == 1) {
-            return true;
-        }
-        return false;
     }
 
     @Override
