@@ -209,18 +209,19 @@ public class GameController implements ActionListener {
         String option2;
         String choice;
         int fieldsToMove;
-        switch (type){
+        switch (type) {
             case "CharacterSpecific":
                 //Add the card to the correct player, then take a new chance card
                 CharacterSpecific csCard = (CharacterSpecific) card;
                 playerController.addCharacterCard(csCard);
                 guiController.displayMsg(language.getLanguageValue("ccDrawAgain"));
                 return true;
+
             case "ChangeBalance":
                 ChangeBalance cbCard = (ChangeBalance) card;
                 int value = cbCard.getEffect();
-                if(cbCard.getFromOthers()){
-                    for (Player player: playerController.getPlayers()) {
+                if (cbCard.getFromOthers()) {
+                    for (Player player : playerController.getPlayers()) {
                         player.setBalance(-1 * value);
                         guiController.updatePlayer(player);
                     }
@@ -229,12 +230,13 @@ public class GameController implements ActionListener {
                 currentPlayer.setBalance(value);
                 guiController.updatePlayer(currentPlayer);
                 break;
+
             case "ChoiceCard":
                 ChoiceCard chCard = (ChoiceCard) card;
                 option1 = language.getLanguageValue("ccMoveXFields", String.valueOf(chCard.getMove()));
                 option2 = language.getLanguageValue("ccDrawAgain");
                 choice = guiController.showChanceCardChoice(language.getLanguageValue("ccChoice"), option1, option2);
-                if(choice.equals(option1)){
+                if (choice.equals(option1)) {
                     playerController.playerMove(currentPlayer, chCard.getMove());
                     landOnField(currentPlayer);
                     guiController.updatePlayer(currentPlayer);
@@ -242,31 +244,40 @@ public class GameController implements ActionListener {
                     return true;
                 }
                 break;
+
             case "GetOutOfJail":
                 GetOutOfJail goojCard = (GetOutOfJail) card;
                 currentPlayer.setGetOutOfJail(goojCard);
                 break;
+
             case "MoveToColour":
                 MoveToColour mtcCard = (MoveToColour) card;
-                if(mtcCard.getColour_2() == null || mtcCard.getColour_2().equals("")){
+                if (mtcCard.getColour_2() == null || mtcCard.getColour_2().equals("")) {
                     fieldsToMove = fieldController.moveToColor(mtcCard.getColour_1(), currentPlayer);
-                }else {
+                } else {
                     option1 = language.getLanguageValue(mtcCard.getColour_1().toUpperCase());
                     option2 = language.getLanguageValue(mtcCard.getColour_2().toUpperCase());
                     choice = guiController.showChanceCardChoice(language.getLanguageValue("ccChoice"), option1, option2);
-                    if(choice.equals(option2)){
+                    if (choice.equals(option2)) {
                         fieldsToMove = fieldController.moveToColor(mtcCard.getColour_2(), currentPlayer);
-                    } else  {
+                    } else {
                         fieldsToMove = fieldController.moveToColor(mtcCard.getColour_1(), currentPlayer);
                     }
                 }
                 playerController.playerMove(currentPlayer, fieldsToMove);
+                option1 = fieldController.getFieldList().get(currentPlayer.getLocation()).getName();
+                option2 = fieldController.getFieldList().get(currentPlayer.getLocation() + 1 ).getName();
+                choice = guiController.showChanceCardChoice(language.getLanguageValue("ccChoice"), option1, option2);
+                if(choice.equals(option2)){
+                    playerController.playerMove(currentPlayer, 1);
+                }
                 guiController.updatePlayer(currentPlayer);
                 if (fieldController.getFreeField(currentPlayer, currentPlayer.getLocation())){
                     fieldController.setOwner(currentPlayer, currentPlayer.getLocation());
                     guiController.updateField((Property)fieldController.getField(currentPlayer.getLocation()));
-                } else landOnField(currentPlayer);
+                }else landOnField(currentPlayer);
                 break;
+
             case "MoveToField":
                 MoveToField mtfCard = (MoveToField) card;
                 if(currentPlayer.getLocation() > mtfCard.getFieldID()){
@@ -278,6 +289,7 @@ public class GameController implements ActionListener {
                 guiController.updatePlayer(currentPlayer);
                 landOnField(currentPlayer);
                 break;
+
             case "MoveXSteps":
                 MoveXSteps mxsCard = (MoveXSteps) card;
                 int move = guiController.getXStepsToMove(language.getLanguageValue("moveXStepsChoice"), mxsCard.getMinSteps(),mxsCard.getMaxSteps());
