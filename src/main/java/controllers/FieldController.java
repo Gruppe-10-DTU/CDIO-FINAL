@@ -212,4 +212,8 @@ public class FieldController {
     public boolean sellField(Property property, Player buyer){
         return true;
     }
+
+    public Property[] getFieldOtherPlayers(Player player) {
+        return fieldArrayList.stream().filter(field -> field instanceof Property && ((Property) field).getOwner() != player).toArray(Property[]::new);
+    }
 }
