@@ -104,24 +104,7 @@ public class GameController implements ActionListener {
            }
         }
         if(player.getCharacterSpecific() != null){
-            player.setCharacterSpecific(null);
-            Property[] emptyProperties = fieldController.getFreeFields();
-            if(emptyProperties.length != 0){
-                int target = guiController.getPropertyChoice(language.getLanguageValue("emtpyFieldChoice"),emptyProperties);
-                int spaces;
-
-                if (target < player.getLocation()) {
-                    spaces = (fieldController.fieldArrayList.size() - player.getLocation()) + target;
-                } else {
-                    spaces = target - player.getLocation();
-                }
-                playerController.playerMove(player, spaces);
-                guiController.updatePlayer(player);
-                landOnField(player);
-            } else{
-                // Needs a handler for if all fields are bought
-                EndGame();
-            }
+            characterSpecific(player);
         }else {
             guiController.getRoll(language.getLanguageValue("rollText", player.getIdentifier()), language.getLanguageValue("rollButton"));
             diceHolder.roll();
@@ -138,6 +121,41 @@ public class GameController implements ActionListener {
             landOnField(player);
         }
         turnCounter++;
+    }
+
+    /**
+     * Handle all logic regarding the specific character card.
+     * @param player Player to take the turn
+     */
+    public void characterSpecific(Player player){
+        player.setCharacterSpecific(null);
+        Property[] propertyChoices = fieldController.getFreeFields();
+        if(propertyChoices.length != 0){
+            int target = guiController.getPropertyChoice(language.getLanguageValue("emtpyFieldChoice"),propertyChoices);
+            int spaces;
+
+            if (target < player.getLocation()) {
+                spaces = (fieldController.fieldArrayList.size() - player.getLocation()) + target;
+            } else {
+                spaces = target - player.getLocation();
+            }
+            playerController.playerMove(player, spaces);
+            guiController.updatePlayer(player);
+            landOnField(player);
+        } else{
+            propertyChoices = fieldController.getFieldOtherPlayers(player);
+            int target = guiController.getPropertyChoice(language.getLanguageValue("buyFieldFromPlayer"), propertyChoices);
+            Property property = (Property) fieldController.getField(target);
+            if (player.setBalance(-property.getPrice())) {
+                property.getOwner().setBalance(property.getPrice());
+                guiController.updatePlayer(property.getOwner());
+                fieldController.setOwner(player, property.getID());
+                guiController.updateField(property);
+                guiController.displayMsg(language.getLanguageValue("buy", Integer.toString(property.getPrice())));
+            } else {
+                EndGame();
+            }
+        }
     }
 
     /**
