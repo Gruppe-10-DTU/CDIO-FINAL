@@ -203,7 +203,7 @@ public class GameController implements ActionListener {
 
     public boolean takeChance(){
         ChanceCard card = deck.drawCard();
-        String type = card.getType().replaceAll("class models.chanceCards.", "");
+        String type = card.getType();
         guiController.showChanceCard(card.getDescription());
         String option1;
         String option2;
