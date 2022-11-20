@@ -157,5 +157,24 @@ class FieldControllerTest {
         fieldcontroller.setOwner(player1, 8);
         assertTrue(fieldcontroller.sameOwner(property));
 
+        fieldcontroller.setOwner(null, 7);
+        fieldcontroller.setOwner(null, 8);
+    }
+
+    @Test
+    void testAllChoicesTest() {
+        int counter = 0;
+        for (Field field : fieldcontroller.fieldArrayList) {
+            if ( field instanceof Property) {
+                if (counter < 2) {
+                    ((Property) field).setOwner(mockPlayer1);
+                    counter++;
+                } else {
+                    ((Property) field).setOwner(mockPlayer2);
+                }
+            }
+        }
+        assertEquals(2, fieldcontroller.getFieldOtherPlayers(mockPlayer1).length);
+        assertEquals(7, fieldcontroller.getFieldOtherPlayers(mockPlayer1)[0].getID() );
     }
 }
