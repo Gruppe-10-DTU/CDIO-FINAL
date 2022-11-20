@@ -39,7 +39,6 @@ public class GameController implements ActionListener {
         StringBuilder sb = new StringBuilder("Car,Tractor,Racecar,UFO");
 
         for (int i = 0; i < playerAmount; i++) {
-
             name = guiController.getName(language.getLanguageValue("inputName"));
             while (!playerController.playerUnique(name)) {
                 guiController.displayMsg(language.getLanguageValue("nameNotUnique"));
@@ -51,6 +50,7 @@ public class GameController implements ActionListener {
 
             playerController.addPlayer(i, character, name);
         }
+
         guiController.setPlayers(playerController.getPlayers());
         while (!isOver) {
             this.currentPlayer = playerController.getPlayerById(turnCounter);
@@ -144,12 +144,24 @@ public class GameController implements ActionListener {
             landOnField(player);
         } else{
             propertyChoices = fieldController.getFieldOtherPlayers(player);
+            if(propertyChoices.length == 0){
+                guiController.displayMsg(language.getLanguageValue("ownEverything"));
+                return;
+            }
             int target = guiController.getPropertyChoice(language.getLanguageValue("buyFieldFromPlayer"), propertyChoices);
             Property property = (Property) fieldController.getField(target);
+            int spaces;
+            if (target < player.getLocation()) {
+                spaces = (fieldController.fieldArrayList.size() - player.getLocation()) + target;
+            } else {
+                spaces = target - player.getLocation();
+            }
             if (player.setBalance(-property.getPrice())) {
                 property.getOwner().setBalance(property.getPrice());
                 guiController.updatePlayer(property.getOwner());
                 fieldController.setOwner(player, property.getID());
+                playerController.playerMove(player, spaces);
+                guiController.updatePlayer(player);
                 guiController.updateField(property);
                 guiController.displayMsg(language.getLanguageValue("buy", Integer.toString(property.getPrice())));
             } else {
@@ -200,7 +212,7 @@ public class GameController implements ActionListener {
                 break;
             }
             case "Start": {
-                guiController.displayMsg(language.getLanguageValue("fieldLandStart"));
+                //guiController.displayMsg(language.getLanguageValue("fieldLandStart"));
                 break;
             }
             case "Empty": {
@@ -208,7 +220,7 @@ public class GameController implements ActionListener {
                 break;
             }
             case "ToJail": {
-                guiController.displayMsg("fieldGoToJail");
+                guiController.displayMsg(language.getLanguageValue("fieldGoToJail"));
                 fieldController.jailPlayer(player);
                 guiController.updatePlayer(player);
             }
