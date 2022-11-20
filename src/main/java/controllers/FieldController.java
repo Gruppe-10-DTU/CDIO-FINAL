@@ -4,7 +4,6 @@ import models.Language;
 import models.Player;
 import models.fields.*;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -20,14 +19,11 @@ public class FieldController {
     public FieldController(Language language) {
         this.language = language;
 
-        String path = System.getProperty("user.dir") + "/src/main/resources/GamePack/Fields.csv";
+        String path = "/GamePack/Fields.csv";
 
         CSVReader csvReader = null;
-        try {
-            csvReader = new CSVReader(path, ",", true);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+
+        csvReader = new CSVReader(path, ",", true);
         ArrayList<ArrayList<String>> fieldData = csvReader.getDataAsArrList();
 
         createFieldArray(fieldData);

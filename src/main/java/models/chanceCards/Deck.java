@@ -3,7 +3,6 @@ package models.chanceCards;
 import controllers.CSVReader;
 import models.Language;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class Deck {
@@ -18,10 +17,7 @@ public class Deck {
     public Deck(Language language) {
         final String DELIMITER = ",";
 
-        try {
-            reader = new CSVReader(System.getProperty("user.dir")+ "/src/main/resources/GamePack/chancecards.csv", DELIMITER, true);
-        }catch(FileNotFoundException ignored){
-        }
+        reader = new CSVReader("/GamePack/chancecards.csv", DELIMITER, true);
 
         ArrayList<ArrayList<String>> cardData = reader.getDataAsArrList();
 

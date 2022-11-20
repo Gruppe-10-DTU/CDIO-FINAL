@@ -4,7 +4,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,11 +12,8 @@ class CSVReaderTest {
 
     @BeforeEach
     void setUp() {
-        try{
-            reader = new CSVReader(System.getProperty("user.dir") + "/src/test/resources/csvTestData.csv",",", true);
-        }catch (FileNotFoundException fileNotFoundException){
-            fail();
-        }
+        reader = new CSVReader("/csvTestData.csv",",", true);
+
     }
 
     @AfterEach
