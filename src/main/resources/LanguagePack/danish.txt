@@ -87,3 +87,5 @@ fieldRent=Denne ejendom har allerede en ejer og du skal derfor betale leje til {
 buy=Du købte ejendommen for {0}M
 pay=Du betalte {0}M i leje
 emtpyFieldChoice=Vælg et felt du vil købe
+buyFieldFromPlayer=Du må købe et felt fra en anden spiller
+ownEverything=Du ejer allerede alle felter
