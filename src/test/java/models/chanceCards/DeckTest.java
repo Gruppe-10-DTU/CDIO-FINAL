@@ -1,4 +1,4 @@
-package chanceCards;
+package models.chanceCards;
 
 import models.Language;
 import models.chanceCards.Deck;

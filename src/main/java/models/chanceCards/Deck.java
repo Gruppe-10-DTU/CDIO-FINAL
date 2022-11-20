@@ -3,7 +3,6 @@ package models.chanceCards;
 import controllers.CSVReader;
 import models.Language;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class Deck {
@@ -18,10 +17,7 @@ public class Deck {
     public Deck(Language language) {
         final String DELIMITER = ",";
 
-        try {
-            reader = new CSVReader(System.getProperty("user.dir")+ "/src/main/resources/chancecards.csv", DELIMITER, true);
-        }catch(FileNotFoundException ignored){
-        }
+        reader = new CSVReader("/GamePack/chancecards.csv", DELIMITER, true);
 
         ArrayList<ArrayList<String>> cardData = reader.getDataAsArrList();
 
@@ -53,7 +49,7 @@ public class Deck {
                             element.get(name),
                             description,
                             Integer.parseInt(element.get(maxVal)),
-                            Boolean.getBoolean(element.get(booleanModifier))
+                            Boolean.parseBoolean(element.get(booleanModifier))
                     );
                     break;
                 case "Choice":
@@ -61,7 +57,7 @@ public class Deck {
                             element.get(name),
                             description,
                             Integer.parseInt(element.get(maxVal)),
-                            Boolean.getBoolean(element.get(booleanModifier))
+                            Boolean.parseBoolean(element.get(booleanModifier))
                     );
                     break;
                 case "GetOutOfJail":
@@ -139,6 +135,10 @@ public class Deck {
         return this.deck.length;
     }
 
+    /**
+     * A method for testing specific cards in a game scenario
+     * @param Offset changes the drawn card
+     */
     public void rigDeck(int Offset) {
         for (int j = 0; j < Offset; j++) {
             ChanceCard temp = deck[0];

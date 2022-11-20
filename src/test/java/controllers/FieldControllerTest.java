@@ -46,7 +46,7 @@ class FieldControllerTest {
     @Test
     void construct() {
 
-        assertEquals(8, fieldcontroller.fieldArrayList.size());
+        assertEquals(9, fieldcontroller.fieldArrayList.size());
     }
 
 
@@ -130,7 +130,7 @@ class FieldControllerTest {
         //Move past start
         mockPlayer2.setLocation(5);
         int spaces2 = fieldcontroller.moveToColor("BROWN", mockPlayer2);
-        assertEquals(4, spaces2);
+        assertEquals(5, spaces2);
     }
 
 

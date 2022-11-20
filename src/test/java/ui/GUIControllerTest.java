@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 public class GUIControllerTest extends TestCase {
 
-@Test
+    @Test
     public void testUpdatePlayer() {
         GUIController gui = new GUIController();
         Character character = new Character("UFO", "");
@@ -18,7 +18,7 @@ public class GUIControllerTest extends TestCase {
         gui.updatePlayer(player[0]);
         gui.displayMsg("New balance 5");
     }
-
+    @Test
     public void testMovePlayer() {
         GUIController gui = new GUIController();
         Character character = new Character("UFO", "");

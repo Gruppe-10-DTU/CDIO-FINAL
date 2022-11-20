@@ -1,50 +1,42 @@
 package controllers;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class CSVReader {
     private final String DELIMITER;
-    private Scanner reader;
+    private BufferedReader reader;
     private String[] headers;
-    private File file;
+    private String file;
     private ArrayList<ArrayList<String>> fileAsArrList;
 
     /**
      * Reads the content of the CSV file to a 2d ArrayList
      * @param CSVFilePath the path to the CSV file
      * @param HasHeaders a boolean representing whether the columns have titles
-     * @throws FileNotFoundException
      */
-    public CSVReader(String CSVFilePath, String ValueSeperator, boolean HasHeaders) throws FileNotFoundException {
+    public CSVReader(String CSVFilePath, String ValueSeperator, boolean HasHeaders)  {
         this.DELIMITER = ValueSeperator;
-        this.file = new File(CSVFilePath);
-
-        this.reader = new Scanner(new BufferedReader(new FileReader(file)));
-
-        if(HasHeaders) {
-            this.headers = reader.nextLine().split(DELIMITER);
+        this.file = CSVFilePath;
+        InputStream stream = this.getClass().getResourceAsStream(file);
+        assert stream != null;
+        this.reader = new BufferedReader(new InputStreamReader(stream));
+        try {
+            if (HasHeaders) {
+                this.headers = reader.readLine().split(DELIMITER);
+            }
+            fileAsArrList = new ArrayList<>();
+            int count = 0;
+            String line;
+            while ((line = reader.readLine())!=null) {
+                fileAsArrList.add(count, new ArrayList<>(List.of(line.split(DELIMITER))));
+                count++;
+            }
+            reader.close();
+        }catch (IOException ignore){
         }
-        fileAsArrList = new ArrayList<>();
-        int count = 0;
-        while(reader.hasNextLine()){
-            fileAsArrList.add(count, readLine());
-            count++;
-        }
-        close();
     }
 
-    private ArrayList<String> readLine(){
-        ArrayList<String> result = new ArrayList<>(List.of(reader.nextLine().split(DELIMITER)));
-        return result;
-    }
-    private void close(){
-        reader.close();
-    }
     public ArrayList<ArrayList<String>> getDataAsArrList(){
         return fileAsArrList;
     }
