@@ -41,6 +41,12 @@ class GameControllerTest {
     @Test
     void testEqualBalance() {
         fieldController.setOwner(pc.getPlayers()[0],1);
+        assertEquals(pc.getPlayers()[0].getIdentifier(), gameController.checkAllBalance());
+    }
+    @Test
+    void testZeroBalance() {
+        pc.payMoney(pc.getPlayers()[1],1000);
+        pc.payMoney(pc.getPlayers()[2],1000);
 //        assertEquals(pc.getPlayers()[0].getIdentifier(), gameController.checkAllBalance());
     }
 }

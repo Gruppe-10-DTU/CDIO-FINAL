@@ -78,4 +78,19 @@ public class GUIControllerStub extends ui.GUIController {
     public void movePlayer(Player player) {
 
     }
+
+    @Override
+    public void getRoll(String rollText, String rollButton) {
+
+    }
+
+    @Override
+    public void showRoll(int roll) {
+
+    }
+
+    @Override
+    public void displayDice(int[] rolls) {
+
+    }
 }

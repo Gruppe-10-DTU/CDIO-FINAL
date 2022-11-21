@@ -396,7 +396,8 @@ public class GameController implements ActionListener {
         Player winner = new Player(99, "");
         int maxTotal = 0;
         for (Player player : players) {
-            int playerBal = player.getBalance() + playerProp.get(player);
+            int playerBal = 0;
+            if (playerProp.get(player) != null) playerBal = player.getBalance() + playerProp.get(player);
             if (maxTotal < playerBal && equalLS.contains(player.getIdentifier())) {
                 maxTotal = playerBal;
                 winner = player;
