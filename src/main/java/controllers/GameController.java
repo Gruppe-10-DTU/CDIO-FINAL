@@ -16,7 +16,7 @@ import java.util.*;
 import java.util.List;
 
 public class GameController implements ActionListener {
-    private DiceHolder diceHolder = new DiceHolder(1);
+    private DiceHolder diceHolder;
     private int turnCounter = 0;
     private boolean isOver = false;
     private Language language;
@@ -32,17 +32,19 @@ public class GameController implements ActionListener {
         fieldController = new FieldController(language);
         guiController = new GUIController(fieldController.getFieldList());
         deck = new Deck(language);
+        diceHolder = new DiceHolder(1);
         int playerAmount = guiController.playerAmount(language.getLanguageValue("playerAmount"));
         playerController = new PlayerController(playerAmount);
         deck.shuffle();
         this.initialize();
     }
-    public GameController(Language language, PlayerController playerController, FieldController fieldController, GUIController guiController, Deck deck){
+    public GameController(Language language, PlayerController playerController, FieldController fieldController, GUIController guiController, Deck deck, DiceHolder diceHolder){
         this.language = language;
         this.playerController = playerController;
         this.fieldController = fieldController;
         this.guiController = guiController;
         this.deck = deck;
+        this.diceHolder = diceHolder;
         deck.shuffle();
     }
     public void initialize(){
