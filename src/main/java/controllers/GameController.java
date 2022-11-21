@@ -35,6 +35,7 @@ public class GameController implements ActionListener {
         int playerAmount = guiController.playerAmount(language.getLanguageValue("playerAmount"));
         playerController = new PlayerController(playerAmount);
         deck.shuffle();
+        this.initialize();
     }
     public GameController(Language language, PlayerController playerController, FieldController fieldController, GUIController guiController, Deck deck){
         this.language = language;
