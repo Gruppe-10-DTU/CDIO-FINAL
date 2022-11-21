@@ -5,6 +5,7 @@ import models.*;
 import models.fields.Field;
 import models.fields.Jail;
 import models.fields.Property;
+import org.apache.commons.codec.language.bm.Lang;
 import ui.GUIController;
 
 import javax.swing.*;
@@ -27,19 +28,26 @@ public class GameController implements ActionListener {
     private Popup p;
 
     public GameController() {
-
-    }
-    public void initialize(){
         language = new Language(System.getProperty("user.language"));
         fieldController = new FieldController(language);
         guiController = new GUIController(fieldController.getFieldList());
         deck = new Deck(language);
-        deck.shuffle();
         int playerAmount = guiController.playerAmount(language.getLanguageValue("playerAmount"));
         playerController = new PlayerController(playerAmount);
+        deck.shuffle();
+    }
+    public GameController(Language language, PlayerController playerController, FieldController fieldController, GUIController guiController, Deck deck){
+        this.language = language;
+        this.playerController = playerController;
+        this.fieldController = fieldController;
+        this.guiController = guiController;
+        this.deck = deck;
+        deck.shuffle();
+    }
+    public void initialize(){
         String name;
         StringBuilder sb = new StringBuilder("Car,Tractor,Racecar,UFO");
-        for (int i = 0; i < playerAmount; i++) {
+        for (int i = 0; i < playerController.getPlayers().length; i++) {
             name = guiController.getName(language.getLanguageValue("inputName"));
             while (!playerController.playerUnique(name)) {
                 guiController.displayMsg(language.getLanguageValue("nameNotUnique"));
