@@ -1,15 +1,16 @@
 package controllers;
 
+import models.Player;
 import models.fields.Field;
 
 import java.util.ArrayList;
 
-public class GUIController extends ui.GUIController {
+public class GUIControllerStub extends ui.GUIController {
     public String[] names = {"test1","test2", "test3", "test4", "Test5"};
     public String[] characters = {"Car", "Tractor", "Racecar", "UFO"};
     int playerIndex = 0;
 
-    public GUIController(){
+    public GUIControllerStub(){
         super();
     }
 
@@ -18,7 +19,7 @@ public class GUIController extends ui.GUIController {
      *
      * @param fieldList List of fields
      */
-    public GUIController(ArrayList<Field> fieldList) {
+    public GUIControllerStub(ArrayList<Field> fieldList) {
 
     }
 
@@ -45,8 +46,36 @@ public class GUIController extends ui.GUIController {
      */
     @Override
     public String selectCharacter(String selectCharacterText, String choices) {
-        return characters[playerIndex--];
+        return characters[playerIndex++];
     }
 
+    /**
+     * Insert the players into the GUI
+     *
+     * @param players Players in the game
+     */
+    @Override
+    public void setPlayers(Player[] players) {
 
+    }
+
+    /**
+     * Update a player on the board
+     *
+     * @param player Player to be updated
+     */
+    @Override
+    public void updatePlayer(Player player) {
+
+    }
+
+    /**
+     * Update the player to move to a new field
+     *
+     * @param player Player to be moved
+     */
+    @Override
+    public void movePlayer(Player player) {
+
+    }
 }

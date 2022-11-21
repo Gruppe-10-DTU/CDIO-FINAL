@@ -1,5 +1,7 @@
 package controllers;
 
+import models.Language;
+import models.chanceCards.Deck;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,21 +20,14 @@ class GameControllerTest {
 
     @BeforeEach
     void setUp() {
-        gameController = new GameController();
-        Class c = gameController.getClass();
-        Field guiControllerField = null;
-        try {
-            guiControllerField = c.getDeclaredField("guiController");
-        } catch (NoSuchFieldException e) {
-            throw new RuntimeException(e);
+        Language language = new Language();
+        FieldController fieldController = new FieldController(language);
+        GUIControllerStub gui = new GUIControllerStub(fieldController.getFieldList());
+        PlayerController pc = new PlayerController(gui.playerAmount("test"));
+        Deck deck = new Deck(language);
+        for (int i = 0; i < gui.playerAmount("test"); i++) {
+            pc.addPlayer(i, gui.selectCharacter("test", "test"), gui.getName("test"));
         }
-        guiControllerField.setAccessible(true);
-        GUIController guiController = new GUIController();
-        try {
-            guiControllerField.set(gameController, guiController);
-        } catch (IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
-        gameController.initialize();
+        gameController = new GameController(language, pc, fieldController, gui, deck);
     }
 }
