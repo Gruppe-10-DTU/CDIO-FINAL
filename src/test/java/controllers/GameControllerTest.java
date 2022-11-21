@@ -11,15 +11,13 @@ import java.lang.reflect.Field;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GameControllerTest {
-
-
     GameController gameController;
     DiceHolder diceHolder;
-    @Test
-    void testBalance() {
-        assertEquals(1, 1);
-    }
-
+    PlayerController pc;
+    FieldController fieldController;
+    GUIControllerStub gui;
+    Language language;
+    Deck deck;
     @Test
     void testGetOutOfJail(){
         Player testPlayer = new Player(0, "Test");
@@ -28,16 +26,21 @@ class GameControllerTest {
 
     @BeforeEach
     void setUp() {
-        Language language = new Language();
-        FieldController fieldController = new FieldController(language);
-        GUIControllerStub gui = new GUIControllerStub(fieldController.getFieldList());
-        PlayerController pc = new PlayerController(gui.playerAmount("test"));
-        Deck deck = new Deck(language);
+        language = new Language();
+        fieldController = new FieldController(language);
+        gui = new GUIControllerStub(fieldController.getFieldList());
+        pc = new PlayerController(gui.playerAmount("test"));
+        deck = new Deck(language);
         diceHolder = new cheatDiceHolder();
         for (int i = 0; i < gui.playerAmount("test"); i++) {
             pc.addPlayer(i, gui.selectCharacter("test", "test"), gui.getName("test"));
         }
 
         gameController = new GameController(language, pc, fieldController, gui, deck, diceHolder);
+    }
+    @Test
+    void testEqualBalance() {
+        fieldController.setOwner(pc.getPlayers()[0],1);
+//        assertEquals(pc.getPlayers()[0].getIdentifier(), gameController.checkAllBalance());
     }
 }
