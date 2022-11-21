@@ -27,8 +27,10 @@ public class GameController implements ActionListener {
     private Popup p;
 
     public GameController() {
-        language = new Language(System.getProperty("user.language"));
 
+    }
+    public void initialize(){
+        language = new Language(System.getProperty("user.language"));
         fieldController = new FieldController(language);
         guiController = new GUIController(fieldController.getFieldList());
         deck = new Deck(language);
@@ -37,7 +39,6 @@ public class GameController implements ActionListener {
         playerController = new PlayerController(playerAmount);
         String name;
         StringBuilder sb = new StringBuilder("Car,Tractor,Racecar,UFO");
-
         for (int i = 0; i < playerAmount; i++) {
             name = guiController.getName(language.getLanguageValue("inputName"));
             while (!playerController.playerUnique(name)) {
@@ -50,13 +51,11 @@ public class GameController implements ActionListener {
 
             playerController.addPlayer(i, character, name);
         }
-
         guiController.setPlayers(playerController.getPlayers());
         while (!isOver) {
             this.currentPlayer = playerController.getPlayerById(turnCounter);
             TakeTurn(currentPlayer);
         }
-
     }
 
     /**

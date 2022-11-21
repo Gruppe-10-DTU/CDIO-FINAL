@@ -1,23 +1,38 @@
 package controllers;
 
-import models.Player;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.reflect.Field;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GameControllerTest {
-    Player player1 = new Player(0, "TestPlayer1");
-    Player player2 = new Player(1, "TestPlayer2");
-    List<String> equalLS = new ArrayList<>();
-    Player[] players = {player1,player2};
-//    GameControllerTester GC = new GameControllerTester();
 
+
+    GameController gameController;
     @Test
     void testBalance() {
-//        assertEquals("TestPlayer1",GC.checkAllBalance());
+        assertEquals(1, 1);
     }
 
+    @BeforeEach
+    void setUp() {
+        gameController = new GameController();
+        Class c = gameController.getClass();
+        Field guiControllerField = null;
+        try {
+            guiControllerField = c.getDeclaredField("guiController");
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        }
+        guiControllerField.setAccessible(true);
+        GUIController guiController = new GUIController();
+        try {
+            guiControllerField.set(gameController, guiController);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+        gameController.initialize();
+    }
 }

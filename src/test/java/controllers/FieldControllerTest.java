@@ -148,8 +148,8 @@ class FieldControllerTest {
         //Reset
         fieldcontroller.setOwner(null, 7);
         fieldcontroller.setOwner(null, 8);
-
         //Other way
+
         fieldcontroller.setOwner(player1, 7);
 
         property = (Property) fieldcontroller.getField(7);

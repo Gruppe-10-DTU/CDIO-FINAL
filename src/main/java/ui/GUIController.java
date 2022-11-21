@@ -14,10 +14,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class GUIController {
-    private final GUI gui;
+    private GUI gui;
     private GUI_Player[] gui_players;
     public GUIController(){
-        gui= new GUI();
     }
 
     /**
