@@ -93,4 +93,14 @@ public class GUIControllerStub extends ui.GUIController {
     public void displayDice(int[] rolls) {
 
     }
+
+    /**
+     * Display a message and get the okay from the player
+     *
+     * @param msg Message to display
+     */
+    @Override
+    public void displayMsg(String msg) {
+
+    }
 }

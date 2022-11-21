@@ -9,10 +9,11 @@ import org.junit.jupiter.api.Test;
 import java.lang.reflect.Field;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class GameControllerTest {
     GameController gameController;
-    DiceHolder diceHolder;
+    cheatDiceHolder diceHolder;
     PlayerController pc;
     FieldController fieldController;
     GUIControllerStub gui;
@@ -21,7 +22,14 @@ class GameControllerTest {
     @Test
     void testGetOutOfJail(){
         Player testPlayer = new Player(0, "Test");
+        //Set player in jail
+        testPlayer.setLocation(6);
+        //Make sure the next roll is 0
+        diceHolder.setNextRoll(0);
+        fieldController.jailPlayer(testPlayer);
         gameController.TakeTurn(testPlayer);
+        assertNotEquals(20, testPlayer.getBalance());
+        assertEquals(18, testPlayer.getBalance());
     }
 
     @BeforeEach
