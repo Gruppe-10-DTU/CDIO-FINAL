@@ -2,6 +2,7 @@ package controllers;
 
 import models.Player;
 import models.fields.Field;
+import models.fields.Property;
 
 import java.util.ArrayList;
 
@@ -102,5 +103,24 @@ public class GUIControllerStub extends ui.GUIController {
     @Override
     public void displayMsg(String msg) {
 
+    }
+
+    /**
+     * Set the owner on the property
+     *
+     * @param property Property to be changed
+     */
+    @Override
+    public void updateField(Property property) {
+
+    }
+
+    /**
+     * @param emtpyFieldChoice Text to display
+     * @param properties       The choices you have
+     */
+    @Override
+    public int getPropertyChoice(String emtpyFieldChoice, Property[] properties) {
+        return 23;
     }
 }

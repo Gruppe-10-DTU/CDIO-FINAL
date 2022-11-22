@@ -3,6 +3,7 @@ package controllers;
 import models.Language;
 import models.Player;
 import models.chanceCards.Deck;
+import models.fields.Property;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,6 +31,14 @@ class GameControllerTest {
         gameController.TakeTurn(testPlayer);
         assertNotEquals(20, testPlayer.getBalance());
         assertEquals(18, testPlayer.getBalance());
+    }
+
+    @Test
+    void testFreeChoiceProperty() {
+        Player testPlayer = new Player(0, "Test");
+        assertNotEquals(testPlayer, ((Property) fieldController.getField(23)).getOwner());
+        gameController.characterSpecific(testPlayer);
+        assertEquals(testPlayer, ((Property) fieldController.getField(23)).getOwner());
     }
 
     @BeforeEach
