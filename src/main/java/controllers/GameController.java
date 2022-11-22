@@ -28,7 +28,6 @@ public class GameController implements ActionListener {
 
     public GameController() {
         language = new Language(System.getProperty("user.language"));
-
         fieldController = new FieldController(language);
         guiController = new GUIController(fieldController.getFieldList());
         deck = new Deck(language);
@@ -66,7 +65,6 @@ public class GameController implements ActionListener {
         String endWinner = checkAllBalance();
         isOver = true;
         guiController.displayMsgNoBtn(language.getLanguageValue("winner") + " " + endWinner);
-
         JFrame f = new JFrame("popup");
         JLabel l = new JLabel(language.getLanguageValue("winner") + " " + endWinner);
         PopupFactory pf = new PopupFactory();
@@ -78,12 +76,10 @@ public class GameController implements ActionListener {
         b.addActionListener(this);
         p2.add(b);
         p.show();
-
         for (Player player: playerController.getPlayers()) {
             System.out.println(player.getBalance());
         }
     }
-
     /**
      * Logic to handle a players turn
      * @param player Active player
@@ -191,14 +187,18 @@ public class GameController implements ActionListener {
                 } else if (player.getSoldSign() < 0) {
                     guiController.displayMsg(language.getLanguageValue("noMoreHouses"));
                 } else {
-                    guiController.displayMsg(language.getLanguageValue("fieldRent", property.getOwner().getIdentifier()));
-                    if (!playerController.getRent(player, property, fieldController.sameOwner(property))) {
-                        EndGame();
-                    } else {
-                        guiController.updatePlayer(player);
-                        guiController.updatePlayer(property.getOwner());
-                        int rent = fieldController.sameOwner(property) ? property.getPrice()*2 : property.getPrice();
-                        guiController.displayMsg(language.getLanguageValue("pay", Integer.toString(rent)));
+                    if(property.getOwner() == player){
+                        guiController.displayMsg(language.getLanguageValue("ownField"));
+                    }else {
+                        guiController.displayMsg(language.getLanguageValue("fieldRent", property.getOwner().getIdentifier()));
+                        if (!playerController.getRent(player, property, fieldController.sameOwner(property))) {
+                            EndGame();
+                        } else {
+                            guiController.updatePlayer(player);
+                            guiController.updatePlayer(property.getOwner());
+                            int rent = fieldController.sameOwner(property) ? property.getPrice() * 2 : property.getPrice();
+                            guiController.displayMsg(language.getLanguageValue("pay", Integer.toString(rent)));
+                        }
                     }
                 }
                 break;
@@ -338,7 +338,6 @@ public class GameController implements ActionListener {
     public int sum() {
         return diceHolder.sum() - 1;
     }
-
     public Integer getTurnCounter() {
         return turnCounter;
     }

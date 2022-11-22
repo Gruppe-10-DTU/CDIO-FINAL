@@ -84,6 +84,7 @@ moveXStepsChoice=How many steps forwards do you want to move?
 playerAmount=How many are playing? Please choose between 2 and 4
 fieldBuy=You have landed on {0}, please purchase it
 fieldRent=You have landed on an occupied field please pay rent to {0}
+ownField=You have landed on your own property and are therefore not required to pay rent.
 buy=You bought it for {0}M
 pay=You paid {0}M in rent
 emtpyFieldChoice=Please choose a field to buy

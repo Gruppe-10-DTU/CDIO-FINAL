@@ -89,13 +89,17 @@ public class PlayerController {
      * @param property : Property-class. Property in mention.
      * @return
      */
-    public boolean getRent(Player player, Property property, boolean doubleRent){
-        int rent = doubleRent ? property.getPrice() * 2: property.getPrice();
-        if( player.setBalance(-rent)){
-            property.getOwner().setBalance(rent);
+    public boolean getRent(Player player, Property property, boolean doubleRent) {
+        int rent = doubleRent ? property.getPrice() * 2 : property.getPrice();
+        if (property.getOwner() == player) {
             return true;
+        } else {
+            if (player.setBalance(-rent)) {
+                property.getOwner().setBalance(rent);
+                return true;
+            }
+            return false;
         }
-        return false;
     }
 
     /**
