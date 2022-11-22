@@ -41,6 +41,36 @@ class GameControllerTest {
         assertEquals(testPlayer, ((Property) fieldController.getField(23)).getOwner());
     }
 
+    @Test
+    void testBuyFromOtherPlayerChanceCard() {
+        Player testPlayer1 = new Player(0, "Test1");
+        Player testPlayer2 = new Player(0, "Test2");
+        Property[] properties = fieldController.getFreeFields();
+        for (Property property : properties
+             ) {
+            property.setOwner(testPlayer2);
+        }
+        //Testing if player 2 buys a property from player 1
+        gameController.characterSpecific(testPlayer1);
+        //Test if balance was updated correctly
+        assertEquals(25, testPlayer2.getBalance());
+        assertEquals(15, testPlayer1.getBalance());
+
+        //Test if ownership was transfered
+        assertNotEquals(testPlayer2, ((Property) fieldController.getField(23)).getOwner());
+    }
+
+    @Test
+    void testNoMoreHouses() {
+        Player testPlayer1 = new Player(0, "Test1");
+        while(testPlayer1.decreaseSoldSign()){
+
+        }
+        gameController.characterSpecific(testPlayer1);
+        assertNotEquals(testPlayer1, ((Property) fieldController.getField(23)).getOwner());
+
+    }
+
     @BeforeEach
     void setUp() {
         language = new Language();
