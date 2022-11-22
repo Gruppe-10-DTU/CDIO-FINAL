@@ -139,6 +139,10 @@ public class GameController implements ActionListener {
      */
     public void characterSpecific(Player player){
         player.setCharacterSpecific(null);
+        if(!player.decreaseSoldSign()){
+            guiController.displayMsg(language.getLanguageValue("noMoreHouses"));
+            return;
+        }
         Property[] propertyChoices = fieldController.getFreeFields();
         if(propertyChoices.length != 0){
             int target = guiController.getPropertyChoice(language.getLanguageValue("emtpyFieldChoice"),propertyChoices);
