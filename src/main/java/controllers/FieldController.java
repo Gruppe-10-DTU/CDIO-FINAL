@@ -76,7 +76,6 @@ public class FieldController {
             }
         }
     }
-
     /**
      * Recieves a player, locates the jail field, moves the player and jails them
      */
@@ -167,6 +166,8 @@ public class FieldController {
         return spaces;
     }
 
+
+
     public void setOwner(Player player, int propertyId) {
         Field property = fieldArrayList.get(propertyId);
         if (property instanceof Property) {
@@ -211,5 +212,15 @@ public class FieldController {
 
     public Property[] getFieldOtherPlayers(Player player) {
         return fieldArrayList.stream().filter(field -> field instanceof Property && ((Property) field).getOwner() != player).toArray(Property[]::new);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < fieldArrayList.size(); i++) {
+            sb.append("Field" + i + ": " + fieldArrayList.get(i).getName() + ", ");
+        }
+        String str = sb.toString();
+        return str;
     }
 }
