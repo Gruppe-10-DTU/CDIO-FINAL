@@ -1,44 +1,54 @@
 @startuml
 'https://plantuml.com/class-diagram
-skinparam linetype ortho
+skinparam linetype polyline
 
+
+package models.chanceCards{
 class Deck{
  - deck : ChanceCard[]
+ + shuffle()
+ + drawCard() : ChanceCard
+ + getDeckSize() : int
 }
 
 abstract ChanceCard{
- # name : String
+ # NAME : String
+ # DESCRIPTION : String
+ + getType() : String
 }
 
 class Choice {
-
+ - MOVE : int
+ - DRAW_AGAIN : boolean
 }
 
 class MoveXSteps {
- - minSteps : int
- - maxSteps : int
+ - MIN_STEPS : int
+ - MAX_STEPS : int
 }
 class MoveToColor {
- - colorTargets : String[*]
+ - COLOUR_1 : String
+ - COLOUR_2 : String
 }
 
 class MoveToField {
- - fieldName : String
+ - FIELD_ID : int
 }
 
 class CharacterSpecific {
- - character : Character
+ - CHARACTER : Character
 }
 
 class ChangeBalance {
- - effect : int
+ - EFFECT : int
+ - FROM_OTHERS : boolean
 }
 
 class GetOutOfJail {
-
+}
 }
 
-Deck o-- ChanceCard
+Deck o-- "1..*"ChanceCard
 
 ChanceCard <|-- Choice
 ChanceCard <|--- MoveXSteps
