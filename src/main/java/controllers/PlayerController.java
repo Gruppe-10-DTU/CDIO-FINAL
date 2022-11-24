@@ -73,15 +73,7 @@ public class PlayerController {
     }
 
 
-    /**
-     * Checks if player can afford to pay x amount of money.
-     * @param player : Player-class. Who has to pay money?
-     * @param amount : How much money do they have to pay?
-     * @return
-     */
-    public boolean payMoney(Player player, int amount){
-        return player.setBalance(-amount);
-    }
+
 
     /**
      * Checks if given player can afford to pay rent of specified square, then transfers money.

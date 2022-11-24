@@ -50,17 +50,6 @@ public class PlayerControllerTest extends TestCase {
         assertEquals(false, pc.playerUnique(name));
 
     }
-    @Test
-    @DisplayName("payMoney test")
-    public void testPayMoney(){
-    PlayerController pc = new PlayerController(2);
-    pc.addPlayer(0,"UFO","Svend");
-    pc.addPlayer(1,"UFO","Åge");
-    pc.payMoney(pc.getPlayerById(0),2);
-    assertEquals(18,pc.getPlayerById(0).getBalance());
-    pc.payMoney(pc.getPlayerById(1),-2);
-    assertEquals(22,pc.getPlayerById(1).getBalance());
-    }
 
     @Test
     @DisplayName("getRent test")
