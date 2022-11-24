@@ -147,7 +147,7 @@ public class GameController implements ActionListener {
             int spaces;
 
             if (target < player.getLocation()) {
-                spaces = (fieldController.fieldArrayList.size() - player.getLocation()) + target;
+                spaces = (fieldController.getFieldList().size() - player.getLocation()) + target;
             } else {
                 spaces = target - player.getLocation();
             }
@@ -164,7 +164,7 @@ public class GameController implements ActionListener {
             Property property = (Property) fieldController.getField(target);
             int spaces;
             if (target < player.getLocation()) {
-                spaces = (fieldController.fieldArrayList.size() - player.getLocation()) + target;
+                spaces = (fieldController.getFieldList().size() - player.getLocation()) + target;
             } else {
                 spaces = target - player.getLocation();
             }
