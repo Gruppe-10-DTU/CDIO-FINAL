@@ -1,7 +1,6 @@
 @startuml
 skinparam linetype polyline
 
-
 package Models{
     class Player
     class Character
@@ -32,6 +31,7 @@ package controllers {
     class PlayerController
     class DieHolder
     class GUIConverter
+    class CSVReader
 }
 
 package ui {
