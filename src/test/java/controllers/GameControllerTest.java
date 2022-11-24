@@ -93,8 +93,9 @@ class GameControllerTest {
     }
     @Test
     void testZeroBalance() {
-        pc.payMoney(pc.getPlayers()[1],1000);
-        pc.payMoney(pc.getPlayers()[2],1000);
-//        assertEquals(pc.getPlayers()[0].getIdentifier(), gameController.checkAllBalance());
+        Player[] players = pc.getPlayers();
+        players[1].setBalance(-10);
+        players[2].setBalance(-18);
+         assertEquals(players[0].getIdentifier(), gameController.checkAllBalance());
     }
 }
