@@ -1,8 +1,11 @@
 @startuml
-skinparam linetype polyline
 skinparam linetype ortho
 
-Class GUIController{
+
+class Language{
+}
+
+class GUIController{
  - gui: GUI
  - gui_players: GUI_Player
  + getPlayerName(String textOutput): String
@@ -13,56 +16,78 @@ Class GUIController{
  + getColorChoice(String text, String choices): String colorChoice
  + displayError(String errorText)
 }
-Class GUIConverter{
+class GUIConverter{
  {static} + playersToGUI(Player[] player): GUI_Player[]
  {static} + fieldsToGUI(Field[] fields): GUI_Field[]
 }
-Class GameController{
+class GameController{
+ - deck : Deck
  - turnCounter: int
- + takeTurn(Player player)
- - handleChance(Chance card, Player player): Player
- - buyField(Player player)
+ - isOver : boolean
+ - currentPlayer : Player
+ + takeTurn(Player)
+ + takeChance() : boolean
+ + CharacterSpecific(Player)
+ + checkAllBalance(List<String>, Player[])
+ + checkEqualBalance(List<String>, Player[])
+ - landOnField(Player)
  - endGame()
- - propertyOwned(Property property): boolean
+ - findMaxBalance(Player[]) : String
+ - findMaxTotalBalance(List<String>, Player[]) : String
 }
 
-Class PlayerController{
- - players: Player[*]
- + PlayerController(int playerAmount)
- + addPlayer(String name, String characterName)
- + nameUnique(String name): boolean
- + playerMove(Player player, int spaces)
- + payMoney(Player player, int moneyAmount): boolean
- + getRent(Property property): boolean
- + getActivePlayer(int turnCounter): Player
+class PlayerController{
+ - players : Player[]
+ + PlayerController(int)
+ + addPlayer(String, String)
+ + nameUnique(String): boolean
+ + playerMove(Player, int)
+ + payMoney(Player, int): boolean
+ + getRent(Player, Property, boolean): boolean
+ + getActivePlayer(int): Player
 }
 
-Class FieldController{
- + genarateGameFields(ArrayList<ArrayList<String>> arrayList): ArrayList<Object>
+class FieldController{
+ - fieldArrayList : ArrayList<Player>
+ + generateGameFields(ArrayList<ArrayList<String>>)
  + playerProbertyValues() : HashMap<Player, int>
- + moveToColor(String color)
- + jailPlayer(Player player)
+ + moveToColor(String) : int
+ + jailPlayer(Player)
  + getFieldList() : ArrayList<Object>
 }
 
-Class ChanceController{
- - deck : Deck
- + takeChance()
+
+class CSVReader{
+ - DELIMITER : String
+ - reader : BufferedReader
+ - headers : String[]
+ - file : String
+ - fileAsArrayList : ArrayList<ArrayList<String>>
+ + getData() : String[][]
+ + getDataAsArrayList() : ArrayList<ArrayList<String>>
+ + getHeaders() : String[]
+ + getHeaderIndex(String) : int
+ + toString() : String
 }
 
-Class Language{
-
-}
-
-Class DiceHolder{
+class DiceHolder{
+ - dice : Die[]
+ - rolls : int[]
  + DiceHolder(int diceAmount)
- + roll() : int
+ + roll()
+ + getRolls() : int
+ + sum() : int
 }
-GameController o-up- ChanceController
-GameController o-up- GUIController
-GameController o-left- PlayerController
-GameController o-down- FieldController
-GameController o-- DiceHolder
+
+GameController o-left- GUIController
+GameController o-- PlayerController
+GameController o-- FieldController
+GameController o- DiceHolder
 GameController o-- Language
+GUIConverter --o GUIController
+FieldController <. CSVReader
+
+Language .> FieldController
+Language .> GUIController
 
 @enduml
