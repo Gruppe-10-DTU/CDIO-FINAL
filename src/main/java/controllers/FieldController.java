@@ -9,9 +9,9 @@ import java.util.HashMap;
 
 public class FieldController {
 
-    ArrayList<Field> fieldArrayList = new ArrayList<>();
+    protected ArrayList<Field> fieldArrayList = new ArrayList<>();
 
-    Language language;
+    private Language language;
 
     /**
      * The constructer recieves the language and constructs an arraylist of field objects in the corect language
