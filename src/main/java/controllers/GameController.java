@@ -5,6 +5,7 @@ import models.*;
 import models.fields.Field;
 import models.fields.Jail;
 import models.fields.Property;
+import org.apache.commons.codec.language.bm.Lang;
 import ui.GUIController;
 
 import javax.swing.*;
@@ -15,7 +16,7 @@ import java.util.*;
 import java.util.List;
 
 public class GameController implements ActionListener {
-    private DiceHolder diceHolder = new DiceHolder(1);
+    private DiceHolder diceHolder;
     private int turnCounter = 0;
     private boolean isOver = false;
     private Language language;
@@ -31,13 +32,25 @@ public class GameController implements ActionListener {
         fieldController = new FieldController(language);
         guiController = new GUIController(fieldController.getFieldList());
         deck = new Deck(language);
-        deck.shuffle();
+        diceHolder = new DiceHolder(1);
         int playerAmount = guiController.playerAmount(language.getLanguageValue("playerAmount"));
         playerController = new PlayerController(playerAmount);
+        deck.shuffle();
+        this.initialize();
+    }
+    public GameController(Language language, PlayerController playerController, FieldController fieldController, GUIController guiController, Deck deck, DiceHolder diceHolder){
+        this.language = language;
+        this.playerController = playerController;
+        this.fieldController = fieldController;
+        this.guiController = guiController;
+        this.deck = deck;
+        this.diceHolder = diceHolder;
+        deck.shuffle();
+    }
+    public void initialize(){
         String name;
         StringBuilder sb = new StringBuilder("Car,Tractor,Racecar,UFO");
-
-        for (int i = 0; i < playerAmount; i++) {
+        for (int i = 0; i < playerController.getPlayers().length; i++) {
             name = guiController.getName(language.getLanguageValue("inputName"));
             while (!playerController.playerUnique(name)) {
                 guiController.displayMsg(language.getLanguageValue("nameNotUnique"));
@@ -49,13 +62,11 @@ public class GameController implements ActionListener {
 
             playerController.addPlayer(i, character, name);
         }
-
         guiController.setPlayers(playerController.getPlayers());
         while (!isOver) {
             this.currentPlayer = playerController.getPlayerById(turnCounter);
             TakeTurn(currentPlayer);
         }
-
     }
 
     /**
@@ -96,6 +107,7 @@ public class GameController implements ActionListener {
                }else{
                    guiController.displayMsg(language.getLanguageValue("outOfJailPay", "2"));
                }
+               fieldController.freePlayer(player);
                guiController.updatePlayer(player);
            }
         }
@@ -125,6 +137,10 @@ public class GameController implements ActionListener {
      */
     public void characterSpecific(Player player){
         player.setCharacterSpecific(null);
+        if(!player.decreaseSoldSign()){
+            guiController.displayMsg(language.getLanguageValue("noMoreHouses"));
+            return;
+        }
         Property[] propertyChoices = fieldController.getFreeFields();
         if(propertyChoices.length != 0){
             int target = guiController.getPropertyChoice(language.getLanguageValue("emtpyFieldChoice"),propertyChoices);
@@ -385,7 +401,8 @@ public class GameController implements ActionListener {
         Player winner = new Player(99, "");
         int maxTotal = 0;
         for (Player player : players) {
-            int playerBal = player.getBalance() + playerProp.get(player);
+            int playerBal = 0;
+            if (playerProp.get(player) != null) playerBal = player.getBalance() + playerProp.get(player);
             if (maxTotal < playerBal && equalLS.contains(player.getIdentifier())) {
                 maxTotal = playerBal;
                 winner = player;
