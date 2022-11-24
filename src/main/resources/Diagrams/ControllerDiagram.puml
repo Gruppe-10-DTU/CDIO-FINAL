@@ -6,15 +6,26 @@ class Language{
 }
 
 class GUIController{
- - gui: GUI
- - gui_players: GUI_Player
- + getPlayerName(String textOutput): String
- + getPlayerCharacter(String textOutput, String choices): String
- + updatePlayer(Player player)
- + updateProperty(Property property)
- + movePlayer(Player player)
- + getColorChoice(String text, String choices): String colorChoice
- + displayError(String errorText)
+ - gui : GUI
+ - gui_players : GUI_Player[]
++ playerAmount(String) : int
++ selectCharacter(String,String) : String
++ setPlayers(Player[])
++ displayMsg(String)
++ getName(String) : String
++ updatePlayer(Player)
++ movePlayer(Player)
++ displayDice(int[])
++ updateField(Property)
++ displayMsgNoBtn(String)
++ showChanceCard(String)
++ showChanceCardChoice(String,String,String) : String
++ getXStepsToMove(String,int,int) : int
++ endGame()
++ getRoll(String,String)
++ getPropertyChoice(String,Property[]) : int
++ showRoll(int)
++ updateBoard(PlayerController,FieldController)
 }
 class GUIConverter{
  {static} + playersToGUI(Player[] player): GUI_Player[]
@@ -25,6 +36,8 @@ class GameController{
  - turnCounter: int
  - isOver : boolean
  - currentPlayer : Player
+ + initialize()
+ + sum()
  + takeTurn(Player)
  + takeChance() : boolean
  + CharacterSpecific(Player)
@@ -40,34 +53,29 @@ class PlayerController{
  - players : Player[]
  + PlayerController(int)
  + addPlayer(String, String)
- + nameUnique(String): boolean
- + playerMove(Player, int)
- + payMoney(Player, int): boolean
+ + playerUnique(String): boolean
+ + playerMove(Player, int) : Player
+ + getPlayers() : Player[]
+ + getPlayerById(int) : Player
  + getRent(Player, Property, boolean): boolean
- + getActivePlayer(int): Player
+ + addCharacterCard(CharacterSpecific)
 }
 
 class FieldController{
  - fieldArrayList : ArrayList<Player>
- + generateGameFields(ArrayList<ArrayList<String>>)
- + playerProbertyValues() : HashMap<Player, int>
- + moveToColor(String) : int
+ # createFieldArray(ArrayList<ArrayList<String>>)
  + jailPlayer(Player)
- + getFieldList() : ArrayList<Object>
-}
-
-
-class CSVReader{
- - DELIMITER : String
- - reader : BufferedReader
- - headers : String[]
- - file : String
- - fileAsArrayList : ArrayList<ArrayList<String>>
- + getData() : String[][]
- + getDataAsArrayList() : ArrayList<ArrayList<String>>
- + getHeaders() : String[]
- + getHeaderIndex(String) : int
- + toString() : String
+ + freePlayer(Player)
+ + playerPropertyValues() : HashMap<Player,Integer>
+ + moveToColor(String,Player) : int
+ + setOwner(Player,int)
+ + getFreeFields() : Property[]
+ + getField(int) : Field
+ + getFieldList() : ArrayList<Field>
+ + getFreeField(Player,int) : boolean
+ + sameOwner(Property) : boolean
+ + sellField(Property,Player) : boolean
+ + getFieldOtherPlayers(Player) : Property[]
 }
 
 class DiceHolder{
@@ -77,6 +85,7 @@ class DiceHolder{
  + roll()
  + getRolls() : int
  + sum() : int
+ - rollDie()
 }
 
 GameController o-left- GUIController
@@ -85,7 +94,6 @@ GameController o-- FieldController
 GameController o- DiceHolder
 GameController o-- Language
 GUIConverter --o GUIController
-FieldController <. CSVReader
 
 Language .> FieldController
 Language .> GUIController
