@@ -1,13 +1,8 @@
 @startuml
 'https://plantuml.com/class-diagram
 skinparam linetype ortho
-left to right direction
 
-class GameBoard{
- - board : Field[]
-}
-
-
+package models.fields {
 abstract Field {
  # name : string
  # iD : int
@@ -16,30 +11,34 @@ abstract Field {
 class Property {
  - color : String
  - price : int
- - rent : int
+ - owner : Player
 }
 class Empty{
 
 }
 
 class Chance {
-
+- number : int
 }
 
 class Jail {
-
+ - inJail : ArrayList<Player>
+ + getInJail() : ArrayList<Player>
+ + isInJail(Player) : boolean
+ + setInJailAdd(Player)
+ + setInJailRemove(Player)
 }
 
 class ToJail {
- + jailPlayer(Player player)
+ -spaceToJail : int
 }
 
-GameBoard o-- Field
+
 
 Field <|-left- Property
 Field <|--- Empty
 Field <|-- Chance
 Field <|-- Jail
 Field <|-right- ToJail
-
+}
 @enduml
