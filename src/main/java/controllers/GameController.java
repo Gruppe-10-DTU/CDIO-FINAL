@@ -110,6 +110,7 @@ public class GameController implements ActionListener {
                }else{
                    guiController.displayMsg(language.getLanguageValue("outOfJailPay", "2"));
                }
+               fieldController.freePlayer(player);
                guiController.updatePlayer(player);
            }
         }

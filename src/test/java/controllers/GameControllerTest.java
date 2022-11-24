@@ -3,14 +3,14 @@ package controllers;
 import models.Language;
 import models.Player;
 import models.chanceCards.Deck;
+import models.fields.Jail;
 import models.fields.Property;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class GameControllerTest {
     GameController gameController;
@@ -26,11 +26,12 @@ class GameControllerTest {
         //Set player in jail
         testPlayer.setLocation(6);
         //Make sure the next roll is 0
-        diceHolder.setNextRoll(0);
+        diceHolder.setNextRoll(6);
         fieldController.jailPlayer(testPlayer);
         gameController.TakeTurn(testPlayer);
-        assertNotEquals(20, testPlayer.getBalance());
         assertEquals(18, testPlayer.getBalance());
+        assertEquals(12, testPlayer.getLocation());
+        assertFalse(((Jail) fieldController.getField(6)).isInJail(testPlayer));
     }
 
     @Test
