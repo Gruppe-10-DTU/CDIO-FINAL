@@ -19,10 +19,10 @@ package Models{
     class Die
     class Language
 
-    Player *-left- Balance
-    Player *-right- Character
+    Player *-- Balance
+    Player *-- Character
     Property "1" -- "0..1" Player
-    Jail "1" - "0..4" Player
+    Jail "1" -- "0..4" Player
 }
 
 package controllers {
@@ -38,21 +38,26 @@ package ui {
     class GUIController
 }
 
+Language -[hidden]--- Die
+Deck -[hidden]- Player
+Die -[hidden]- Player
 
-
-DieHolder *-- "1..*" Die
-PlayerController o- "2..4" Player
+DieHolder o-down- "1..*" Die
+PlayerController o-- "2..4" Player
 FieldController o--- "1..*" Field
-GameController o--- "1..*" Language
+GameController o--- "1" Language
 
-GameController o-- "1" Deck
+GameController o- "1" Deck
 
 GameController o-up- GUIController
-GUIController *-down- GUIConverter
+GUIController -down- GUIConverter
 
-Language .---> GUIController
-Language .-> Deck
-Language .-> FieldController
+Language .-up-> GUIController
+Language .--> Deck
+Language .-up-> FieldController
+
+CSVReader .--> Deck
+CSVReader .--> FieldController
 
 class Start
 GameController -up-* Start
