@@ -1,4 +1,5 @@
 @startgantt
+printscale daily zoom 4
 saturday are closed
 sunday are closed
 
@@ -32,8 +33,7 @@ Project starts the 2nd of january 2023
 [Flyt brik (K5)] as [K5] lasts 1 days
 [K5] is 0% complete
 
-[Land på felt (K6)] as [K6] lasts 2 days
-[K6] is 0% complete
+
 
 [Gå i fængsel (K13)] as [K13] lasts 1 days
 [K13] is 0% complete
@@ -41,6 +41,8 @@ Project starts the 2nd of january 2023
 [Kom ud af fængsel (K14)] as [K14] lasts 1 days
 [K14] is 0% complete
 
+[Land på felt (K6)] as [K6] lasts 2 days
+[K6] is 0% complete
 
 [Spiller penge (K7)] as [K7] lasts 1 days
 [K7] is 0% complete
