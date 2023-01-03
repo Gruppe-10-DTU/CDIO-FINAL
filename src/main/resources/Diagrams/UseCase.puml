@@ -1,0 +1,22 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+left to right direction
+
+actor User
+rectangle "Monopoly Junior" {
+
+User -- (Choose character)
+User -- (Land on field)
+User -- (Buy field)
+User -- (field effect)
+User -- (Pass start)
+
+
+(field effect) .-> (Get chance card) : includes
+(field effect) .-> (Go to jail) : includes
+(Land on field) .> (field effect) : Causes
+(Land on field) .down-> (Buy field) : causes
+
+
+}
+@enduml

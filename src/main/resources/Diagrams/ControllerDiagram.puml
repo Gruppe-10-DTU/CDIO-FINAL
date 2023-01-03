@@ -1,0 +1,101 @@
+@startuml
+skinparam linetype ortho
+
+
+class Language{
+}
+
+class GUIController{
+ - gui : GUI
+ - gui_players : GUI_Player[]
++ playerAmount(String) : int
++ selectCharacter(String,String) : String
++ setPlayers(Player[])
++ displayMsg(String)
++ getName(String) : String
++ updatePlayer(Player)
++ movePlayer(Player)
++ displayDice(int[])
++ updateField(Property)
++ displayMsgNoBtn(String)
++ showChanceCard(String)
++ showChanceCardChoice(String,String,String) : String
++ getXStepsToMove(String,int,int) : int
++ endGame()
++ getRoll(String,String)
++ getPropertyChoice(String,Property[]) : int
++ showRoll(int)
++ updateBoard(PlayerController,FieldController)
+}
+class GUIConverter{
+ {static} + playersToGUI(Player[] player): GUI_Player[]
+ {static} + fieldsToGUI(Field[] fields): GUI_Field[]
+}
+class GameController{
+ - deck : Deck
+ - turnCounter: int
+ - isOver : boolean
+ - currentPlayer : Player
+ + initialize()
+ + sum()
+ + takeTurn(Player)
+ + takeChance() : boolean
+ + CharacterSpecific(Player)
+ + checkAllBalance(List<String>, Player[])
+ + checkEqualBalance(List<String>, Player[])
+ - landOnField(Player)
+ - endGame()
+ - findMaxBalance(Player[]) : String
+ - findMaxTotalBalance(List<String>, Player[]) : String
+}
+
+class PlayerController{
+ - players : Player[]
+ + PlayerController(int)
+ + addPlayer(String, String)
+ + playerUnique(String): boolean
+ + playerMove(Player, int) : Player
+ + getPlayers() : Player[]
+ + getPlayerById(int) : Player
+ + getRent(Player, Property, boolean): boolean
+ + addCharacterCard(CharacterSpecific)
+}
+
+class FieldController{
+ - fieldArrayList : ArrayList<Player>
+ # createFieldArray(ArrayList<ArrayList<String>>)
+ + jailPlayer(Player)
+ + freePlayer(Player)
+ + playerPropertyValues() : HashMap<Player,Integer>
+ + moveToColor(String,Player) : int
+ + setOwner(Player,int)
+ + getFreeFields() : Property[]
+ + getField(int) : Field
+ + getFieldList() : ArrayList<Field>
+ + getFreeField(Player,int) : boolean
+ + sameOwner(Property) : boolean
+ + sellField(Property,Player) : boolean
+ + getFieldOtherPlayers(Player) : Property[]
+}
+
+class DiceHolder{
+ - dice : Die[]
+ - rolls : int[]
+ + DiceHolder(int diceAmount)
+ + roll()
+ + getRolls() : int
+ + sum() : int
+ - rollDie()
+}
+
+GameController o-left- GUIController
+GameController o-- PlayerController
+GameController o-- FieldController
+GameController o- DiceHolder
+GameController o-- Language
+GUIConverter --o GUIController
+
+Language .> FieldController
+Language .> GUIController
+
+@enduml

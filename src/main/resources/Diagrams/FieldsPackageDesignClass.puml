@@ -1,0 +1,44 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam linetype ortho
+
+package models.fields {
+abstract Field {
+ # name : string
+ # iD : int
+}
+
+class Property {
+ - color : String
+ - price : int
+ - owner : Player
+}
+class Empty{
+
+}
+
+class Chance {
+- number : int
+}
+
+class Jail {
+ - inJail : ArrayList<Player>
+ + getInJail() : ArrayList<Player>
+ + isInJail(Player) : boolean
+ + setInJailAdd(Player)
+ + setInJailRemove(Player)
+}
+
+class ToJail {
+ -spaceToJail : int
+}
+
+
+
+Field <|-left- Property
+Field <|--- Empty
+Field <|-- Chance
+Field <|-- Jail
+Field <|-right- ToJail
+}
+@enduml

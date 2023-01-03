@@ -1,0 +1,36 @@
+@startuml
+skinparam linetype polyline
+skinparam linetype ortho
+
+Class Player {
+ String name
+ int soldSigns
+ String character
+}
+Class GameBoard{
+}
+Class Balance {
+ Int balance
+}
+Class Field {
+ String name
+}
+
+Class ChanceCard{
+ String name
+}
+Class Die {
+ Int faceValue
+}
+Class Language {
+ String lang
+}
+
+Player "2..4" -- "1" Game
+Player "1" -- "1" Balance
+Game "1" -- "1..*" Language
+Game "1" -- "1" GameBoard
+Game "1" -- "20" ChanceCard
+GameBoard "1" -- "24" Field
+Game"1" -- "1" Die
+@enduml
