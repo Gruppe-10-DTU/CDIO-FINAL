@@ -90,4 +90,4 @@ pay=Du betalte {0}M i leje
 emtpyFieldChoice=Vælg et felt du vil købe
 buyFieldFromPlayer=Du må købe et felt fra en anden spiller
 ownEverything=Du ejer allerede alle felter
-colors=Gul:Blå:Hvid:Sort:Rød:Grå
+colors=Gul,Blå,Hvid,Sort,Rød,Grå
