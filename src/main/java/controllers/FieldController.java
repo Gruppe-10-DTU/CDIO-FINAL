@@ -35,43 +35,63 @@ public class FieldController {
             String fieldType = fieldData.get(i).get(0);
 
             switch (fieldType) {
-                case "Empty":
+                case "empty":
                     Empty empty = new Empty();
                     fieldArrayList.add(empty);
                     empty.setID(i);
-                    empty.setName(language.getLanguageValue("fieldName" + i));
+                    //empty.setName(language.getLanguageValue("fieldName" + i));
                     break;
-                case "Start":
+                case "start":
                     Start start = new Start();
                     fieldArrayList.add(start);
                     start.setID(i);
-                    start.setName(language.getLanguageValue("fieldName" + i));
+                    //start.setName(language.getLanguageValue("fieldName" + i));
                     break;
-                case "Property":
-                    Property property = new Property();
-                    fieldArrayList.add(property);
-                    property.setID(i);
-                    property.setPrice(fieldData.get(i).get(2));
-                    property.setColor(fieldData.get(i).get(1));
-                    property.setName(language.getLanguageValue("fieldName" + i));
+                case "street":
+                    Street street = new Street();
+                    fieldArrayList.add(street);
+                    street.setID(i);
+                    //property.setPrice(fieldData.get(i).get(2));
+                    //property.setColor(fieldData.get(i).get(1));
+                    //property.setName(language.getLanguageValue("fieldName" + i));
                     break;
-                case "Chance":
+                case "chance":
                     Chance chance = new Chance();
                     fieldArrayList.add(chance);
                     chance.setID(i);
-                    chance.setName(language.getLanguageValue("fieldName" + i));
+                    //chance.setName(language.getLanguageValue("fieldName" + i));
                     break;
-                case "ToJail":
+                case "toJail":
                     ToJail toJail = new ToJail(-12);
                     fieldArrayList.add(toJail);
                     toJail.setID(i);
-                    toJail.setName(language.getLanguageValue("fieldName" + i));
+                    //toJail.setName(language.getLanguageValue("fieldName" + i));
                     break;
-                case "Jail":
+                case "jail":
                     Jail jail = new Jail();
                     fieldArrayList.add(jail);
                     jail.setID(i);
-                    jail.setName(language.getLanguageValue("fieldName" + i));
+                    //jail.setName(language.getLanguageValue("fieldName" + i));
+                    break;
+                case "brewery":
+                    Brewery brewery = new Brewery();
+                    fieldArrayList.add(brewery);
+                    brewery.setID(i);
+                    break;
+                case "ferry":
+                    Ferry ferry = new Ferry();
+                    fieldArrayList.add(ferry);
+                    ferry.setID(i);
+                    break;
+                case "refuge":
+                    Refuge refuge = new Refuge();
+                    fieldArrayList.add(refuge);
+                    refuge.setID(i);
+                    break;
+                case "tax":
+                    Tax tax = new Tax();
+                    fieldArrayList.add(tax);
+                    tax.setID(i);
                     break;
             }
         }
@@ -110,13 +130,13 @@ public class FieldController {
         HashMap<Player, Integer> playerValue = new HashMap<Player, Integer>();
 
         for (Object field : fieldArrayList) {
-            if (field instanceof Property) {
-                Player owner = ((Property) field).getOwner();
+            if (field instanceof Start.Property) {
+                Player owner = ((Start.Property) field).getOwner();
                 if (owner != null) {
                     if (!playerValue.containsKey(owner)) {
                         playerValue.put(owner, 0);
                     }
-                    int propertyValue = ((Property) field).getPrice();
+                    int propertyValue = ((Start.Property) field).getPrice();
                     int currentSum = playerValue.get(owner);
 
                     playerValue.put(owner, currentSum + propertyValue);
@@ -147,11 +167,11 @@ public class FieldController {
                 i = 0;
             }
 
-            if (fieldArrayList.get(i) instanceof Property) {
-                String fieldColor = ((Property) fieldArrayList.get(i)).getColor();
+            if (fieldArrayList.get(i) instanceof Start.Property) {
+                String fieldColor = ((Start.Property) fieldArrayList.get(i)).getColor();
 
                 if (fieldColor.equals(color)) {
-                    newLocation = ((Property) fieldArrayList.get(i)).getID();
+                    newLocation = ((Start.Property) fieldArrayList.get(i)).getID();
                     foundColor = true;
                 }
             }
@@ -170,12 +190,12 @@ public class FieldController {
 
     public void setOwner(Player player, int propertyId) {
         Field property = fieldArrayList.get(propertyId);
-        if (property instanceof Property) {
-            ((Property) property).setOwner(player);
+        if (property instanceof Start.Property) {
+            ((Start.Property) property).setOwner(player);
         }
     }
-    public Property[] getFreeFields(){
-        return fieldArrayList.stream().filter(field -> field instanceof Property && ((Property) field).getOwner() == null).toArray(Property[]::new);
+    public Start.Property[] getFreeFields(){
+        return fieldArrayList.stream().filter(field -> field instanceof Start.Property && ((Start.Property) field).getOwner() == null).toArray(Start.Property[]::new);
     }
     public Field getField(int fieldID) {
         return fieldArrayList.get(fieldID);
@@ -186,7 +206,7 @@ public class FieldController {
     }
 
     public boolean getFreeField(Player Player, int PropertyID) {
-        Property property = (Property) fieldArrayList.get(PropertyID);
+        Start.Property property = (Start.Property) fieldArrayList.get(PropertyID);
         return property.getOwner() == null;
     }
 
@@ -195,23 +215,23 @@ public class FieldController {
      * @param property the property in question
      * @return true if the same owner, otherwise false
      */
-    public boolean sameOwner(Property property){
-        Property property2;
+    public boolean sameOwner(Start.Property property){
+        Start.Property property2;
         if(property.getID() % 3 == 1){
             //If the property is the first one, %3 will always be one and we'll add one to get the neighbor and compare the owners
-            property2 = (Property) fieldArrayList.get(property.getID()+1);
+            property2 = (Start.Property) fieldArrayList.get(property.getID()+1);
         }else{
             //If the property is the second one, %3 will always be 2 and we'll subtract one to get the neighbor and compare the owners
-            property2 = (Property) fieldArrayList.get(property.getID()-1);
+            property2 = (Start.Property) fieldArrayList.get(property.getID()-1);
         }
         return property2.getOwner() != null && property.getOwner().equals(property2.getOwner());
     }
-    public boolean sellField(Property property, Player buyer){
+    public boolean sellField(Start.Property property, Player buyer){
         return true;
     }
 
-    public Property[] getFieldOtherPlayers(Player player) {
-        return fieldArrayList.stream().filter(field -> field instanceof Property && ((Property) field).getOwner() != player).toArray(Property[]::new);
+    public Start.Property[] getFieldOtherPlayers(Player player) {
+        return fieldArrayList.stream().filter(field -> field instanceof Start.Property && ((Start.Property) field).getOwner() != player).toArray(Start.Property[]::new);
     }
 
     @Override
