@@ -32,25 +32,28 @@ public class FieldController {
     protected void createFieldArray(ArrayList<ArrayList<String>> fieldData) {
 
         for (int i = 0; i < fieldData.size(); i++) {
-            String fieldType = fieldData.get(i).get(0);
+            String fieldType = fieldData.get(i).get(2);
 
             switch (fieldType) {
                 case "empty":
                     Empty empty = new Empty();
                     fieldArrayList.add(empty);
-                    empty.setID(i);
+                    empty.setID(Integer.parseInt(fieldData.get(i).get(1)));
+                    empty.setName(fieldData.get(i).get(0));
                     //empty.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "start":
                     Start start = new Start();
                     fieldArrayList.add(start);
-                    start.setID(i);
+                    start.setID(Integer.parseInt(fieldData.get(i).get(1)));
+                    start.setName(fieldData.get(i).get(0));
                     //start.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "street":
                     Street street = new Street();
                     fieldArrayList.add(street);
-                    street.setID(i);
+                    street.setID(Integer.parseInt(fieldData.get(i).get(1)));
+                    street.setName(fieldData.get(i).get(0));
                     //property.setPrice(fieldData.get(i).get(2));
                     //property.setColor(fieldData.get(i).get(1));
                     //property.setName(language.getLanguageValue("fieldName" + i));
@@ -58,40 +61,47 @@ public class FieldController {
                 case "chance":
                     Chance chance = new Chance();
                     fieldArrayList.add(chance);
-                    chance.setID(i);
+                    chance.setID(Integer.parseInt(fieldData.get(i).get(1)));
+                    chance.setName(fieldData.get(i).get(0));
                     //chance.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "toJail":
                     ToJail toJail = new ToJail(-12);
                     fieldArrayList.add(toJail);
-                    toJail.setID(i);
+                    toJail.setID(Integer.parseInt(fieldData.get(i).get(1)));
+                    toJail.setName(fieldData.get(i).get(0));
                     //toJail.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "jail":
                     Jail jail = new Jail();
                     fieldArrayList.add(jail);
-                    jail.setID(i);
+                    jail.setID(Integer.parseInt(fieldData.get(i).get(1)));
+                    jail.setName(fieldData.get(i).get(0));
                     //jail.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "brewery":
                     Brewery brewery = new Brewery();
                     fieldArrayList.add(brewery);
-                    brewery.setID(i);
+                    brewery.setID(Integer.parseInt(fieldData.get(i).get(1)));
+                    brewery.setName(fieldData.get(i).get(0));
                     break;
                 case "ferry":
                     Ferry ferry = new Ferry();
                     fieldArrayList.add(ferry);
-                    ferry.setID(i);
+                    ferry.setID(Integer.parseInt(fieldData.get(i).get(1)));
+                    ferry.setName(fieldData.get(i).get(0));
                     break;
-                case "refuge":
+                case "refugee":
                     Refuge refuge = new Refuge();
                     fieldArrayList.add(refuge);
-                    refuge.setID(i);
+                    refuge.setID(Integer.parseInt(fieldData.get(i).get(1)));
+                    refuge.setName(fieldData.get(i).get(0));
                     break;
                 case "tax":
                     Tax tax = new Tax();
                     fieldArrayList.add(tax);
-                    tax.setID(i);
+                    tax.setID(Integer.parseInt(fieldData.get(i).get(1)));
+                    tax.setName(fieldData.get(i).get(0));
                     break;
             }
         }

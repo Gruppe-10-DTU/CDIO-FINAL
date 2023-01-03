@@ -8,7 +8,7 @@ import gui_fields.GUI_Street;
 import gui_main.GUI;
 import models.Player;
 import models.fields.Field;
-import models.fields.Property;
+import models.fields.Start;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -103,7 +103,7 @@ public class GUIController {
      * Set the owner on the property
      * @param property Property to be changed
      */
-    public void updateField(Property property){
+    public void updateField(Start.Property property){
         GUI_Street street = (GUI_Street) gui.getFields()[property.getID()];
    //     street.setOwnableLabel(property.getOwner().getIdentifier());
     //    street.setOwnerName(property.getOwner().getIdentifier());
@@ -135,7 +135,7 @@ public class GUIController {
      * @param emtpyFieldChoice Text to display
      * @param properties The choices you have
      */
-    public int getPropertyChoice(String emtpyFieldChoice, Property[] properties) {
+    public int getPropertyChoice(String emtpyFieldChoice, Start.Property[] properties) {
         String choice = gui.getUserSelection(emtpyFieldChoice, Arrays.stream(properties).map(Field::getName).toArray(String[]::new));
         return Arrays.stream(properties).filter(field->field.getName()==choice).findFirst().get().getID();
     }
@@ -153,8 +153,8 @@ public class GUIController {
             updatePlayer(player);
         }
         for (Field field: fieldController.getFieldList()) {
-            if ( field instanceof Property && ((Property) field).getOwner() != null){
-                updateField((Property) field);
+            if ( field instanceof Start.Property && ((Start.Property) field).getOwner() != null){
+                updateField((Start.Property) field);
             }
         }
     }
