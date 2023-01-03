@@ -90,3 +90,4 @@ pay=You paid {0}M in rent
 emtpyFieldChoice=Please choose a field to buy
 buyFieldFromPlayer=You can buy a field from another player
 ownEverything=You already own everything
+colors=Yellow:Blue:White:Black:Red:Gray
