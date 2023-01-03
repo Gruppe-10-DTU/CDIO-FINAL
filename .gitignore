@@ -16,6 +16,7 @@ buildNumber.properties
 *.iml
 out/
 target/
+/.idea/
 
 # VScode
 .vscode
@@ -34,3 +35,4 @@ target/
 *.log
 
 DS_STORE
+
