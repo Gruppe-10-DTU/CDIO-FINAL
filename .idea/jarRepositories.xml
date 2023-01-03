@@ -16,5 +16,10 @@
       <option name="name" value="JBoss Community repository" />
       <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="Matador_GUI-repository" />
+      <option name="name" value="Matador_GUI-repository" />
+      <option name="url" value="https://github.com/diplomit-dtu/Matador_GUI/raw/repository" />
+    </remote-repository>
   </component>
 </project>
