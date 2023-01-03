@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b028b868-a317-45c1-ab71-837b1a088a0e" name="Changes" comment="created maven structure" />
+    <list default="true" id="b028b868-a317-45c1-ab71-837b1a088a0e" name="Changes" comment="added placeholder files to push file structure">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,15 +30,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/home/pcramer/Documents/CDIO-FINAL",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/pcramer/Documents/CDIO-FINAL&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -47,6 +54,8 @@
       <updated>1672740001235</updated>
       <workItem from="1672740003359" duration="92000" />
       <workItem from="1672740204467" duration="55000" />
+      <workItem from="1672740296583" duration="149000" />
+      <workItem from="1672740458923" duration="2000" />
     </task>
     <task id="LOCAL-00001" summary="created maven structure">
       <created>1672740250856</created>
@@ -55,7 +64,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672740250856</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="added placeholder files to push file structure">
+      <created>1672740394669</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1672740394669</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -63,6 +79,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="created maven structure" />
-    <option name="LAST_COMMIT_MESSAGE" value="created maven structure" />
+    <MESSAGE value="added placeholder files to push file structure" />
+    <option name="LAST_COMMIT_MESSAGE" value="added placeholder files to push file structure" />
   </component>
 </project>
