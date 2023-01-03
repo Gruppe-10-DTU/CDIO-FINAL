@@ -11,7 +11,7 @@ Project starts the 2nd of january 2023
 
 [Skriv accept tests] as [TASK2] on {Asbjørn:25%} {Nilas:25%} {Phillip:25%} {Sandie:25%} lasts 1 days
 [TASK2] is colored in Lavender/LightBlue
-[TASK2] is 0% complete
+[TASK2] is 100% complete
 
 [GUI (K15)] as [K15] lasts 3 days
 [K15] is 0% complete
@@ -44,6 +44,9 @@ Project starts the 2nd of january 2023
 [Land på felt (K6)] as [K6] lasts 2 days
 [K6] is 0% complete
 
+[Træk changsekort (K18)] as [K18] lasts 1 days
+[K18] is 0% complete
+
 [Spiller penge (K7)] as [K7] lasts 1 days
 [K7] is 0% complete
 
@@ -74,14 +77,13 @@ Project starts the 2nd of january 2023
 [Vind spillet (K17)] as [K17] lasts 1 days
 [K17] is 0% complete
 
-[Træk changsekort (K18)] as [K18] lasts 1 days
-[K18] is 0% complete
+
 
 
 [TASK1]-[#FF0000]->[TASK2]
 [TASK2]->[K15]
 [TASK2]->[K17]
-[TASK2]->[K18]
+
 [TASK2]-[#FF0000]->[K7]
 [TASK2]-[#FF0000]->[K4]
 
@@ -100,6 +102,7 @@ Project starts the 2nd of january 2023
 [K6]->[K10]
 [K7]-[#FF0000]->[K8]
 [K6]-[#FF0000]->[K8]
+[K6]->[K18]
 
 [K7]->[K16]
 
