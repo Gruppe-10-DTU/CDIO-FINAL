@@ -25,7 +25,16 @@ public class PlayerController {
      */
     public void addPlayer(int player, String characterName, String name, int color){
         Character ch = new Character(characterName, "", color);
-        players[player] = new Player(player,name,20-2*(players.length-2),ch );
+        players[player] = new Player(player,name,20-2*(players.length-2),ch);
+    }
+    public void removePlayer(int player){
+        ArrayList<Player> playersAL = new ArrayList<Player>();
+        for (int i = 0; i < players.length ;  i++) {
+            if (players[i] != getPlayerById(player)){
+                playersAL.add(players[i]);
+            }
+        }
+        players = (Player[]) playersAL.toArray();
     }
 
     /**

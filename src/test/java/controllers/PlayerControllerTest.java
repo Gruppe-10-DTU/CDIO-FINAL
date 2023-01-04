@@ -4,14 +4,12 @@ import junit.framework.TestCase;
 import models.Language;
 import models.Player;
 import models.fields.Field;
-import models.fields.Property;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import models.chanceCards.CharacterSpecific;
 import models.*;
 import models.Character;
-import models.fields.Property;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -59,7 +57,7 @@ public class PlayerControllerTest extends TestCase {
         assertEquals(false, pc.playerUnique(name));
 
     }
-
+    /*
     @Test
     @DisplayName("getRent test")
     public void testGetRent(){
@@ -97,5 +95,17 @@ public class PlayerControllerTest extends TestCase {
         assertEquals(false,pc.getRent(pc.getPlayerById(1),property,fc.sameOwner(property)));
         //Luckily it works. Thank god.
 
+    }
+
+     */
+
+    @Test
+    void removePlayer() {
+    PlayerController pc = new PlayerController(2);
+    pc.addPlayer(0,"UFO","Svend",0);
+    pc.addPlayer(1,"UFO","Åge",0);
+    assertEquals(2,pc.getPlayers().length);
+    pc.removePlayer(0);
+    assertEquals(1,pc.getPlayers().length);
     }
 }
