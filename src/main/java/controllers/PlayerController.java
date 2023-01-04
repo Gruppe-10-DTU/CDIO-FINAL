@@ -44,11 +44,6 @@ public class PlayerController {
         }
         return player;
     }
-    public int stickyLocation(Player player, int Integer){
-        int oldLocation = player.getLocation()-Integer;
-        return oldLocation;
-    }
-
     /**
      * @param iD will apply modulus so it'll avoid outOfBoundsError
      * @return Player with the relevant id

@@ -97,6 +97,7 @@ public class GameController implements ActionListener {
      * @param player Active player
      */
     public void TakeTurn(Player player) {
+        try{
         if(player.getLocation() == 30){
            Jail jail = (Jail) fieldController.getField(10);
            if(jail.isInJail(player)){
@@ -119,9 +120,13 @@ public class GameController implements ActionListener {
             diceHolder.roll();
             guiController.showRoll(diceHolder.sum());
             guiController.displayDice(diceHolder.getRolls());
-            for(int i =0; player.getLocation()+i <= playerController.stickyLocation(player,i)+ diceHolder.sum() ; i++){
+
+            int targetSpace = player.getLocation()+diceHolder.sum();
+            while(player.getLocation() < targetSpace){
+                int i = 1;
                 playerController.playerMove(player,i);
                 guiController.updatePlayer(player);
+                Thread.sleep(200);
             }
             if (player.getLocation() + diceHolder.sum() >= 40) {
                 guiController.displayMsg(language.getLanguageValue("passStart"));
@@ -131,6 +136,8 @@ public class GameController implements ActionListener {
             landOnField(player);
         }
         turnCounter++;
+    }catch (Exception e){
+            System.out.println("wah");}
     }
 
     /**
