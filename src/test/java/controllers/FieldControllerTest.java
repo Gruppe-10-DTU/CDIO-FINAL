@@ -6,6 +6,7 @@ import models.fields.Field;
 import models.fields.Jail;
 
 import models.fields.Start;
+import models.fields.Street;
 import org.junit.jupiter.api.BeforeEach;
 
 import org.junit.jupiter.api.Test;
@@ -29,15 +30,15 @@ class FieldControllerTest {
     void setUp() {
         fieldcontroller.fieldArrayList.clear();
 
-        CSVMock.add(new ArrayList<>(Arrays.asList("Start")));
-        CSVMock.add(new ArrayList<>(Arrays.asList("Property","BROWN","3")));
-        CSVMock.add(new ArrayList<>(Arrays.asList("Empty")));
-        CSVMock.add(new ArrayList<>(Arrays.asList("Chance")));
-        CSVMock.add(new ArrayList<>(Arrays.asList("Jail")));
-        CSVMock.add(new ArrayList<>(Arrays.asList("Property","PINK","1")));
-        CSVMock.add(new ArrayList<>(Arrays.asList("ToJail")));
-        CSVMock.add(new ArrayList<>(Arrays.asList("Property","RED","2")));
-        CSVMock.add(new ArrayList<>(Arrays.asList("Property","RED","2")));
+        CSVMock.add(new ArrayList<>(Arrays.asList("Start","0","start","","","","","","","","","")));
+        CSVMock.add(new ArrayList<>(Arrays.asList("Rødovrevej","1","street","1200","1000","50","250","750","2250","4000","6000","blue")));
+        CSVMock.add(new ArrayList<>(Arrays.asList("Prøv lykken","2","chance","","","","","","","","","")));
+        CSVMock.add(new ArrayList<>(Arrays.asList("I fængsel/På besøg","3","jail","","","","","","","","","")));
+        CSVMock.add(new ArrayList<>(Arrays.asList("Hvidovrevej","4","street","1200","1000","50","250","400","750","2250","6000","blue")));
+        CSVMock.add(new ArrayList<>(Arrays.asList("Fængsel","5","jail","","","","","","","","","")));
+        CSVMock.add(new ArrayList<>(Arrays.asList("Amagertorv","6","street","6000","4000","550","2600","7800","18000","22000","25000","yellow")));
+        CSVMock.add(new ArrayList<>(Arrays.asList("Vimmelskaftet","7","street","6000","4000","550","2600","7800","18000","22000","25000","yellow")));
+        CSVMock.add(new ArrayList<>(Arrays.asList("Vimmelskaftet","8","street","6000","4000","550","2600","7800","18000","22000","25000","yellow")));
         fieldcontroller.createFieldArray(CSVMock);
     }
 
@@ -103,12 +104,12 @@ class FieldControllerTest {
 
         //place the players as owners
         for (Object field : fieldcontroller.fieldArrayList) {
-            if ( field instanceof Start.Property) {
+            if ( field instanceof Street) {
                 if (ownerPlayer1) {
-                    ((Start.Property) field).setOwner(mockPlayer1);
+                    ((Street) field).setOwner(mockPlayer1);
                     ownerPlayer1 = false;
                 } else {
-                    ((Start.Property) field).setOwner(mockPlayer2);
+                    ((Street) field).setOwner(mockPlayer2);
                     ownerPlayer1 = true;
                 }
             }
@@ -140,7 +141,7 @@ class FieldControllerTest {
         Field field;
         fieldcontroller.setOwner(player1, 8);
 
-        Start.Property property = (Start.Property) fieldcontroller.getField(8);
+        Street property = (Street) fieldcontroller.getField(8);
         assertFalse(fieldcontroller.sameOwner(property));
         fieldcontroller.setOwner(player1, 7);
         assertTrue(fieldcontroller.sameOwner(property));
@@ -152,7 +153,7 @@ class FieldControllerTest {
 
         fieldcontroller.setOwner(player1, 7);
 
-        property = (Start.Property) fieldcontroller.getField(7);
+        property = (Street) fieldcontroller.getField(7);
         assertFalse(fieldcontroller.sameOwner(property));
         fieldcontroller.setOwner(player1, 8);
         assertTrue(fieldcontroller.sameOwner(property));
@@ -165,12 +166,12 @@ class FieldControllerTest {
     void testAllChoicesTest() {
         int counter = 0;
         for (Field field : fieldcontroller.fieldArrayList) {
-            if ( field instanceof Start.Property) {
+            if ( field instanceof Street) {
                 if (counter < 2) {
-                    ((Start.Property) field).setOwner(mockPlayer1);
+                    ((Street) field).setOwner(mockPlayer1);
                     counter++;
                 } else {
-                    ((Start.Property) field).setOwner(mockPlayer2);
+                    ((Street) field).setOwner(mockPlayer2);
                 }
             }
         }
