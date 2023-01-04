@@ -4,6 +4,7 @@ import models.Language;
 import models.Player;
 import models.chanceCards.Deck;
 import models.fields.Jail;
+import models.fields.Start;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -37,17 +38,17 @@ class GameControllerTest {
     @Test
     void testFreeChoiceProperty() {
         Player testPlayer = new Player(0, "Test");
-        assertNotEquals(testPlayer, ((Property) fieldController.getField(23)).getOwner());
+        assertNotEquals(testPlayer, ((Start.Property) fieldController.getField(23)).getOwner());
         gameController.characterSpecific(testPlayer);
-        assertEquals(testPlayer, ((Property) fieldController.getField(23)).getOwner());
+        assertEquals(testPlayer, ((Start.Property) fieldController.getField(23)).getOwner());
     }
 
     @Test
     void testBuyFromOtherPlayerChanceCard() {
         Player testPlayer1 = new Player(0, "Test1");
         Player testPlayer2 = new Player(0, "Test2");
-        Property[] properties = fieldController.getFreeFields();
-        for (Property property : properties
+        Start.Property[] properties = fieldController.getFreeFields();
+        for (Start.Property property : properties
              ) {
             property.setOwner(testPlayer2);
         }
@@ -58,7 +59,7 @@ class GameControllerTest {
         assertEquals(15, testPlayer1.getBalance());
 
         //Test if ownership was transfered
-        assertNotEquals(testPlayer2, ((Property) fieldController.getField(23)).getOwner());
+        assertNotEquals(testPlayer2, ((Start.Property) fieldController.getField(23)).getOwner());
     }
 
     @Test
@@ -68,7 +69,7 @@ class GameControllerTest {
 
         }
         gameController.characterSpecific(testPlayer1);
-        assertNotEquals(testPlayer1, ((Property) fieldController.getField(23)).getOwner());
+        assertNotEquals(testPlayer1, ((Start.Property) fieldController.getField(23)).getOwner());
 
     }
 
