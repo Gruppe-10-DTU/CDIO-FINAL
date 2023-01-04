@@ -114,10 +114,12 @@ public class FieldController {
 
         for (Object field : fieldArrayList) {
             if (field instanceof Jail) {
-                ((Jail) field).setInJailAdd(player);
-                int jailLocation = ((Jail) field).getID();
-                player.setLocation(jailLocation);
-                break;
+                if (((Jail) field).getName()=="Fængsel"){
+                    ((Jail) field).setInJailAdd(player);
+                    int jailLocation = ((Jail) field).getID();
+                    player.setLocation(jailLocation);
+                    break;
+                }
             }
         }
     }
@@ -156,6 +158,7 @@ public class FieldController {
         }
         return playerValue;
     }
+
 
     /**
      * Recieves a player and a color and moves the player to the nearest instance of that color
@@ -205,6 +208,7 @@ public class FieldController {
             ((Street) property).setOwner(player);
         }
     }
+
     public Street[] getFreeFields(){
         return fieldArrayList.stream().filter(field -> field instanceof Street && ((Street) field).getOwner() == null).toArray(Street[]::new);
     }
