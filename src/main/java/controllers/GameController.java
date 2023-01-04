@@ -97,8 +97,8 @@ public class GameController implements ActionListener {
      * @param player Active player
      */
     public void TakeTurn(Player player) {
-        if(player.getLocation() == 6){
-           Jail jail = (Jail) fieldController.getField(6);
+        if(player.getLocation() == 30){
+           Jail jail = (Jail) fieldController.getField(10);
            if(jail.isInJail(player)){
                if(player.getGetOutOfJail() != null){
                    player.setGetOutOfJail(null);
