@@ -22,8 +22,8 @@ public class PlayerControllerTest extends TestCase {
 
                     //Loads necessary controllers. Creates players..
                     PlayerController pc = new PlayerController(2);
-                    pc.addPlayer(0,"UFO","Svend");
-                    pc.addPlayer(1,"UFO","Åge");
+                    pc.addPlayer(0,"UFO","Svend",0);
+                    pc.addPlayer(1,"UFO","Åge",0);
 
 
 
@@ -53,9 +53,9 @@ public class PlayerControllerTest extends TestCase {
     public void testUniquePlayer(){
         String name = "Åge";
         PlayerController pc = new PlayerController(2);
-        pc.addPlayer(0,"UFO","Svend");
+        pc.addPlayer(0,"UFO","Svend",0);
         assertEquals(true,pc.playerUnique(name));
-        pc.addPlayer(1,"UFO","Åge");
+        pc.addPlayer(1,"UFO","Åge",0);
         assertEquals(false, pc.playerUnique(name));
 
     }
@@ -72,8 +72,8 @@ public class PlayerControllerTest extends TestCase {
         CSVMock.add(new ArrayList<>(Arrays.asList("Property","RED","1")));
         CSVMock.add(new ArrayList<>(Arrays.asList("Property","RED","1")));
         //Add players
-        pc.addPlayer(0,"UFO","Svend");
-        pc.addPlayer(1,"UFO","Åge");
+        pc.addPlayer(0,"UFO","Svend",0);
+        pc.addPlayer(1,"UFO","Åge",0);
         //Give ownership to certain player
         fc.setOwner(pc.getPlayerById(0),1);
         //Move other player onto field, use getRent function and then see if he paid rent for 1 field (1st field rent i 1)

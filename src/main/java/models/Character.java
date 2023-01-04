@@ -5,10 +5,10 @@ import java.awt.*;
 public class Character {
     private String name;
     private String image;
-    private String color;
+    private int color;
 
 
-    public Character(String name, String image, String color) {
+    public Character(String name, String image, int color) {
         this.name = name;
         this.image = image;
         this.color = color;
@@ -21,7 +21,7 @@ public class Character {
         return name;
     }
 
-    public String getColor() {
+    public int getColor() {
         return color;
     }
 }

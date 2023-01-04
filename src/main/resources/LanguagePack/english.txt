@@ -91,3 +91,4 @@ emtpyFieldChoice=Please choose a field to buy
 buyFieldFromPlayer=You can buy a field from another player
 ownEverything=You already own everything
 colors=Yellow,Blue,White,Black,Red,Gray
+colorText=Choose a color for your game token
