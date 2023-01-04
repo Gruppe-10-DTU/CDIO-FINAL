@@ -27,14 +27,21 @@ public class PlayerController {
         Character ch = new Character(characterName, "", color);
         players[player] = new Player(player,name,20-2*(players.length-2),ch);
     }
+    /**
+     * Removes a player from the game.
+     * @param player
+     * Player ID. Who do you want to remove?
+     * @return
+     */
     public void removePlayer(int player){
-        ArrayList<Player> playersAL = new ArrayList<Player>();
-        for (int i = 0; i < players.length ;  i++) {
-            if (players[i] != getPlayerById(player)){
-                playersAL.add(players[i]);
+        Player[] prePlayers = new Player[players.length-1];
+        int counter = 0;
+        for (int i = 0; i < prePlayers.length; i++) {
+            if(players[i].getID() != player){
+                prePlayers[counter++] = players[i];
             }
         }
-        players = (Player[]) playersAL.toArray();
+        players = prePlayers;
     }
 
     /**

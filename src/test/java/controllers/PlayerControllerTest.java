@@ -1,4 +1,5 @@
 package controllers;
+import static org.junit.jupiter.api.Assertions.*;
 
 import junit.framework.TestCase;
 import models.Language;
@@ -7,6 +8,7 @@ import models.fields.Field;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import models.chanceCards.CharacterSpecific;
 import models.*;
 import models.Character;
@@ -101,11 +103,14 @@ public class PlayerControllerTest extends TestCase {
 
     @Test
     void removePlayer() {
-    PlayerController pc = new PlayerController(2);
+    PlayerController pc = new PlayerController(3);
     pc.addPlayer(0,"UFO","Svend",0);
     pc.addPlayer(1,"UFO","Åge",0);
-    assertEquals(2,pc.getPlayers().length);
+    pc.addPlayer(2,"UFO","Åge",0);
+    assertEquals(3,pc.getPlayers().length);
     pc.removePlayer(0);
+    assertEquals(2,pc.getPlayers().length);
+    pc.removePlayer(1);
     assertEquals(1,pc.getPlayers().length);
     }
 }

@@ -78,7 +78,7 @@ public class GameController implements ActionListener {
      * Functions to display the winner and give the users an option to close the game
      */
     private void EndGame() {
-        String endWinner = checkAllBalance();
+        String endWinner = playerController.getPlayerById(0).getIdentifier();
         isOver = true;
         guiController.displayMsgNoBtn(language.getLanguageValue("winner") + " " + endWinner);
         JFrame f = new JFrame("popup");
