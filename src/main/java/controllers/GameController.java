@@ -70,6 +70,12 @@ public class GameController implements ActionListener {
         }
     }
 
+    public static boolean askPlayer(String string) {
+        //Ask player yes or no and return true or false
+
+        return true;
+    }
+
     /*
      * Functions to display the winner and give the users an option to close the game
      *

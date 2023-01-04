@@ -131,6 +131,24 @@ public class FieldController {
         }
     }
 
+    public void landOnField (Player player) {
+        Field currentField = fieldArrayList.get(player.getLocation());
+        Effect effect = currentField.fieldEffect(player);
+
+        switch (effect) {
+            case BUY:
+                Property currentProperty = (Property) currentField;
+                boolean playerResponse = GameController.askPlayer("Du er landet på " + currentField.getName() + "Vil du købe det?");
+                if (playerResponse) {
+                    player.setBalance(player.getBalance() - currentProperty.getPrice());
+                    currentProperty.setOwner(player);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
     /**
      * Creates a Hashmap collecting the total value of all properties owned by a player
      *
@@ -157,46 +175,6 @@ public class FieldController {
         return playerValue;
     }
 
-    /**
-     * Recieves a player and a color and moves the player to the nearest instance of that color
-     *
-     * @param color  color of the field
-     * @param player the plyaer that's moved
-     * @return int location of the field
-     */
-    public int moveToColor(String color, Player player) {
-        int location = player.getLocation();
-        int newLocation = 0;
-        int spaces = 0;
-
-        int i = location;
-        boolean foundColor = false;
-        while (!foundColor) {
-            i++;
-
-            if (i >= fieldArrayList.size()) {
-                i = 0;
-            }
-
-            if (fieldArrayList.get(i) instanceof Street) {
-                String fieldColor = ((Street) fieldArrayList.get(i)).getColor();
-
-                if (fieldColor.equals(color)) {
-                    newLocation = ((Street) fieldArrayList.get(i)).getID();
-                    foundColor = true;
-                }
-            }
-
-
-            if (newLocation < location) {
-                spaces = newLocation + (fieldArrayList.size() - location);
-            } else {
-                spaces = newLocation - location;
-            }
-        }
-        return spaces;
-    }
-
 
 
     public void setOwner(Player player, int propertyId) {
@@ -205,9 +183,7 @@ public class FieldController {
             ((Street) property).setOwner(player);
         }
     }
-    public Street[] getFreeFields(){
-        return fieldArrayList.stream().filter(field -> field instanceof Street && ((Street) field).getOwner() == null).toArray(Street[]::new);
-    }
+
     public Field getField(int fieldID) {
         return fieldArrayList.get(fieldID);
     }
@@ -216,10 +192,7 @@ public class FieldController {
         return fieldArrayList;
     }
 
-    public boolean getFreeField(Player Player, int PropertyID) {
-        Street property = (Street) fieldArrayList.get(PropertyID);
-        return property.getOwner() == null;
-    }
+
 
     /**
      * see if a propertys neighbor have the same owner

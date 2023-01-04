@@ -1,5 +1,8 @@
 package models.fields;
 
+import models.Player;
+import org.apache.commons.lang.NotImplementedException;
+
 public class Brewery extends Field{
 
     private int price;
@@ -28,5 +31,9 @@ public class Brewery extends Field{
 
     public int getRent1() {
         return rent1;
+    }
+
+    public Effect fieldEffect(Player player){
+        throw new NotImplementedException();
     }
 }

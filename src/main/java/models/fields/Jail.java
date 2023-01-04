@@ -1,6 +1,7 @@
 package models.fields;
 
 import models.Player;
+import org.apache.commons.lang.NotImplementedException;
 
 import java.util.ArrayList;
 
@@ -36,5 +37,9 @@ public class Jail extends Field {
     public void setInJailRemove(Player player) {
         int index = inJail.indexOf(player);
         inJail.remove(index);
+    }
+
+    public void fieldEffect(Player player){
+        throw new NotImplementedException();
     }
 }

@@ -2,10 +2,10 @@ package models.fields;
 import models.Player;
 
 
-public class Street extends Field{
+public class Street extends Property{
 
     private String color;
-    private int price;
+    //private int price;
     private int houseRent;
     private int rent0;
     private int rent1;
@@ -13,17 +13,29 @@ public class Street extends Field{
     private int rent3;
     private int rent4;
     private int rent5;
-    private Player owner;
+
+
+    public Effect fieldEffect(Player player) {
+        if (owner == null) {
+            if (player.getBalance() > price) {
+                return Effect.BUY;
+            } else {
+                return Effect.NONE;
+            }
+        } else {
+            return Effect.RENT;
+        }
+    }
+
+
 
     public String getColor() {
         return color;
     }
 
-    public int getPrice() {
-        return price;
-    }
 
-    public Player getOwner() {return owner;}
+
+
 
     public void setColor(String color) {
         this.color = color;
@@ -33,11 +45,9 @@ public class Street extends Field{
         this.price = Integer.parseInt(price);
     }
 
-    public void setOwner(Player owner) {this.owner = owner;}
 
-    public void setPrice(int price) {
-        this.price = price;
-    }
+
+
 
     public void setHouseRent(int houseRent) {
         this.houseRent = houseRent;
