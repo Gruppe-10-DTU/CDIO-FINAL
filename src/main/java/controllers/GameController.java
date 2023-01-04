@@ -49,7 +49,9 @@ public class GameController implements ActionListener {
 
     public void initialize(){
         String name;
-        StringBuilder playerChar = new StringBuilder("Car,Tractor,Racecar,UFO");
+        String tokens = "Car,Tractor,Racecar,UFO";
+        StringBuilder sb = new StringBuilder(language.getLanguageValue("colors"));
+        List colors = Arrays.stream(String.valueOf(sb).split(",")).toList();
         for (int i = 0; i < playerController.getPlayers().length; i++) {
             name = guiController.getName(language.getLanguageValue("inputName"));
             while (!playerController.playerUnique(name)) {
@@ -58,11 +60,13 @@ public class GameController implements ActionListener {
 
             }
 
-                String character = guiController.selectCharacter(language.getLanguageValue("selectCharacter"), String.valueOf(playerChar));
-                playerChar.delete(playerChar.indexOf(character), playerChar.indexOf(character) + character.length() + 1);
+            String character = guiController.selectCharacter(language.getLanguageValue("selectCharacter"),tokens);
+            String color = guiController.selectCharacter(language.getLanguageValue("colorText"), String.valueOf(sb));
+            sb.delete(sb.indexOf(color), sb.indexOf(color) + color.length() + 1);
 
-            playerController.addPlayer(i, character, name);
+            playerController.addPlayer(i, character, name, colors.indexOf(color));
         }
+
         guiController.setPlayers(playerController.getPlayers());
         while (!isOver) {
             this.currentPlayer = playerController.getPlayerById(turnCounter);

@@ -13,11 +13,30 @@ public class GUIConverter {
     public static GUI_Player[] playerToGUI(Player[] players){
         GUI_Player[] gui_players = new GUI_Player[players.length];
         for (int i = 0; i < players.length; i++) {
-            GUI_Car car = new GUI_Car(Color.YELLOW , Color.GREEN, GUI_Car.Type.getTypeFromString(players[i].getCharacter().getName().toUpperCase()), GUI_Car.Pattern.ZEBRA);
-            car.setPrimaryColor(Color.yellow);
+            Color color = getColorChoice(players[i].getCharacter().getColor());
+            GUI_Car car = new GUI_Car( color, color, GUI_Car.Type.getTypeFromString(players[i].getCharacter().getName().toUpperCase()), GUI_Car.Pattern.ZEBRA);
             gui_players[i] = new GUI_Player(players[i].getIdentifier(), players[i].getBalance(), car);
         }
         return gui_players;
+    }
+
+    private static Color getColorChoice(int color) {
+        switch (color){
+            case 0:
+                return Color.YELLOW;
+            case 1:
+                return Color.blue;
+            case 2:
+                return Color.white;
+            case 3:
+                return Color.black;
+            case 4:
+                return Color.red;
+            case 5:
+                return Color.gray;
+            default:
+                return Color.PINK;
+        }
     }
 
     public static GUI_Field[] fieldListToGUI(ArrayList<Field> fieldList) {
