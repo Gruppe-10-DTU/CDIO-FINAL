@@ -26,7 +26,6 @@ public class GUIController {
      */
     public GUIController(ArrayList<Field> fieldList){
         gui = new GUI(GUIConverter.fieldListToGUI(fieldList));
-
     }
 
     /**
@@ -35,7 +34,7 @@ public class GUIController {
      * @return PlayerAmount :  How many players are going to play the game
      */
     public int playerAmount(String playerAmountText){
-        return gui.getUserInteger(playerAmountText,2, 4);
+        return gui.getUserInteger(playerAmountText,3, 6);
     }
 
 

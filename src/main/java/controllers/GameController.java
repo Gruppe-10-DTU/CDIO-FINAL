@@ -32,7 +32,7 @@ public class GameController implements ActionListener {
         fieldController = new FieldController(language);
         guiController = new GUIController(fieldController.getFieldList());
         deck = new Deck(language);
-        diceHolder = new DiceHolder(1);
+        diceHolder = new DiceHolder(2);
         int playerAmount = guiController.playerAmount(language.getLanguageValue("playerAmount"));
         playerController = new PlayerController(playerAmount);
         deck.shuffle();
@@ -47,18 +47,20 @@ public class GameController implements ActionListener {
         this.diceHolder = diceHolder;
         deck.shuffle();
     }
+
     public void initialize(){
         String name;
-        StringBuilder sb = new StringBuilder("Car,Tractor,Racecar,UFO");
+        StringBuilder playerChar = new StringBuilder("Car,Tractor,Racecar,UFO");
         for (int i = 0; i < playerController.getPlayers().length; i++) {
             name = guiController.getName(language.getLanguageValue("inputName"));
             while (!playerController.playerUnique(name)) {
                 guiController.displayMsg(language.getLanguageValue("nameNotUnique"));
                 name = guiController.getName(language.getLanguageValue("inputName"));
+
             }
 
-            String character = guiController.selectCharacter(language.getLanguageValue("selectCharacter"), String.valueOf(sb));
-            sb.delete(sb.indexOf(character), sb.indexOf(character) + character.length() + 1);
+                String character = guiController.selectCharacter(language.getLanguageValue("selectCharacter"), String.valueOf(playerChar));
+                playerChar.delete(playerChar.indexOf(character), playerChar.indexOf(character) + character.length() + 1);
 
             playerController.addPlayer(i, character, name);
         }
