@@ -6,6 +6,7 @@ import models.fields.Field;
 import models.fields.Jail;
 
 import models.fields.Start;
+import models.fields.Street;
 import org.junit.jupiter.api.BeforeEach;
 
 import org.junit.jupiter.api.Test;
@@ -103,12 +104,12 @@ class FieldControllerTest {
 
         //place the players as owners
         for (Object field : fieldcontroller.fieldArrayList) {
-            if ( field instanceof Start.Property) {
+            if ( field instanceof Street) {
                 if (ownerPlayer1) {
-                    ((Start.Property) field).setOwner(mockPlayer1);
+                    ((Street) field).setOwner(mockPlayer1);
                     ownerPlayer1 = false;
                 } else {
-                    ((Start.Property) field).setOwner(mockPlayer2);
+                    ((Street) field).setOwner(mockPlayer2);
                     ownerPlayer1 = true;
                 }
             }
@@ -140,7 +141,7 @@ class FieldControllerTest {
         Field field;
         fieldcontroller.setOwner(player1, 8);
 
-        Start.Property property = (Start.Property) fieldcontroller.getField(8);
+        Street property = (Street) fieldcontroller.getField(8);
         assertFalse(fieldcontroller.sameOwner(property));
         fieldcontroller.setOwner(player1, 7);
         assertTrue(fieldcontroller.sameOwner(property));
@@ -152,7 +153,7 @@ class FieldControllerTest {
 
         fieldcontroller.setOwner(player1, 7);
 
-        property = (Start.Property) fieldcontroller.getField(7);
+        property = (Street) fieldcontroller.getField(7);
         assertFalse(fieldcontroller.sameOwner(property));
         fieldcontroller.setOwner(player1, 8);
         assertTrue(fieldcontroller.sameOwner(property));
@@ -165,12 +166,12 @@ class FieldControllerTest {
     void testAllChoicesTest() {
         int counter = 0;
         for (Field field : fieldcontroller.fieldArrayList) {
-            if ( field instanceof Start.Property) {
+            if ( field instanceof Street) {
                 if (counter < 2) {
-                    ((Start.Property) field).setOwner(mockPlayer1);
+                    ((Street) field).setOwner(mockPlayer1);
                     counter++;
                 } else {
-                    ((Start.Property) field).setOwner(mockPlayer2);
+                    ((Street) field).setOwner(mockPlayer2);
                 }
             }
         }
