@@ -4,6 +4,7 @@ import gui_fields.*;
 import models.Player;
 import models.fields.Field;
 import models.fields.Start;
+import models.fields.Street;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -26,15 +27,15 @@ public class GUIConverter {
              ) {
             switch (field.getClass().getSimpleName()) {
                 case "Street": {
-                    //Start.Property prop = (Start.Property) field;
+                    Street prop = (Street) field;
 
-                    Color fieldColor = Color.WHITE;
-                    Color textColor = Color.black;
+                    //Color fieldColor = Color.WHITE;
+                    //Color textColor = Color.black;
 
-                    //Color fieldColor = null;
-                    //Color textColor = null;
+                    Color fieldColor = null;
+                    Color textColor = null;
 
-                    /* switch (((Start.Property) field).getColor()) {
+                    switch (((Street) field).getColor()) {
                         case "BROWN": {
                             float[] hsbValues = new float[3];
                             Color.RGBtoHSB(102,77,44, hsbValues);
@@ -47,7 +48,7 @@ public class GUIConverter {
                             textColor = Color.black;
                             break;
                         }
-                        case "PINK": {
+                        case "pink": {
                             fieldColor = Color.PINK;
                             textColor = Color.black;
                             break;
@@ -57,29 +58,44 @@ public class GUIConverter {
                             textColor = Color.black;
                             break;
                         }
-                        case "RED": {
+                        case "red": {
                             fieldColor = Color.RED;
                             textColor = Color.black;
                             break;
                         }
-                        case "YELLOW": {
+                        case "yellow": {
                             fieldColor = Color.YELLOW;
                             textColor = Color.black;
                             break;
                         }
-                        case "GREEN": {
+                        case "green": {
                             fieldColor = Color.GREEN;
                             textColor = Color.black;
                             break;
                         }
-                        case "BLUE": {
+                        case "blue": {
                             fieldColor = Color.BLUE.brighter();
                             textColor = Color.white;
                             break;
                         }
-                    }*/
+                        case "grey": {
+                            fieldColor = Color.GRAY;
+                            textColor = Color.black;
+                            break;
+                        }
+                        case "white": {
+                            fieldColor = Color.WHITE;
+                            textColor = Color.black;
+                            break;
+                        }
+                        case "purple": {
+                            fieldColor = Color.ORANGE;
+                            textColor = Color.black;
+                            break;
+                        }
+                    }
 
-                    fields[field.getID()] = new GUI_Street(field.getName(), " ", field.getName(), Integer.toString(1 /*prop.getPrice()*/), fieldColor, textColor);
+                    fields[field.getID()] = new GUI_Street(field.getName(), " ", field.getName(), Integer.toString(prop.getPrice()), fieldColor, textColor);
                     break;
                 }
                 case "Chance": {
