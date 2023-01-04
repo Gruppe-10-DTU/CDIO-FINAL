@@ -81,7 +81,7 @@ class GameControllerTest {
         deck = new Deck(language);
         diceHolder = new cheatDiceHolder();
         for (int i = 0; i < gui.playerAmount("test"); i++) {
-            pc.addPlayer(i, gui.selectCharacter("test", "test"), gui.getName("test"));
+            pc.addPlayer(i, gui.selectCharacter("test", "test"), gui.getName("test"),0);
         }
 
         gameController = new GameController(language, pc, fieldController, gui, deck, diceHolder);
