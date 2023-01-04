@@ -3,15 +3,11 @@ package models.fields;
 import models.Player;
 import org.apache.commons.lang.NotImplementedException;
 
-public class Brewery extends Field{
+public class Brewery extends Property{
 
-    private int price;
     private int rent0;
     private int rent1;
 
-    public void setPrice(int price) {
-        this.price = price;
-    }
 
     public void setRent0(int rent0) {
         this.rent0 = rent0;
@@ -19,10 +15,6 @@ public class Brewery extends Field{
 
     public void setRent1(int rent1) {
         this.rent1 = rent1;
-    }
-
-    public int getPrice() {
-        return price;
     }
 
     public int getRent0() {
@@ -34,6 +26,14 @@ public class Brewery extends Field{
     }
 
     public Effect fieldEffect(Player player){
-        throw new NotImplementedException();
+        if (owner == null) {
+            if (player.getBalance() > price) {
+                return Effect.BUY;
+            } else {
+                return Effect.NONE;
+            }
+        } else {
+            return Effect.RENT;
+        }
     }
 }
