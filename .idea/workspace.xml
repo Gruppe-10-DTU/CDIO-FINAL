@@ -4,8 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b028b868-a317-45c1-ab71-837b1a088a0e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/CDIO-FINAL.iml" beforeDir="false" />
+    <list default="true" id="b028b868-a317-45c1-ab71-837b1a088a0e" name="Changes" comment="Added old files from CDIO3">
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Start.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Start.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ui/GUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ui/GUIController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/LanguagePack/danish.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/LanguagePack/danish.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/LanguagePack/english.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/LanguagePack/english.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,7 +19,19 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="development" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubProjectSettings">
+    <option name="branchProtectionPatterns">
+      <list>
+        <option value="main" />
+      </list>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -59,6 +77,8 @@
       <workItem from="1672740458923" duration="2000" />
       <workItem from="1672740495591" duration="143000" />
       <workItem from="1672740657862" duration="14000" />
+      <workItem from="1672749846815" duration="263000" />
+      <workItem from="1672750144346" duration="269000" />
     </task>
     <task id="LOCAL-00001" summary="created maven structure">
       <created>1672740250856</created>
@@ -86,6 +106,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="created maven structure" />
