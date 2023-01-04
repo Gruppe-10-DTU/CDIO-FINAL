@@ -127,13 +127,7 @@ public class GameController implements ActionListener {
             guiController.showRoll(diceHolder.sum());
             guiController.displayDice(diceHolder.getRolls());
 
-            int targetSpace = player.getLocation()+diceHolder.sum();
-            while(player.getLocation() < targetSpace){
-                int i = 1;
-                playerController.playerMove(player,i);
-                guiController.updatePlayer(player);
-                Thread.sleep(200);
-            }
+           guiController.movePlayer(player)
             if (player.getLocation() + diceHolder.sum() >= 40) {
                 guiController.displayMsg(language.getLanguageValue("passStart"));
             } else {
