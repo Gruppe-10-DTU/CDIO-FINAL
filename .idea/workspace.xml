@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b028b868-a317-45c1-ab71-837b1a088a0e" name="Changes" comment="Commit before update">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/PlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/PlayerController.java" afterDir="false" />
-    </list>
+    <list default="true" id="b028b868-a317-45c1-ab71-837b1a088a0e" name="Changes" comment="Commit before update" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -115,7 +111,14 @@
       <option name="project" value="LOCAL" />
       <updated>1672740553977</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Commit before update">
+      <created>1672826523563</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1672826523563</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -136,7 +139,8 @@
     <MESSAGE value="created maven structure" />
     <MESSAGE value="added placeholder files to push file structure" />
     <MESSAGE value="copied gitignore setup from previous project" />
-    <option name="LAST_COMMIT_MESSAGE" value="copied gitignore setup from previous project" />
+    <MESSAGE value="Commit before update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Commit before update" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CDIO_FINALTRUE$Start.ic" NAME="Start Coverage Results" MODIFIED="1672751816920" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
