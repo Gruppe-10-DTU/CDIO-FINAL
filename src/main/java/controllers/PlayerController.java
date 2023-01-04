@@ -5,6 +5,7 @@ import models.Character;
 import models.fields.Start;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class PlayerController {
     //make int Amount variable until GUI controller complete
