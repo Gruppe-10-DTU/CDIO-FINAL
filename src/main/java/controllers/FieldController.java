@@ -35,13 +35,6 @@ public class FieldController {
             String fieldType = fieldData.get(i).get(2);
 
             switch (fieldType) {
-                case "empty":
-                    Empty empty = new Empty();
-                    fieldArrayList.add(empty);
-                    empty.setID(Integer.parseInt(fieldData.get(i).get(1)));
-                    empty.setName(fieldData.get(i).get(0));
-                    //empty.setName(language.getLanguageValue("fieldName" + i));
-                    break;
                 case "start":
                     Start start = new Start();
                     fieldArrayList.add(start);
@@ -54,8 +47,14 @@ public class FieldController {
                     fieldArrayList.add(street);
                     street.setID(Integer.parseInt(fieldData.get(i).get(1)));
                     street.setName(fieldData.get(i).get(0));
-                    //property.setPrice(fieldData.get(i).get(2));
-                    //property.setColor(fieldData.get(i).get(1));
+                    street.setPrice(fieldData.get(i).get(3));
+                    street.setHouseRent(Integer.parseInt(fieldData.get(i).get(4)));
+                    street.setRent0(Integer.parseInt(fieldData.get(i).get(5)));
+                    street.setRent1(Integer.parseInt(fieldData.get(i).get(6)));
+                    street.setRent2(Integer.parseInt(fieldData.get(i).get(7)));
+                    street.setRent3(Integer.parseInt(fieldData.get(i).get(8)));
+                    street.setRent4(Integer.parseInt(fieldData.get(i).get(9)));
+                    street.setRent5(Integer.parseInt(fieldData.get(i).get(10)));
                     //property.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "chance":
@@ -64,13 +63,6 @@ public class FieldController {
                     chance.setID(Integer.parseInt(fieldData.get(i).get(1)));
                     chance.setName(fieldData.get(i).get(0));
                     //chance.setName(language.getLanguageValue("fieldName" + i));
-                    break;
-                case "toJail":
-                    ToJail toJail = new ToJail(-12);
-                    fieldArrayList.add(toJail);
-                    toJail.setID(Integer.parseInt(fieldData.get(i).get(1)));
-                    toJail.setName(fieldData.get(i).get(0));
-                    //toJail.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "jail":
                     Jail jail = new Jail();
@@ -84,12 +76,20 @@ public class FieldController {
                     fieldArrayList.add(brewery);
                     brewery.setID(Integer.parseInt(fieldData.get(i).get(1)));
                     brewery.setName(fieldData.get(i).get(0));
+                    brewery.setPrice(Integer.parseInt(fieldData.get(i).get(3)));
+                    brewery.setRent0(Integer.parseInt(fieldData.get(i).get(5)));
+                    brewery.setRent1(Integer.parseInt(fieldData.get(i).get(6)));
                     break;
                 case "ferry":
                     Ferry ferry = new Ferry();
                     fieldArrayList.add(ferry);
                     ferry.setID(Integer.parseInt(fieldData.get(i).get(1)));
                     ferry.setName(fieldData.get(i).get(0));
+                    ferry.setPrice(Integer.parseInt(fieldData.get(i).get(3)));
+                    ferry.setRent0(Integer.parseInt(fieldData.get(i).get(5)));
+                    ferry.setRent1(Integer.parseInt(fieldData.get(i).get(6)));
+                    ferry.setRent2(Integer.parseInt(fieldData.get(i).get(7)));
+                    ferry.setRent3(Integer.parseInt(fieldData.get(i).get(8)));
                     break;
                 case "refugee":
                     Refuge refuge = new Refuge();
