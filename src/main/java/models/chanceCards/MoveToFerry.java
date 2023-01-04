@@ -2,20 +2,20 @@ package models.chanceCards;
 
 public class MoveToFerry extends ChanceCard{
 
-    private int rentMultiplier;
-    private boolean passStartBonus;
+    private final int RENT_MULTIPLIER;
+    private final boolean PASS_START_BONUS;
 
     public MoveToFerry(String NAME, String Description, int RentMultiplier, boolean PassStartBonus) {
         super(NAME, Description);
-        this.rentMultiplier = RentMultiplier;
-        this.passStartBonus = PassStartBonus;
+        this.RENT_MULTIPLIER = RentMultiplier;
+        this.PASS_START_BONUS = PassStartBonus;
     }
 
-    public int getRentMultiplier() {
-        return rentMultiplier;
+    public int getRENT_MULTIPLIER() {
+        return RENT_MULTIPLIER;
     }
 
-    public boolean isPassStartBonus() {
-        return passStartBonus;
+    public boolean getPASS_START_BONUS() {
+        return PASS_START_BONUS;
     }
 }
