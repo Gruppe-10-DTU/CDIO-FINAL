@@ -11,6 +11,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 import java.util.List;
 
@@ -25,8 +27,10 @@ public class GameController implements ActionListener {
     private FieldController fieldController;
     private Deck deck;
     private Popup p;
+    private Properties properties;
 
     public GameController() {
+        properties = loadProperties();
         language = new Language(System.getProperty("user.language"));
         fieldController = new FieldController(language);
         guiController = new GUIController(fieldController.getFieldList());
@@ -37,6 +41,27 @@ public class GameController implements ActionListener {
         deck.shuffle();
         this.initialize();
     }
+
+    public Properties loadProperties() {
+
+        try (InputStream input = GameController.class.getClassLoader().getResourceAsStream("config.properties")) {
+
+            Properties properties = new Properties();
+
+            if (input == null) {
+                System.out.println("Sorry, unable to find config.properties");
+                return;
+            }
+
+            //load a properties file from class path, inside static method
+            properties.load(input);
+
+            return properties;
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public GameController(Language language, PlayerController playerController, FieldController fieldController, GUIController guiController, Deck deck, DiceHolder diceHolder){
         this.language = language;
         this.playerController = playerController;

@@ -4,11 +4,11 @@ import models.Language;
 import models.Player;
 import models.chanceCards.Deck;
 import models.fields.Jail;
-import models.fields.Property;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
+import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -91,6 +91,13 @@ class GameControllerTest {
         fieldController.setOwner(pc.getPlayers()[0],1);
         assertEquals(pc.getPlayers()[0].getIdentifier(), gameController.checkAllBalance());
     }
+
+    @Test
+    void testGamePropertiesLoadCorrectly() {
+        Properties properties;
+
+    }
+
     @Test
     void testZeroBalance() {
         Player[] players = pc.getPlayers();
