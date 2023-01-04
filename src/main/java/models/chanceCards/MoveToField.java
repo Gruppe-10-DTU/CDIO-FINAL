@@ -3,6 +3,7 @@ package models.chanceCards;
 public class MoveToField extends ChanceCard{
 
     private final int FIELD_ID;
+    private final boolean PASS_START_BONUS;
 
     /**
      * Constructor for the Chancecards that move the player to a specific field.
@@ -10,12 +11,17 @@ public class MoveToField extends ChanceCard{
      * @param Description Must be imported from the language hashmap
      * @param FIELD_ID   The name of the field to move to
      */
-    public MoveToField(String Name, String Description, int FIELD_ID) {
+    public MoveToField(String Name, String Description, boolean PassStartBonus, int FIELD_ID) {
         super(Name, Description);
+        this.PASS_START_BONUS = PassStartBonus;
         this.FIELD_ID = FIELD_ID;
     }
 
     public int getFieldID() {
         return FIELD_ID;
+    }
+
+    public boolean getPASS_START_BONUS() {
+        return PASS_START_BONUS;
     }
 }
