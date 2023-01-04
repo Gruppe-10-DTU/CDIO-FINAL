@@ -2,25 +2,20 @@ package models.chanceCards;
 
 public class MoveXSteps extends ChanceCard{
 
-    private final int MIN_STEPS;
     private final int MAX_STEPS;
 
     /**
      *
      * @param Name
      * @param Description
-     * @param MinimumSteps
-     * @param MaximumSteps
+     * @param StepsToMove
      */
-         public MoveXSteps(String Name, String Description, int MinimumSteps , int MaximumSteps) {
+         public MoveXSteps(String Name, String Description, int StepsToMove) {
         super(Name, Description);
-        this.MIN_STEPS = MinimumSteps;
-        this.MAX_STEPS = MaximumSteps;
+
+        this.MAX_STEPS = StepsToMove;
     }
 
-    public int getMinSteps() {
-        return MIN_STEPS;
-    }
 
     public int getMaxSteps() {
         return MAX_STEPS;
