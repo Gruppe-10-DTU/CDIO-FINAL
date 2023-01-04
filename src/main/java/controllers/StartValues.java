@@ -9,11 +9,12 @@ public class StartValues {
     private static StartValues instance = new StartValues() ;
 
     private StartValues(){
-        try (InputStream input = GameController.class.getClassLoader().getResourceAsStream("config.properties")) {
+        try (InputStream input = this.getClass().getClassLoader().getResourceAsStream("GamePack/config.properties")) {
             properties = new Properties();
 
             if (input == null) {
                 System.out.println("Sorry, unable to find config.properties");
+                return;
             }
 
             //load a properties file from class path, inside static method
