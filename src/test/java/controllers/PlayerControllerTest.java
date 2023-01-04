@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 import models.Language;
 import models.fields.Field;
 import models.fields.Start;
+import models.fields.Street;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -75,7 +76,7 @@ public class PlayerControllerTest extends TestCase {
         pc.getPlayerById(1).setLocation(1);
         //Have to cast field to property so that I can use the property variable in the getRent function. Meh...
         Field field = fc.getField(pc.getPlayerById(1).getLocation());
-        Start.Property property = (Start.Property) field;
+        Street property = (Street) field;
         pc.getRent(pc.getPlayerById(1),property,fc.sameOwner(property));
         assertEquals(19,pc.getPlayerById(1).getBalance());
         //Now testing if the player owns both fields, will the rent increase?

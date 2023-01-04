@@ -3,6 +3,7 @@ package controllers;
 import models.Player;
 import models.fields.Field;
 import models.fields.Start;
+import models.fields.Street;
 
 import java.util.ArrayList;
 
@@ -111,7 +112,7 @@ public class GUIControllerStub extends ui.GUIController {
      * @param property Property to be changed
      */
     @Override
-    public void updateField(Start.Property property) {
+    public void updateField(Street property) {
 
     }
 
@@ -120,7 +121,7 @@ public class GUIControllerStub extends ui.GUIController {
      * @param properties       The choices you have
      */
     @Override
-    public int getPropertyChoice(String emtpyFieldChoice, Start.Property[] properties) {
+    public int getPropertyChoice(String emtpyFieldChoice, Street[] properties) {
         return 23;
     }
 }

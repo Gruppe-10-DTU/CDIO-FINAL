@@ -2,10 +2,7 @@ package controllers;
 import models.chanceCards.CharacterSpecific;
 import models.*;
 import models.Character;
-import models.fields.Start;
 import models.fields.Street;
-
-import java.awt.*;
 
 public class PlayerController {
     //make int Amount variable until GUI controller complete
@@ -25,7 +22,7 @@ public class PlayerController {
      */
     public void addPlayer(int player, String characterName, String name, int color){
         Character ch = new Character(characterName, "", color);
-        players[player] = new Player(player,name,20-2*(players.length-2),ch );
+        players[player] = new Player(player,name,StartValues.getInstance().getValue("startingMoney"), ch);
     }
 
     /**

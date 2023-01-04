@@ -2,14 +2,9 @@ package controllers;
 
 import models.chanceCards.*;
 import models.*;
-import models.fields.Field;
-import models.fields.Jail;
-import models.fields.Start;
-import models.fields.Street;
 import ui.GUIController;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
@@ -32,12 +27,13 @@ public class GameController implements ActionListener {
         fieldController = new FieldController(language);
         guiController = new GUIController(fieldController.getFieldList());
         deck = new Deck(language);
-        diceHolder = new DiceHolder(2);
+        diceHolder = new DiceHolder(StartValues.getInstance().getValue("diceAmount"));
         int playerAmount = guiController.playerAmount(language.getLanguageValue("playerAmount"));
         playerController = new PlayerController(playerAmount);
         deck.shuffle();
         this.initialize();
     }
+
     public GameController(Language language, PlayerController playerController, FieldController fieldController, GUIController guiController, Deck deck, DiceHolder diceHolder){
         this.language = language;
         this.playerController = playerController;
@@ -58,7 +54,6 @@ public class GameController implements ActionListener {
             while (!playerController.playerUnique(name)) {
                 guiController.displayMsg(language.getLanguageValue("nameNotUnique"));
                 name = guiController.getName(language.getLanguageValue("inputName"));
-
             }
 
             String character = guiController.selectCharacter(language.getLanguageValue("selectCharacter"),tokens);
