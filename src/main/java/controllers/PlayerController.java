@@ -35,10 +35,10 @@ public class PlayerController {
      */
     public Player playerMove(Player player, int spaces){
         int oldLocation = player.getLocation();
-        if(oldLocation + spaces >= 24){
+        if(oldLocation + spaces >= 40){
             player.setLocation(oldLocation, spaces);
-            player.setLocation(player.getLocation(),-24);
-            player.setBalance(2);
+            player.setLocation(player.getLocation(),-40);
+            player.setBalance(StartValues.getInstance().getValue("passStartBonus"));
         }else{
             player.setLocation(oldLocation,spaces);
         }
