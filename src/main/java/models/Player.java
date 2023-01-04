@@ -1,5 +1,6 @@
 package models;
 
+import controllers.PlayerController;
 import models.chanceCards.CharacterSpecific;
 import models.chanceCards.GetOutOfJail;
 
@@ -9,6 +10,7 @@ import models.chanceCards.GetOutOfJail;
 public class Player {
     private final int iD;
     private final Balance balance;
+    public PlayerController playerController;
     private String identifier;
     private Character character;
     private int soldSign = 12;

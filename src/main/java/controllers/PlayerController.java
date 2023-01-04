@@ -35,14 +35,18 @@ public class PlayerController {
      */
     public Player playerMove(Player player, int spaces){
         int oldLocation = player.getLocation();
-        if(oldLocation + spaces >= 24){
+        if(oldLocation + spaces >= 40){
             player.setLocation(oldLocation, spaces);
-            player.setLocation(player.getLocation(),-24);
-            player.setBalance(2);
+            player.setLocation(player.getLocation(),-40);
+            player.setBalance(4000);
         }else{
             player.setLocation(oldLocation,spaces);
         }
         return player;
+    }
+    public int stickyLocation(Player player, int Integer){
+        int oldLocation = player.getLocation()-Integer;
+        return oldLocation;
     }
 
     /**
