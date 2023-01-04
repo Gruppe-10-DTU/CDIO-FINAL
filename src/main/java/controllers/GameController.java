@@ -71,13 +71,13 @@ public class GameController implements ActionListener {
         guiController.setPlayers(playerController.getPlayers());
         while (!isOver) {
             this.currentPlayer = playerController.getPlayerById(turnCounter);
-            TakeTurn(currentPlayer);
+            //TakeTurn(currentPlayer);
         }
     }
 
-    /**
+    /*
      * Functions to display the winner and give the users an option to close the game
-     */
+     *
     private void EndGame() {
         String endWinner = checkAllBalance();
         isOver = true;
@@ -96,11 +96,12 @@ public class GameController implements ActionListener {
         for (Player player: playerController.getPlayers()) {
             System.out.println(player.getBalance());
         }
-    }
-    /**
+    }*/
+
+    /*
      * Logic to handle a players turn
      * @param player Active player
-     */
+     *
     public void TakeTurn(Player player) {
         if(player.getLocation() == 6){
            Jail jail = (Jail) fieldController.getField(6);
@@ -135,12 +136,12 @@ public class GameController implements ActionListener {
             landOnField(player);
         }
         turnCounter++;
-    }
+    }*/
 
-    /**
+    /*
      * Handle all logic regarding the specific character card.
      * @param player Player to take the turn
-     */
+     *
     public void characterSpecific(Player player){
         player.setCharacterSpecific(null);
         if(!player.decreaseSoldSign()){
@@ -186,11 +187,11 @@ public class GameController implements ActionListener {
                 EndGame();
             }
         }
-    }
+    }*/
 
-    /**
+    /*
      * @param player All logic controlling what happens when you land on a field
-     */
+     *
     private void landOnField(Player player) {
         Field field = fieldController.getField(player.getLocation());
         //Choose logic based on the field type
@@ -251,9 +252,9 @@ public class GameController implements ActionListener {
             }
         }
         guiController.updateBoard(playerController, fieldController);
-    }
+    }*/
 
-    public boolean takeChance(){
+    /*public boolean takeChance(){
         ChanceCard card = deck.drawCard();
         String type = card.getType();
         guiController.showChanceCard(card.getDescription());
@@ -354,20 +355,17 @@ public class GameController implements ActionListener {
         }
         guiController.updatePlayer(currentPlayer);
         return false;
-    }
+    }*/
 
 
-    public int sum() {
-        return diceHolder.sum() - 1;
-    }
     public Integer getTurnCounter() {
         return turnCounter;
     }
 
-    /**
+    /*
      * Checks if there are more than one with the same balance then returns the one with most property, otherwise returns the one with the most balance
      * @return winner
-     */
+     *
     public String checkAllBalance() {
         List<String> equalLS = new ArrayList<>();
         Player[] players = playerController.getPlayers();
@@ -379,12 +377,12 @@ public class GameController implements ActionListener {
             winner = findMaxBalance(players);
         }
         return winner;
-    }
+    }*/
 
-    /**
+    /*
      * Finds and returns the player with the biggest balance
      * @return
-     */
+     *
     private String findMaxBalance(Player[] players) {
         int currMax = 0;
         String currLeader = "";
@@ -395,13 +393,13 @@ public class GameController implements ActionListener {
             }
         }
         return currLeader;
-    }
+    }*/
 
-    /**
+    /*
      * Finds the maximum total value of the players with the same balance
      * @param equalLS
      * @return winner
-     */
+     *
     private String findMaxTotalBalance(List<String> equalLS, Player[] players) {
         HashMap<Player, Integer> playerProp = fieldController.playerPropertyValues();
         Player winner = new Player(99, "");
@@ -415,12 +413,12 @@ public class GameController implements ActionListener {
             }
         }
         return winner.getIdentifier();
-    }
+    }*/
 
-    /**
+    /*
      * Adds players to the list if they have the same balance
      * @param equalLS
-     */
+     *
     public void checkEqualBalance(List<String> equalLS, Player[] players) {
         for (Player playerFst : players) {
             for (Player playerNxt : players) {
@@ -429,7 +427,7 @@ public class GameController implements ActionListener {
                 }
             }
         }
-    }
+    }*/
 
     /**
      * Listener for popup close button
