@@ -1,16 +1,12 @@
 
 package controllers;
 import gui_fields.*;
-import gui_resources.Attrs;
 import models.Player;
 import models.fields.Field;
-import models.fields.Property;
+import models.fields.Start;
 
 import java.awt.*;
-import java.sql.Array;
 import java.util.ArrayList;
-
-import static gui_fields.GUI_Car.Type.UFO;
 
 public class GUIConverter {
 
@@ -48,13 +44,16 @@ public class GUIConverter {
         for (Field field : fieldList
              ) {
             switch (field.getClass().getSimpleName()) {
-                case "Property": {
-                    Property prop = (Property) field;
+                case "Street": {
+                    //Start.Property prop = (Start.Property) field;
 
-                    Color fieldColor = null;
-                    Color textColor = null;
+                    Color fieldColor = Color.WHITE;
+                    Color textColor = Color.black;
 
-                    switch (((Property) field).getColor()) {
+                    //Color fieldColor = null;
+                    //Color textColor = null;
+
+                    /* switch (((Start.Property) field).getColor()) {
                         case "BROWN": {
                             float[] hsbValues = new float[3];
                             Color.RGBtoHSB(102,77,44, hsbValues);
@@ -97,9 +96,9 @@ public class GUIConverter {
                             textColor = Color.white;
                             break;
                         }
-                    }
+                    }*/
 
-                    fields[field.getID()] = new GUI_Street(field.getName(), " ", field.getName(), Integer.toString(prop.getPrice()), fieldColor, textColor);
+                    fields[field.getID()] = new GUI_Street(field.getName(), " ", field.getName(), Integer.toString(1 /*prop.getPrice()*/), fieldColor, textColor);
                     break;
                 }
                 case "Chance": {

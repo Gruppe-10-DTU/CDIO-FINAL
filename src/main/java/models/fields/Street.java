@@ -1,11 +1,18 @@
 package models.fields;
-
-
 import models.Player;
 
-public class Property extends Field {
+
+public class Street extends Field{
+
     private String color;
     private int price;
+    private int houseREnt;
+    private int rent0;
+    private int rent1;
+    private int rent2;
+    private int rent3;
+    private int rent4;
+    private int rent5;
     private Player owner;
 
     public String getColor() {

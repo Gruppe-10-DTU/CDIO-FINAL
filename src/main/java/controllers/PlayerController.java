@@ -2,7 +2,7 @@ package controllers;
 import models.chanceCards.CharacterSpecific;
 import models.*;
 import models.Character;
-import models.fields.Property;
+import models.fields.Start;
 
 import java.awt.*;
 
@@ -83,7 +83,7 @@ public class PlayerController {
      * @param property : Property-class. Property in mention.
      * @return
      */
-    public boolean getRent(Player player, Property property, boolean doubleRent) {
+    public boolean getRent(Player player, Start.Property property, boolean doubleRent) {
         int rent = doubleRent ? property.getPrice() * 2 : property.getPrice();
         if (property.getOwner() == player) {
             return true;

@@ -17,6 +17,7 @@ buildNumber.properties
 out/
 target/
 /.idea/
+.idea/workspace.xml
 
 # VScode
 .vscode

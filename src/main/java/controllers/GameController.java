@@ -4,8 +4,7 @@ import models.chanceCards.*;
 import models.*;
 import models.fields.Field;
 import models.fields.Jail;
-import models.fields.Property;
-import org.apache.commons.codec.language.bm.Lang;
+import models.fields.Start;
 import ui.GUIController;
 
 import javax.swing.*;
@@ -32,7 +31,7 @@ public class GameController implements ActionListener {
         fieldController = new FieldController(language);
         guiController = new GUIController(fieldController.getFieldList());
         deck = new Deck(language);
-        diceHolder = new DiceHolder(1);
+        diceHolder = new DiceHolder(2);
         int playerAmount = guiController.playerAmount(language.getLanguageValue("playerAmount"));
         playerController = new PlayerController(playerAmount);
         deck.shuffle();
@@ -47,6 +46,7 @@ public class GameController implements ActionListener {
         this.diceHolder = diceHolder;
         deck.shuffle();
     }
+
     public void initialize(){
         String name;
         String tokens = "Car,Tractor,Racecar,UFO";
@@ -57,6 +57,7 @@ public class GameController implements ActionListener {
             while (!playerController.playerUnique(name)) {
                 guiController.displayMsg(language.getLanguageValue("nameNotUnique"));
                 name = guiController.getName(language.getLanguageValue("inputName"));
+
             }
 
             String character = guiController.selectCharacter(language.getLanguageValue("selectCharacter"),tokens);
@@ -145,7 +146,7 @@ public class GameController implements ActionListener {
             guiController.displayMsg(language.getLanguageValue("noMoreHouses"));
             return;
         }
-        Property[] propertyChoices = fieldController.getFreeFields();
+        Start.Property[] propertyChoices = fieldController.getFreeFields();
         if(propertyChoices.length != 0){
             int target = guiController.getPropertyChoice(language.getLanguageValue("emtpyFieldChoice"),propertyChoices);
             int spaces;
@@ -165,7 +166,7 @@ public class GameController implements ActionListener {
                 return;
             }
             int target = guiController.getPropertyChoice(language.getLanguageValue("buyFieldFromPlayer"), propertyChoices);
-            Property property = (Property) fieldController.getField(target);
+            Start.Property property = (Start.Property) fieldController.getField(target);
             int spaces;
             if (target < player.getLocation()) {
                 spaces = (fieldController.getFieldList().size() - player.getLocation()) + target;
@@ -194,7 +195,7 @@ public class GameController implements ActionListener {
         //Choose logic based on the field type
         switch (field.getClass().getSimpleName()) {
             case "Property": {
-                Property property = (Property) field;
+                Start.Property property = (Start.Property) field;
                 if(property.getOwner() == null && player.decreaseSoldSign()){
                     guiController.displayMsg(language.getLanguageValue("fieldBuy", property.getName()));
                     if (player.setBalance(-property.getPrice())) {
@@ -326,7 +327,7 @@ public class GameController implements ActionListener {
                 guiController.updatePlayer(currentPlayer);
                 if (fieldController.getFreeField(currentPlayer, currentPlayer.getLocation())){
                     fieldController.setOwner(currentPlayer, currentPlayer.getLocation());
-                    guiController.updateField((Property)fieldController.getField(currentPlayer.getLocation()));
+                    guiController.updateField((Start.Property)fieldController.getField(currentPlayer.getLocation()));
                 }else landOnField(currentPlayer);
                 break;
 
