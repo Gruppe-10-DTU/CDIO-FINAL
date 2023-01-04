@@ -27,9 +27,6 @@ public class Deck {
                 minVal = reader.getHeaderIndex("min_value"),
                 maxVal = reader.getHeaderIndex("max_value"),
                 booleanModifier = reader.getHeaderIndex("boolean_modifier"),
-                character = reader.getHeaderIndex("character"),
-                colour1 = reader.getHeaderIndex("colour_1"),
-                colour2 = reader.getHeaderIndex("colour_2"),
                 field = reader.getHeaderIndex("field");
 
         this.deck = new ChanceCard[cardData.size()];
@@ -37,11 +34,12 @@ public class Deck {
         for (ArrayList<String> element: cardData) {
             String description = language.getLanguageValue("cc" + element.get(name));
             switch (element.get(type)) {
-                case "CharacterSpecific":
-                    deck[deckPosition] = new CharacterSpecific(
+                case "Tax":
+                    deck[deckPosition] = new Tax(
                             element.get(name),
                             description,
-                            element.get(character)
+                            Integer.parseInt(element.get(minVal)),
+                            Integer.parseInt(element.get(maxVal))
                     );
                     break;
                 case "ChangeBalance":
@@ -52,8 +50,8 @@ public class Deck {
                             Boolean.parseBoolean(element.get(booleanModifier))
                     );
                     break;
-                case "Choice":
-                    deck[deckPosition] = new ChoiceCard(
+                case "MoveToFerry":
+                    deck[deckPosition] = new MoveToFerry(
                             element.get(name),
                             description,
                             Integer.parseInt(element.get(maxVal)),
@@ -66,23 +64,23 @@ public class Deck {
                             description
                     );
                     break;
-                case "MoveToColour":
-                    deck[deckPosition] = new MoveToColour(
-                            element.get(name),
-                            description,
-                            element.get(colour1),
-                            element.get(colour2)
-                    );
-                    break;
                 case "MoveToField":
                     deck[deckPosition] = new MoveToField(
                             element.get(name),
                             description,
+                            Boolean.parseBoolean(element.get(booleanModifier)),
                             Integer.parseInt(element.get(field))
                     );
                     break;
                 case "MoveXSteps":
                     deck[deckPosition] = new MoveXSteps(
+                            element.get(name),
+                            description,
+                            Integer.parseInt(element.get(maxVal))
+                    );
+                    break;
+                case "Grant":
+                    deck[deckPosition] = new Grant(
                             element.get(name),
                             description,
                             Integer.parseInt(element.get(minVal)),

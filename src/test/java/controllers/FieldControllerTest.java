@@ -4,10 +4,8 @@ import models.Language;
 import models.Player;
 import models.fields.Field;
 import models.fields.Jail;
-/*
-import models.fields.Property;
 
- */
+import models.fields.Start;
 import org.junit.jupiter.api.BeforeEach;
 
 import org.junit.jupiter.api.Test;
@@ -97,7 +95,7 @@ class FieldControllerTest {
             }
         }
     }
-/*
+
     @Test
     void playerPropertyValues() {
 
@@ -105,12 +103,12 @@ class FieldControllerTest {
 
         //place the players as owners
         for (Object field : fieldcontroller.fieldArrayList) {
-            if ( field instanceof Property) {
+            if ( field instanceof Start.Property) {
                 if (ownerPlayer1) {
-                    ((Property) field).setOwner(mockPlayer1);
+                    ((Start.Property) field).setOwner(mockPlayer1);
                     ownerPlayer1 = false;
                 } else {
-                    ((Property) field).setOwner(mockPlayer2);
+                    ((Start.Property) field).setOwner(mockPlayer2);
                     ownerPlayer1 = true;
                 }
             }
@@ -121,8 +119,6 @@ class FieldControllerTest {
         assertEquals(5, playerValues.get(mockPlayer1));
         assertEquals(3, playerValues.get(mockPlayer2));
     }
-
- */
 
     @Test
     void moveToColor() {
@@ -137,14 +133,14 @@ class FieldControllerTest {
         assertEquals(5, spaces2);
     }
 
-/*
+
     @Test
     void sameOwner() {
         Player player1 = new Player(0,"test");
         Field field;
         fieldcontroller.setOwner(player1, 8);
 
-        Property property = (Property) fieldcontroller.getField(8);
+        Start.Property property = (Start.Property) fieldcontroller.getField(8);
         assertFalse(fieldcontroller.sameOwner(property));
         fieldcontroller.setOwner(player1, 7);
         assertTrue(fieldcontroller.sameOwner(property));
@@ -156,7 +152,7 @@ class FieldControllerTest {
 
         fieldcontroller.setOwner(player1, 7);
 
-        property = (Property) fieldcontroller.getField(7);
+        property = (Start.Property) fieldcontroller.getField(7);
         assertFalse(fieldcontroller.sameOwner(property));
         fieldcontroller.setOwner(player1, 8);
         assertTrue(fieldcontroller.sameOwner(property));
@@ -165,25 +161,20 @@ class FieldControllerTest {
         fieldcontroller.setOwner(null, 8);
     }
 
-/*
     @Test
     void testAllChoicesTest() {
         int counter = 0;
         for (Field field : fieldcontroller.fieldArrayList) {
-            if ( field instanceof Property) {
+            if ( field instanceof Start.Property) {
                 if (counter < 2) {
-                    ((Property) field).setOwner(mockPlayer1);
+                    ((Start.Property) field).setOwner(mockPlayer1);
                     counter++;
                 } else {
-                    ((Property) field).setOwner(mockPlayer2);
+                    ((Start.Property) field).setOwner(mockPlayer2);
                 }
             }
         }
         assertEquals(2, fieldcontroller.getFieldOtherPlayers(mockPlayer1).length);
         assertEquals(7, fieldcontroller.getFieldOtherPlayers(mockPlayer1)[0].getID() );
     }
-
- */
-
-
 }

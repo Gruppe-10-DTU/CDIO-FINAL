@@ -3,6 +3,7 @@ import models.chanceCards.CharacterSpecific;
 import models.*;
 import models.Character;
 import models.fields.Start;
+import models.fields.Street;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -99,7 +100,7 @@ public class PlayerController {
      * @param property : Property-class. Property in mention.
      * @return
      */
-    public boolean getRent(Player player, Start.Property property, boolean doubleRent) {
+    public boolean getRent(Player player, Street property, boolean doubleRent) {
         int rent = doubleRent ? property.getPrice() * 2 : property.getPrice();
         if (property.getOwner() == player) {
             return true;

@@ -55,6 +55,7 @@ public class FieldController {
                     street.setRent3(Integer.parseInt(fieldData.get(i).get(8)));
                     street.setRent4(Integer.parseInt(fieldData.get(i).get(9)));
                     street.setRent5(Integer.parseInt(fieldData.get(i).get(10)));
+                    street.setColor(fieldData.get(i).get(11));
                     //property.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "chance":
@@ -140,13 +141,13 @@ public class FieldController {
         HashMap<Player, Integer> playerValue = new HashMap<Player, Integer>();
 
         for (Object field : fieldArrayList) {
-            if (field instanceof Start.Property) {
-                Player owner = ((Start.Property) field).getOwner();
+            if (field instanceof Street) {
+                Player owner = ((Street) field).getOwner();
                 if (owner != null) {
                     if (!playerValue.containsKey(owner)) {
                         playerValue.put(owner, 0);
                     }
-                    int propertyValue = ((Start.Property) field).getPrice();
+                    int propertyValue = ((Street) field).getPrice();
                     int currentSum = playerValue.get(owner);
 
                     playerValue.put(owner, currentSum + propertyValue);
@@ -177,11 +178,11 @@ public class FieldController {
                 i = 0;
             }
 
-            if (fieldArrayList.get(i) instanceof Start.Property) {
-                String fieldColor = ((Start.Property) fieldArrayList.get(i)).getColor();
+            if (fieldArrayList.get(i) instanceof Street) {
+                String fieldColor = ((Street) fieldArrayList.get(i)).getColor();
 
                 if (fieldColor.equals(color)) {
-                    newLocation = ((Start.Property) fieldArrayList.get(i)).getID();
+                    newLocation = ((Street) fieldArrayList.get(i)).getID();
                     foundColor = true;
                 }
             }
@@ -200,12 +201,12 @@ public class FieldController {
 
     public void setOwner(Player player, int propertyId) {
         Field property = fieldArrayList.get(propertyId);
-        if (property instanceof Start.Property) {
-            ((Start.Property) property).setOwner(player);
+        if (property instanceof Street) {
+            ((Street) property).setOwner(player);
         }
     }
-    public Start.Property[] getFreeFields(){
-        return fieldArrayList.stream().filter(field -> field instanceof Start.Property && ((Start.Property) field).getOwner() == null).toArray(Start.Property[]::new);
+    public Street[] getFreeFields(){
+        return fieldArrayList.stream().filter(field -> field instanceof Street && ((Street) field).getOwner() == null).toArray(Street[]::new);
     }
     public Field getField(int fieldID) {
         return fieldArrayList.get(fieldID);
@@ -216,7 +217,7 @@ public class FieldController {
     }
 
     public boolean getFreeField(Player Player, int PropertyID) {
-        Start.Property property = (Start.Property) fieldArrayList.get(PropertyID);
+        Street property = (Street) fieldArrayList.get(PropertyID);
         return property.getOwner() == null;
     }
 
@@ -225,23 +226,23 @@ public class FieldController {
      * @param property the property in question
      * @return true if the same owner, otherwise false
      */
-    public boolean sameOwner(Start.Property property){
-        Start.Property property2;
+    public boolean sameOwner(Street property){
+        Street property2;
         if(property.getID() % 3 == 1){
             //If the property is the first one, %3 will always be one and we'll add one to get the neighbor and compare the owners
-            property2 = (Start.Property) fieldArrayList.get(property.getID()+1);
+            property2 = (Street) fieldArrayList.get(property.getID()+1);
         }else{
             //If the property is the second one, %3 will always be 2 and we'll subtract one to get the neighbor and compare the owners
-            property2 = (Start.Property) fieldArrayList.get(property.getID()-1);
+            property2 = (Street) fieldArrayList.get(property.getID()-1);
         }
         return property2.getOwner() != null && property.getOwner().equals(property2.getOwner());
     }
-    public boolean sellField(Start.Property property, Player buyer){
+    public boolean sellField(Street property, Player buyer){
         return true;
     }
 
-    public Start.Property[] getFieldOtherPlayers(Player player) {
-        return fieldArrayList.stream().filter(field -> field instanceof Start.Property && ((Start.Property) field).getOwner() != player).toArray(Start.Property[]::new);
+    public Street[] getFieldOtherPlayers(Player player) {
+        return fieldArrayList.stream().filter(field -> field instanceof Street && ((Street) field).getOwner() != player).toArray(Street[]::new);
     }
 
     @Override

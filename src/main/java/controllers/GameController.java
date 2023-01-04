@@ -5,6 +5,7 @@ import models.*;
 import models.fields.Field;
 import models.fields.Jail;
 import models.fields.Start;
+import models.fields.Street;
 import ui.GUIController;
 
 import javax.swing.*;
@@ -154,7 +155,7 @@ public class GameController implements ActionListener {
             guiController.displayMsg(language.getLanguageValue("noMoreHouses"));
             return;
         }
-        Start.Property[] propertyChoices = fieldController.getFreeFields();
+        Street[] propertyChoices = fieldController.getFreeFields();
         if(propertyChoices.length != 0){
             int target = guiController.getPropertyChoice(language.getLanguageValue("emtpyFieldChoice"),propertyChoices);
             int spaces;
@@ -174,7 +175,7 @@ public class GameController implements ActionListener {
                 return;
             }
             int target = guiController.getPropertyChoice(language.getLanguageValue("buyFieldFromPlayer"), propertyChoices);
-            Start.Property property = (Start.Property) fieldController.getField(target);
+            Street property = (Street) fieldController.getField(target);
             int spaces;
             if (target < player.getLocation()) {
                 spaces = (fieldController.getFieldList().size() - player.getLocation()) + target;
@@ -203,7 +204,7 @@ public class GameController implements ActionListener {
         //Choose logic based on the field type
         switch (field.getClass().getSimpleName()) {
             case "Property": {
-                Start.Property property = (Start.Property) field;
+                Street property = (Street) field;
                 if(property.getOwner() == null && player.decreaseSoldSign()){
                     guiController.displayMsg(language.getLanguageValue("fieldBuy", property.getName()));
                     if (player.setBalance(-property.getPrice())) {
@@ -335,7 +336,7 @@ public class GameController implements ActionListener {
                 guiController.updatePlayer(currentPlayer);
                 if (fieldController.getFreeField(currentPlayer, currentPlayer.getLocation())){
                     fieldController.setOwner(currentPlayer, currentPlayer.getLocation());
-                    guiController.updateField((Start.Property)fieldController.getField(currentPlayer.getLocation()));
+                    guiController.updateField((Street)fieldController.getField(currentPlayer.getLocation()));
                 }else landOnField(currentPlayer);
                 break;
 
