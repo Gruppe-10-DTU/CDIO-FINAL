@@ -3,16 +3,12 @@ package models.fields;
 import models.Player;
 import org.apache.commons.lang.NotImplementedException;
 
-public class Ferry extends Field{
-    private int price;
+public class Ferry extends Property{
     private int rent0;
     private int rent1;
     private int rent2;
     private int rent3;
 
-    public void setPrice(int price) {
-        this.price = price;
-    }
 
     public void setRent0(int rent0) {
         this.rent0 = rent0;
@@ -30,9 +26,6 @@ public class Ferry extends Field{
         this.rent3 = rent3;
     }
 
-    public int getPrice() {
-        return price;
-    }
 
     public int getRent0() {
         return rent0;
@@ -50,7 +43,15 @@ public class Ferry extends Field{
         return rent3;
     }
 
-    public void fieldEffect(Player player){
-        throw new NotImplementedException();
+    public Effect fieldEffect(Player player){
+        if (owner == null) {
+            if (player.getBalance() > price) {
+                return Effect.BUY;
+            } else {
+                return Effect.NONE;
+            }
+        } else {
+            return Effect.RENT;
+        }
     }
 }
