@@ -3,12 +3,12 @@ package ui;
 import controllers.FieldController;
 import controllers.GUIConverter;
 import controllers.PlayerController;
+import controllers.StartValues;
 import gui_fields.GUI_Player;
 import gui_fields.GUI_Street;
 import gui_main.GUI;
 import models.Player;
 import models.fields.Field;
-import models.fields.Start;
 import models.fields.Street;
 
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class GUIController {
      * @return PlayerAmount :  How many players are going to play the game
      */
     public int playerAmount(String playerAmountText){
-        return gui.getUserInteger(playerAmountText,3, 6);
+        return gui.getUserInteger(playerAmountText, StartValues.getInstance().getValue("minPlayers"), StartValues.getInstance().getValue("maxPlayers"));
     }
 
 
