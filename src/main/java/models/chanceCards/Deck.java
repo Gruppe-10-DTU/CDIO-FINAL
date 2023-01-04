@@ -32,7 +32,7 @@ public class Deck {
         this.deck = new ChanceCard[cardData.size()];
         int deckPosition = 0;
         for (ArrayList<String> element: cardData) {
-            String description = "TESTING";//language.getLanguageValue("cc" + element.get(name));
+            String description = language.getLanguageValue("cc" + element.get(name));
             switch (element.get(type)) {
                 case "Tax":
                     deck[deckPosition] = new Tax(
