@@ -5,6 +5,7 @@ import models.*;
 import ui.GUIController;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
@@ -34,7 +35,7 @@ public class GameController implements ActionListener {
         this.initialize();
     }
 
-    public GameController(Language language, PlayerController playerController, FieldController fieldController, GUIController guiController, Deck deck, DiceHolder diceHolder){
+    public GameController(Language language, PlayerController playerController, FieldController fieldController, GUIController guiController, Deck deck, DiceHolder diceHolder) {
         this.language = language;
         this.playerController = playerController;
         this.fieldController = fieldController;
@@ -44,7 +45,7 @@ public class GameController implements ActionListener {
         deck.shuffle();
     }
 
-    public void initialize(){
+    public void initialize() {
         String name;
         String tokens = "Car,Tractor,Racecar,UFO";
         StringBuilder sb = new StringBuilder(language.getLanguageValue("colors"));
@@ -56,7 +57,7 @@ public class GameController implements ActionListener {
                 name = guiController.getName(language.getLanguageValue("inputName"));
             }
 
-            String character = guiController.selectCharacter(language.getLanguageValue("selectCharacter"),tokens);
+            String character = guiController.selectCharacter(language.getLanguageValue("selectCharacter"), tokens);
             String color = guiController.selectCharacter(language.getLanguageValue("colorText"), String.valueOf(sb));
             sb.delete(sb.indexOf(color), sb.indexOf(color) + color.length() + 1);
 
@@ -70,9 +71,11 @@ public class GameController implements ActionListener {
         }
     }
 
-    /*
+
+    /**
      * Functions to display the winner and give the users an option to close the game
-     *
+     */
+/*
     private void EndGame() {
         String endWinner = playerController.getPlayerById(0).getIdentifier();
         isOver = true;
@@ -91,7 +94,9 @@ public class GameController implements ActionListener {
         for (Player player: playerController.getPlayers()) {
             System.out.println(player.getBalance());
         }
-    }*/
+    }
+
+ */
 
     /*
      * Logic to handle a players turn
@@ -357,8 +362,6 @@ public class GameController implements ActionListener {
         guiController.updatePlayer(currentPlayer);
         return false;
     }*/
-
-
     public Integer getTurnCounter() {
         return turnCounter;
     }
@@ -432,6 +435,7 @@ public class GameController implements ActionListener {
 
     /**
      * Listener for popup close button
+     *
      * @param e the event to be processed
      */
     @Override
@@ -440,4 +444,25 @@ public class GameController implements ActionListener {
         guiController.endGame();
         System.exit(0);
     }
+    public boolean win() {
+        if (playerController.getPlayers().length == 1) {
+            String winner = String.valueOf(playerController.getPlayerById(0));
+            guiController.displayMsgNoBtn(language.getLanguageValue("winner") + " " + winner);
+            JFrame f = new JFrame("popup");
+            JLabel l = new JLabel(language.getLanguageValue("winner") + " " + winner);
+            PopupFactory pf = new PopupFactory();
+            JPanel p2 = new JPanel();
+            p2.setBackground(Color.red);
+            p2.add(l);
+            p = pf.getPopup(f, p2, 180, 100);
+            JButton b = new JButton(language.getLanguageValue("endGame"));
+            b.addActionListener(this);
+            p2.add(b);
+            p.show();
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
+

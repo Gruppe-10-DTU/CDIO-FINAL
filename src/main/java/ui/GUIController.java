@@ -34,7 +34,7 @@ public class GUIController {
      * @return PlayerAmount :  How many players are going to play the game
      */
     public int playerAmount(String playerAmountText){
-        return gui.getUserInteger(playerAmountText, StartValues.getInstance().getValue("minPlayers"), StartValues.getInstance().getValue("maxPlayers"));
+        return gui.getUserInteger(playerAmountText, 1, StartValues.getInstance().getValue("maxPlayers"));
     }
 
 

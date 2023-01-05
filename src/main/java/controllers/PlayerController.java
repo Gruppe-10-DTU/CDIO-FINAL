@@ -32,10 +32,14 @@ public class PlayerController {
      */
     public void removePlayer(int player){
         Player[] prePlayers = new Player[players.length-1];
+        Player[] oldPlayers = players;
         int counter = 0;
         for (int i = 0; i < prePlayers.length; i++) {
             if(players[i].getID() != player){
                 prePlayers[counter++] = players[i];
+                if(oldPlayers[player].getID() > players[i].getID()){
+                    players[i].setID(i);
+                }
             }
         }
         players = prePlayers;
