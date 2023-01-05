@@ -1,5 +1,6 @@
 package models.fields;
 import models.Player;
+import models.dto.GameStateDTO;
 
 
 public class Street extends Property{
@@ -7,6 +8,8 @@ public class Street extends Property{
     private String color;
     //private int price;
     private int houseRent;
+
+    private int houseAmount;
     private int rent0;
     private int rent1;
     private int rent2;
@@ -15,15 +18,26 @@ public class Street extends Property{
     private int rent5;
 
 
-    public Effect fieldEffect(Player player) {
+    public GameStateDTO fieldEffect(GameStateDTO gameState) {
+        GameStateDTO newGameState = gameState;
+
         if (owner == null) {
-            if (player.getBalance() > price) {
-                return Effect.BUY;
+            if (gameState.getActivePlayer().getBalance() > price) {
+                gameState.getGuiController().displayMsg("Du er landet på " + name + " Vil du købe den for " + price + "kr");
+
+                //Bruger interaktion
+
+                owner = gameState.getActivePlayer();
+                newGameState.getActivePlayer().setBalance(gameState.getActivePlayer().getBalance() - price);
+
+                return newGameState;
             } else {
-                return Effect.NONE;
+                //Player cant buy
+                return newGameState;
             }
         } else {
-            return Effect.RENT;
+            //Pay rent
+            return newGameState;
         }
     }
 
@@ -46,8 +60,9 @@ public class Street extends Property{
     }
 
 
-
-
+    public void setHouseAmount(int houseAmount) {
+        this.houseAmount = houseAmount;
+    }
 
     public void setHouseRent(int houseRent) {
         this.houseRent = houseRent;
@@ -103,5 +118,9 @@ public class Street extends Property{
 
     public int getRent5() {
         return rent5;
+    }
+
+    public int getHouseAmount() {
+        return houseAmount;
     }
 }

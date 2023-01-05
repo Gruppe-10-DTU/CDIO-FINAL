@@ -2,6 +2,7 @@ package controllers;
 
 import models.Language;
 import models.Player;
+import models.dto.GameStateDTO;
 import models.fields.*;
 
 import java.util.ArrayList;
@@ -131,22 +132,12 @@ public class FieldController {
         }
     }
 
-    public void landOnField (Player player) {
-        Field currentField = fieldArrayList.get(player.getLocation());
-        Effect effect = currentField.fieldEffect(player);
+    public GameStateDTO landOnField (GameStateDTO gamestate) {
+        Field currentField = fieldArrayList.get(gamestate.getActivePlayer().getLocation());
 
-        switch (effect) {
-            case BUY:
-                Property currentProperty = (Property) currentField;
-                boolean playerResponse = GameController.askPlayer("Du er landet på " + currentField.getName() + "Vil du købe det?");
-                if (playerResponse) {
-                    player.setBalance(player.getBalance() - currentProperty.getPrice());
-                    currentProperty.setOwner(player);
-                }
-                break;
-            default:
-                break;
-        }
+        GameStateDTO newGameState = currentField.fieldEffect(gamestate);
+
+        return newGameState;
     }
 
     /**
