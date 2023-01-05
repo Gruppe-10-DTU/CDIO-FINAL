@@ -1,18 +1,14 @@
 package controllers;
 
 import models.Language;
-import models.Player;
 import models.chanceCards.Deck;
-import models.fields.Jail;
-import models.fields.Start;
-import models.fields.Street;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Field;
 import java.util.Properties;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static junit.framework.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class GameControllerTest {
     GameController gameController;
@@ -85,7 +81,7 @@ class GameControllerTest {
         language = new Language();
         fieldController = new FieldController(language);
         gui = new GUIControllerStub(fieldController.getFieldList());
-        pc = new PlayerController(gui.playerAmount("test"));
+        pc = new PlayerController();
         deck = new Deck(language);
         diceHolder = new cheatDiceHolder();
         for (int i = 0; i < gui.playerAmount("test"); i++) {
@@ -108,6 +104,15 @@ class GameControllerTest {
         Properties properties;
 
     }
+
+    @Test
+    void win() {
+        for (int i = pc.getAvailablePlayers().size(); i > 1 ; i--) {
+            assertNotEquals(true,gameController.win());
+            pc.removePlayer(i);
+        }
+        assertNotEquals(false,gameController.win());
+    }
 /*
     @Test
     void testZeroBalance() {
@@ -118,4 +123,7 @@ class GameControllerTest {
     }
 
  */
+
+
+
     }

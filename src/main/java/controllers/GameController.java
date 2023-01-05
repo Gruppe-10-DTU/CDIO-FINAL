@@ -29,8 +29,7 @@ public class GameController implements ActionListener {
         guiController = new GUIController(fieldController.getFieldList());
         deck = new Deck(language);
         diceHolder = new DiceHolder(StartValues.getInstance().getValue("diceAmount"));
-        int playerAmount = guiController.playerAmount(language.getLanguageValue("playerAmount"));
-        playerController = new PlayerController(playerAmount);
+        playerController = new PlayerController();
         deck.shuffle();
         this.initialize();
     }
@@ -50,7 +49,8 @@ public class GameController implements ActionListener {
         String tokens = "Car,Tractor,Racecar,UFO";
         StringBuilder sb = new StringBuilder(language.getLanguageValue("colors"));
         List colors = Arrays.stream(String.valueOf(sb).split(",")).toList();
-        for (int i = 0; i < playerController.getPlayers().length; i++) {
+        int playerAmount = guiController.playerAmount(language.getLanguageValue("playerAmount"));
+        for (int i = 0; i < playerAmount; i++) {
             name = guiController.getName(language.getLanguageValue("inputName"));
             while (!playerController.playerUnique(name)) {
                 guiController.displayMsg(language.getLanguageValue("nameNotUnique"));
@@ -444,25 +444,29 @@ public class GameController implements ActionListener {
         guiController.endGame();
         System.exit(0);
     }
+
+
     public boolean win() {
-        if (playerController.getPlayers().length == 1) {
-            String winner = String.valueOf(playerController.getPlayerById(0));
-            guiController.displayMsgNoBtn(language.getLanguageValue("winner") + " " + winner);
-            JFrame f = new JFrame("popup");
-            JLabel l = new JLabel(language.getLanguageValue("winner") + " " + winner);
-            PopupFactory pf = new PopupFactory();
-            JPanel p2 = new JPanel();
-            p2.setBackground(Color.red);
-            p2.add(l);
-            p = pf.getPopup(f, p2, 180, 100);
-            JButton b = new JButton(language.getLanguageValue("endGame"));
-            b.addActionListener(this);
-            p2.add(b);
-            p.show();
-            return false;
-        } else {
+        if (playerController.getAvailablePlayers().size() == 1) {
             return true;
+        } else {
+            return false;
         }
+    }
+    public void winMsg(){
+        String winner = String.valueOf(playerController.getPlayerById(0));
+        guiController.displayMsgNoBtn(language.getLanguageValue("winner") + " " + winner);
+        JFrame f = new JFrame("popup");
+        JLabel l = new JLabel(language.getLanguageValue("winner") + " " + winner);
+        PopupFactory pf = new PopupFactory();
+        JPanel p2 = new JPanel();
+        p2.setBackground(Color.red);
+        p2.add(l);
+        p = pf.getPopup(f, p2, 180, 100);
+        JButton b = new JButton(language.getLanguageValue("endGame"));
+        b.addActionListener(this);
+        p2.add(b);
+        p.show();
     }
 }
 

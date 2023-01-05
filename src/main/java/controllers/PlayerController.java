@@ -4,12 +4,18 @@ import models.*;
 import models.Character;
 import models.fields.Street;
 
+import java.util.LinkedHashMap;
+
 public class PlayerController {
     //make int Amount variable until GUI controller complete
-    private Player[] players;
-    public PlayerController(int playerAmount) {
-        players = new Player[playerAmount];
+    public PlayerController() {
     }
+   private  LinkedHashMap<Integer, Player> availablePlayers = new LinkedHashMap<>();
+
+    public LinkedHashMap<Integer, Player> getAvailablePlayers() {
+        return availablePlayers;
+    }
+
     /**
      * Adds a new player to the game.
      * @param player
@@ -22,8 +28,10 @@ public class PlayerController {
      */
     public void addPlayer(int player, String characterName, String name, int color){
         Character ch = new Character(characterName, "", color);
-        players[player] = new Player(player,name,StartValues.getInstance().getValue("startingMoney"), ch);
+        Player playerNow = new Player(player,name,StartValues.getInstance().getValue("startingMoney"), ch);
+        availablePlayers.put(player, playerNow);
     }
+
     /**
      * Removes a player from the game.
      * @param player
@@ -31,18 +39,7 @@ public class PlayerController {
      * @return
      */
     public void removePlayer(int player){
-        Player[] prePlayers = new Player[players.length-1];
-        Player[] oldPlayers = players;
-        int counter = 0;
-        for (int i = 0; i < prePlayers.length; i++) {
-            if(players[i].getID() != player){
-                prePlayers[counter++] = players[i];
-                if(oldPlayers[player].getID() > players[i].getID()){
-                    players[i].setID(i);
-                }
-            }
-        }
-        players = prePlayers;
+        availablePlayers.remove(player);
     }
 
     /**
@@ -70,11 +67,11 @@ public class PlayerController {
      * @return Player with the relevant id
      */
     public Player getPlayerById(int iD){
-        return players[iD % players.length];
+        return availablePlayers.get(iD);
     }
 
     public Player[] getPlayers() {
-        return players;
+        return availablePlayers.values().toArray(Player[]::new);
     }
 
     /**
@@ -83,7 +80,7 @@ public class PlayerController {
      * @return true if name is unique, otherwise false
      */
     public boolean playerUnique(String name){
-        for(Player player : players){
+        for(Player player : availablePlayers.values()){
             if(player == null) return true;
             if(player.getIdentifier().equals(name)){
                 return false;
@@ -119,7 +116,7 @@ public class PlayerController {
      * @param CharacterName pass
      */
     public void addCharacterCard(CharacterSpecific CharacterName){
-        for (Player player : players) {
+        for (Player player : availablePlayers.values()) {
             if (player.getCharacter().getName().equals(CharacterName.getCharacter())){
                 player.setCharacterSpecific(CharacterName);
             }
