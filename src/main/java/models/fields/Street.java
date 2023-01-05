@@ -53,10 +53,6 @@ public class Street extends Property{
 
                 //Player must leave the game (later the player will be able to sell things and stay in the game)
             }
-
-
-
-
         }
         return gameState;
     }

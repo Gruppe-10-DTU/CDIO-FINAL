@@ -88,10 +88,10 @@ public class FieldController {
                     ferry.setID(Integer.parseInt(fieldData.get(i).get(1)));
                     ferry.setName(fieldData.get(i).get(0));
                     ferry.setPrice(Integer.parseInt(fieldData.get(i).get(3)));
-                    ferry.setRent0(Integer.parseInt(fieldData.get(i).get(5)));
-                    ferry.setRent1(Integer.parseInt(fieldData.get(i).get(6)));
-                    ferry.setRent2(Integer.parseInt(fieldData.get(i).get(7)));
-                    ferry.setRent3(Integer.parseInt(fieldData.get(i).get(8)));
+                    ferry.setRent(0, Integer.parseInt(fieldData.get(i).get(5)));
+                    ferry.setRent(1, Integer.parseInt(fieldData.get(i).get(6)));
+                    ferry.setRent(2, Integer.parseInt(fieldData.get(i).get(7)));
+                    ferry.setRent(3, Integer.parseInt(fieldData.get(i).get(8)));
                     break;
                 case "refugee":
                     Refuge refuge = new Refuge();
