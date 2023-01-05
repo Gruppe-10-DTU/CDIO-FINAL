@@ -40,17 +40,17 @@ public class Brewery extends Property{
                     currentPlayer.setBalance(currentPlayer.getBalance() - price);
                 } else {
                     //Auktion
-                    return gameState;
                 }
-
-                return gameState;
             } else {
-                //Player cant buy
-                return gameState;
+                //Player cant buy (possibly give the player an option to sell other values and then buy?)
+                String msg = "Du er landet på " + name + " Til en værdi af " + price + "og har dessværre ikke råd til at købe den";
+
+                gameState.getGuiController().displayMsg(msg);
             }
         } else {
             //Pay rent
-            return gameState;
+
         }
+        return gameState;
     }
 }
