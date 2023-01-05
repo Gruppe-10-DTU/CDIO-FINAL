@@ -1,29 +1,60 @@
 package models.fields;
 import models.Player;
+import models.dto.GameStateDTO;
 
 
-public class Street extends Field{
+public class Street extends Property{
 
     private String color;
-    private int price;
+    //private int price;
     private int houseRent;
+
+    private int houseAmount;
     private int rent0;
     private int rent1;
     private int rent2;
     private int rent3;
     private int rent4;
     private int rent5;
-    private Player owner;
+
+
+    @Override
+    public GameStateDTO fieldEffect(GameStateDTO gameState) {
+
+        if (owner == null) {
+            Player currentPlayer = gameState.getActivePlayer();
+            if (currentPlayer.getBalance() > price) {
+                String msg = "Du er landet på " + name + " Vil du købe den for " + price + "kr";
+                boolean wantToBuy = gameState.getGuiController().getUserLeftButtonPressed(msg, "Ja", "Nej");
+
+                if (wantToBuy) {
+                    owner = currentPlayer;
+                    currentPlayer.setBalance(currentPlayer.getBalance() - price);
+                } else {
+                    //Auktion
+                    return gameState;
+                }
+
+                return gameState;
+            } else {
+                //Player cant buy
+                return gameState;
+            }
+        } else {
+            //Pay rent
+            return gameState;
+        }
+    }
+
+
 
     public String getColor() {
         return color;
     }
 
-    public int getPrice() {
-        return price;
-    }
 
-    public Player getOwner() {return owner;}
+
+
 
     public void setColor(String color) {
         this.color = color;
@@ -33,10 +64,9 @@ public class Street extends Field{
         this.price = Integer.parseInt(price);
     }
 
-    public void setOwner(Player owner) {this.owner = owner;}
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setHouseAmount(int houseAmount) {
+        this.houseAmount = houseAmount;
     }
 
     public void setHouseRent(int houseRent) {
@@ -93,5 +123,9 @@ public class Street extends Field{
 
     public int getRent5() {
         return rent5;
+    }
+
+    public int getHouseAmount() {
+        return houseAmount;
     }
 }

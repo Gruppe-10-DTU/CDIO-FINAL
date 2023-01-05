@@ -33,14 +33,14 @@ public class PlayerControllerTest extends TestCase {
                     pc.playerMove(pc.getPlayerById(0),1);
                     assertEquals(3,pc.getPlayerById(0).getLocation());
                     //Move player 1 across start
-                    pc.playerMove(pc.getPlayerById(0),22);
+                    pc.playerMove(pc.getPlayerById(0),38);
                     assertEquals(1,pc.getPlayerById(0).getLocation());
                     //Test to see if balance is changed
-                    assertEquals(22,pc.getPlayerById(0).getBalance());
+                    assertEquals(34000,pc.getPlayerById(0).getBalance());
                     //Test to see it can differentiate between player 1 and 2's location and balance.
                     pc.playerMove(pc.getPlayerById(1),2);
                     assertEquals(2,pc.getPlayerById(1).getLocation());
-                    assertEquals(20,pc.getPlayerById(1).getBalance());
+                    assertEquals(30000,pc.getPlayerById(1).getBalance());
 
     }
     @Test

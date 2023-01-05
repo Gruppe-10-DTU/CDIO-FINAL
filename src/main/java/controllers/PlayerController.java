@@ -1,5 +1,5 @@
 package controllers;
-import models.chanceCards.CharacterSpecific;
+
 import models.*;
 import models.Character;
 import models.fields.Street;
@@ -24,19 +24,17 @@ public class PlayerController {
      * String type. Takes characterName for available characters, e.i. Tractor, racecar, etc.
      * @param name
      * String type. Takes players personal identifier e.i. their name, nickname, callingID, etc.
-     * @return
+     *
      */
     public void addPlayer(int player, String characterName, String name, int color){
         Character ch = new Character(characterName, "", color);
         Player playerNow = new Player(player,name,StartValues.getInstance().getValue("startingMoney"), ch);
         availablePlayers.put(player, playerNow);
     }
-
     /**
      * Removes a player from the game.
      * @param player
      * Player ID. Who do you want to remove?
-     * @return
      */
     public void removePlayer(int player){
         availablePlayers.remove(player);
@@ -52,10 +50,10 @@ public class PlayerController {
      */
     public Player playerMove(Player player, int spaces){
         int oldLocation = player.getLocation();
-        if(oldLocation + spaces >= 40){
+        if(oldLocation + spaces >= StartValues.getInstance().getValue("boardSize")){
             player.setLocation(oldLocation, spaces);
-            player.setLocation(player.getLocation(),-40);
-            player.setBalance(4000);
+            player.setLocation(player.getLocation(),- StartValues.getInstance().getValue("boardSize"));
+            player.setBalance(StartValues.getInstance().getValue("passStartBonus"));
         }else{
             player.setLocation(oldLocation,spaces);
         }
@@ -111,15 +109,4 @@ public class PlayerController {
         }
     }
 
-    /**
-     * gives the player a character specific chance card
-     * @param CharacterName pass
-     */
-    public void addCharacterCard(CharacterSpecific CharacterName){
-        for (Player player : availablePlayers.values()) {
-            if (player.getCharacter().getName().equals(CharacterName.getCharacter())){
-                player.setCharacterSpecific(CharacterName);
-            }
-        }
-    }
 }
