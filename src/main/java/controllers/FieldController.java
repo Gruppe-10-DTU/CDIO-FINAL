@@ -115,10 +115,12 @@ public class FieldController {
 
         for (Object field : fieldArrayList) {
             if (field instanceof Jail) {
-                ((Jail) field).setInJailAdd(player);
-                int jailLocation = ((Jail) field).getID();
-                player.setLocation(jailLocation);
-                break;
+                if (((Jail) field).getName()=="I fængsel/På besøg"){
+                    ((Jail) field).setInJailAdd(player);
+                    int jailLocation = ((Jail) field).getID();
+                    player.setLocation(jailLocation);
+                    break;
+                }
             }
         }
     }
@@ -175,10 +177,6 @@ public class FieldController {
         }
     }
 
-
-    public Street[] getFreeFields(){
-        return fieldArrayList.stream().filter(field -> field instanceof Street && ((Street) field).getOwner() == null).toArray(Street[]::new);
-    }
     public Field getField(int fieldID) {
         return fieldArrayList.get(fieldID);
     }

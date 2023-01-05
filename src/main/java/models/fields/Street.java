@@ -20,26 +20,29 @@ public class Street extends Property{
 
     @Override
     public GameStateDTO fieldEffect(GameStateDTO gameState) {
-        GameStateDTO newGameState = gameState;
 
         if (owner == null) {
             Player currentPlayer = gameState.getActivePlayer();
             if (currentPlayer.getBalance() > price) {
-                gameState.getGuiController().displayMsg("Du er landet på " + name + " Vil du købe den for " + price + "kr");
+                String msg = "Du er landet på " + name + " Vil du købe den for " + price + "kr";
+                boolean wantToBuy = gameState.getGuiController().getUserLeftButtonPressed(msg, "Ja", "Nej");
 
-                //Bruger interaktion
+                if (wantToBuy) {
+                    owner = currentPlayer;
+                    currentPlayer.setBalance(currentPlayer.getBalance() - price);
+                } else {
+                    //Auktion
+                    return gameState;
+                }
 
-                owner = currentPlayer;
-                newGameState.getActivePlayer().setBalance(currentPlayer.getBalance() - price);
-
-                return newGameState;
+                return gameState;
             } else {
                 //Player cant buy
-                return newGameState;
+                return gameState;
             }
         } else {
             //Pay rent
-            return newGameState;
+            return gameState;
         }
     }
 

@@ -172,6 +172,11 @@ public class GUIController {
         }
     }
 
+    public Boolean getUserLeftButtonPressed(java.lang.String msg, java.lang.String trueButton, java.lang.String falseButton) {
+        boolean response = gui.getUserLeftButtonPressed(msg, trueButton, falseButton);
+        return response;
+    }
+
 }
 
 
