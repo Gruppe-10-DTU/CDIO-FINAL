@@ -14,7 +14,7 @@ public class Player {
     private int soldSign = 12;
     private int location = 0;
     private GetOutOfJail getOutOfJail;
-    private CharacterSpecific characterSpecific;
+    private int roundsInJail;
     /**
      * @param iD   id of the player
      * @param name name
@@ -180,11 +180,11 @@ public class Player {
         this.getOutOfJail = getOutOfJail;
     }
 
-    public CharacterSpecific getCharacterSpecific() {
-        return characterSpecific;
+    public int getRoundsInJail() {
+        return roundsInJail;
     }
 
-    public void setCharacterSpecific(CharacterSpecific characterSpecific) {
-        this.characterSpecific = characterSpecific;
+    public void setRoundsInJail(int roundsInJail) {
+        this.roundsInJail = roundsInJail;
     }
 }
