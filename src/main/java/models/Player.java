@@ -168,6 +168,8 @@ public class Player {
         return iD;
     }
 
+    public int setID(int newID) {return newID;}
+
     public void setLocation(int location) {
         this.location = location;
     }
