@@ -89,13 +89,13 @@ public class GameController implements ActionListener {
         }
 
         switch (choice) {
-            case pay:
+            case "pay":
                 player.setBalance(StartValues.getInstance().getValue("getOutOfJailPrice"));
                 player.setRoundsInJail(0);
                 fieldController.freePlayer(player);
-                io.displayOutOfJailPaid();
+                io.displayMsgNoBtn(language.getLanguageValue("payOutOfJail"));
                 break;
-            case roll:
+            case "roll":
                 for (int i = 0; i < 3; i++) {
                     diceHolder.roll();
                     int[] jailRoll = diceHolder.getRolls();
@@ -103,24 +103,24 @@ public class GameController implements ActionListener {
                     if (jailRoll[0] == jailRoll[1]){
                         player.setRoundsInJail(0);
                         fieldController.freePlayer(player);
-                        io.displayOutOfJailRoll();
+                        io.displayMsgNoBtn(language.getLanguageValue("rollOutOfJail"));
                         break;
                     }
                 }
                 player.setRoundsInJail(player.getRoundsInJail() + 1);
                 break;
-            case card:
+            case "card":
                 player.setRoundsInJail(0);
                 player.setGetOutOfJail(null);
                 fieldController.freePlayer(player);
-                io.displayOutOfJailCard();
+                io.displayMsgNoBtn(language.getLanguageValue("cardOutOfJail"));
                 break;
         }
         if(player.getRoundsInJail() >= 3){
             player.setBalance(StartValues.getInstance().getValue("getOutOfJailPrice"));
             player.setRoundsInJail(0);
             fieldController.freePlayer(player);
-            io.displayOutOfJailPaid();
+            io.displayMsgNoBtn(language.getLanguageValue("payOutOfJail"));
         }
     }
 
