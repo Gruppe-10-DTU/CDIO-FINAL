@@ -50,9 +50,9 @@ public class PlayerController {
      */
     public Player playerMove(Player player, int spaces){
         int oldLocation = player.getLocation();
-        if(oldLocation + spaces >= 40){
+        if(oldLocation + spaces >= StartValues.getInstance().getValue("boardSize")){
             player.setLocation(oldLocation, spaces);
-            player.setLocation(player.getLocation(),-40);
+            player.setLocation(player.getLocation(),- StartValues.getInstance().getValue("boardSize"));
             player.setBalance(StartValues.getInstance().getValue("passStartBonus"));
         }else{
             player.setLocation(oldLocation,spaces);
