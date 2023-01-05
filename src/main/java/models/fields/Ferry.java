@@ -1,15 +1,15 @@
 package models.fields;
 
-public class Ferry extends Field{
-    private int price;
+import models.Player;
+import models.dto.GameStateDTO;
+import org.apache.commons.lang.NotImplementedException;
+
+public class Ferry extends Property{
     private int rent0;
     private int rent1;
     private int rent2;
     private int rent3;
 
-    public void setPrice(int price) {
-        this.price = price;
-    }
 
     public void setRent0(int rent0) {
         this.rent0 = rent0;
@@ -27,9 +27,6 @@ public class Ferry extends Field{
         this.rent3 = rent3;
     }
 
-    public int getPrice() {
-        return price;
-    }
 
     public int getRent0() {
         return rent0;
@@ -45,5 +42,30 @@ public class Ferry extends Field{
 
     public int getRent3() {
         return rent3;
+    }
+
+    @Override
+    public GameStateDTO fieldEffect(GameStateDTO gameState) {
+        GameStateDTO newGameState = gameState;
+
+        if (owner == null) {
+            Player currentPlayer = gameState.getActivePlayer();
+            if (currentPlayer.getBalance() > price) {
+                gameState.getGuiController().displayMsg("Du er landet på " + name + " Vil du købe den for " + price + "kr");
+
+                //Bruger interaktion
+
+                owner = currentPlayer;
+                newGameState.getActivePlayer().setBalance(currentPlayer.getBalance() - price);
+
+                return newGameState;
+            } else {
+                //Player cant buy
+                return newGameState;
+            }
+        } else {
+            //Pay rent
+            return newGameState;
+        }
     }
 }

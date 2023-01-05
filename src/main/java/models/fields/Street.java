@@ -1,29 +1,57 @@
 package models.fields;
 import models.Player;
+import models.dto.GameStateDTO;
 
 
-public class Street extends Field{
+public class Street extends Property{
 
     private String color;
-    private int price;
+    //private int price;
     private int houseRent;
+
+    private int houseAmount;
     private int rent0;
     private int rent1;
     private int rent2;
     private int rent3;
     private int rent4;
     private int rent5;
-    private Player owner;
+
+
+    @Override
+    public GameStateDTO fieldEffect(GameStateDTO gameState) {
+        GameStateDTO newGameState = gameState;
+
+        if (owner == null) {
+            Player currentPlayer = gameState.getActivePlayer();
+            if (currentPlayer.getBalance() > price) {
+                gameState.getGuiController().displayMsg("Du er landet på " + name + " Vil du købe den for " + price + "kr");
+
+                //Bruger interaktion
+
+                owner = currentPlayer;
+                newGameState.getActivePlayer().setBalance(currentPlayer.getBalance() - price);
+
+                return newGameState;
+            } else {
+                //Player cant buy
+                return newGameState;
+            }
+        } else {
+            //Pay rent
+            return newGameState;
+        }
+    }
+
+
 
     public String getColor() {
         return color;
     }
 
-    public int getPrice() {
-        return price;
-    }
 
-    public Player getOwner() {return owner;}
+
+
 
     public void setColor(String color) {
         this.color = color;
@@ -33,10 +61,9 @@ public class Street extends Field{
         this.price = Integer.parseInt(price);
     }
 
-    public void setOwner(Player owner) {this.owner = owner;}
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void setHouseAmount(int houseAmount) {
+        this.houseAmount = houseAmount;
     }
 
     public void setHouseRent(int houseRent) {
@@ -93,5 +120,9 @@ public class Street extends Field{
 
     public int getRent5() {
         return rent5;
+    }
+
+    public int getHouseAmount() {
+        return houseAmount;
     }
 }
