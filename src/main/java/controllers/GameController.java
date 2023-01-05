@@ -114,6 +114,8 @@ public class GameController implements ActionListener {
      */
     public void TakeTurn(Player player) {
         gameState.setActivePlayer(player);
+
+        gameState.setOtherPlayers(playerController.otherPlayers(player.getID()));
         /*
         //Tjek jail
         if(fieldController.inJail()){
