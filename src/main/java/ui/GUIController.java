@@ -177,6 +177,15 @@ public class GUIController {
         return response;
     }
 
+    public String getOutOfJailOptions(String message,String[] options) {
+        String choice;
+        if(options.length == 3) {
+             choice = gui.getUserSelection(message,options[0],options[1],options[2]);
+        }else{
+            choice = gui.getUserSelection(message,options[0],options[1]);
+        }
+        return choice;
+    }
 }
 
 

@@ -76,22 +76,26 @@ public class GameController implements ActionListener {
      * @param player the player who is currently jailed.
      */
     private void getOutOfJail(Player player, GUIController io){
+        String message = language.getLanguageValue("getOutOfJail");
+        String pay = language.getLanguageValue("payOutOfJail");
+        String roll = language.getLanguageValue("rollOutOfJail");
+        String card = language.getLanguageValue("cardOutOfJail");
         String choice;
 
         if(player.getGetOutOfJail() != null) {
-            choice = io.getOutOfJailOptions(true);
+            choice = io.getOutOfJailOptions(message, new String[]{pay,roll,card});
         }else{
-            choice = io.getOutOfJailOptions(false);
+            choice = io.getOutOfJailOptions(message, new String[]{pay,roll});
         }
 
         switch (choice) {
-            case "pay":
+            case pay:
                 player.setBalance(StartValues.getInstance().getValue("getOutOfJailPrice"));
                 player.setRoundsInJail(0);
                 fieldController.freePlayer(player);
                 io.displayOutOfJailPaid();
                 break;
-            case "roll":
+            case roll:
                 for (int i = 0; i < 3; i++) {
                     diceHolder.roll();
                     int[] jailRoll = diceHolder.getRolls();
@@ -99,13 +103,13 @@ public class GameController implements ActionListener {
                     if (jailRoll[0] == jailRoll[1]){
                         player.setRoundsInJail(0);
                         fieldController.freePlayer(player);
-                        io.displayOutOfJailOnRoll();
+                        io.displayOutOfJailRoll();
                         break;
                     }
                 }
                 player.setRoundsInJail(player.getRoundsInJail() + 1);
                 break;
-            case "card":
+            case card:
                 player.setRoundsInJail(0);
                 player.setGetOutOfJail(null);
                 fieldController.freePlayer(player);
