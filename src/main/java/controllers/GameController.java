@@ -70,6 +70,55 @@ public class GameController implements ActionListener {
         }
     }
 
+    /**
+     * method handlelingthe game logic of exiting the jail
+     * @param player the player who is currently jailed.
+     */
+    private void getOutOfJail(Player player, GUIController io){
+        String choice;
+
+        if(player.getGetOutOfJail() != null) {
+            choice = io.getOutOfJailOptions(true);
+        }else{
+            choice = io.getOutOfJailOptions(false);
+        }
+
+        switch (choice) {
+            case "pay":
+                player.setBalance(StartValues.getInstance().getValue("getOutOfJailPrice"));
+                player.setRoundsInJail(0);
+                fieldController.freePlayer(player);
+                io.displayOutOfJailPaid();
+                break;
+            case "roll":
+                for (int i = 0; i < 3; i++) {
+                    diceHolder.roll();
+                    int[] jailRoll = diceHolder.getRolls();
+                    io.displayDice(jailRoll);
+                    if (jailRoll[0] == jailRoll[1]){
+                        player.setRoundsInJail(0);
+                        fieldController.freePlayer(player);
+                        io.displayOutOfJailOnRoll();
+                        break;
+                    }
+                }
+                player.setRoundsInJail(player.getRoundsInJail() + 1);
+                break;
+            case "card":
+                player.setRoundsInJail(0);
+                player.setGetOutOfJail(null);
+                fieldController.freePlayer(player);
+                io.displayOutOfJailCard();
+                break;
+        }
+        if(player.getRoundsInJail() >= 3){
+            player.setBalance(StartValues.getInstance().getValue("getOutOfJailPrice"));
+            player.setRoundsInJail(0);
+            fieldController.freePlayer(player);
+            io.displayOutOfJailPaid();
+        }
+    }
+
     /*
      * Functions to display the winner and give the users an option to close the game
      *
