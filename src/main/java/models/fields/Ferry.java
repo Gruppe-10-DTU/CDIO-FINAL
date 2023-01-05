@@ -1,6 +1,7 @@
 package models.fields;
 
 import models.Player;
+import models.dto.GameStateDTO;
 import org.apache.commons.lang.NotImplementedException;
 
 public class Ferry extends Property{
@@ -43,15 +44,27 @@ public class Ferry extends Property{
         return rent3;
     }
 
-    public Effect fieldEffect(Player player){
+    public GameStateDTO fieldEffect(GameStateDTO gameState) {
+        GameStateDTO newGameState = gameState;
+
         if (owner == null) {
-            if (player.getBalance() > price) {
-                return Effect.BUY;
+            Player currentPlayer = gameState.getActivePlayer();
+            if (currentPlayer.getBalance() > price) {
+                gameState.getGuiController().displayMsg("Du er landet på " + name + " Vil du købe den for " + price + "kr");
+
+                //Bruger interaktion
+
+                owner = currentPlayer;
+                newGameState.getActivePlayer().setBalance(currentPlayer.getBalance() - price);
+
+                return newGameState;
             } else {
-                return Effect.NONE;
+                //Player cant buy
+                return newGameState;
             }
         } else {
-            return Effect.RENT;
+            //Pay rent
+            return newGameState;
         }
     }
 }
