@@ -58,6 +58,8 @@ public class GUIController {
         }
     }
 
+
+
     /**
      * Display a message and get the okay from the player
      * @param msg Message to display
@@ -80,11 +82,22 @@ public class GUIController {
 
     /**
      * Update the player to move to a new field
-     * @param player Player to be moved
+     * @param player Player to be moved. Simulates movement by moving the gui mirror of player 1 stpe at a time.
      */
     public void movePlayer(Player player){
-        gui_players[player.getID()].getCar().setPosition(gui.getFields()[player.getLocation()]);
-    }
+        int carIndex = Arrays.asList(gui.getFields()).indexOf(gui_players[player.getID()].getCar().getPosition());
+            while(carIndex !=player.getLocation()){
+                carIndex++;
+                gui_players[player.getID()].getCar().setPosition(gui.getFields()[carIndex%40]);
+                updatePlayer(player);
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
     
 
 

@@ -74,7 +74,7 @@ public class GameController implements ActionListener {
      * Functions to display the winner and give the users an option to close the game
      *
     private void EndGame() {
-        String endWinner = checkAllBalance();
+        String endWinner = playerController.getPlayerById(0).getIdentifier();
         isOver = true;
         guiController.displayMsgNoBtn(language.getLanguageValue("winner") + " " + endWinner);
         JFrame f = new JFrame("popup");
@@ -98,8 +98,9 @@ public class GameController implements ActionListener {
      * @param player Active player
      *
     public void TakeTurn(Player player) {
-        if(player.getLocation() == 6){
-           Jail jail = (Jail) fieldController.getField(6);
+        try{
+        if(player.getLocation() == 30){
+           Jail jail = (Jail) fieldController.getField(10);
            if(jail.isInJail(player)){
                if(player.getGetOutOfJail() != null){
                    player.setGetOutOfJail(null);
@@ -120,18 +121,23 @@ public class GameController implements ActionListener {
             diceHolder.roll();
             guiController.showRoll(diceHolder.sum());
             guiController.displayDice(diceHolder.getRolls());
-            if (player.getLocation() + diceHolder.sum() >= 24) {
-                player = playerController.playerMove(player, diceHolder.sum());
-                guiController.updatePlayer(player);
+
+           guiController.movePlayer(player)
+            if (player.getLocation() + diceHolder.sum() >= 40) {
                 guiController.displayMsg(language.getLanguageValue("passStart"));
             } else {
-                playerController.playerMove(player, diceHolder.sum());
                 guiController.updatePlayer(player);
             }
             landOnField(player);
         }
         turnCounter++;
     }*/
+    /*
+    }catch (Exception e){
+            System.out.println("wah");}
+    }
+
+     */
 
     /*
      * Handle all logic regarding the specific character card.

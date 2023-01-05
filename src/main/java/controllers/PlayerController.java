@@ -24,6 +24,22 @@ public class PlayerController {
         Character ch = new Character(characterName, "", color);
         players[player] = new Player(player,name,StartValues.getInstance().getValue("startingMoney"), ch);
     }
+    /**
+     * Removes a player from the game.
+     * @param player
+     * Player ID. Who do you want to remove?
+     * @return
+     */
+    public void removePlayer(int player){
+        Player[] prePlayers = new Player[players.length-1];
+        int counter = 0;
+        for (int i = 0; i < prePlayers.length; i++) {
+            if(players[i].getID() != player){
+                prePlayers[counter++] = players[i];
+            }
+        }
+        players = prePlayers;
+    }
 
     /**
      * Move designated player x amount of spaces, and check if they passed start.
