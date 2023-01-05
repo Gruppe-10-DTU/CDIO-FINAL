@@ -179,12 +179,18 @@ public class GUIController {
 
     public String getOutOfJailOptions(String message,String[] options) {
         String choice;
-        if(options.length == 3) {
-             choice = gui.getUserSelection(message,options[0],options[1],options[2]);
-        }else{
-            choice = gui.getUserSelection(message,options[0],options[1]);
+        if (options.length == 3) {
+            choice = gui.getUserSelection(message, options[0], options[1], options[2]);
+        } else {
+            choice = gui.getUserSelection(message, options[0], options[1]);
         }
-        return choice;
+        if (choice.equals(options[2])) {
+            return "card";
+        } else if (choice.equals(options[1])) {
+            return "roll";
+        } else {
+            return "pay";
+        }
     }
 }
 
