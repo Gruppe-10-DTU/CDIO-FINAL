@@ -26,6 +26,7 @@ public class Brewery extends Property{
         return rent1;
     }
 
+    @Override
     public GameStateDTO fieldEffect(GameStateDTO gameState) {
         GameStateDTO newGameState = gameState;
 

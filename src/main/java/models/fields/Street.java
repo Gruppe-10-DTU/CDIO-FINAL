@@ -17,7 +17,8 @@ public class Street extends Property{
     private int rent4;
     private int rent5;
 
-@Override
+
+    @Override
     public GameStateDTO fieldEffect(GameStateDTO gameState) {
         GameStateDTO newGameState = gameState;
 

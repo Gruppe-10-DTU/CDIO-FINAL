@@ -44,6 +44,7 @@ public class Ferry extends Property{
         return rent3;
     }
 
+    @Override
     public GameStateDTO fieldEffect(GameStateDTO gameState) {
         GameStateDTO newGameState = gameState;
 

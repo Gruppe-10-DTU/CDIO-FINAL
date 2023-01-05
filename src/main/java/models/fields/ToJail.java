@@ -1,6 +1,7 @@
 package models.fields;
 
 import models.Player;
+import models.dto.GameStateDTO;
 import org.apache.commons.lang.NotImplementedException;
 
 public class ToJail extends Field {
@@ -11,7 +12,8 @@ public class ToJail extends Field {
         spaceToJail=spaceNumber;
     }
 
-    public void fieldEffect(Player player){
+    @Override
+    public GameStateDTO fieldEffect(GameStateDTO gameState){
         throw new NotImplementedException();
     }
 }

@@ -1,6 +1,7 @@
 package models.fields;
 
 import models.Player;
+import models.dto.GameStateDTO;
 import org.apache.commons.lang.NotImplementedException;
 
 import java.util.ArrayList;
@@ -39,7 +40,8 @@ public class Jail extends Field {
         inJail.remove(index);
     }
 
-    public void fieldEffect(Player player){
+    @Override
+    public GameStateDTO fieldEffect(GameStateDTO gameState){
         throw new NotImplementedException();
     }
 }
