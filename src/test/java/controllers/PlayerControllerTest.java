@@ -1,6 +1,5 @@
 package controllers;
 
-
 import junit.framework.TestCase;
 import models.Language;
 import models.fields.Field;
@@ -17,7 +16,7 @@ public class PlayerControllerTest extends TestCase {
     public void testPlayerMove() {
 
                     //Loads necessary controllers. Creates players..
-                    PlayerController pc = new PlayerController(2);
+                    PlayerController pc = new PlayerController();
                     pc.addPlayer(0,"UFO","Svend",0);
                     pc.addPlayer(1,"UFO","Åge",0);
 
@@ -48,7 +47,7 @@ public class PlayerControllerTest extends TestCase {
     @DisplayName("Unique Player identifier test & addPlayer")
     public void testUniquePlayer(){
         String name = "Åge";
-        PlayerController pc = new PlayerController(2);
+        PlayerController pc = new PlayerController();
         pc.addPlayer(0,"UFO","Svend",0);
         assertEquals(true,pc.playerUnique(name));
         pc.addPlayer(1,"UFO","Åge",0);
@@ -60,7 +59,7 @@ public class PlayerControllerTest extends TestCase {
     @DisplayName("getRent test")
     public void testGetRent(){
         //Relevant constructers
-        PlayerController pc = new PlayerController(2);
+        PlayerController pc = new PlayerController();
         Language language = new Language();
         FieldController fc = new FieldController(language);
         ArrayList<ArrayList<String>> CSVMock = new ArrayList<>();
@@ -99,7 +98,7 @@ public class PlayerControllerTest extends TestCase {
 
     @Test
     void removePlayer() {
-    PlayerController pc = new PlayerController(3);
+    PlayerController pc = new PlayerController();
     pc.addPlayer(0,"UFO","Svend",0);
     pc.addPlayer(1,"UFO","Åge",0);
     pc.addPlayer(2,"UFO","Åge",0);
