@@ -1,5 +1,7 @@
 package models.dto;
 
+import controllers.DiceHolder;
+import controllers.FieldController;
 import models.Player;
 import ui.GUIController;
 
@@ -11,6 +13,25 @@ public class GameStateDTO {
     private ArrayList<Player> otherPlayers;
     private GUIController guiController;
 
+    private FieldController fieldController;
+
+    public void setFieldController(FieldController fieldController) {
+        this.fieldController = fieldController;
+    }
+
+    public FieldController getFieldController() {
+        return fieldController;
+    }
+
+    public void setDiceHolder(DiceHolder diceHolder) {
+        this.diceHolder = diceHolder;
+    }
+
+    public DiceHolder getDiceHolder() {
+        return diceHolder;
+    }
+
+    private DiceHolder diceHolder;
 
     public void setGuiController(GUIController guiController) {
         this.guiController = guiController;
