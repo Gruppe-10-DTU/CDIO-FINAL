@@ -1,5 +1,6 @@
 package models.chanceCards;
 
+import models.Player;
 import models.dto.GameStateDTO;
 import org.apache.commons.lang.NotImplementedException;
 
@@ -21,7 +22,18 @@ public class ChangeBalance extends ChanceCard{
 
     @Override
     public GameStateDTO chanceEffect(GameStateDTO gameState){
-        throw new NotImplementedException();
+        Player currentPlayer = gameState.getActivePlayer();
+
+        gameState.getGuiController().displayMsg(description);
+
+        if (!currentPlayer.setBalance(EFFECT)) {
+
+            gameState.getGuiController().displayMsg("Du har ikke penge nok til at betale bøden og må derfor forlade spillet");
+
+            gameState.getPlayerController().removePlayer(currentPlayer.getID());
+        }
+
+        return gameState;
     }
 
     public int getEffect() {
