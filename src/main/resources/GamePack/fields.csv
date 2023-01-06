@@ -9,7 +9,7 @@ Roskildevej,6,street,2000,1000,100,600,1800,5400,8000,11000,pink
 Prøv lykken,7,chance,,,,,,,,,
 Valby Langgade,8,street,2000,1000,100,600,1800,5400,8000,11000,pink
 Allégade,9,street,2400,1000,150,800,2000,6000,9000,12000,pink
-I fængsel/På besøg,10,jail,,,,,,,,,
+I fængsel/På besøg,10,jail,-1000,,,,,,,,
 Frederiksberg Allé,11,street,2800,2000,200,1000,3000,9000,12500,15000,green
 Tuborg Squash,12,brewery,3000,,100,200,,,,,
 Bülowsvej,13,street,2800,2000,200,1000,3000,9000,12500,15000,green
@@ -29,7 +29,7 @@ Bredgade,26,street,5200,3000,450,2200,6600,16000,19500,23000,white
 Kgs. Nytorv,27,street,5200,3000,450,2200,6600,16000,19500,23000,white
 Coca Cola,28,brewery,3000,,100,200,,,,,
 Østergade,29,street,5600,3000,500,2400,7200,17000,20500,24000,white
-Fængsel,30,jail,,,,,,,,,
+Fængsel,30,jail,0,,,,,,,,
 Amagertorv,31,street,6000,4000,550,2600,7800,18000,22000,25000,yellow
 Vimmelskaftet,32,street,6000,4000,550,2600,7800,18000,22000,25000,yellow
 Prøv lykken,33,chance,,,,,,,,,

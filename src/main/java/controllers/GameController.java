@@ -89,7 +89,7 @@ public class GameController implements ActionListener {
         }
     }
 
-    /**
+    /*
      * Functions to display the winner and give the users an option to close the game
      */
     /*

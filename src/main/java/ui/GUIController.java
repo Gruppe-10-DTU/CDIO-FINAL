@@ -174,6 +174,37 @@ public class GUIController {
         return response;
     }
 
+    /**
+     *
+     * @param canPay boolean representing if the player can afford to pay to get out of jail.
+     * @param hasChanceCard boolean representing if the player has a get out of jail card
+     * @return the updated gamestate
+     */
+    public String getOutOfJailOptions(boolean canPay, boolean hasChanceCard) {
+        String message = language.getLanguageValue("getOutOfJail");
+        String pay = language.getLanguageValue("payOutOfJail");
+        String roll = language.getLanguageValue("rollOutOfJail");
+        String card = language.getLanguageValue("cardOutOfJail");
+        String choice;
+        if (canPay && hasChanceCard) {
+            choice = gui.getUserSelection(message, roll, pay, card);
+        } else if(canPay){
+            choice = gui.getUserSelection(message, roll, pay);
+        } else if (hasChanceCard) {
+            choice = gui.getUserSelection(message, roll,card);
+        } else {
+            choice = gui.getUserSelection(message,roll);
+        }
+
+
+        if (choice.equals(card)) {
+            return "card";
+        } else if (choice.equals(pay)) {
+            return "pay";
+        } else {
+            return "roll";
+        }
+    }
 }
 
 
