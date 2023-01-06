@@ -71,58 +71,6 @@ public class GameController implements ActionListener {
         }
     }
 
-    /**
-     * method handlelingthe game logic of exiting the jail
-     * @param player the player who is currently jailed.
-     */
-    private void getOutOfJail(Player player, GUIController io){
-        String message = language.getLanguageValue("getOutOfJail");
-        String pay = language.getLanguageValue("payOutOfJail");
-        String roll = language.getLanguageValue("rollOutOfJail");
-        String card = language.getLanguageValue("cardOutOfJail");
-        String choice;
-
-        if(player.getGetOutOfJail() != null) {
-            choice = io.getOutOfJailOptions(message, new String[]{pay,roll,card});
-        }else{
-            choice = io.getOutOfJailOptions(message, new String[]{pay,roll});
-        }
-
-        switch (choice) {
-            case "pay":
-                player.setBalance(StartValues.getInstance().getValue("getOutOfJailPrice"));
-                player.setRoundsInJail(0);
-                fieldController.freePlayer(player);
-                io.displayMsgNoBtn(language.getLanguageValue("payOutOfJail"));
-                break;
-            case "roll":
-                for (int i = 0; i < 3; i++) {
-                    diceHolder.roll();
-                    int[] jailRoll = diceHolder.getRolls();
-                    io.displayDice(jailRoll);
-                    if (jailRoll[0] == jailRoll[1]){
-                        player.setRoundsInJail(0);
-                        fieldController.freePlayer(player);
-                        io.displayMsgNoBtn(language.getLanguageValue("rollOutOfJail"));
-                        break;
-                    }
-                }
-                player.setRoundsInJail(player.getRoundsInJail() + 1);
-                break;
-            case "card":
-                player.setRoundsInJail(0);
-                player.setGetOutOfJail(null);
-                fieldController.freePlayer(player);
-                io.displayMsgNoBtn(language.getLanguageValue("cardOutOfJail"));
-                break;
-        }
-        if(player.getRoundsInJail() >= 3){
-            player.setBalance(StartValues.getInstance().getValue("getOutOfJailPrice"));
-            player.setRoundsInJail(0);
-            fieldController.freePlayer(player);
-            io.displayMsgNoBtn(language.getLanguageValue("payOutOfJail"));
-        }
-    }
 
     /*
      * Functions to display the winner and give the users an option to close the game
