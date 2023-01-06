@@ -116,6 +116,7 @@ public class GameController implements ActionListener {
         gameState.setActivePlayer(player);
 
         gameState.setOtherPlayers(playerController.otherPlayers(player.getID()));
+
         /*
         //Tjek jail
         if(fieldController.inJail()){
@@ -135,14 +136,17 @@ public class GameController implements ActionListener {
         }
         }else {}
          */
+
         guiController.getRoll(language.getLanguageValue("rollText", player.getIdentifier()), language.getLanguageValue("rollButton"));
         diceHolder.roll();
         guiController.displayDice(diceHolder.getRolls());
-        if (player.getLocation() + diceHolder.sum() >= 40) {
-            guiController.displayMsg(language.getLanguageValue("passStart"));
-        }
+        boolean overStart = player.getLocation() + diceHolder.sum() >= StartValues.getInstance().getValue("boardSize");
+
         playerController.playerMove(player, diceHolder.sum());
         guiController.movePlayer(player);
+        if(overStart){
+
+        }
         fieldController.landOnField(gameState);
     }
 
