@@ -30,7 +30,7 @@ public class AcceptanceTest {
     public void beforeAll() {
         language = new Language();
         fc = new FieldController(language);
-        gui = new GUIController(fc.getFieldList());
+        gui = new GUIController(fc.getFieldList(), language);
         gs = new GameStateDTO(gui);
 
         gs.setFieldController(fc);
@@ -70,5 +70,14 @@ public class AcceptanceTest {
         gc.takeTurn(pc.getPlayerById(0));
         gui.displayMsg("Test er ovre");
 
+    }
+
+    @Test
+    public void AK8(){
+        pc.addPlayer(0,"UFO","buyPropertyTest",2);
+        pc.addPlayer(1,"UFO","dummy1",2);
+        gui.setPlayers(pc.getPlayers());
+        dH.setNextRoll(5);
+        gc.TakeTurn(pc.getPlayerById(0));
     }
 }

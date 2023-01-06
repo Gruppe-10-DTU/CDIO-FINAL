@@ -124,6 +124,10 @@ public class GUIControllerStub extends ui.GUIController {
         return 23;
     }
 
+    public void showChanceCard(String message){
+
+    }
+
     @Override
     public Boolean getUserLeftButtonPressed(String msg, String trueButton, String falseButton) {
         return buttonClicked;

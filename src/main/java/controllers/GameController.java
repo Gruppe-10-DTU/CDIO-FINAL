@@ -29,7 +29,7 @@ public class GameController implements ActionListener {
     public GameController() {
         language = new Language(System.getProperty("user.language"));
         fieldController = new FieldController(language);
-        guiController = new GUIController(fieldController.getFieldList());
+        guiController = new GUIController(fieldController.getFieldList(), language);
         deck = new Deck(language);
         diceHolder = new DiceHolder(StartValues.getInstance().getValue("diceAmount"));
         playerController = new PlayerController();

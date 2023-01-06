@@ -1,7 +1,6 @@
 package models.chanceCards;
 
 import models.dto.GameStateDTO;
-import org.apache.commons.lang.NotImplementedException;
 
 public class GetOutOfJail extends ChanceCard{
 
@@ -16,6 +15,8 @@ public class GetOutOfJail extends ChanceCard{
 
     @Override
     public GameStateDTO chanceEffect(GameStateDTO gameState){
-        throw new NotImplementedException();
+        gameState.getGuiController().showChanceCard(this.description);
+        gameState.getActivePlayer().setGetOutOfJail(this);
+        return gameState;
     }
 }
