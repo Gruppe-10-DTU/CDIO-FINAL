@@ -14,7 +14,7 @@ public class CheatDiceHolder extends DiceHolder{
 
     @Override
     public int[] getRolls() {
-        return super.getRolls();
+        return this.rolls;
     }
 
     public CheatDiceHolder(){
