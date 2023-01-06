@@ -1,6 +1,9 @@
 package models.chanceCards;
 
 
+import models.dto.GameStateDTO;
+import org.apache.commons.lang.NotImplementedException;
+
 public class MoveToColour extends ChanceCard{
 
     private final String COLOUR_1;
@@ -18,6 +21,11 @@ public class MoveToColour extends ChanceCard{
         super(Name, Description);
         this.COLOUR_1 = COLOUR_1;
         this.COLOUR_2 = COLOUR_2;
+    }
+
+    @Override
+    public GameStateDTO chanceEffect(GameStateDTO gameState){
+        throw new NotImplementedException();
     }
 
     public String getColour_1() {

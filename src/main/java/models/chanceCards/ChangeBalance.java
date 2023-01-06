@@ -1,5 +1,8 @@
 package models.chanceCards;
 
+import models.dto.GameStateDTO;
+import org.apache.commons.lang.NotImplementedException;
+
 public class ChangeBalance extends ChanceCard{
 
     private final int EFFECT;
@@ -14,6 +17,11 @@ public class ChangeBalance extends ChanceCard{
         super(Name, Description);
         this.EFFECT = EFFECT;
         this.FROM_OTHERS = FromOtherPlayers;
+    }
+
+    @Override
+    public GameStateDTO chanceEffect(GameStateDTO gameState){
+        throw new NotImplementedException();
     }
 
     public int getEffect() {
