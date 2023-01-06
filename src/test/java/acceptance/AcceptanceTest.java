@@ -86,7 +86,20 @@ public class AcceptanceTest {
         gc.TakeTurn(pc.getPlayerById(0));
 
          */
+    }
 
-
+    @Test
+    public void AK11_12(){
+        pc.addPlayer(0,"UFO","buyBrewery/Docks-Test",2);
+        pc.addPlayer(1,"UFO","Dummy1",2);
+        gui.setPlayers(pc.getPlayers());
+        dH.setNextRoll(12);
+        gc.TakeTurn(pc.getPlayerById(0));
+        dH.setNextRoll(12);
+        gc.TakeTurn(pc.getPlayerById(1));
+        dH.setNextRoll(3);
+        gc.TakeTurn(pc.getPlayerById(0));
+        dH.setNextRoll(3);
+        gc.TakeTurn(pc.getPlayerById(1));
     }
 }
