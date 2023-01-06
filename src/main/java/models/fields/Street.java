@@ -25,7 +25,7 @@ public class Street extends Property{
 
                 if (wantToBuy) {
                     owner = currentPlayer;
-                    currentPlayer.setBalance(currentPlayer.getBalance() - price);
+                    currentPlayer.setBalance(-price);
                 } else {
                     //Auktion
                 }
@@ -40,18 +40,19 @@ public class Street extends Property{
             //Pay rent
             int rentToPay = rent[houseAmount];
 
-            if (currentPlayer.getBalance() >= rentToPay) {
+            if (currentPlayer.setBalance(-rentToPay)) {
                 String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " betal leje " + rentToPay;
                 gameState.getGuiController().displayMsg(msg);
 
-                currentPlayer.setBalance(currentPlayer.getBalance() - rentToPay);
-                owner.setBalance(owner.getBalance() + rentToPay);
+                owner.setBalance(rentToPay);
+                gameState.getGuiController().updatePlayer(owner);
             } else {
                 //Cant pay the rent
                 String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " du har ikke råd til at betale lejen";
                 gameState.getGuiController().displayMsg(msg);
 
                 //Player must leave the game (later the player will be able to sell things and stay in the game)
+                gameState.getPlayerController().removePlayer(currentPlayer.getID());
             }
         }
         return gameState;
