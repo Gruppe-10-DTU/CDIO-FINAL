@@ -59,4 +59,12 @@ public class AcceptanceTest {
 
     }
 
+    @Test
+    public void AK8(){
+        pc.addPlayer(0,"UFO","buyPropertyTest",2);
+        pc.addPlayer(1,"UFO","dummy1",2);
+        gui.setPlayers(pc.getPlayers());
+        dH.setNextRoll(5);
+        gc.TakeTurn(pc.getPlayerById(0));
+    }
 }
