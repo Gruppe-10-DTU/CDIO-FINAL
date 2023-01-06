@@ -39,16 +39,15 @@ public class GameController implements ActionListener {
         this.initialize();
     }
 
-    public GameController(Language language, PlayerController playerController, FieldController fieldController, GUIController guiController, Deck deck, DiceHolder diceHolder) {
+    public GameController(GameStateDTO gameState, Language language, Deck deck) {
         this.language = language;
-        this.playerController = playerController;
-        this.fieldController = fieldController;
-        this.guiController = guiController;
+        this.playerController = gameState.getPlayerController();
+        this.fieldController = gameState.getFieldController();
+        this.guiController = gameState.getGuiController();
         this.deck = deck;
-        this.diceHolder = diceHolder;
-        gameState = new GameStateDTO(guiController);
-        gameState.setFieldController(fieldController);
+        this.diceHolder = gameState.getDiceHolder();
         deck.shuffle();
+        this.gameState = gameState;
     }
 
     public void initialize() {
@@ -89,7 +88,7 @@ public class GameController implements ActionListener {
         }
     }
 
-    /**
+    /*
      * Functions to display the winner and give the users an option to close the game
      */
     /*

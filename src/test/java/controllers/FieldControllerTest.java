@@ -33,9 +33,9 @@ class FieldControllerTest {
         CSVMock.add(new ArrayList<>(Arrays.asList("Start","0","start","","","","","","","","","")));
         CSVMock.add(new ArrayList<>(Arrays.asList("Rødovrevej","1","street","1200","1000","50","250","750","2250","4000","6000","blue")));
         CSVMock.add(new ArrayList<>(Arrays.asList("Prøv lykken","2","chance","","","","","","","","","")));
-        CSVMock.add(new ArrayList<>(Arrays.asList("I fængsel/På besøg","3","jail","","","","","","","","","")));
+        CSVMock.add(new ArrayList<>(Arrays.asList("I fængsel/På besøg","3","jail","1000","","","","","","","","")));
         CSVMock.add(new ArrayList<>(Arrays.asList("Hvidovrevej","4","street","1200","1000","50","250","400","750","2250","6000","blue")));
-        CSVMock.add(new ArrayList<>(Arrays.asList("Fængsel","5","jail","","","","","","","","","")));
+        CSVMock.add(new ArrayList<>(Arrays.asList("Fængsel","5","jail","0","","","","","","","","")));
         CSVMock.add(new ArrayList<>(Arrays.asList("Amagertorv","6","street","6000","4000","550","2600","7800","18000","22000","25000","yellow")));
         CSVMock.add(new ArrayList<>(Arrays.asList("Vimmelskaftet","7","street","6000","4000","550","2600","7800","18000","22000","25000","yellow")));
         CSVMock.add(new ArrayList<>(Arrays.asList("Vimmelskaftet","8","street","6000","4000","550","2600","7800","18000","22000","25000","yellow")));
@@ -69,6 +69,8 @@ class FieldControllerTest {
         }
         assertEquals(jailIndex, mockPlayer1.getLocation());
     }
+
+
 
 
     @Test
@@ -120,9 +122,7 @@ class FieldControllerTest {
         assertEquals(5, playerValues.get(mockPlayer1));
         assertEquals(3, playerValues.get(mockPlayer2));
     }
-
-
-
+/*
 
     /*@Test
     void sameOwner() {

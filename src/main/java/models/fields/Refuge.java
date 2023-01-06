@@ -8,6 +8,8 @@ public class Refuge extends Field{
 
     @Override
     public GameStateDTO fieldEffect(GameStateDTO gameState){
-        throw new NotImplementedException();
+        //Language key: fieldFreeParking
+        gameState.getGuiController().displayMsg("Du er landet på gratis parkering");
+        return gameState;
     }
 }

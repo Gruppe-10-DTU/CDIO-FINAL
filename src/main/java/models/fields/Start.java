@@ -8,6 +8,10 @@ public class Start extends Field{
 
     @Override
     public GameStateDTO fieldEffect(GameStateDTO gameState){
-        throw new NotImplementedException();
+
+        //Key fieldLandStart
+        gameState.getGuiController().displayMsg("Du er landet på start. Tillykke med de gratis penge");
+
+        return gameState;
     }
 }
