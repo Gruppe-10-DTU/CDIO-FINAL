@@ -1,5 +1,8 @@
 package models.chanceCards;
 
+import models.dto.GameStateDTO;
+import org.apache.commons.lang.NotImplementedException;
+
 public class ChoiceCard extends ChanceCard{
 
     private final int MOVE;
@@ -14,6 +17,11 @@ public class ChoiceCard extends ChanceCard{
         super(Name, Description);
         this.MOVE = MOVE;
         this.DRAW_AGAIN = DrawAgain;
+    }
+
+    @Override
+    public GameStateDTO chanceEffect(GameStateDTO gameState){
+        throw new NotImplementedException();
     }
 
     public int getMove() {
