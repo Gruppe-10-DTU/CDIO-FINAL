@@ -12,6 +12,11 @@ import java.util.ArrayList;
 public class Jail extends Field {
 
     private ArrayList<Player> inJail = new ArrayList<>();
+    private final int getOutOfJailPrice;
+
+    public Jail(int priceTogetOutOfJail){
+        this.getOutOfJailPrice = priceTogetOutOfJail;
+    }
 
     public ArrayList<Player> getInJail() {
         return inJail;
