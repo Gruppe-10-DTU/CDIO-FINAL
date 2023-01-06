@@ -49,6 +49,8 @@ public class Jail extends Field {
 
     @Override
     public GameStateDTO fieldEffect(GameStateDTO gameState){
+        if(!(this.isInJail(gameState.getActivePlayer()))) return gameState;
+
         Player player = gameState.getActivePlayer();
         GUIController io = gameState.getGuiController();
 
