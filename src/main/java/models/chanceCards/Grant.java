@@ -1,5 +1,8 @@
 package models.chanceCards;
 
+import models.dto.GameStateDTO;
+import org.apache.commons.lang.NotImplementedException;
+
 public class Grant extends ChanceCard{
 
     private final int BONUS;
@@ -16,5 +19,10 @@ public class Grant extends ChanceCard{
 
     public int getNET_WORTH() {
         return NET_WORTH;
+    }
+
+    @Override
+    public GameStateDTO chanceEffect(GameStateDTO gameState){
+        throw new NotImplementedException();
     }
 }

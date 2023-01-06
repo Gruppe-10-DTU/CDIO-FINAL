@@ -1,5 +1,8 @@
 package models.chanceCards;
 
+import models.dto.GameStateDTO;
+import org.apache.commons.lang.NotImplementedException;
+
 public class MoveToField extends ChanceCard{
 
     private final int FIELD_ID;
@@ -15,6 +18,11 @@ public class MoveToField extends ChanceCard{
         super(Name, Description);
         this.PASS_START_BONUS = PassStartBonus;
         this.FIELD_ID = FIELD_ID;
+    }
+
+    @Override
+    public GameStateDTO chanceEffect(GameStateDTO gameState){
+        throw new NotImplementedException();
     }
 
     public int getFieldID() {

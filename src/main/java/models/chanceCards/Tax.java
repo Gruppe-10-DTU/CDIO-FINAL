@@ -1,5 +1,8 @@
 package models.chanceCards;
 
+import models.dto.GameStateDTO;
+import org.apache.commons.lang.NotImplementedException;
+
 public class Tax extends ChanceCard {
 
     private final int HOUSE_TAX;
@@ -10,6 +13,11 @@ public class Tax extends ChanceCard {
         super(Name, Description);
         this.HOUSE_TAX = Value_1;
         this.HOTEL_TAX = Value_2;
+    }
+
+    @Override
+    public GameStateDTO chanceEffect(GameStateDTO gameState){
+        throw new NotImplementedException();
     }
 
     public int getHOUSE_TAX() {

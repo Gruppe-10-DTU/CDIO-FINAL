@@ -1,5 +1,8 @@
 package models.chanceCards;
 
+import models.dto.GameStateDTO;
+import org.apache.commons.lang.NotImplementedException;
+
 public class CharacterSpecific extends ChanceCard{
 
     private final String CHARACTER;
@@ -12,6 +15,11 @@ public class CharacterSpecific extends ChanceCard{
     public CharacterSpecific(String Name, String Description, String CharacterName) {
         super(Name, Description);
         this.CHARACTER = CharacterName;
+    }
+
+    @Override
+    public GameStateDTO chanceEffect(GameStateDTO gameState){
+        throw new NotImplementedException();
     }
 
     public String getCharacter() {

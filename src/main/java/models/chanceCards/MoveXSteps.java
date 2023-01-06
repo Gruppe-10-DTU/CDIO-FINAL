@@ -1,5 +1,8 @@
 package models.chanceCards;
 
+import models.dto.GameStateDTO;
+import org.apache.commons.lang.NotImplementedException;
+
 public class MoveXSteps extends ChanceCard{
 
     private final int MAX_STEPS;
@@ -14,6 +17,11 @@ public class MoveXSteps extends ChanceCard{
         super(Name, Description);
 
         this.MAX_STEPS = StepsToMove;
+    }
+
+    @Override
+    public GameStateDTO chanceEffect(GameStateDTO gameState){
+        throw new NotImplementedException();
     }
 
 
