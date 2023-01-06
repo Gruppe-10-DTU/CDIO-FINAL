@@ -86,17 +86,17 @@ public class GUIController {
      */
     public void movePlayer(Player player){
         int carIndex = Arrays.asList(gui.getFields()).indexOf(gui_players[player.getID()].getCar().getPosition());
-            while(carIndex !=player.getLocation()){
+            while(carIndex != player.getLocation()){
                 carIndex++;
                 gui_players[player.getID()].getCar().setPosition(gui.getFields()[carIndex%40]);
-                updatePlayer(player);
                 try {
                     Thread.sleep(200);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }
-        }
+        updatePlayer(player);
+    }
 
     
 
@@ -151,9 +151,6 @@ public class GUIController {
     public int getPropertyChoice(String emtpyFieldChoice, Street[] properties) {
         String choice = gui.getUserSelection(emtpyFieldChoice, Arrays.stream(properties).map(Field::getName).toArray(String[]::new));
         return Arrays.stream(properties).filter(field->field.getName()==choice).findFirst().get().getID();
-    }
-    public void showRoll(int roll){
-        gui.setDie(roll);
     }
 
     /**

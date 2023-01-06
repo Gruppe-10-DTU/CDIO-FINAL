@@ -45,6 +45,9 @@ public class GameStateDTO {
         this.activePlayer = activePlayer;
         this.otherPlayers = otherPlayers;
     }
+    public GameStateDTO(GUIController guiController){
+        this.guiController = guiController;
+    }
 
     public void setActivePlayer(Player activePlayer) {
         this.activePlayer = activePlayer;
