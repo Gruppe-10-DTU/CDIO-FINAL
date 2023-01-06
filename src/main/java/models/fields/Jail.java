@@ -5,7 +5,7 @@ import controllers.FieldController;
 import controllers.StartValues;
 import models.Player;
 import models.dto.GameStateDTO;
-import org.apache.commons.lang.NotImplementedException;
+import ui.GUIController;
 
 import java.util.ArrayList;
 
@@ -45,36 +45,44 @@ public class Jail extends Field {
 
     @Override
     public GameStateDTO fieldEffect(GameStateDTO gameState){
-        FieldController fieldController= GameStateDTO.getFieldController();
-        DiceHolder diceHolder = GameStateDTO.getDiceHolder();
-        String message = language.getLanguageValue("getOutOfJail");
-        String pay = language.getLanguageValue("payOutOfJail");
-        String roll = language.getLanguageValue("rollOutOfJail");
-        String card = language.getLanguageValue("cardOutOfJail");
+        Player player = gameState.getActivePlayer();
+        GUIController io = gameState.getGuiController();
+
         String choice;
 
-        if(player.getGetOutOfJail() != null) {
-            choice = io.getOutOfJailOptions(message, new String[]{pay,roll,card});
-        }else{
-            choice = io.getOutOfJailOptions(message, new String[]{pay,roll});
+        if(player.getGetOutOfJail() != null && (player.getBalance() + StartValues.getInstance().getValue("getOutOfJailPrice")) > 0) {
+            choice = io.getOutOfJailOptions(true, true);
+        }else if(player.getBalance() + StartValues.getInstance().getValue("getOutOfJailPrice") >= 0){
+            choice = io.getOutOfJailOptions(true,false);
+        } else if (player.getGetOutOfJail() != null) {
+            choice = io.getOutOfJailOptions(false, true);
+        } else {
+            choice = io.getOutOfJailOptions(false, false);
         }
+
+        FieldController fieldController = gameState.getFieldController();
 
         switch (choice) {
             case "pay":
                 player.setBalance(StartValues.getInstance().getValue("getOutOfJailPrice"));
                 player.setRoundsInJail(0);
                 fieldController.freePlayer(player);
-                io.displayMsgNoBtn(language.getLanguageValue("payOutOfJail"));
+
+                /* OUTPUT MESSAGE To USER */
+
                 break;
             case "roll":
                 for (int i = 0; i < 3; i++) {
+                    DiceHolder diceHolder = gameState.getDiceHolder();
                     diceHolder.roll();
                     int[] jailRoll = diceHolder.getRolls();
                     io.displayDice(jailRoll);
                     if (jailRoll[0] == jailRoll[1]){
                         player.setRoundsInJail(0);
                         fieldController.freePlayer(player);
-                        io.displayMsgNoBtn(language.getLanguageValue("rollOutOfJail"));
+
+                        /* OUTPUT MESSAGE To USER */
+
                         break;
                     }
                 }
@@ -84,14 +92,19 @@ public class Jail extends Field {
                 player.setRoundsInJail(0);
                 player.setGetOutOfJail(null);
                 fieldController.freePlayer(player);
-                io.displayMsgNoBtn(language.getLanguageValue("cardOutOfJail"));
+
+                /* OUTPUT MESSAGE To USER */
+
                 break;
         }
         if(player.getRoundsInJail() >= 3){
             player.setBalance(StartValues.getInstance().getValue("getOutOfJailPrice"));
             player.setRoundsInJail(0);
             fieldController.freePlayer(player);
-            io.displayMsgNoBtn(language.getLanguageValue("payOutOfJail"));
+
+            /* OUTPUT MESSAGE To USER */
+
         }
+        return  gameState;
     }
 }
