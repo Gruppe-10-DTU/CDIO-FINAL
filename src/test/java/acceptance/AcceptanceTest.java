@@ -7,6 +7,7 @@ import controllers.PlayerController;
 import models.Language;
 import models.chanceCards.Deck;
 import models.dto.GameStateDTO;
+import models.fields.Street;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -45,8 +46,7 @@ public class AcceptanceTest {
         dH.setRolls(5,5);
         pc.addPlayer(0, "car", "test",0);
         gui.setPlayers(pc.getPlayers());
-        dH.setNextRoll(10);
-        gc.TakeTurn(pc.getPlayerById(0));
+        gc.takeTurn(pc.getPlayerById(0));
     }
 
 
@@ -55,7 +55,20 @@ public class AcceptanceTest {
         pc.addPlayer(0,"UFO","moneyTest",2);
         pc.addPlayer(1,"UFO","dummy1",2);
         gui.setPlayers(pc.getPlayers());
-        gc.TakeTurn(pc.getPlayerById(0));
+        gc.takeTurn(pc.getPlayerById(0));
+
+    }
+
+    @Test
+    public void AK9() {
+        pc.addPlayer(0,"UFO","renter",2);
+        pc.addPlayer(1,"UFO","owner",1);
+        gui.setPlayers(pc.getPlayers());
+        Street street = (Street) fc.getField(3);
+        street.setOwner(pc.getPlayerById(1));
+        dH.setRolls(2,1);
+        gc.takeTurn(pc.getPlayerById(0));
+        gui.displayMsg("Test er ovre");
 
     }
 
