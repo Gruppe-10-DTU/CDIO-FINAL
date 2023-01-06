@@ -9,6 +9,7 @@ import models.chanceCards.Deck;
 import models.dto.GameStateDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ui.GUIController;
 
@@ -66,5 +67,26 @@ public class AcceptanceTest {
         gui.setPlayers(pc.getPlayers());
         dH.setNextRoll(5);
         gc.TakeTurn(pc.getPlayerById(0));
+    }
+
+
+    @Test
+    public void AK10(){
+        pc.addPlayer(0,"UFO","jailNoMoneyTest",2);
+        pc.addPlayer(1,"UFO","PassStartTest",2);
+        gui.setPlayers(pc.getPlayers());
+        dH.setNextRoll(5);
+        pc.getPlayerById(1).setLocation(35);
+        gui.updatePlayer(pc.getPlayerById(1));
+        gc.TakeTurn(pc.getPlayerById(1));
+        /*
+        pc.getPlayerById(0).setLocation(28);
+        gui.updatePlayer(pc.getPlayerById(0));
+        dH.setNextRoll(2);
+        gc.TakeTurn(pc.getPlayerById(0));
+
+         */
+
+
     }
 }
