@@ -7,6 +7,7 @@ import controllers.StartValues;
 import gui_fields.GUI_Player;
 import gui_fields.GUI_Street;
 import gui_main.GUI;
+import models.Language;
 import models.Player;
 import models.fields.Field;
 import models.fields.Street;
@@ -17,6 +18,7 @@ import java.util.Arrays;
 public class GUIController {
     private GUI gui;
     private GUI_Player[] gui_players;
+    private Language language;
     public GUIController(){
     }
 
@@ -24,8 +26,9 @@ public class GUIController {
      * Create a gui with custom fields
      * @param fieldList List of fields
      */
-    public GUIController(ArrayList<Field> fieldList){
+    public GUIController(ArrayList<Field> fieldList, Language language){
         gui = new GUI(GUIConverter.fieldListToGUI(fieldList));
+        this.language = language;
     }
 
     /**
