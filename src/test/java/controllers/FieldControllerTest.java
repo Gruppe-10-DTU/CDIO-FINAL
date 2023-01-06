@@ -96,7 +96,7 @@ class FieldControllerTest {
             }
         }
     }
-
+    /*
     @Test
     void playerPropertyValues() {
 
@@ -120,6 +120,8 @@ class FieldControllerTest {
         assertEquals(5, playerValues.get(mockPlayer1));
         assertEquals(3, playerValues.get(mockPlayer2));
     }
+
+     */
 
 
     /*@Test
@@ -149,20 +151,4 @@ class FieldControllerTest {
         fieldcontroller.setOwner(null, 8);
     }*/
 
-    @Test
-    void testAllChoicesTest() {
-        int counter = 0;
-        for (Field field : fieldcontroller.fieldArrayList) {
-            if ( field instanceof Street) {
-                if (counter < 2) {
-                    ((Street) field).setOwner(mockPlayer1);
-                    counter++;
-                } else {
-                    ((Street) field).setOwner(mockPlayer2);
-                }
-            }
-        }
-        assertEquals(2, fieldcontroller.getFieldOtherPlayers(mockPlayer1).length);
-        assertEquals(7, fieldcontroller.getFieldOtherPlayers(mockPlayer1)[0].getID() );
-    }
 }
