@@ -2,7 +2,6 @@ package models.fields;
 
 import controllers.DiceHolder;
 import controllers.FieldController;
-import controllers.StartValues;
 import models.Player;
 import models.dto.GameStateDTO;
 import ui.GUIController;
@@ -55,9 +54,9 @@ public class Jail extends Field {
 
         String choice;
 
-        if(player.getGetOutOfJail() != null && (player.getBalance() + StartValues.getInstance().getValue("getOutOfJailPrice")) > 0) {
+        if(player.getGetOutOfJail() != null && (player.getBalance() + getOutOfJailPrice) > 0) {
             choice = io.getOutOfJailOptions(true, true);
-        }else if(player.getBalance() + StartValues.getInstance().getValue("getOutOfJailPrice") >= 0){
+        }else if(player.getBalance() + getOutOfJailPrice > 0){
             choice = io.getOutOfJailOptions(true,false);
         } else if (player.getGetOutOfJail() != null) {
             choice = io.getOutOfJailOptions(false, true);
@@ -69,7 +68,7 @@ public class Jail extends Field {
 
         switch (choice) {
             case "pay":
-                player.setBalance(StartValues.getInstance().getValue("getOutOfJailPrice"));
+                player.setBalance(getOutOfJailPrice);
                 player.setRoundsInJail(0);
                 fieldController.freePlayer(player);
 
@@ -103,7 +102,7 @@ public class Jail extends Field {
                 break;
         }
         if(player.getRoundsInJail() >= 3){
-            player.setBalance(StartValues.getInstance().getValue("getOutOfJailPrice"));
+            player.setBalance(getOutOfJailPrice);
             player.setRoundsInJail(0);
             fieldController.freePlayer(player);
 
