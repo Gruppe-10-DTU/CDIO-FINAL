@@ -29,7 +29,7 @@ public class AcceptanceTest {
     public void beforeAll() {
         language = new Language();
         fc = new FieldController(language);
-        gui = new GUIController(fc.getFieldList());
+        gui = new GUIController(fc.getFieldList(), language);
         gs = new GameStateDTO(gui);
 
         gs.setFieldController(fc);
