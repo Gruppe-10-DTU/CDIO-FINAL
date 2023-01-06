@@ -137,11 +137,9 @@ public class FieldController {
     public GameStateDTO landOnField (GameStateDTO gamestate) {
         Field currentField = fieldArrayList.get(gamestate.getActivePlayer().getLocation());
 
-        if(!(currentField instanceof Jail)){
-            gamestate = currentField.fieldEffect(gamestate);
-        }
+        GameStateDTO newGameState = currentField.fieldEffect(gamestate);
 
-        return gamestate;
+        return newGameState;
     }
 
     /**
