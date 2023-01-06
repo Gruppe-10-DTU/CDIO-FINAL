@@ -9,6 +9,8 @@ public class Chance extends Field {
 
     @Override
     public GameStateDTO fieldEffect(GameStateDTO gameState){
-        throw new NotImplementedException();
+
+        gameState.getGuiController().displayMsg("IKKE IMPLEMENTERET!!!");
+        return gameState;
     }
 }

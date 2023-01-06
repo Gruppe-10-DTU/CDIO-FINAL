@@ -8,7 +8,9 @@ public class Empty extends Field {
 
     @Override
     public GameStateDTO fieldEffect(GameStateDTO gameState){
-        throw new NotImplementedException();
+        //Language key: fieldFreeParking
+        gameState.getGuiController().displayMsg("Du er landet på gratis parkering. Slap af og nyd en læske");
+        return gameState;
     }
 
 }
