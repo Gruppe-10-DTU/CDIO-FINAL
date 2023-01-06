@@ -8,6 +8,7 @@ public class Tax extends Field{
 
     @Override
     public GameStateDTO fieldEffect(GameStateDTO gameState){
-        throw new NotImplementedException();
+        gameState.getGuiController().displayMsg("Ikke implementeret");
+        return gameState;
     }
 }

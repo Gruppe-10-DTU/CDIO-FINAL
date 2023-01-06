@@ -122,8 +122,6 @@ class FieldControllerTest {
     }
 
 
-
-
     /*@Test
     void sameOwner() {
         Player player1 = new Player(0,"test");
