@@ -71,6 +71,8 @@ class FieldControllerTest {
     }
 
 
+
+
     @Test
     void FreePlayer() {
         //Jail the player
@@ -120,7 +122,7 @@ class FieldControllerTest {
         assertEquals(5, playerValues.get(mockPlayer1));
         assertEquals(3, playerValues.get(mockPlayer2));
     }
-
+/*
 
     /*@Test
     void sameOwner() {

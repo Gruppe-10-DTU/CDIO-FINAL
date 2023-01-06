@@ -10,12 +10,14 @@ import gui_main.GUI;
 import models.Player;
 import models.fields.Field;
 import models.fields.Street;
+import models.Language;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class GUIController {
     private GUI gui;
+    private Language language;
     private GUI_Player[] gui_players;
     public GUIController(){
     }
@@ -180,6 +182,8 @@ public class GUIController {
      * @param hasChanceCard boolean representing if the player has a get out of jail card
      * @return the updated gamestate
      */
+
+
     public String getOutOfJailOptions(boolean canPay, boolean hasChanceCard) {
         String message = language.getLanguageValue("getOutOfJail");
         String pay = language.getLanguageValue("payOutOfJail");
