@@ -28,9 +28,10 @@ public class Brewery extends Property{
 
     @Override
     public GameStateDTO fieldEffect(GameStateDTO gameState) {
+        Player currentPlayer = gameState.getActivePlayer();
 
         if (owner == null) {
-            Player currentPlayer = gameState.getActivePlayer();
+
             if (currentPlayer.getBalance() > price) {
                 String msg = "Du er landet på " + name + " Vil du købe den for " + price + "kr";
                 boolean wantToBuy = gameState.getGuiController().getUserLeftButtonPressed(msg, "Ja", "Nej");
@@ -40,17 +41,33 @@ public class Brewery extends Property{
                     currentPlayer.setBalance(currentPlayer.getBalance() - price);
                 } else {
                     //Auktion
-                    return gameState;
                 }
-
-                return gameState;
             } else {
-                //Player cant buy
-                return gameState;
+                //Player cant buy (possibly give the player an option to sell other values and then buy?)
+                String msg = "Du er landet på " + name + " Til en værdi af " + price + "og har dessværre ikke råd til at købe den";
+
+                gameState.getGuiController().displayMsg(msg);
             }
         } else {
             //Pay rent
-            return gameState;
+            int diceAmount = gameState.getDiceHolder().sum();
+            int rentToPay = rent0 * diceAmount;
+
+            if (currentPlayer.getBalance() >= rentToPay) {
+                String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " betal leje " + rentToPay;
+                gameState.getGuiController().displayMsg(msg);
+
+                currentPlayer.setBalance(currentPlayer.getBalance() - rentToPay);
+                owner.setBalance(owner.getBalance() + rentToPay);
+            } else {
+                //Cant pay the rent
+                String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " du har ikke råd til at betale lejen";
+                gameState.getGuiController().displayMsg(msg);
+
+                //Player must leave the game (later the player will be able to sell things and stay in the game)
+            }
+
         }
+        return gameState;
     }
 }

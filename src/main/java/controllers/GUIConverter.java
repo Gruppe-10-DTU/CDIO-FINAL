@@ -97,7 +97,7 @@ public class GUIConverter {
                         }
                     }
 
-                    fields[field.getID()] = new GUI_Street(field.getName(), " ", field.getName(), Integer.toString(prop.getRent0()), fieldColor, textColor);
+                    fields[field.getID()] = new GUI_Street(field.getName(), " ", field.getName(), Integer.toString(prop.getPrice()), fieldColor, textColor);
                     break;
                 }
                 case "Chance": {
