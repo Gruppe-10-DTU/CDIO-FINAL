@@ -2,6 +2,7 @@ package controllers;
 
 import models.chanceCards.*;
 import models.*;
+import models.dto.GameStateDTO;
 import ui.GUIController;
 
 import javax.swing.*;
@@ -23,6 +24,8 @@ public class GameController implements ActionListener {
     private Deck deck;
     private Popup p;
 
+    private GameStateDTO gameState;
+
     public GameController() {
         language = new Language(System.getProperty("user.language"));
         fieldController = new FieldController(language);
@@ -31,6 +34,8 @@ public class GameController implements ActionListener {
         diceHolder = new DiceHolder(StartValues.getInstance().getValue("diceAmount"));
         playerController = new PlayerController();
         deck.shuffle();
+        gameState = new GameStateDTO(guiController);
+        gameState.setFieldController(fieldController);
         this.initialize();
     }
 
@@ -41,6 +46,8 @@ public class GameController implements ActionListener {
         this.guiController = guiController;
         this.deck = deck;
         this.diceHolder = diceHolder;
+        gameState = new GameStateDTO(guiController);
+        gameState.setFieldController(fieldController);
         deck.shuffle();
     }
 
@@ -63,19 +70,29 @@ public class GameController implements ActionListener {
 
             playerController.addPlayer(i, character, name, colors.indexOf(color));
         }
-
-        guiController.setPlayers(playerController.getPlayers());
-        while (!isOver) {
-            this.currentPlayer = playerController.getPlayerById(turnCounter);
-            //TakeTurn(currentPlayer);
-        }
     }
 
+    public void startGame(){
+        guiController.setPlayers(playerController.getPlayers());
+
+        int playerAmount = playerController.getPlayers().length;
+
+        while (!win()) {
+            //Håndterer problemet med at fjerne en spiller.
+            while((currentPlayer = playerController.getPlayerById(turnCounter % playerAmount))==null){
+                turnCounter++;
+            }
+
+            TakeTurn(currentPlayer);
+
+            turnCounter++;
+        }
+    }
 
     /*
      * Functions to display the winner and give the users an option to close the game
      */
-/*
+    /*
     private void EndGame() {
         String endWinner = playerController.getPlayerById(0).getIdentifier();
         isOver = true;
@@ -98,13 +115,18 @@ public class GameController implements ActionListener {
 
  */
 
-    /*
+    /**
      * Logic to handle a players turn
      * @param player Active player
-     *
+     */
     public void TakeTurn(Player player) {
-        try{
-        if(player.getLocation() == 30){
+        gameState.setActivePlayer(player);
+
+        gameState.setOtherPlayers(playerController.otherPlayers(player.getID()));
+
+        /*
+        //Tjek jail
+        if(fieldController.inJail()){
            Jail jail = (Jail) fieldController.getField(10);
            if(jail.isInJail(player)){
                if(player.getGetOutOfJail() != null){
@@ -119,81 +141,22 @@ public class GameController implements ActionListener {
                guiController.updatePlayer(player);
            }
         }
-        if(player.getCharacterSpecific() != null){
-            characterSpecific(player);
-        }else {
-            guiController.getRoll(language.getLanguageValue("rollText", player.getIdentifier()), language.getLanguageValue("rollButton"));
-            diceHolder.roll();
-            guiController.showRoll(diceHolder.sum());
-            guiController.displayDice(diceHolder.getRolls());
+        }else {}
+         */
 
-           guiController.movePlayer(player)
-            if (player.getLocation() + diceHolder.sum() >= 40) {
-                guiController.displayMsg(language.getLanguageValue("passStart"));
-            } else {
-                guiController.updatePlayer(player);
-            }
-            landOnField(player);
+        guiController.getRoll(language.getLanguageValue("rollText", player.getIdentifier()), language.getLanguageValue("rollButton"));
+        diceHolder.roll();
+        guiController.displayDice(diceHolder.getRolls());
+        boolean overStart = player.getLocation() + diceHolder.sum() >= StartValues.getInstance().getValue("boardSize");
+
+        playerController.playerMove(player, diceHolder.sum());
+        guiController.movePlayer(player);
+        if(overStart){
+
         }
-        turnCounter++;
-    }*/
-    /*
-    }catch (Exception e){
-            System.out.println("wah");}
+        fieldController.landOnField(gameState);
     }
 
-     */
-
-    /*
-     * Handle all logic regarding the specific character card.
-     * @param player Player to take the turn
-     *
-    public void characterSpecific(Player player){
-        player.setCharacterSpecific(null);
-        if(!player.decreaseSoldSign()){
-            guiController.displayMsg(language.getLanguageValue("noMoreHouses"));
-            return;
-        }
-        Street[] propertyChoices = fieldController.getFreeFields();
-        if(propertyChoices.length != 0){
-            int target = guiController.getPropertyChoice(language.getLanguageValue("emtpyFieldChoice"),propertyChoices);
-            int spaces;
-
-            if (target < player.getLocation()) {
-                spaces = (fieldController.getFieldList().size() - player.getLocation()) + target;
-            } else {
-                spaces = target - player.getLocation();
-            }
-            playerController.playerMove(player, spaces);
-            guiController.updatePlayer(player);
-            landOnField(player);
-        } else{
-            propertyChoices = fieldController.getFieldOtherPlayers(player);
-            if(propertyChoices.length == 0){
-                guiController.displayMsg(language.getLanguageValue("ownEverything"));
-                return;
-            }
-            int target = guiController.getPropertyChoice(language.getLanguageValue("buyFieldFromPlayer"), propertyChoices);
-            Street property = (Street) fieldController.getField(target);
-            int spaces;
-            if (target < player.getLocation()) {
-                spaces = (fieldController.getFieldList().size() - player.getLocation()) + target;
-            } else {
-                spaces = target - player.getLocation();
-            }
-            if (player.setBalance(-property.getPrice())) {
-                property.getOwner().setBalance(property.getPrice());
-                guiController.updatePlayer(property.getOwner());
-                fieldController.setOwner(player, property.getID());
-                playerController.playerMove(player, spaces);
-                guiController.updatePlayer(player);
-                guiController.updateField(property);
-                guiController.displayMsg(language.getLanguageValue("buy", Integer.toString(property.getPrice())));
-            } else {
-                EndGame();
-            }
-        }
-    }*/
 
     /*
      * @param player All logic controlling what happens when you land on a field
@@ -258,9 +221,11 @@ public class GameController implements ActionListener {
             }
         }
         guiController.updateBoard(playerController, fieldController);
-    }*/
+    }
+    */
 
-    /*public boolean takeChance(){
+    /*
+    public boolean takeChance(){
         ChanceCard card = deck.drawCard();
         String type = card.getType();
         guiController.showChanceCard(card.getDescription());
@@ -447,11 +412,7 @@ public class GameController implements ActionListener {
 
 
     public boolean win() {
-        if (playerController.getAvailablePlayers().size() == 1) {
-            return true;
-        } else {
-            return false;
-        }
+        return playerController.getAvailablePlayers().size() == 1;
     }
     public void winMsg(){
         String winner = String.valueOf(playerController.getPlayerById(0));

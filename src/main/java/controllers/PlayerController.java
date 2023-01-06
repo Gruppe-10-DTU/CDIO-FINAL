@@ -4,7 +4,9 @@ import models.*;
 import models.Character;
 import models.fields.Street;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.stream.Collectors;
 
 public class PlayerController {
     //make int Amount variable until GUI controller complete
@@ -70,6 +72,10 @@ public class PlayerController {
 
     public Player[] getPlayers() {
         return availablePlayers.values().toArray(Player[]::new);
+    }
+
+    public ArrayList<Player> otherPlayers(int playerId){
+        return availablePlayers.values().stream().filter(x-> x.getID() != playerId).collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
