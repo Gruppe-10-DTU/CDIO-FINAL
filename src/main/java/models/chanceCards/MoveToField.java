@@ -1,7 +1,9 @@
 package models.chanceCards;
 
+import controllers.PlayerController;
+import controllers.StartValues;
+import models.Player;
 import models.dto.GameStateDTO;
-import org.apache.commons.lang.NotImplementedException;
 
 public class MoveToField extends ChanceCard{
 
@@ -22,7 +24,23 @@ public class MoveToField extends ChanceCard{
 
     @Override
     public GameStateDTO chanceEffect(GameStateDTO gameState){
-        throw new NotImplementedException();
+        PlayerController playerController = gameState.getPlayerController();
+        Player activePlayer = gameState.getActivePlayer();
+
+        if(!(PASS_START_BONUS)){
+            activePlayer.setLocation(FIELD_ID);
+            if(FIELD_ID == 10){
+                gameState.getFieldController().jailPlayer(activePlayer);
+            }else {
+                gameState.getFieldController().landOnField(gameState);
+            }
+        }else{
+            int spacesToMove = FIELD_ID - activePlayer.getLocation();
+            if(spacesToMove < 0) spacesToMove += StartValues.getInstance().getValue("boardSize");
+            playerController.playerMove(activePlayer,spacesToMove);
+            gameState.getFieldController().landOnField(gameState);
+        }
+        return gameState;
     }
 
     public int getFieldID() {
