@@ -49,13 +49,13 @@ public class FieldController {
                     street.setID(Integer.parseInt(fieldData.get(i).get(1)));
                     street.setName(fieldData.get(i).get(0));
                     street.setPrice(fieldData.get(i).get(3));
-                    street.setHouseRent(Integer.parseInt(fieldData.get(i).get(4)));
-                    street.setRent0(Integer.parseInt(fieldData.get(i).get(5)));
-                    street.setRent1(Integer.parseInt(fieldData.get(i).get(6)));
-                    street.setRent2(Integer.parseInt(fieldData.get(i).get(7)));
-                    street.setRent3(Integer.parseInt(fieldData.get(i).get(8)));
-                    street.setRent4(Integer.parseInt(fieldData.get(i).get(9)));
-                    street.setRent5(Integer.parseInt(fieldData.get(i).get(10)));
+                    street.setHousePrice(Integer.parseInt(fieldData.get(i).get(4)));
+                    street.setRent(0, Integer.parseInt(fieldData.get(i).get(5)));
+                    street.setRent(1, Integer.parseInt(fieldData.get(i).get(6)));
+                    street.setRent(2, Integer.parseInt(fieldData.get(i).get(7)));
+                    street.setRent(3, Integer.parseInt(fieldData.get(i).get(8)));
+                    street.setRent(4, Integer.parseInt(fieldData.get(i).get(9)));
+                    street.setRent(5, Integer.parseInt(fieldData.get(i).get(10)));
                     street.setColor(fieldData.get(i).get(11));
                     //property.setName(language.getLanguageValue("fieldName" + i));
                     break;
@@ -88,10 +88,10 @@ public class FieldController {
                     ferry.setID(Integer.parseInt(fieldData.get(i).get(1)));
                     ferry.setName(fieldData.get(i).get(0));
                     ferry.setPrice(Integer.parseInt(fieldData.get(i).get(3)));
-                    ferry.setRent0(Integer.parseInt(fieldData.get(i).get(5)));
-                    ferry.setRent1(Integer.parseInt(fieldData.get(i).get(6)));
-                    ferry.setRent2(Integer.parseInt(fieldData.get(i).get(7)));
-                    ferry.setRent3(Integer.parseInt(fieldData.get(i).get(8)));
+                    ferry.setRent(0, Integer.parseInt(fieldData.get(i).get(5)));
+                    ferry.setRent(1, Integer.parseInt(fieldData.get(i).get(6)));
+                    ferry.setRent(2, Integer.parseInt(fieldData.get(i).get(7)));
+                    ferry.setRent(3, Integer.parseInt(fieldData.get(i).get(8)));
                     break;
                 case "refugee":
                     Refuge refuge = new Refuge();

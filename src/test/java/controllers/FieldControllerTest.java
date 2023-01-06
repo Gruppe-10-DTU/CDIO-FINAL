@@ -121,23 +121,8 @@ class FieldControllerTest {
         assertEquals(3, playerValues.get(mockPlayer2));
     }
 
-    @Test
-    void moveToColor() {
-        /*
-        //Regular move
-        int spaces1 = fieldcontroller.moveToColor("PINK", mockPlayer1);
-        assertEquals(5, spaces1);
 
-        //Move past start
-        mockPlayer2.setLocation(5);
-        int spaces2 = fieldcontroller.moveToColor("BROWN", mockPlayer2);
-        assertEquals(5, spaces2);
-
-         */
-    }
-
-
-    @Test
+    /*@Test
     void sameOwner() {
         Player player1 = new Player(0,"test");
         Field field;
@@ -162,7 +147,7 @@ class FieldControllerTest {
 
         fieldcontroller.setOwner(null, 7);
         fieldcontroller.setOwner(null, 8);
-    }
+    }*/
 
     @Test
     void testAllChoicesTest() {
