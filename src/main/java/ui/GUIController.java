@@ -20,7 +20,6 @@ public class GUIController {
     private GUI gui;
     private Language language;
     private GUI_Player[] gui_players;
-    private Language language;
     public GUIController(){
     }
 
