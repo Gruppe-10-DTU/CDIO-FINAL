@@ -20,7 +20,7 @@ public class FieldController {
     public FieldController(Language language) {
         this.language = language;
 
-        String path = "/GamePack/Fields.csv";
+        String path = "/GamePack/fields.csv";
 
         CSVReader csvReader = null;
 
@@ -67,7 +67,7 @@ public class FieldController {
                     //chance.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "jail":
-                    Jail jail = new Jail();
+                    Jail jail = new Jail(Integer.parseInt(fieldData.get(i).get(3)));
                     fieldArrayList.add(jail);
                     jail.setID(Integer.parseInt(fieldData.get(i).get(1)));
                     jail.setName(fieldData.get(i).get(0));
