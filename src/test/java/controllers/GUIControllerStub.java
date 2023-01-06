@@ -118,4 +118,8 @@ public class GUIControllerStub extends ui.GUIController {
     public int getPropertyChoice(String emtpyFieldChoice, Street[] properties) {
         return 23;
     }
+
+    public void showChanceCard(String message){
+
+    }
 }
