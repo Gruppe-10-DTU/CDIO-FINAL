@@ -34,6 +34,8 @@ public class GameController implements ActionListener {
         diceHolder = new DiceHolder(StartValues.getInstance().getValue("diceAmount"));
         playerController = new PlayerController();
         deck.shuffle();
+        gameState = new GameStateDTO(guiController);
+        gameState.setFieldController(fieldController);
         this.initialize();
     }
 
@@ -44,11 +46,12 @@ public class GameController implements ActionListener {
         this.guiController = guiController;
         this.deck = deck;
         this.diceHolder = diceHolder;
+        gameState = new GameStateDTO(guiController);
+        gameState.setFieldController(fieldController);
         deck.shuffle();
     }
 
     public void initialize() {
-        gameState = new GameStateDTO(guiController);
         String name;
         String tokens = "Car,Tractor,Racecar,UFO";
         StringBuilder sb = new StringBuilder(language.getLanguageValue("colors"));
@@ -67,8 +70,13 @@ public class GameController implements ActionListener {
 
             playerController.addPlayer(i, character, name, colors.indexOf(color));
         }
+    }
 
+    public void startGame(){
         guiController.setPlayers(playerController.getPlayers());
+
+        int playerAmount = playerController.getPlayers().length;
+
         while (!win()) {
             //Håndterer problemet med at fjerne en spiller.
             while((currentPlayer = playerController.getPlayerById(turnCounter % playerAmount))==null){
@@ -80,7 +88,6 @@ public class GameController implements ActionListener {
             turnCounter++;
         }
     }
-
 
     /**
      * Functions to display the winner and give the users an option to close the game
