@@ -7,16 +7,20 @@ import controllers.StartValues;
 import gui_fields.GUI_Player;
 import gui_fields.GUI_Street;
 import gui_main.GUI;
+import models.Language;
 import models.Player;
 import models.fields.Field;
 import models.fields.Street;
+import models.Language;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class GUIController {
     private GUI gui;
+    private Language language;
     private GUI_Player[] gui_players;
+    private Language language;
     public GUIController(){
     }
 
@@ -24,8 +28,9 @@ public class GUIController {
      * Create a gui with custom fields
      * @param fieldList List of fields
      */
-    public GUIController(ArrayList<Field> fieldList){
+    public GUIController(ArrayList<Field> fieldList, Language language){
         gui = new GUI(GUIConverter.fieldListToGUI(fieldList));
+        this.language = language;
     }
 
     /**
@@ -180,6 +185,8 @@ public class GUIController {
      * @param hasChanceCard boolean representing if the player has a get out of jail card
      * @return the updated gamestate
      */
+
+
     public String getOutOfJailOptions(boolean canPay, boolean hasChanceCard) {
         String message = language.getLanguageValue("getOutOfJail");
         String pay = language.getLanguageValue("payOutOfJail");

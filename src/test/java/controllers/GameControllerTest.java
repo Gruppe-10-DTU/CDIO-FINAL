@@ -2,8 +2,10 @@ package controllers;
 
 import models.Language;
 import models.chanceCards.Deck;
+import models.dto.GameStateDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ui.GUIController;
 
 import java.util.Properties;
 
@@ -12,12 +14,13 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class GameControllerTest {
     GameController gameController;
-    cheatDiceHolder diceHolder;
+    CheatDiceHolder diceHolder;
     PlayerController pc;
     FieldController fieldController;
     GUIControllerStub gui;
     Language language;
     Deck deck;
+    GameStateDTO gameState;
    /* @Test
     void testGetOutOfJail(){
         Player testPlayer = new Player(0, "Test");
@@ -80,15 +83,19 @@ class GameControllerTest {
     void setUp() {
         language = new Language();
         fieldController = new FieldController(language);
+        gameState.setFieldController(fieldController);
         gui = new GUIControllerStub(fieldController.getFieldList());
+        gameState = new GameStateDTO(gui);
+        diceHolder = new CheatDiceHolder(2);
+        gameState.setDiceHolder(diceHolder);
         pc = new PlayerController();
+        gameState.setPlayerController(pc);
         deck = new Deck(language);
-        diceHolder = new cheatDiceHolder();
         for (int i = 0; i < gui.playerAmount("test"); i++) {
             pc.addPlayer(i, gui.selectCharacter("test", "test"), gui.getName("test"),0);
         }
 
-        gameController = new GameController(language, pc, fieldController, gui, deck, diceHolder);
+        gameController = new GameController(gameState, language, deck);
     }
     /*
     @Test
