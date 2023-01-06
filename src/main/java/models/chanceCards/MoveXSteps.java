@@ -1,7 +1,8 @@
 package models.chanceCards;
 
+import controllers.PlayerController;
+import models.Player;
 import models.dto.GameStateDTO;
-import org.apache.commons.lang.NotImplementedException;
 
 public class MoveXSteps extends ChanceCard{
 
@@ -21,7 +22,12 @@ public class MoveXSteps extends ChanceCard{
 
     @Override
     public GameStateDTO chanceEffect(GameStateDTO gameState){
-        throw new NotImplementedException();
+        PlayerController playerController = gameState.getPlayerController();
+        Player activePlayer = gameState.getActivePlayer();
+        gameState.getGuiController().showChanceCard(this.description);
+        playerController.playerMove(activePlayer, this.MAX_STEPS);
+        gameState.getFieldController().landOnField(gameState);
+        return gameState;
     }
 
 
