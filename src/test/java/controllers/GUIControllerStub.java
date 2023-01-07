@@ -11,6 +11,11 @@ public class GUIControllerStub extends ui.GUIController {
     public String[] names = {"test1","test2", "test3", "test4", "Test5"};
     public String[] characters = {"Car", "Tractor", "Racecar", "UFO"};
     int playerIndex = 0;
+    private boolean buttonClicked;
+
+    public void setButtonClicked(boolean buttonClicked) {
+        this.buttonClicked = buttonClicked;
+    }
 
     public GUIControllerStub(){
         super();
@@ -117,5 +122,14 @@ public class GUIControllerStub extends ui.GUIController {
     @Override
     public int getPropertyChoice(String emtpyFieldChoice, Street[] properties) {
         return 23;
+    }
+
+    public void showChanceCard(String message){
+
+    }
+
+    @Override
+    public Boolean getUserLeftButtonPressed(String msg, String trueButton, String falseButton) {
+        return buttonClicked;
     }
 }

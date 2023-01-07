@@ -115,7 +115,7 @@ public class FieldController {
 
         for (Object field : fieldArrayList) {
             if (field instanceof Jail) {
-                if (((Jail) field).getName()=="I fængsel/På besøg"){
+                if (((Jail) field).getName().equals("I fængsel/På besøg")){
                     ((Jail) field).setInJailAdd(player);
                     int jailLocation = ((Jail) field).getID();
                     player.setLocation(jailLocation);

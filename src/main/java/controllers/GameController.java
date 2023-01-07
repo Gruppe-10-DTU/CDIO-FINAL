@@ -82,7 +82,7 @@ public class GameController implements ActionListener {
                 turnCounter++;
             }
 
-            TakeTurn(currentPlayer);
+            takeTurn(currentPlayer);
 
             turnCounter++;
         }
@@ -118,7 +118,7 @@ public class GameController implements ActionListener {
      * Logic to handle a players turn
      * @param player Active player
      */
-    public void TakeTurn(Player player) {
+    public void takeTurn(Player player) {
         gameState.setActivePlayer(player);
 
         gameState.setOtherPlayers(playerController.otherPlayers(player.getID()));
@@ -146,14 +146,15 @@ public class GameController implements ActionListener {
         guiController.getRoll(language.getLanguageValue("rollText", player.getIdentifier()), language.getLanguageValue("rollButton"));
         diceHolder.roll();
         guiController.displayDice(diceHolder.getRolls());
-        boolean overStart = player.getLocation() + diceHolder.sum() >= StartValues.getInstance().getValue("boardSize");
+        boolean overStart = player.getLocation() + diceHolder.sum() > StartValues.getInstance().getValue("boardSize");
 
         playerController.playerMove(player, diceHolder.sum());
         guiController.movePlayer(player);
         if(overStart){
-
+            guiController.displayMsg(language.getLanguageValue("passStart", String.valueOf(StartValues.getInstance().getValue("passStartBonus"))));
         }
         fieldController.landOnField(gameState);
+        guiController.updatePlayer(player);
     }
 
 
