@@ -1,5 +1,4 @@
 package acceptance;
-
 import controllers.CheatDiceHolder;
 import controllers.FieldController;
 import controllers.GameController;
