@@ -125,4 +125,12 @@ public class AcceptanceTest {
 
         gui.displayMsg("Test er ovre");
     }
+
+    @Test
+    public void AK13(){
+
+
+    }
+
+
 }
