@@ -103,6 +103,7 @@ rollText={0} please roll the die
 rollButton=Roll
 outOfJailFree=You escaped jail for free.
 outOfJailPay=You had to pay {0} to get out of jail
+getOutOfJailRollAgain=You din't roll a double try again
 inputName=Please input the players name
 nameNotUnique=That name has already been taken. Please use a unique name
 selectCharacter=Please select your avatar
