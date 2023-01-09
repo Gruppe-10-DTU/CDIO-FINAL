@@ -91,6 +91,7 @@ getOutOfJail=Vælg hvordan du vil komme ud af fængslet.
 payOutOfJail=Betal {0} for at blive løsladt.
 rollOutOfJail=Forsøg at slå to ens.
 cardOutOfJail=Brug min kongelige benådning.
+getOutOfJailRollAgain=Du slog ikke to ens. Prøv igen.
 ORANGE=Orange
 CYAN=Lyseblå
 RED=Rød

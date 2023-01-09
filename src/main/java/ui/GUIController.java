@@ -211,6 +211,10 @@ public class GUIController {
             return "roll";
         }
     }
+    public void getOutOfjailRollAgain(){
+        String msg = language.getLanguageValue("getOutOfJailRollAgain");
+        gui.getUserButtonPressed(msg,"ok");
+    }
 }
 
 
