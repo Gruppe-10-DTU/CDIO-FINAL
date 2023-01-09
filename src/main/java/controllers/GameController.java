@@ -125,25 +125,11 @@ public class GameController implements ActionListener {
 
         gameState.setOtherPlayers(playerController.otherPlayers(player.getID()));
 
-        /*
+
         //Tjek jail
-        if(fieldController.inJail()){
-           Jail jail = (Jail) fieldController.getField(10);
-           if(jail.isInJail(player)){
-               if(player.getGetOutOfJail() != null){
-                   player.setGetOutOfJail(null);
-                   guiController.displayMsg(language.getLanguageValue("outOfJailFree"));
-               }else if(!player.setBalance(-2)){
-                   EndGame();
-               }else{
-                   guiController.displayMsg(language.getLanguageValue("outOfJailPay", "2"));
-               }
-               fieldController.freePlayer(player);
-               guiController.updatePlayer(player);
-           }
+        if(fieldController.isJailed(player)) {
+            fieldController.landOnField(gameState);
         }
-        }else {}
-         */
 
         guiController.getRoll(language.getLanguageValue("rollText", player.getIdentifier()), language.getLanguageValue("rollButton"));
         diceHolder.roll();
