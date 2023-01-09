@@ -138,7 +138,6 @@ public class AcceptanceTest {
         pc.addPlayer(0,"UFO","InterfaceTest",2);
         gui.setPlayers(pc.getPlayers());
         gc.startGame();
-        gui.displayMsg("Testen er ovre. Grafisk interface repræsenteret her.");
 
     }
 

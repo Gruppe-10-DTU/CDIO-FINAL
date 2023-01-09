@@ -82,6 +82,7 @@ public class PlayerController {
         return availablePlayers.values().stream().filter(x-> x.getID() != playerId).collect(Collectors.toCollection(ArrayList::new));
     }
 
+
     /**
      * Compares player name and checks if it is unique.
      * @param name Name of new player

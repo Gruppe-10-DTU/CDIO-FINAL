@@ -86,6 +86,7 @@ public class GameController implements ActionListener {
 
             turnCounter++;
         }
+        winMsg();
     }
 
     /*
@@ -415,7 +416,7 @@ public class GameController implements ActionListener {
     }
 
     public void winMsg(){
-        String winner = String.valueOf(playerController.getPlayerById(0));
+        String winner = playerController.getPlayers()[0].getIdentifier();
         guiController.displayMsgNoBtn(language.getLanguageValue("winner") + " " + winner);
         JFrame f = new JFrame("popup");
         JLabel l = new JLabel(language.getLanguageValue("winner") + " " + winner);
