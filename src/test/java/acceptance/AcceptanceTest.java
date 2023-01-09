@@ -141,4 +141,9 @@ public class AcceptanceTest {
         gui.displayMsg("Testen er ovre. Grafisk interface repræsenteret her.");
 
     }
+
+    @Test
+    public void AK16_17(){
+
+    }
 }
