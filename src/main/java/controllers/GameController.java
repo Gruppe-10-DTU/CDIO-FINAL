@@ -130,18 +130,19 @@ public class GameController implements ActionListener {
         if(fieldController.isJailed(player)) {
             fieldController.landOnField(gameState);
         }
-
-        guiController.getRoll(language.getLanguageValue("rollText", player.getIdentifier()), language.getLanguageValue("rollButton"));
-        diceHolder.roll();
-        guiController.displayDice(diceHolder.getRolls());
-        boolean overStart = player.getLocation() + diceHolder.sum() > StartValues.getInstance().getValue("boardSize");
-        playerController.playerMove(player, diceHolder.sum());
-        guiController.movePlayer(player);
-        if(overStart){
-            guiController.displayMsg(language.getLanguageValue("passStart", String.valueOf(StartValues.getInstance().getValue("passStartBonus"))));
+        if(!(fieldController.isJailed(player))) {
+            guiController.getRoll(language.getLanguageValue("rollText", player.getIdentifier()), language.getLanguageValue("rollButton"));
+            diceHolder.roll();
+            guiController.displayDice(diceHolder.getRolls());
+            boolean overStart = player.getLocation() + diceHolder.sum() > StartValues.getInstance().getValue("boardSize");
+            playerController.playerMove(player, diceHolder.sum());
+            guiController.movePlayer(player);
+            if (overStart) {
+                guiController.displayMsg(language.getLanguageValue("passStart", String.valueOf(StartValues.getInstance().getValue("passStartBonus"))));
+            }
+            fieldController.landOnField(gameState);
+            guiController.updatePlayer(player);
         }
-        fieldController.landOnField(gameState);
-        guiController.updatePlayer(player);
     }
 
 
