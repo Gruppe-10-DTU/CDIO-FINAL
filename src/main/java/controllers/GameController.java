@@ -36,6 +36,7 @@ public class GameController implements ActionListener {
         deck.shuffle();
         gameState = new GameStateDTO(guiController);
         gameState.setFieldController(fieldController);
+        gameState.setChancecardDeck(deck);
         this.initialize();
     }
 
@@ -86,6 +87,7 @@ public class GameController implements ActionListener {
 
             turnCounter++;
         }
+        winMsg();
     }
 
     /*
@@ -414,7 +416,7 @@ public class GameController implements ActionListener {
         return playerController.getAvailablePlayers().size() == 1;
     }
     public void winMsg(){
-        String winner = String.valueOf(playerController.getPlayerById(0));
+        String winner = playerController.getPlayers()[0].getIdentifier();
         guiController.displayMsgNoBtn(language.getLanguageValue("winner") + " " + winner);
         JFrame f = new JFrame("popup");
         JLabel l = new JLabel(language.getLanguageValue("winner") + " " + winner);
@@ -427,6 +429,7 @@ public class GameController implements ActionListener {
         b.addActionListener(this);
         p2.add(b);
         p.show();
+
     }
 }
 

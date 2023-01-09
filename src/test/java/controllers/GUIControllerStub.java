@@ -132,4 +132,15 @@ public class GUIControllerStub extends ui.GUIController {
     public Boolean getUserLeftButtonPressed(String msg, String trueButton, String falseButton) {
         return buttonClicked;
     }
+
+    @Override
+    public void endGame() {
+    }
+
+    @Override
+    public String getOutOfJailOptions(boolean canPay, boolean hasChanceCard) {
+        if(canPay) return "pay";
+        else if (hasChanceCard) return "card";
+        else return "roll";
+    }
 }

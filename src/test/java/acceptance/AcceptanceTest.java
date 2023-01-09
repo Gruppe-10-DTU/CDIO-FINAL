@@ -126,4 +126,48 @@ public class AcceptanceTest {
 
         gui.displayMsg("Test er ovre");
     }
+
+    @Test
+    public void AK13(){
+
+
+    }
+
+
+    @Test
+    public void AK15(){
+        pc.addPlayer(0,"UFO","InterfaceTest",2);
+        gui.setPlayers(pc.getPlayers());
+        gc.startGame();
+
+    }
+
+    @Test
+    public void AK16_17(){
+        pc.addPlayer(0,"UFO","WinGameNotificationTest",2);
+        pc.addPlayer(1,"UFO","RemovePlayerFromGameTest",3);
+        gui.setPlayers(pc.getPlayers());
+        pc.getPlayerById(1).setBalance(-30000);
+        gui.updatePlayer(pc.getPlayerById(1));
+        dH.setRolls(2,1);
+        gc.takeTurn(pc.getPlayerById(0));
+        dH.setRolls(1,2);
+        gc.takeTurn(pc.getPlayerById(1));
+        gc.winMsg();
+        gui.displayMsg("placeholder");
+    }
+
+    @Test
+    public void AK18(){
+        pc.addPlayer(0,"UFO","ChanceCardEffectTest",2);
+        pc.addPlayer(1,"UFO","Dummy1",3);
+        gui.setPlayers(pc.getPlayers());
+
+        Chance chance = (Chance) fc.getField(2);
+        Deck deck = new Deck(language);
+        gs.setChancecardDeck(deck);
+        dH.setRolls(1,1);
+        gc.takeTurn(pc.getPlayerById(0));
+        gui.displayMsg("Testen er nu overstået");
+    }
 }

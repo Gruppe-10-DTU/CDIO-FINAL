@@ -110,6 +110,10 @@ public class GUIConverter {
                     break;
                 }
                 case "Jail": {
+                    fields[field.getID()] = new GUI_Jail("Default", field.getName(), field.getName(), field.getName(), new Color(125, 125, 125), Color.BLACK);
+                    break;
+                }
+                case "ToJail": {
                     fields[field.getID()] = new GUI_Jail("Default",field.getName(),field.getName(), field.getName(),new Color(125, 125, 125), Color.BLACK);
                     break;
                 }
@@ -120,7 +124,7 @@ public class GUIConverter {
                 }
                 case "Ferry": {
                     Ferry ferry = (Ferry) field;
-                    fields[field.getID()]=new GUI_Shipping("Default",ferry.getName(),ferry.getName(),ferry.getName(),Integer.toString(ferry.getRent0()),Color.white, Color.black);
+                    fields[field.getID()]=new GUI_Shipping("Default",ferry.getName(),ferry.getName(),ferry.getName(),Integer.toString(ferry.getPrice()),Color.white, Color.black);
                     break;
                 }
                 case "Refuge": {

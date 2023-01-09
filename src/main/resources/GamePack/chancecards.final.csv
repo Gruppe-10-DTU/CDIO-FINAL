@@ -1,4 +1,6 @@
 TYPE,NAME,MIN_VALUE,MAX_VALUE,BOOLEAN_MODIFIER,FIELD
+Tax,TAX_1,500,2000,,
+Tax,TAX_2,800,2300,,
 ChangeBalance,CHANGE_BALANCE_1,,-1000,false,
 ChangeBalance,CHANGE_BALANCE_2,,-300,false,
 ChangeBalance,CHANGE_BALANCE_3,,-200,false,
@@ -21,6 +23,10 @@ ChangeBalance,CHANGE_BALANCE_19,,1000,false,
 ChangeBalance,CHANGE_BALANCE_20,,1000,false,
 ChangeBalance,CHANGE_BALANCE_21,,1000,false,
 ChangeBalance,CHANGE_BALANCE_22,,200,false,
+ChangeBalance,CHANGE_BALANCE_23,,200,true,
+ChangeBalance,CHANGE_BALANCE_24,,500,true,
+ChangeBalance,CHANGE_BALANCE_25,,500,true,
+Grant,GRANT_1,15000,40000,,
 MoveXSteps,MOVE_X_STEPS_1,,3,,
 MoveXSteps,MOVE_X_STEPS_2,,-3,,
 MoveXSteps,MOVE_X_STEPS_3,,-3,,
@@ -34,4 +40,7 @@ MoveToField,MOVE_TO_FIELD_7,,,true,24
 MoveToField,MOVE_TO_FIELD_8,,,true,32
 MoveToField,MOVE_TO_FIELD_9,,,true,19
 MoveToField,MOVE_TO_FIELD_10,,,true,39
+MoveToFerry,MOVE_TO_FERRY_1,,2,false,
+MoveToFerry,MOVE_TO_FERRY_2,,2,false,
+MoveToFerry,MOVE_TO_FERRY_3,,1,true,
 GetOutOfJail,GET_OUT_OF_JAIL_1,,,,
