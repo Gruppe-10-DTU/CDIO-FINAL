@@ -12,14 +12,15 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class StreetTest {
+class FerryTest {
+
     private static GameStateDTO gameStateDTO;
     private static FieldController fieldController;
     private static GUIControllerStub guiController;
     private static PlayerController playerController;
 
     @BeforeEach
-     void beforeAll() {
+    void beforeAll() {
         Language language = new Language();
         fieldController = new FieldController(language);
         guiController = new GUIControllerStub();
@@ -32,44 +33,48 @@ class StreetTest {
         gameStateDTO.setPlayerController(playerController);
     }
 
+
+
     @Test
     void fieldEffectNoOwner() {
         guiController.setButtonClicked(true);
-        Street street = (Street) fieldController.getField(1);
+        Ferry ferry = (Ferry) fieldController.getField(5);
 
-        street.fieldEffect(gameStateDTO);
+        ferry.fieldEffect(gameStateDTO);
 
-        assertEquals(street.getOwner(), gameStateDTO.getActivePlayer());
-        assertEquals(30000-street.getPrice(), gameStateDTO.getActivePlayer().getBalance());
+        assertEquals(ferry.getOwner(), gameStateDTO.getActivePlayer());
+        assertEquals(30000-ferry.getPrice(), gameStateDTO.getActivePlayer().getBalance());
     }
 
     @Test
     void steetEffectGetRent() {
-        Street street = (Street) fieldController.getField(1);
-        street.setOwner(playerController.getPlayerById(1));
-        street.fieldEffect(gameStateDTO);
+        Ferry ferry = (Ferry) fieldController.getField(5);
+        ferry.setOwner(playerController.getPlayerById(1));
+        ferry.fieldEffect(gameStateDTO);
 
-        assertNotEquals(street.getOwner().getIdentifier(), gameStateDTO.getActivePlayer().getIdentifier());
-        assertEquals(30000-street.getRent()[street.getHouseAmount()], gameStateDTO.getActivePlayer().getBalance());
-        assertEquals(30000+street.getRent()[street.getHouseAmount()], street.getOwner().getBalance());
+        assertNotEquals(ferry.getOwner().getIdentifier(), gameStateDTO.getActivePlayer().getIdentifier());
+        assertEquals(30000-ferry.getRent()[0], gameStateDTO.getActivePlayer().getBalance());
+        assertEquals(30000+ferry.getRent()[0], ferry.getOwner().getBalance());
 
     }
 
     @Test
     void streetEffectKickPlayer() {
-        Street street = (Street) fieldController.getField(1);
+        Ferry ferry = (Ferry) fieldController.getField(5);
         playerController.getPlayerById(1).setBalance(50);
-        street.setOwner(playerController.getPlayerById(1));
-        playerController.getPlayerById(0).setBalance(-29950);
-        street.fieldEffect(gameStateDTO);
+        ferry.setOwner(playerController.getPlayerById(1));
+        playerController.getPlayerById(0).setBalance(-29500);
+        ferry.fieldEffect(gameStateDTO);
 
         assertEquals(0, playerController.getPlayerById(0).getBalance());
 
-        playerController.getPlayerById(0).setBalance(49);
-        street.fieldEffect(gameStateDTO);
+        playerController.getPlayerById(0).setBalance(499);
+        ferry.fieldEffect(gameStateDTO);
 
         assertEquals(1, playerController.getPlayers().length);
         assertNull(playerController.getPlayerById(0));
 
     }
+
+
 }
