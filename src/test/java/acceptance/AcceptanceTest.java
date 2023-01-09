@@ -104,6 +104,7 @@ public class AcceptanceTest {
         gc.takeTurn(pc.getPlayerById(0));
 
 
+        gui.displayMsg("Testen er overstået");
     }
 
     @Test
