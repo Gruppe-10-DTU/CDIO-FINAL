@@ -125,4 +125,20 @@ public class AcceptanceTest {
 
         gui.displayMsg("Test er ovre");
     }
+
+    @Test
+    public void AK13(){
+
+
+    }
+
+
+    @Test
+    public void AK15(){
+        pc.addPlayer(0,"UFO","InterfaceTest",2);
+        gui.setPlayers(pc.getPlayers());
+        gc.startGame();
+        gui.displayMsg("Testen er ovre. Grafisk interface repræsenteret her.");
+
+    }
 }

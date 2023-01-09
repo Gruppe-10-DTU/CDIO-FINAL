@@ -413,6 +413,7 @@ public class GameController implements ActionListener {
     public boolean win() {
         return playerController.getAvailablePlayers().size() == 1;
     }
+
     public void winMsg(){
         String winner = String.valueOf(playerController.getPlayerById(0));
         guiController.displayMsgNoBtn(language.getLanguageValue("winner") + " " + winner);
