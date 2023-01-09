@@ -148,7 +148,6 @@ public class GameController implements ActionListener {
         diceHolder.roll();
         guiController.displayDice(diceHolder.getRolls());
         boolean overStart = player.getLocation() + diceHolder.sum() > StartValues.getInstance().getValue("boardSize");
-
         playerController.playerMove(player, diceHolder.sum());
         guiController.movePlayer(player);
         if(overStart){
@@ -415,6 +414,7 @@ public class GameController implements ActionListener {
     public boolean win() {
         return playerController.getAvailablePlayers().size() == 1;
     }
+
     public void winMsg(){
         String winner = String.valueOf(playerController.getPlayerById(0));
         guiController.displayMsgNoBtn(language.getLanguageValue("winner") + " " + winner);

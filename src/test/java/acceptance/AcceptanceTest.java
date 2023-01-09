@@ -1,5 +1,4 @@
 package acceptance;
-
 import controllers.CheatDiceHolder;
 import controllers.FieldController;
 import controllers.GameController;
@@ -7,9 +6,13 @@ import controllers.PlayerController;
 import models.Language;
 import models.chanceCards.Deck;
 import models.dto.GameStateDTO;
+import models.fields.Brewery;
+import models.fields.Ferry;
+import models.fields.Jail;
 import models.fields.Street;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ui.GUIController;
 
@@ -27,7 +30,7 @@ public class AcceptanceTest {
 
 
     @BeforeEach
-    public void beforeAll() {
+    public void beforeEach() {
         language = new Language();
         fc = new FieldController(language);
         gui = new GUIController(fc.getFieldList(), language);
@@ -77,7 +80,65 @@ public class AcceptanceTest {
         pc.addPlayer(0,"UFO","buyPropertyTest",2);
         pc.addPlayer(1,"UFO","dummy1",2);
         gui.setPlayers(pc.getPlayers());
-        dH.setNextRoll(5);
+        dH.setRolls(3,2);
+        gc.takeTurn(pc.getPlayerById(0));
+        gui.displayMsg("Test er ovre");
+    }
+
+
+    @Test
+    public void AK10(){
+        pc.addPlayer(0,"UFO","jailNoMoneyTest",2);
+        pc.addPlayer(1,"UFO","PassStartTest",2);
+        Jail jail = (Jail) fc.getField(10);
+
+        gui.setPlayers(pc.getPlayers());
+        dH.setRolls(3,2);
+        pc.getPlayerById(1).setLocation(35);
+        gui.updatePlayer(pc.getPlayerById(1));
+        gc.takeTurn(pc.getPlayerById(1));
+        /*
+        pc.getPlayerById(0).setLocation(28);
+        gui.updatePlayer(pc.getPlayerById(0));
+        dH.setNextRoll(2);
         gc.TakeTurn(pc.getPlayerById(0));
+
+         */
+    }
+
+    @Test
+    public void AK11_12(){
+        pc.addPlayer(0,"UFO","buyBrewery/Docks-Test",2);
+        pc.addPlayer(1,"UFO","Dummy1",2);
+
+        gui.setPlayers(pc.getPlayers());
+        Brewery brew = (Brewery) fc.getField(12);
+        Ferry ferry = (Ferry) fc.getField(15);
+        dH.setRolls(6,6);
+        gc.takeTurn(pc.getPlayerById(0));
+        dH.setRolls(6,6);
+        gc.takeTurn(pc.getPlayerById(1));
+        dH.setRolls(2,1);
+        gc.takeTurn(pc.getPlayerById(0));
+        dH.setRolls(1,2);
+        gc.takeTurn(pc.getPlayerById(1));
+
+        gui.displayMsg("Test er ovre");
+    }
+
+    @Test
+    public void AK13(){
+
+
+    }
+
+
+    @Test
+    public void AK15(){
+        pc.addPlayer(0,"UFO","InterfaceTest",2);
+        gui.setPlayers(pc.getPlayers());
+        gc.startGame();
+        gui.displayMsg("Testen er ovre. Grafisk interface repræsenteret her.");
+
     }
 }

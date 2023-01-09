@@ -13,8 +13,8 @@ public class Jail extends Field {
     private ArrayList<Player> inJail = new ArrayList<>();
     private final int getOutOfJailPrice;
 
-    public Jail(int priceTogetOutOfJail){
-        this.getOutOfJailPrice = priceTogetOutOfJail;
+    public Jail(int priceToGetOutOfJail){
+        this.getOutOfJailPrice = priceToGetOutOfJail;
     }
 
     public ArrayList<Player> getInJail() {
