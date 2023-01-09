@@ -5,9 +5,14 @@ import java.util.Arrays;
 public class CheatDiceHolder extends DiceHolder{
     int nextRoll;
     int[] rolls;
+    private int isEqualAmount = 2;
 
     public void setRolls(int... rolls){
         this.rolls = rolls;
+    }
+
+    public void setIsEqualAmount(int isEqualAmount) {
+        this.isEqualAmount = isEqualAmount;
     }
 
     @Override
@@ -33,5 +38,10 @@ public class CheatDiceHolder extends DiceHolder{
     @Override
     public int sum() {
         return Arrays.stream(rolls).sum();
+    }
+
+    @Override
+    public boolean isEqual() {
+        return 0<=this.isEqualAmount--;
     }
 }

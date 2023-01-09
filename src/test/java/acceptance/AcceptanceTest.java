@@ -195,4 +195,9 @@ public class AcceptanceTest {
         gc.takeTurn(pc.getPlayerById(0));
         gui.displayMsg("Testen er nu overstået");
     }
+
+    @Test
+    void AK19() {
+
+    }
 }

@@ -3,6 +3,7 @@ package controllers;
 import models.Language;
 import models.chanceCards.Deck;
 import models.dto.GameStateDTO;
+import models.fields.Street;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ui.GUIController;
@@ -83,7 +84,6 @@ class GameControllerTest {
     void setUp() {
         language = new Language();
         fieldController = new FieldController(language);
-        gameState.setFieldController(fieldController);
         gui = new GUIControllerStub(fieldController.getFieldList());
         gameState = new GameStateDTO(gui);
         diceHolder = new CheatDiceHolder(2);
@@ -91,6 +91,8 @@ class GameControllerTest {
         pc = new PlayerController();
         gameState.setPlayerController(pc);
         deck = new Deck(language);
+        gameState.setChancecardDeck(deck);
+        gameState.setFieldController(fieldController);
         for (int i = 0; i < gui.playerAmount("test"); i++) {
             pc.addPlayer(i, gui.selectCharacter("test", "test"), gui.getName("test"),0);
         }
@@ -106,11 +108,6 @@ class GameControllerTest {
 
      */
 
-    @Test
-    void testGamePropertiesLoadCorrectly() {
-        Properties properties;
-
-    }
 
     @Test
     void win() {
@@ -120,7 +117,21 @@ class GameControllerTest {
         }
         assertNotEquals(false,gameController.win());
     }
-/*
+
+    @Test
+    void testExtraTurn() {
+        pc.getPlayerById(0).setLocation(0);
+        diceHolder.setRolls(3,3);
+        diceHolder.setIsEqualAmount(0);
+        pc.getPlayerById(1).setBalance(-29999);
+        ((Street)fieldController.getField(6)).setOwner(pc.getPlayerById(0));
+        gameController.startGame();
+        assertNotEquals(6, pc.getPlayerById(0).getLocation());
+        assertEquals(12, pc.getPlayerById(0).getLocation());
+
+
+    }
+    /*
     @Test
     void testZeroBalance() {
         Player[] players = pc.getPlayers();

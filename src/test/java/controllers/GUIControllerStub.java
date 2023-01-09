@@ -38,7 +38,7 @@ public class GUIControllerStub extends ui.GUIController {
      */
     @Override
     public int playerAmount(String playerAmountText) {
-        return 1;
+        return 2;
     }
 
     @Override
@@ -142,5 +142,10 @@ public class GUIControllerStub extends ui.GUIController {
         if(canPay) return "pay";
         else if (hasChanceCard) return "card";
         else return "roll";
+    }
+
+    @Override
+    public void displayMsgNoBtn(String msg) {
+
     }
 }
