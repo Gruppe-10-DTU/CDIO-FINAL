@@ -120,7 +120,7 @@ public class GUIConverter {
                 }
                 case "Ferry": {
                     Ferry ferry = (Ferry) field;
-                    fields[field.getID()]=new GUI_Shipping("Default",ferry.getName(),ferry.getName(),ferry.getName(),Integer.toString(ferry.getRent0()),Color.white, Color.black);
+                    fields[field.getID()]=new GUI_Shipping("Default",ferry.getName(),ferry.getName(),ferry.getName(),Integer.toString(ferry.getPrice()),Color.white, Color.black);
                     break;
                 }
                 case "Refuge": {

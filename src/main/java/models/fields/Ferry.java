@@ -7,10 +7,6 @@ import org.apache.commons.lang.NotImplementedException;
 public class Ferry extends Property{
 
     private int[] rent = new int[4];
-    private int rent0;
-    private int rent1;
-    private int rent2;
-    private int rent3;
 
     public int[] getRent() {
         return rent;
@@ -20,39 +16,6 @@ public class Ferry extends Property{
         this.rent[index] = rentAmound;
     }
 
-
-    public void setRent0(int rent0) {
-        this.rent0 = rent0;
-    }
-
-    public void setRent1(int rent1) {
-        this.rent1 = rent1;
-    }
-
-    public void setRent2(int rent2) {
-        this.rent2 = rent2;
-    }
-
-    public void setRent3(int rent3) {
-        this.rent3 = rent3;
-    }
-
-
-    public int getRent0() {
-        return rent0;
-    }
-
-    public int getRent1() {
-        return rent1;
-    }
-
-    public int getRent2() {
-        return rent2;
-    }
-
-    public int getRent3() {
-        return rent3;
-    }
 
     @Override
     public GameStateDTO fieldEffect(GameStateDTO gameState) {
@@ -78,13 +41,11 @@ public class Ferry extends Property{
         } else {
             //Pay rent
             int ownerOwnes = 1; //Change to the actual number of ferry fields owned by the player to include rent bonus
-            int rentToPay = rent[ownerOwnes - 1];
+            int rentToPay = rent[0];
 
-            if (currentPlayer.getBalance() >= rentToPay) {
+            if (currentPlayer.setBalance(-rentToPay)) {
                 String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " betal leje " + rentToPay;
                 gameState.getGuiController().displayMsg(msg);
-
-                currentPlayer.setBalance(-rentToPay);
                 owner.setBalance(rentToPay);
                 gameState.getGuiController().updatePlayer(owner);
             } else {
@@ -93,6 +54,7 @@ public class Ferry extends Property{
                 gameState.getGuiController().displayMsg(msg);
 
                 //Player must leave the game (later the player will be able to sell things and stay in the game)
+                gameState.getPlayerController().removePlayer(currentPlayer.getID());
             }
 
 
