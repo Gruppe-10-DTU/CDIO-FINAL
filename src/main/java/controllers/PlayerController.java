@@ -59,6 +59,7 @@ public class PlayerController {
             player.setLocation(oldLocation, spaces);
             player.setLocation(player.getLocation(),- StartValues.getInstance().getValue("boardSize"));
             player.setBalance(StartValues.getInstance().getValue("passStartBonus"));
+
         }else{
             player.setLocation(oldLocation,spaces);
         }
