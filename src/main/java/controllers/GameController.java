@@ -125,37 +125,24 @@ public class GameController implements ActionListener {
 
         gameState.setOtherPlayers(playerController.otherPlayers(player.getID()));
 
-        /*
-        //Tjek jail
-        if(fieldController.inJail()){
-           Jail jail = (Jail) fieldController.getField(10);
-           if(jail.isInJail(player)){
-               if(player.getGetOutOfJail() != null){
-                   player.setGetOutOfJail(null);
-                   guiController.displayMsg(language.getLanguageValue("outOfJailFree"));
-               }else if(!player.setBalance(-2)){
-                   EndGame();
-               }else{
-                   guiController.displayMsg(language.getLanguageValue("outOfJailPay", "2"));
-               }
-               fieldController.freePlayer(player);
-               guiController.updatePlayer(player);
-           }
-        }
-        }else {}
-         */
 
-        guiController.getRoll(language.getLanguageValue("rollText", player.getIdentifier()), language.getLanguageValue("rollButton"));
-        diceHolder.roll();
-        guiController.displayDice(diceHolder.getRolls());
-        boolean overStart = player.getLocation() + diceHolder.sum() > StartValues.getInstance().getValue("boardSize");
-        playerController.playerMove(player, diceHolder.sum());
-        guiController.movePlayer(player);
-        if(overStart){
-            guiController.displayMsg(language.getLanguageValue("passStart", String.valueOf(StartValues.getInstance().getValue("passStartBonus"))));
+        //Tjek jail
+        if(fieldController.isJailed(player)) {
+            fieldController.landOnField(gameState);
         }
-        fieldController.landOnField(gameState);
-        guiController.updatePlayer(player);
+        if(!(fieldController.isJailed(player))) {
+            guiController.getRoll(language.getLanguageValue("rollText", player.getIdentifier()), language.getLanguageValue("rollButton"));
+            diceHolder.roll();
+            guiController.displayDice(diceHolder.getRolls());
+            boolean overStart = player.getLocation() + diceHolder.sum() > StartValues.getInstance().getValue("boardSize");
+            playerController.playerMove(player, diceHolder.sum());
+            guiController.movePlayer(player);
+            if (overStart) {
+                guiController.displayMsg(language.getLanguageValue("passStart", String.valueOf(StartValues.getInstance().getValue("passStartBonus"))));
+            }
+            fieldController.landOnField(gameState);
+            guiController.updatePlayer(player);
+        }
     }
 
 

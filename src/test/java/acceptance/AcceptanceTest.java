@@ -88,7 +88,9 @@ public class AcceptanceTest {
         pc.addPlayer(0,"UFO","jailNoMoneyTest",2);
         pc.addPlayer(1,"UFO","PassStartTest",2);
         Jail jail = (Jail) fc.getField(10);
-
+        Start start = (Start) fc.getField(0);
+        Ferry ferry = (Ferry) fc.getField(35);
+        Brewery brew = (Brewery) fc.getField(28);
         gui.setPlayers(pc.getPlayers());
         dH.setRolls(3,2);
 
@@ -100,8 +102,6 @@ public class AcceptanceTest {
         gui.updatePlayer(pc.getPlayerById(0));
         dH.setRolls(1,1);
         gc.takeTurn(pc.getPlayerById(0));
-
-
         gui.displayMsg("Testen er overstået. Spiller modtog penge på start, og spiller fik ikke penge ved at gå i fængsel.");
     }
 
