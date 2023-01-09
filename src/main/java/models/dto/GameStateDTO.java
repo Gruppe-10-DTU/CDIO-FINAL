@@ -4,10 +4,10 @@ import controllers.DiceHolder;
 import controllers.FieldController;
 import controllers.PlayerController;
 import models.Player;
+import models.chanceCards.Deck;
 import ui.GUIController;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class GameStateDTO {
     private Player activePlayer;
@@ -17,6 +17,7 @@ public class GameStateDTO {
     private FieldController fieldController;
 
     private PlayerController playerController;
+    private Deck chancecardDeck;
 
     public PlayerController getPlayerController() {
         return playerController;
@@ -74,6 +75,14 @@ public class GameStateDTO {
 
     public ArrayList<Player> getOtherPlayers() {
         return otherPlayers;
+    }
+
+    public void setChancecardDeck(Deck chancecardDeck) {
+        this.chancecardDeck = chancecardDeck;
+    }
+
+    public Deck getChancecardDeck(){
+        return this.chancecardDeck;
     }
 
 
