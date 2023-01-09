@@ -14,7 +14,7 @@ Project starts the 2nd of january 2023
 [TASK2] is 100% complete
 
 [GUI (K15)] as [K15] lasts 3 days
-[K15] is 50% complete
+[K15] is 100% complete
 
 [Opret spil (K1)] as [K1] lasts 1 days
 [K1] is 100% complete
@@ -36,13 +36,13 @@ Project starts the 2nd of january 2023
 
 
 [Gå i fængsel (K13)] as [K13] lasts 1 days
-[K13] is 100% complete
+[K13] is 90% complete
 
 [Kom ud af fængsel (K14)] as [K14] lasts 1 days
-[K14] is 100% complete
+[K14] is 90% complete
 
 [Land på felt (K6)] as [K6] lasts 2 days
-[K6] is 90% complete
+[K6] is 100% complete
 
 [Træk changsekort (K18)] as [K18] lasts 1 days
 [K18] is 100% complete
@@ -55,27 +55,22 @@ Project starts the 2nd of january 2023
 
 
 [Betal leje (K9)] as [K9] lasts 1 days
-[K9] is 50% complete
+[K9] is 90% complete
 
 [Køb rederi (K11)] as [K11] lasts 1 days
-[K11] is 90% complete
+[K11] is 100% complete
 
 [Køb Bryggeri (K12)] as [K12] lasts 1 days
-[K12] is 90% complete
-
-
+[K12] is 100% complete
 
 [Penge over start (K10)] as [K10] lasts 1 days
 [K10] is 100% complete
-
-
-
 
 [Forlad spillet (K16)] as [K16] lasts 1 days
 [K16] is 100% complete
 
 [Vind spillet (K17)] as [K17] lasts 1 days
-[K17] is 50% complete
+[K17] is 100% complete
 
 
 
@@ -111,4 +106,70 @@ Project starts the 2nd of january 2023
 [K5]->[K13]
 [K5]->[K14]
 
+[MVP completed] happens 2023-01-11
+
+[MVP præsentation] as [MVP] starts 2023-01-11
+[MVP] is 0% complete
+
+[Land på felt, skat og afgift (K6)] as [K6.2] lasts 1 days
+[K6.2] is 0% complete
+
+[Changce kort, resten (K18)] as [K18.2] lasts 2 days
+[K18.2] is 0% complete
+
+[Leje bonus (K19)] as [K19] lasts 1 days
+[K19] is 0% complete
+
+[Købe huse (K20)] as [K20] lasts 2 days
+[K20] is 0% complete
+
+[købe sidste hus (K21)] as [K21] lasts 1 days
+[K21] is 0% complete
+
+[Sælge huse (K24)] as [K24] lasts 1 days
+[K24] is 0% complete
+
+[købe huse udenfor tur (K28)] as [K28] lasts 1 days
+[K28] is 0% complete
+
+[Pantsæt grund (K22)] as [K22] starts 2023-01-16
+[K22] is 0% complete
+
+[Sælg grund (K23)] as [K23] starts 2023-01-13
+[K23] is 0% complete
+
+[Ekstra tur (K25)] as [K25] lasts 1 days
+[K25] is 0% complete
+
+[Bortaktioner grunde (K26)] as [K26] starts 2023-01-13
+[Bortaktioner grunde (K26)] as [K26] ends 2023-01-16
+[K26] is 0% complete
+
+[Skift sprog (K27)] as [K27] starts 2023-01-17
+[K27] is 0% complete
+
+[Forbered acceptencetest] as [test] starts 2023-01-16
+[Forbered acceptencetest] as [test] ends 2023-01-17
+[test] is 0% complete
+
+[MVP]-[#FF0000]->[K19]
+[MVP]->[K18.2]
+[MVP]->[K6.2]
+[MVP]->[K22]
+[MVP]->[K23]
+[MVP]->[K25]
+[MVP]->[K26]
+[MVP]->[K27]
+[MVP]->[test]
+
+[K19]-[#FF0000]->[K20]
+
+[K20]-[#FF0000]->[K21]
+[K20]-[#FF0000]->[K24]
+[K20]->[K28]
+
+
+[Code freeze] happens 2023-01-18
+
+[Aflever rapport] happens 2023-01-20
 @endgantt
