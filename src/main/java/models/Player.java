@@ -52,7 +52,6 @@ public class Player {
         this.character = character;
     }
 
-
     /**
      * @param iD              ID of player
      * @param name            Name of player
@@ -61,6 +60,7 @@ public class Player {
      * @param soldSign        Amount of properties they can own
      * @defaults location set to 0
      */
+
     public Player(int iD, String name, int startingBalance, Character character, int soldSign){
         this.iD = iD;
         identifier = name;

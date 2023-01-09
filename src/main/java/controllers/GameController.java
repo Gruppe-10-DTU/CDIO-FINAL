@@ -147,7 +147,6 @@ public class GameController implements ActionListener {
         diceHolder.roll();
         guiController.displayDice(diceHolder.getRolls());
         boolean overStart = player.getLocation() + diceHolder.sum() > StartValues.getInstance().getValue("boardSize");
-
         playerController.playerMove(player, diceHolder.sum());
         guiController.movePlayer(player);
         if(overStart){
