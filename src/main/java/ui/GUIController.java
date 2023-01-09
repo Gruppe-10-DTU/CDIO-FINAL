@@ -11,7 +11,6 @@ import models.Language;
 import models.Player;
 import models.fields.Field;
 import models.fields.Street;
-import models.Language;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -211,7 +210,7 @@ public class GUIController {
             return "roll";
         }
     }
-    public void getOutOfjailRollAgain(){
+    public void getOutOfJailRollAgain(){
         String msg = language.getLanguageValue("getOutOfJailRollAgain");
         gui.getUserButtonPressed(msg,"ok");
     }
