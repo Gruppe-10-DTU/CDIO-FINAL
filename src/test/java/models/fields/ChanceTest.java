@@ -7,6 +7,7 @@ import models.Language;
 import models.chanceCards.Deck;
 import models.dto.GameStateDTO;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,6 +33,7 @@ class ChanceTest {
     }
 
     @Test
+    @DisplayName("Check the field effect is correctly executed")
     void fieldEffect() {
         /*        Test Change balance cards         */
         gameState.getActivePlayer().setLocation(2);
