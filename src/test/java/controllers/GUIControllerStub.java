@@ -136,4 +136,11 @@ public class GUIControllerStub extends ui.GUIController {
     @Override
     public void endGame() {
     }
+
+    @Override
+    public String getOutOfJailOptions(boolean canPay, boolean hasChanceCard) {
+        if(canPay) return "pay";
+        else if (hasChanceCard) return "card";
+        else return "roll";
+    }
 }
