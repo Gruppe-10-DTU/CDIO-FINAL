@@ -18,8 +18,8 @@ class StreetTest {
     private static GUIControllerStub guiController;
     private static PlayerController playerController;
 
-    @BeforeAll
-    static void beforeAll() {
+    @BeforeEach
+     void beforeAll() {
         Language language = new Language();
         fieldController = new FieldController(language);
         guiController = new GUIControllerStub();
