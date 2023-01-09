@@ -1,6 +1,5 @@
 package models;
 
-import models.chanceCards.CharacterSpecific;
 import models.chanceCards.GetOutOfJail;
 
 /**
