@@ -5,6 +5,7 @@ import controllers.GameController;
 import controllers.PlayerController;
 import models.Language;
 import models.chanceCards.Deck;
+import models.chanceCards.GetOutOfJail;
 import models.dto.GameStateDTO;
 import models.fields.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -169,5 +170,25 @@ public class AcceptanceTest {
         dH.setRolls(1,1);
         gc.takeTurn(pc.getPlayerById(0));
         gui.displayMsg("Testen er nu overstået");
+    }
+
+    @Test
+    public void AK14(){
+        pc.addPlayer(0,"UFO","getOutOfJail",2);
+        pc.addPlayer(1,"UFO","Dummy1",3);
+        gui.setPlayers(pc.getPlayers());
+        pc.getPlayerById(0).setLocation(28);
+        dH.setRolls(1,1);
+        ToJail toJail = (ToJail) fc.getField(30);
+        Jail jail = (Jail) fc.getField(10);
+        pc.getPlayerById(0).setGetOutOfJail(new GetOutOfJail("outofjail","outofjail"));
+        gui.updatePlayer(pc.getPlayerById(0));
+        gc.takeTurn(pc.getPlayerById(0));
+        gui.updatePlayer(pc.getPlayerById(0));
+        dH.setRolls(1,2);
+        gc.takeTurn(pc.getPlayerById(0));
+        dH.setRolls(2,2);
+        gc.takeTurn(pc.getPlayerById(0));
+
     }
 }
