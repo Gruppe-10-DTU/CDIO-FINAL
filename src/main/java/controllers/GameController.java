@@ -36,6 +36,7 @@ public class GameController implements ActionListener {
         deck.shuffle();
         gameState = new GameStateDTO(guiController);
         gameState.setFieldController(fieldController);
+        gameState.setPlayerController(playerController);
         gameState.setChancecardDeck(deck);
         this.initialize();
     }
