@@ -166,4 +166,17 @@ public class AcceptanceTest {
         gc.takeTurn(pc.getPlayerById(0));
         gui.displayMsg("Testen er nu overstået");
     }
+
+    @Test
+    public void AK14(){
+        pc.addPlayer(0,"UFO","getOutOfJail",2);
+        pc.addPlayer(1,"UFO","Dummy1",3);
+        gui.setPlayers(pc.getPlayers());
+        Jail jail = (Jail) fc.getField(10);
+        fc.jailPlayer(pc.getPlayerById(0));
+        gui.updatePlayer(pc.getPlayerById(0));
+        gc.takeTurn(pc.getPlayerById(0));
+
+
+    }
 }
