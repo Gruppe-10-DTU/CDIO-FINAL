@@ -175,8 +175,7 @@ public class AcceptanceTest {
         Jail jail = (Jail) fc.getField(10);
         fc.jailPlayer(pc.getPlayerById(0));
         gui.updatePlayer(pc.getPlayerById(0));
+        dH.setRolls(1,2);
         gc.takeTurn(pc.getPlayerById(0));
-
-
     }
 }
