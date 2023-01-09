@@ -91,7 +91,7 @@ public class Jail extends Field {
 
                         break;
                     }else if (jailRoll[0] != jailRoll[1] && i != 2) {
-                        io.getOutOfjailRollAgain();
+                        io.getOutOfJailRollAgain();
                     }
                 }
                 player.setRoundsInJail(player.getRoundsInJail() + 1);
