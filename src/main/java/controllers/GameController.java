@@ -429,6 +429,7 @@ public class GameController implements ActionListener {
         b.addActionListener(this);
         p2.add(b);
         p.show();
+        guiController.displayMsg("Now Closing");
     }
 }
 

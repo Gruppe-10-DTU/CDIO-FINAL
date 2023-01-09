@@ -143,6 +143,16 @@ public class AcceptanceTest {
 
     @Test
     public void AK16_17(){
+        pc.addPlayer(0,"UFO","WinGameNotificationTest",2);
+        pc.addPlayer(1,"UFO","RemovePlayerFromGameTest",3);
+        gui.setPlayers(pc.getPlayers());
+        pc.getPlayerById(1).setBalance(-30000);
+        gui.updatePlayer(pc.getPlayerById(1));
+        dH.setRolls(2,1);
+        gc.takeTurn(pc.getPlayerById(0));
+        dH.setRolls(1,2);
+        gc.takeTurn(pc.getPlayerById(1));
+        gc.winMsg();
 
     }
 }
