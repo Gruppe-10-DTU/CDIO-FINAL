@@ -198,6 +198,13 @@ public class AcceptanceTest {
 
     @Test
     void AK19() {
+        pc.addPlayer(0,"UFO","EkstraSlag",2);
+        pc.addPlayer(1,"UFO","TestPerson2",3);
+        pc.getPlayerById(1).setBalance(-29999);
 
+        dH.setRolls(3,3);
+        dH.setIsEqualAmount(1);
+        gc.startGame();
+        gui.displayMsg("Testen er nu overstået");
     }
 }

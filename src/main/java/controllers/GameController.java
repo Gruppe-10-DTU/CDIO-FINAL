@@ -127,7 +127,6 @@ public class GameController implements ActionListener {
 
         gameState.setOtherPlayers(playerController.otherPlayers(player.getID()));
 
-
         //Tjek jail
         if(fieldController.isJailed(player)) {
             fieldController.landOnField(gameState);
