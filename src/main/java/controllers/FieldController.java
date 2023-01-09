@@ -227,5 +227,8 @@ public class FieldController {
         String str = sb.toString();
         return str;
     }
+    public boolean isJailed(Player player){
+        return ((Jail)fieldArrayList.get(10)).isInJail(player);
+    }
 
 }
