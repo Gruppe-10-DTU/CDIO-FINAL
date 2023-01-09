@@ -1,9 +1,8 @@
 package models.fields;
 
-import controllers.FieldController;
-import controllers.GUIControllerStub;
-import controllers.PlayerController;
+import controllers.*;
 import models.Language;
+import models.chanceCards.GetOutOfJail;
 import models.dto.GameStateDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -60,15 +59,36 @@ class JailTest {
     @Test
     @DisplayName("Check that the player can be released if they are jailed")
     void fieldEffect() {
-        PlayerController playerController = new PlayerController();
-        playerController.addPlayer(0,"car","player1",0);
-        playerController.addPlayer(1,"car", "player2", 1);
-        FieldController fieldController = new FieldController(new Language());
         gameState = new GameStateDTO(playerController.getPlayerById(0), playerController.otherPlayers(1));
         gameState.setPlayerController(playerController);
         GUIControllerStub guiControllerStub = new GUIControllerStub();
         gameState.setFieldController(fieldController);
         gameState.setGuiController(guiControllerStub);
+        gameState.setDiceHolder(new CheatDiceHolder(2));
+
+
+        /*      Check the pay out of jail option    */
+        gameState.getFieldController().jailPlayer(gameState.getActivePlayer());
+        jail.fieldEffect(gameState);
+        assertFalse(jail.isInJail(gameState.getActivePlayer()));
+        assertEquals(29000, gameState.getActivePlayer().getBalance());
+
+
+        /*      Checks the roll option              */
+        gameState.getFieldController().jailPlayer(gameState.getActivePlayer());
+        gameState.getActivePlayer().setBalance(-28900);
+        ((CheatDiceHolder)gameState.getDiceHolder()).setRolls(5,5);
+        jail.fieldEffect(gameState);
+        assertFalse(jail.isInJail(gameState.getActivePlayer()));
+
+
+
+        /*      Checks the card option              */
+        gameState.getFieldController().jailPlayer(gameState.getActivePlayer());
+        gameState.getActivePlayer().setGetOutOfJail(new GetOutOfJail("GetOutOfJail", "Get Out of jail free"));
+        jail.fieldEffect(gameState);
+        assertFalse(jail.isInJail(gameState.getActivePlayer()));
+        assertNull(gameState.getActivePlayer().getGetOutOfJail());
 
 
     }
