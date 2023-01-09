@@ -59,6 +59,7 @@ public class PlayerController {
             player.setLocation(oldLocation, spaces);
             player.setLocation(player.getLocation(),- StartValues.getInstance().getValue("boardSize"));
             player.setBalance(StartValues.getInstance().getValue("passStartBonus"));
+
         }else{
             player.setLocation(oldLocation,spaces);
         }
@@ -80,6 +81,7 @@ public class PlayerController {
     public ArrayList<Player> otherPlayers(int playerId){
         return availablePlayers.values().stream().filter(x-> x.getID() != playerId).collect(Collectors.toCollection(ArrayList::new));
     }
+
 
     /**
      * Compares player name and checks if it is unique.

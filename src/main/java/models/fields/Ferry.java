@@ -46,7 +46,6 @@ public class Ferry extends Property{
             if (currentPlayer.setBalance(-rentToPay)) {
                 String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " betal leje " + rentToPay;
                 gameState.getGuiController().displayMsg(msg);
-
                 owner.setBalance(rentToPay);
                 gameState.getGuiController().updatePlayer(owner);
             } else {
