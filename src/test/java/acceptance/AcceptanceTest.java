@@ -6,10 +6,7 @@ import controllers.PlayerController;
 import models.Language;
 import models.chanceCards.Deck;
 import models.dto.GameStateDTO;
-import models.fields.Brewery;
-import models.fields.Ferry;
-import models.fields.Jail;
-import models.fields.Street;
+import models.fields.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -153,6 +150,20 @@ public class AcceptanceTest {
         dH.setRolls(1,2);
         gc.takeTurn(pc.getPlayerById(1));
         gc.winMsg();
+        gui.displayMsg("placeholder");
+    }
 
+    @Test
+    public void AK18(){
+        pc.addPlayer(0,"UFO","ChanceCardEffectTest",2);
+        pc.addPlayer(1,"UFO","Dummy1",3);
+        gui.setPlayers(pc.getPlayers());
+
+        Chance chance = (Chance) fc.getField(2);
+        Deck deck = new Deck(language);
+        gs.setChancecardDeck(deck);
+        dH.setRolls(1,1);
+        gc.takeTurn(pc.getPlayerById(0));
+        gui.displayMsg("Testen er nu overstået");
     }
 }
