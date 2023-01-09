@@ -1,0 +1,65 @@
+@startuml
+skinparam linetype polyline
+
+package Models{
+    class Player
+    class Character
+    package fields{
+        abstract Field
+        class Property
+        class Jail
+        Property -up-|> Field
+        Jail -|> Field
+
+    }
+    class Balance
+    package chanceCards {
+        class Deck
+    }
+    class Die
+    class Language
+
+    Player *-- Balance
+    Player *-- Character
+    Property "1" -- "0..1" Player
+    Jail "1" -- "0..4" Player
+}
+
+package controllers {
+    class GameController
+    class FieldController
+    class PlayerController
+    class DieHolder
+    class GUIConverter
+    class CSVReader
+}
+
+package ui {
+    class GUIController
+}
+
+Language -[hidden]--- Die
+Deck -[hidden]- Player
+Die -[hidden]- Player
+
+DieHolder o-down- "1..*" Die
+PlayerController o-- "2..4" Player
+FieldController o--- "1..*" Field
+GameController o--- "1" Language
+
+GameController o- "1" Deck
+
+GameController o-up- GUIController
+GUIController -down- GUIConverter
+
+Language .-up-> GUIController
+Language .--> Deck
+Language .-up-> FieldController
+
+CSVReader .--> Deck
+CSVReader .--> FieldController
+
+class Start
+GameController -up-* Start
+
+@enduml

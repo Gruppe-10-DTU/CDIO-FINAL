@@ -11,12 +11,13 @@ buildNumber.properties
 
 
 # IntelliJ
-/.idea/
+
+.idea/
 *.iml
 out/
 target/
-.idea
-.idea/
+/.idea/
+.idea/workspace.xml
 
 # VScode
 .vscode
@@ -33,5 +34,6 @@ target/
 # Other
 *.pdf
 *.log
+
 DS_STORE
 
