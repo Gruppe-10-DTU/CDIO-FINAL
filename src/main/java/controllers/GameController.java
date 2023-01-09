@@ -414,7 +414,6 @@ public class GameController implements ActionListener {
     public boolean win() {
         return playerController.getAvailablePlayers().size() == 1;
     }
-
     public void winMsg(){
         String winner = playerController.getPlayers()[0].getIdentifier();
         guiController.displayMsgNoBtn(language.getLanguageValue("winner") + " " + winner);
@@ -429,7 +428,7 @@ public class GameController implements ActionListener {
         b.addActionListener(this);
         p2.add(b);
         p.show();
-        guiController.displayMsg("Now Closing");
+
     }
 }
 
