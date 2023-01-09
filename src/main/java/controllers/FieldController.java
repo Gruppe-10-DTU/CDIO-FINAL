@@ -73,6 +73,13 @@ public class FieldController {
                     jail.setName(fieldData.get(i).get(0));
                     //jail.setName(language.getLanguageValue("fieldName" + i));
                     break;
+                case "tojail":
+                    ToJail toJail = new ToJail();
+                    fieldArrayList.add(toJail);
+                    toJail.setID(Integer.parseInt(fieldData.get(i).get(1)));
+                    toJail.setName(fieldData.get(i).get(0));
+                    //toJail.setName(language.getLanguageValue("fieldName" + i));
+                    break;
                 case "brewery":
                     Brewery brewery = new Brewery();
                     fieldArrayList.add(brewery);
