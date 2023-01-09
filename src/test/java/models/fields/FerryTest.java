@@ -46,5 +46,35 @@ class FerryTest {
         assertEquals(30000-ferry.getPrice(), gameStateDTO.getActivePlayer().getBalance());
     }
 
+    @Test
+    void steetEffectGetRent() {
+        Ferry ferry = (Ferry) fieldController.getField(5);
+        ferry.setOwner(playerController.getPlayerById(1));
+        ferry.fieldEffect(gameStateDTO);
+
+        assertNotEquals(ferry.getOwner().getIdentifier(), gameStateDTO.getActivePlayer().getIdentifier());
+        assertEquals(30000-ferry.getRent()[0], gameStateDTO.getActivePlayer().getBalance());
+        assertEquals(30000+ferry.getRent()[0], ferry.getOwner().getBalance());
+
+    }
+
+    @Test
+    void streetEffectKickPlayer() {
+        Ferry ferry = (Ferry) fieldController.getField(5);
+        playerController.getPlayerById(1).setBalance(50);
+        ferry.setOwner(playerController.getPlayerById(1));
+        playerController.getPlayerById(0).setBalance(-29500);
+        ferry.fieldEffect(gameStateDTO);
+
+        assertEquals(0, playerController.getPlayerById(0).getBalance());
+
+        playerController.getPlayerById(0).setBalance(499);
+        ferry.fieldEffect(gameStateDTO);
+
+        assertEquals(1, playerController.getPlayers().length);
+        assertNull(playerController.getPlayerById(0));
+
+    }
+
 
 }

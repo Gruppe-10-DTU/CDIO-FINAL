@@ -28,7 +28,7 @@ public class Ferry extends Property{
 
                 if (wantToBuy) {
                     owner = currentPlayer;
-                    currentPlayer.setBalance(currentPlayer.getBalance() - price);
+                    currentPlayer.setBalance(-price);
                 } else {
                     //Auktion
                 }
@@ -41,20 +41,21 @@ public class Ferry extends Property{
         } else {
             //Pay rent
             int ownerOwnes = 1; //Change to the actual number of ferry fields owned by the player to include rent bonus
-            int rentToPay = rent[ownerOwnes - 1];
+            int rentToPay = rent[0];
 
-            if (currentPlayer.getBalance() >= rentToPay) {
+            if (currentPlayer.setBalance(-rentToPay)) {
                 String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " betal leje " + rentToPay;
                 gameState.getGuiController().displayMsg(msg);
 
-                currentPlayer.setBalance(currentPlayer.getBalance() - rentToPay);
-                owner.setBalance(owner.getBalance() + rentToPay);
+                owner.setBalance(rentToPay);
+                gameState.getGuiController().updatePlayer(owner);
             } else {
                 //Cant pay the rent
                 String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " du har ikke råd til at betale lejen";
                 gameState.getGuiController().displayMsg(msg);
 
                 //Player must leave the game (later the player will be able to sell things and stay in the game)
+                gameState.getPlayerController().removePlayer(currentPlayer.getID());
             }
 
 
