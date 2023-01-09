@@ -150,7 +150,7 @@ public class AcceptanceTest {
         dH.setRolls(1,2);
         gc.takeTurn(pc.getPlayerById(1));
         gc.winMsg();
-
+        gui.displayMsg("placeholder");
     }
 
     @Test
@@ -161,7 +161,6 @@ public class AcceptanceTest {
 
         Chance chance = (Chance) fc.getField(2);
         Deck deck = new Deck(language);
-        deck.shuffle();
         gs.setChancecardDeck(deck);
         dH.setRolls(1,1);
         gc.takeTurn(pc.getPlayerById(0));
