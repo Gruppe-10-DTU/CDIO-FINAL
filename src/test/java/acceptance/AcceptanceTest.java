@@ -103,9 +103,7 @@ public class AcceptanceTest {
         gui.updatePlayer(pc.getPlayerById(0));
         dH.setRolls(1,1);
         gc.takeTurn(pc.getPlayerById(0));
-
-
-        gui.displayMsg("Testen er overstået");
+        gui.displayMsg("Testen er overstået. Spiller modtog penge på start, og spiller fik ikke penge ved at gå i fængsel.");
     }
 
     @Test
@@ -125,15 +123,41 @@ public class AcceptanceTest {
         dH.setRolls(1,2);
         gc.takeTurn(pc.getPlayerById(1));
 
-        gui.displayMsg("Test er ovre");
+        gui.displayMsg("Test er ovre.");
     }
 
     @Test
     public void AK13(){
+        pc.addPlayer(0,"UFO","GoToJailTest",2);
+        pc.addPlayer(1,"UFO","Dummy1",2);
+        gui.setPlayers(pc.getPlayers());
+        Jail jail = (Jail) fc.getField(10);
+        pc.getPlayerById(0).setLocation(28);
+        gui.updatePlayer(pc.getPlayerById(0));
+        dH.setRolls(1,1);
+        gc.takeTurn(pc.getPlayerById(0));
 
-
+        gui.displayMsg("Test er ovre");
     }
-
+    
+    @Test
+    public void AK14(){
+        pc.addPlayer(0,"UFO","getOutOfJail",2);
+        pc.addPlayer(1,"UFO","Dummy1",3);
+        gui.setPlayers(pc.getPlayers());
+        pc.getPlayerById(0).setLocation(28);
+        dH.setRolls(1,1);
+        ToJail toJail = (ToJail) fc.getField(30);
+        Jail jail = (Jail) fc.getField(10);
+        pc.getPlayerById(0).setGetOutOfJail(new GetOutOfJail("outofjail","outofjail"));
+        gui.updatePlayer(pc.getPlayerById(0));
+        gc.takeTurn(pc.getPlayerById(0));
+        gui.updatePlayer(pc.getPlayerById(0));
+        dH.setRolls(1,2);
+        gc.takeTurn(pc.getPlayerById(0));
+        dH.setRolls(2,2);
+        gc.takeTurn(pc.getPlayerById(0));
+    }
 
     @Test
     public void AK15(){
@@ -170,25 +194,5 @@ public class AcceptanceTest {
         dH.setRolls(1,1);
         gc.takeTurn(pc.getPlayerById(0));
         gui.displayMsg("Testen er nu overstået");
-    }
-
-    @Test
-    public void AK14(){
-        pc.addPlayer(0,"UFO","getOutOfJail",2);
-        pc.addPlayer(1,"UFO","Dummy1",3);
-        gui.setPlayers(pc.getPlayers());
-        pc.getPlayerById(0).setLocation(28);
-        dH.setRolls(1,1);
-        ToJail toJail = (ToJail) fc.getField(30);
-        Jail jail = (Jail) fc.getField(10);
-        pc.getPlayerById(0).setGetOutOfJail(new GetOutOfJail("outofjail","outofjail"));
-        gui.updatePlayer(pc.getPlayerById(0));
-        gc.takeTurn(pc.getPlayerById(0));
-        gui.updatePlayer(pc.getPlayerById(0));
-        dH.setRolls(1,2);
-        gc.takeTurn(pc.getPlayerById(0));
-        dH.setRolls(2,2);
-        gc.takeTurn(pc.getPlayerById(0));
-
     }
 }
