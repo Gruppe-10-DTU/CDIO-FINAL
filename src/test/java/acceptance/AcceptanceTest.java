@@ -6,10 +6,7 @@ import controllers.PlayerController;
 import models.Language;
 import models.chanceCards.Deck;
 import models.dto.GameStateDTO;
-import models.fields.Brewery;
-import models.fields.Ferry;
-import models.fields.Jail;
-import models.fields.Street;
+import models.fields.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -91,19 +88,22 @@ public class AcceptanceTest {
         pc.addPlayer(0,"UFO","jailNoMoneyTest",2);
         pc.addPlayer(1,"UFO","PassStartTest",2);
         Jail jail = (Jail) fc.getField(10);
-
+        Start start = (Start) fc.getField(0);
+        Ferry ferry = (Ferry) fc.getField(35);
+        Brewery brew = (Brewery) fc.getField(28);
         gui.setPlayers(pc.getPlayers());
         dH.setRolls(3,2);
+
         pc.getPlayerById(1).setLocation(35);
         gui.updatePlayer(pc.getPlayerById(1));
         gc.takeTurn(pc.getPlayerById(1));
-        /*
+
         pc.getPlayerById(0).setLocation(28);
         gui.updatePlayer(pc.getPlayerById(0));
-        dH.setNextRoll(2);
-        gc.TakeTurn(pc.getPlayerById(0));
+        dH.setRolls(1,1);
+        gc.takeTurn(pc.getPlayerById(0));
 
-         */
+
     }
 
     @Test
