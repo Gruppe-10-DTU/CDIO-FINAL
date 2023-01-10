@@ -140,7 +140,7 @@ public class GameController implements ActionListener {
                         looper = guiController.yesnoSelection("lackingFunds");
                     }else{
                         int howMany = guiController.howManyHouses("howManyHouse");
-                        if(!(player.getBalance() >  fieldController.getStreetsFromColor(selectedColor)[0].getHousePrice()*howMany &&  howMany < 4*fieldController.propertyCount(fieldController.getStreetsFromColor(selectedColor)[0]))){
+                        if(!(player.getBalance() >  fieldController.getStreetsFromColor(selectedColor)[0].getHousePrice()*howMany &&  howMany < StartValues.getInstance().getValue("maxBuildings")*fieldController.propertyCount(fieldController.getStreetsFromColor(selectedColor)[0]))){
                             looper = guiController.yesnoSelection("lackingFunds");
                         }else{
                             fieldController.addHouse(howMany, fieldController.getStreetFromString(whereToBuild));
@@ -148,7 +148,6 @@ public class GameController implements ActionListener {
                         }
                     }
                 }
-                    looper = guiController.yesnoSelection("lackingFunds");
                 }
 
             }
