@@ -56,11 +56,11 @@ public class Jail extends Field {
 
         String choice;
 
-        if(player.getGetOutOfJail() != null && (player.getBalance() + getOutOfJailPrice) > 0) {
+        if(player.hasGetOutOfJail() && (player.getBalance() + getOutOfJailPrice) > 0) {
             choice = io.getOutOfJailOptions(true, true);
         }else if(player.getBalance() >= getOutOfJailPrice * -1){
             choice = io.getOutOfJailOptions(true,false);
-        } else if (player.getGetOutOfJail() != null) {
+        } else if (player.hasGetOutOfJail()) {
             choice = io.getOutOfJailOptions(false, true);
         } else {
             choice = io.getOutOfJailOptions(false, false);
@@ -98,7 +98,7 @@ public class Jail extends Field {
                 break;
             case "card":
                 player.setRoundsInJail(0);
-                player.setGetOutOfJail(null);
+                player.useGetOutOfJail();
                 fieldController.freePlayer(player);
 
                 /* OUTPUT MESSAGE To USER */
