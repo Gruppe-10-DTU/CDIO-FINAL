@@ -30,6 +30,9 @@ public class FieldController {
         createFieldArray(fieldData);
     }
 
+    public FieldController() {
+    }
+
     protected void createFieldArray(ArrayList<ArrayList<String>> fieldData) {
 
         for (int i = 0; i < fieldData.size(); i++) {
