@@ -216,7 +216,36 @@ public class GUIController {
         gui.getUserButtonPressed(msg,"ok");
     }
 
+    public String selectBuild(String selectBuild, String choices){
+        return gui.getUserSelection(selectBuild, choices.split(","));
+    }
 
+    public String amountOfHouses(String amountOfHouses){
+        return gui.getUserString(amountOfHouses);
+    }
+
+    public boolean yesnoSelection(String yesorno){
+        String yesno = "Yes,No";
+        String choice = gui.getUserSelection(yesorno,yesno.split(","));
+        if(choice.toLowerCase().equals("yes")){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public Integer howManyHouses(String howMany){
+       return gui.getUserInteger(howMany);
+    }
+
+    public void guiAddHouses(int amount, Street property){
+        GUI_Street street = (GUI_Street) gui.getFields()[property.getID()];
+        street.setHouses(amount);
+    }
+
+    public String selectedStreetBuild(String selectBuildingStreet,String streets){
+        return gui.getUserSelection(selectBuildingStreet,streets.split(","));
+    }
 
 
 

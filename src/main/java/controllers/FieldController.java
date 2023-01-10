@@ -116,13 +116,14 @@ public class FieldController {
             }
         }
     }
+
     /**
      * Recieves a player, locates the jail field, moves the player and jails them
      */
     public void jailPlayer(Player player) {
         for (Object field : fieldArrayList) {
             if (field instanceof Jail) {
-                if (((Jail) field).getName().equals("I fængsel/På besøg")){
+                if (((Jail) field).getName().equals("I fængsel/På besøg")) {
                     ((Jail) field).setInJailAdd(player);
                     int jailLocation = ((Jail) field).getID();
                     player.setLocation(jailLocation);
@@ -141,7 +142,7 @@ public class FieldController {
         }
     }
 
-    public GameStateDTO landOnField (GameStateDTO gamestate) {
+    public GameStateDTO landOnField(GameStateDTO gamestate) {
         Field currentField = fieldArrayList.get(gamestate.getActivePlayer().getLocation());
 
         GameStateDTO newGameState = currentField.fieldEffect(gamestate);
@@ -176,7 +177,6 @@ public class FieldController {
     }
 
 
-
     public void setOwner(Player player, int propertyId) {
         Field property = fieldArrayList.get(propertyId);
         if (property instanceof Street) {
@@ -193,24 +193,25 @@ public class FieldController {
     }
 
 
-
     /**
      * see if a propertys neighbor have the same owner
+     *
      * @param property the property in question
      * @return true if the same owner, otherwise false
      */
-    public boolean sameOwner(Street property){
+    public boolean sameOwner(Street property) {
         Street property2;
-        if(property.getID() % 3 == 1){
+        if (property.getID() % 3 == 1) {
             //If the property is the first one, %3 will always be one and we'll add one to get the neighbor and compare the owners
-            property2 = (Street) fieldArrayList.get(property.getID()+1);
-        }else{
+            property2 = (Street) fieldArrayList.get(property.getID() + 1);
+        } else {
             //If the property is the second one, %3 will always be 2 and we'll subtract one to get the neighbor and compare the owners
-            property2 = (Street) fieldArrayList.get(property.getID()-1);
+            property2 = (Street) fieldArrayList.get(property.getID() - 1);
         }
         return property2.getOwner() != null && property.getOwner().equals(property2.getOwner());
     }
-    public boolean sellField(Street property, Player buyer){
+
+    public boolean sellField(Street property, Player buyer) {
         return true;
     }
 
@@ -225,23 +226,23 @@ public class FieldController {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < fieldArrayList.size(); i++) {
+        for (int i = 0; i < fieldArrayList.size(); i++) {
             sb.append("Field" + i + ": " + fieldArrayList.get(i).getName() + ", ");
         }
         String str = sb.toString();
         return str;
     }
-    public boolean isJailed(Player player){
-        return ((Jail)fieldArrayList.get(10)).isInJail(player);
+
+    public boolean isJailed(Player player) {
+        return ((Jail) fieldArrayList.get(10)).isInJail(player);
     }
 
 
-
-    public int propertyCount(Street property){
+    public int propertyCount(Street property) {
         int amountOfColour = 0;
         for (int i = 0; i < fieldArrayList.size(); i++) {
             if (fieldArrayList.get(i) instanceof Street) {
-                if(((Street) fieldArrayList.get(i)).getColor().equals(property.getColor())){
+                if (((Street) fieldArrayList.get(i)).getColor().equals(property.getColor())) {
                     amountOfColour++;
                 }
             }
@@ -249,35 +250,67 @@ public class FieldController {
         return amountOfColour;
     }
 
-    public String[] ownsColourGroup(Player player) {
+    public String ownsColourGroup(Player player) {
         int propCount = 0;
         LinkedHashMap<Integer, Integer> bookmark = new LinkedHashMap<>();
         ArrayList<String> propertiesToUpgrade = new ArrayList<>();
-        for (int i = 0; i < getFieldsOfPlayer(player).length ; i++) {
-            for (int j = i+1; j < fieldArrayList.size(); j++) {
-                if(getFieldsOfPlayer(player)[i].getColor() == ((Street) fieldArrayList.get(j)).getColor()){
+        for (int i = 0; i < getFieldsOfPlayer(player).length; i++) {
+            for (int j = i + 1; j < fieldArrayList.size(); j++) {
+                if (getFieldsOfPlayer(player)[i].getColor() == ((Street) fieldArrayList.get(j)).getColor()) {
                     propCount++;
                 }
             }
-            bookmark.put(i,propCount);
-            if(bookmark.get(i) == propertyCount(getFieldsOfPlayer(player)[i])){
-                propertiesToUpgrade.add(getFieldsOfPlayer(player)[i].getColor() + " :Street");
+            bookmark.put(i, propCount);
+            if (bookmark.get(i) == propertyCount(getFieldsOfPlayer(player)[i])) {
+                propertiesToUpgrade.add(getFieldsOfPlayer(player)[i].getColor() + ": Street,");
             }
         }
-        String[] propertiesToUpgradeReal = new String[propertiesToUpgrade.size()];
-        for (int i = 0; i < propertiesToUpgrade.size(); i++) {
-            propertiesToUpgradeReal[i] = propertiesToUpgrade.get(i);
+        if (!propertiesToUpgrade.isEmpty()) {
+            return propertiesToUpgrade.toString();
+        } else {
+            return "";
         }
-        return propertiesToUpgradeReal;
+
     }
 
-    public void addHouse(int amount, Street property){
+    public void addHouse(int amount, Street property) {
         property.setHouseAmount(amount);
         property.getOwner().setBalance(-property.getHousePrice());
 
     }
 
+    public Street[] getStreetsFromColor(String color) {
+        ArrayList<Street> streets = new ArrayList<>();
+        for (int i = 0; i < fieldArrayList.size(); i++) {
+            if (fieldArrayList.get(i) instanceof Street) {
+                if (((Street) fieldArrayList.get(i)).getColor().equals(color)) {
+                    streets.add((Street) fieldArrayList.get(i));
+                }
+            }
+        }
+        Street[] sortedStreets = new Street[streets.size()];
+        for (int i = 0; i < streets.size(); i++) {
+            sortedStreets[i] = streets.get(i);
+        }
+        return sortedStreets;
+    }
 
+    public String streetsToString(Street[] streets){
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < streets.length ; i++) {
+            sb.append(streets[i].toString() + ",");
+        }
+        return sb.toString();
+    }
 
+    public Street getStreetFromString(String street){
+        Street prop = null;
+        for (int i = 0; i < fieldArrayList.size(); i++) {
+            if(fieldArrayList.get(i).getName().equals(street)){
+                prop = (Street) fieldArrayList.get(i);
+            }
+        }
+        return prop;
+    }
 
 }

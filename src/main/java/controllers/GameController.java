@@ -128,6 +128,30 @@ public class GameController implements ActionListener {
 
         gameState.setOtherPlayers(playerController.otherPlayers(player.getID()));
         //Tjek huskøb
+        if(fieldController.ownsColourGroup(player).length() < 1){
+            boolean looper = guiController.yesnoSelection("canBuildHouses");
+            while(looper){
+                String selectedColor = guiController.selectBuild("selectBuildingText", fieldController.ownsColourGroup(player));
+                if(!(player.getBalance() >= fieldController.getStreetsFromColor(selectedColor)[0].getHousePrice())) {
+                   looper = guiController.yesnoSelection("lackingFunds");
+                }else{
+                    String whereToBuild = guiController.selectedStreetBuild("selectedStreetBuildText", fieldController.streetsToString(fieldController.getStreetsFromColor(selectedColor)));
+                    if(!(player.getBalance() >= fieldController.getStreetFromString(whereToBuild).getHousePrice())){
+                        looper = guiController.yesnoSelection("lackingFunds");
+                    }else{
+                        int howMany = guiController.howManyHouses("howManyHouse");
+                        if(!(player.getBalance() >  fieldController.getStreetsFromColor(selectedColor)[0].getHousePrice()*howMany &&  howMany < 4*fieldController.propertyCount(fieldController.getStreetsFromColor(selectedColor)[0]))){
+                            looper = guiController.yesnoSelection("lackingFunds");
+                        }else{
+                            fieldController.addHouse(howMany, fieldController.getStreetFromString(whereToBuild));
+                            guiController.guiAddHouses(howMany, fieldController.getStreetFromString(whereToBuild));
+                        }
+                    }
+                }
+                    looper = guiController.yesnoSelection("lackingFunds");
+                }
+
+            }
 
         //Tjek jail
         if(fieldController.isJailed(player)) {

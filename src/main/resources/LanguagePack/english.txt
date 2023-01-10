@@ -126,3 +126,7 @@ buyFieldFromPlayer=You can buy a field from another player
 ownEverything=You already own everything
 colors=Yellow,Blue,White,Black,Red,Gray
 colorText=Choose a color for your game token
+selectBuildingText=Choose what street you want to construct buildings on
+canBuildHouses=You have completed a colour group and can now build houses! Do you wish to proceed?
+howManyHouse=How many houses do you wish to build?
+lackingFunds=You lack the funds to complete such a purchase. Do you wish to proceed?
