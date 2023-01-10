@@ -227,7 +227,7 @@ public class AcceptanceTest {
         pc.addPlayer(1,"UFO","taber",3);
         pc.getPlayerById(1).setBalance(-29999);
 
-        dH.setRolls(1,3);
+        dH.setRolls(2,2);
         dH.setIsEqualAmount(4);
         gc.startGame();
         gui.displayMsg("Testen er nu overstået");
