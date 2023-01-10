@@ -11,6 +11,7 @@ import ui.GUIController;
 import java.util.Properties;
 
 import static junit.framework.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class GameControllerTest {
@@ -115,7 +116,7 @@ class GameControllerTest {
             assertNotEquals(true,gameController.win());
             pc.removePlayer(i);
         }
-        assertNotEquals(false,gameController.win());
+        assertFalse(gameController.win());
     }
 
     @Test
