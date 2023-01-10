@@ -216,8 +216,9 @@ public class GUIController {
         gui.getUserButtonPressed(msg,"ok");
     }
 
-    public String selectBuild(String selectBuild, String choices){
-        return gui.getUserSelection(selectBuild, choices.split(","));
+    public String selectBuild(String selectBuild, Street[] choices){
+        String[] strings = Arrays.copyOf(choices, choices.length, String[].class);
+        return gui.getUserSelection(selectBuild, strings);
     }
 
     public String amountOfHouses(String amountOfHouses){
@@ -238,9 +239,9 @@ public class GUIController {
        return gui.getUserInteger(howMany);
     }
 
-    public void guiAddHouses(int amount, Street property){
+    public void guiAddHouses(Street property){
         GUI_Street street = (GUI_Street) gui.getFields()[property.getID()];
-        street.setHouses(amount);
+        street.setHouses(1);
     }
 
     public String selectedStreetBuild(String selectBuildingStreet,String streets){

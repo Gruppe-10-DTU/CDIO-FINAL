@@ -25,6 +25,8 @@ public class GameController implements ActionListener {
     private Deck deck;
     private Popup p;
 
+    private boolean looper = false;
+
     private GameStateDTO gameState;
 
     public GameController() {
@@ -126,30 +128,25 @@ public class GameController implements ActionListener {
      */
     public void takeTurn(Player player) {
         gameState.setActivePlayer(player);
-
+        Street[] ownsGroup = fieldController.ownsColourGroup(player);
         gameState.setOtherPlayers(playerController.otherPlayers(player.getID()));
         //Tjek huskøb
-        if(fieldController.ownsColourGroup(player).length() < 1){
+        if(ownsGroup.length >= 1) {
             boolean looper = guiController.yesnoSelection("canBuildHouses");
-            while(looper){
-                String selectedColor = guiController.selectBuild("selectBuildingText", fieldController.ownsColourGroup(player));
-                if(!(player.getBalance() >= fieldController.getStreetsFromColor(selectedColor)[0].getHousePrice())) {
-                   looper = guiController.yesnoSelection("lackingFunds");
-                }else{
-                    String whereToBuild = guiController.selectedStreetBuild("selectedStreetBuildText", fieldController.streetsToString(fieldController.getStreetsFromColor(selectedColor)));
-                    if(!(player.getBalance() >= fieldController.getStreetFromString(whereToBuild).getHousePrice())){
+            while (looper) {
+                String whereToBuild = guiController.selectBuild("selectBuildingText", fieldController.ownsColourGroup(player));
+                if (!(player.getBalance() >= fieldController.getStreetFromString(whereToBuild).getHousePrice())) {
+                    looper = guiController.yesnoSelection("lackingFunds");
+                } else {
+                    //Tjek om hans huse er udlignet (For at bygge 2 skal der være mindst 1 på alle andre i samme farve.)
+                    if (fieldController.getStreetFromString(whereToBuild).getHousePrice() <= player.getBalance()) {
+                        fieldController.addHouse(fieldController.getStreetFromString(whereToBuild));
+                        guiController.guiAddHouses(fieldController.getStreetFromString(whereToBuild));
+                    } else {
                         looper = guiController.yesnoSelection("lackingFunds");
-                    }else{
-                        int howMany = guiController.howManyHouses("howManyHouse");
-                        if(!(player.getBalance() >  fieldController.getStreetsFromColor(selectedColor)[0].getHousePrice()*howMany &&  howMany < StartValues.getInstance().getValue("maxBuildings")*fieldController.propertyCount(fieldController.getStreetsFromColor(selectedColor)[0]))){
-                            looper = guiController.yesnoSelection("lackingFunds");
-                        }else{
-                            fieldController.addHouse(howMany, fieldController.getStreetFromString(whereToBuild));
-                            guiController.guiAddHouses(howMany, fieldController.getStreetFromString(whereToBuild));
-                        }
                     }
                 }
-                }
+            }
 
             }
 

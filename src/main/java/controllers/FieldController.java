@@ -229,8 +229,8 @@ public class FieldController {
     public boolean isJailed(Player player) {
         return ((Jail) fieldArrayList.get(10)).isInJail(player);
     }
-
-    public int propertyCount(Street property) {
+/*
+    public int propertyCount(Street property){
         int amountOfColour = 0;
         for (int i = 0; i < fieldArrayList.size(); i++) {
             if (fieldArrayList.get(i) instanceof Street) {
@@ -242,35 +242,41 @@ public class FieldController {
         return amountOfColour;
     }
 
-    public String ownsColourGroup(Player player) {
-        int propCount = 0;
-        LinkedHashMap<Integer, Integer> bookmark = new LinkedHashMap<>();
-        ArrayList<String> propertiesToUpgrade = new ArrayList<>();
-        for (int i = 0; i < getFieldsOfPlayer(player).length; i++) {
-            for (int j = i + 1; j < fieldArrayList.size(); j++) {
-                if (getFieldsOfPlayer(player)[i].getColor() == ((Street) fieldArrayList.get(j)).getColor()) {
-                    propCount++;
-                }
-            }
-            bookmark.put(i, propCount);
-            if (bookmark.get(i) == propertyCount(getFieldsOfPlayer(player)[i])) {
-                propertiesToUpgrade.add(getFieldsOfPlayer(player)[i].getColor() + ": Street,");
-            }
-        }
-        if (!propertiesToUpgrade.isEmpty()) {
-            return propertiesToUpgrade.toString();
-        } else {
-            return "";
-        }
+ */
 
+    public Street[] ownsColourGroup(Player player) {
+        ArrayList<Street> localData = new ArrayList<>();
+        ArrayList<Street> propertiesToUpgrade = new ArrayList<>();
+        for (int i = 0; i < fieldArrayList.size(); i += 5) {
+            for (int j = i; j <= i + 4; j++) {
+                if (fieldArrayList.get(j) instanceof Street && ((Street) fieldArrayList.get(j)).getOwner() != player) {
+                    localData.clear();
+                    break;
+                } else {
+                    if(fieldArrayList.get(j) instanceof Street && ((Street) fieldArrayList.get(j)).getHouseAmount() == 4){
+                        ((Street) fieldArrayList.get(j)).setHotel(true);
+                        localData.add((Street) fieldArrayList.get(j));
+                    }else if(fieldArrayList.get(j) instanceof Street && ((Street) fieldArrayList.get(j)).getHouseAmount() < 4){
+                        localData.add((Street) fieldArrayList.get(j));
+                    }
+                }
+                propertiesToUpgrade.addAll(localData);
+                localData.clear();
+            }
+        }
+        return propertiesToUpgrade.toArray(Street[]::new);
     }
 
-    public void addHouse(int amount, Street property) {
-        property.setHouseAmount(amount);
+    public void addHouse(Street property) {
+        property.setHouseAmount(1);
         property.getOwner().setBalance(-property.getHousePrice());
 
     }
-
+    public void addHotel(Street property){
+        property.setHotel(true);
+        property.getOwner().setBalance(-property.getHousePrice()*4);
+    }
+/*
     public Street[] getStreetsFromColor(String color) {
         ArrayList<Street> streets = new ArrayList<>();
         for (int i = 0; i < fieldArrayList.size(); i++) {
@@ -287,6 +293,8 @@ public class FieldController {
         return sortedStreets;
     }
 
+ */
+/*
     public String streetsToString(Street[] streets){
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < streets.length ; i++) {
@@ -295,14 +303,18 @@ public class FieldController {
         return sb.toString();
     }
 
+ */
+
     public Street getStreetFromString(String street){
-        Street prop = null;
+        Street field = null;
         for (int i = 0; i < fieldArrayList.size(); i++) {
-            if(fieldArrayList.get(i).getName().equals(street)){
-                prop = (Street) fieldArrayList.get(i);
+            if(fieldArrayList.get(i) instanceof  Street && fieldArrayList.get(i).getName() == street){
+                field = (Street) fieldArrayList.get(i);
             }
         }
-        return prop;
+        return field;
     }
 
 }
+
+
