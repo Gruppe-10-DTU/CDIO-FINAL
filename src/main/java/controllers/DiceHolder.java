@@ -8,6 +8,7 @@ public class DiceHolder {
     //Private values of class. Not allowed to change values during game outside of this class
     private Die[] dice;
     private int[] rolls;
+    private int sameRolls = 0;
 
     //Default constructor for the game. Takes 2 dice
     public DiceHolder() {
@@ -60,5 +61,17 @@ public class DiceHolder {
     @Override
     public String toString() {
         return Arrays.toString(rolls);
+    }
+
+    public int getSameRolls() {
+        return sameRolls;
+    }
+
+    public void setSameRolls(int sameRolls) {
+        this.sameRolls = sameRolls;
+    }
+
+    public void incrementSameRolls() {
+        this.sameRolls++;
     }
 }
