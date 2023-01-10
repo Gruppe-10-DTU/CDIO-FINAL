@@ -58,6 +58,6 @@ class ChanceTest {
         }
         /*        Test get out of Jail cards         */
         gameState.getFieldController().landOnField(gameState);
-        assertNotNull(gameState.getActivePlayer().getGetOutOfJail());
+        assertNotNull(gameState.getActivePlayer().hasGetOutOfJail());
     }
 }
