@@ -94,12 +94,10 @@ public class Jail extends Field {
                         io.getOutOfJailRollAgain();
                     }
                 }
-                player.setRoundsInJail(player.getRoundsInJail() + 1);
+                player.stayInJail();
                 break;
             case "card":
-                player.setRoundsInJail(0);
-                player.useGetOutOfJail();
-                fieldController.freePlayer(player);
+                player.useGetOutOfJail(gameState);
 
                 /* OUTPUT MESSAGE To USER */
 
