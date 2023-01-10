@@ -2,6 +2,7 @@ package models.fields;
 
 import controllers.*;
 import models.Language;
+import models.chanceCards.Deck;
 import models.chanceCards.GetOutOfJail;
 import models.dto.GameStateDTO;
 import org.junit.jupiter.api.BeforeEach;
@@ -65,6 +66,7 @@ class JailTest {
         gameState.setFieldController(fieldController);
         gameState.setGuiController(guiControllerStub);
         gameState.setDiceHolder(new CheatDiceHolder(2));
+        gameState.setChancecardDeck(new Deck(new Language()));
 
 
         /*      Check the pay out of jail option    */
