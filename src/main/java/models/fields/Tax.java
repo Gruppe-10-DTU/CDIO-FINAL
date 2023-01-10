@@ -37,29 +37,29 @@ public class Tax extends Field{
     public GameStateDTO fieldEffect(GameStateDTO gameState){
         if(priceProcent==0){
             if(gameState.getActivePlayer().setBalance(priceValue*-1)){
-                gameState.getPlayerController().removePlayer(gameState.getActivePlayer().getID());
-            }else{
                 gameState.getGuiController().displayMsg("Du skal betale skal på "+priceValue);
+            }else{
+                gameState.getPlayerController().removePlayer(gameState.getActivePlayer().getID());
             }
         }else{
             if(gameState.getGuiController().getUserLeftButtonPressed("Du skal betale ejendomsskat. Vil du betale 4000 eller 10% af din ejendomsværdi?", "4000", "10%")){
                 if(gameState.getActivePlayer().setBalance(priceValue*-1)){
+                    gameState.getGuiController().displayMsg("Du betalte "+priceValue+" i skat.");
+                }else{
                     //Auktion
 
                     gameState.getGuiController().displayMsg("Du havde ikke råd til at betale og bliver fjernet");
                     gameState.getPlayerController().removePlayer(gameState.getActivePlayer().getID());
-                }else{
-                    gameState.getGuiController().displayMsg("Du betalte "+priceValue+" i skat.");
                 }
             }else{
                 int totalAmount = gameState.getFieldController().playerPropertyValues(gameState.getActivePlayer());
                 if(gameState.getActivePlayer().setBalance(totalAmount*-1)){
+                    gameState.getGuiController().displayMsg("Du betalte "+totalAmount+" i skat for dine ejendomme.");
+                }else{
                     //Auktion
 
                     gameState.getGuiController().displayMsg("Du havde ikke råd til at betale og bliver fjernet");
                     gameState.getPlayerController().removePlayer(gameState.getActivePlayer().getID());
-                }else{
-                    gameState.getGuiController().displayMsg("Du betalte "+totalAmount+" i skat for dine ejendomme.");
                 }
             }
         }
