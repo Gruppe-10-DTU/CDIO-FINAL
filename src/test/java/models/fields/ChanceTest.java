@@ -41,11 +41,11 @@ class ChanceTest {
         assertNotEquals(30000, gameState.getActivePlayer().getBalance());
 
         /*        Test Move X Steps Cards         */
-        gameState.getChancecardDeck().rigDeck(22);
-        gameState.getActivePlayer().setLocation(7);
+        gameState.getChancecardDeck().rigDeck(21);
+        gameState.getActivePlayer().setLocation(17);
         gameState.getFieldController().landOnField(gameState);
-        assertNotEquals(7, gameState.getActivePlayer().getLocation());
-        gameState.getActivePlayer().setLocation(7);
+        assertNotEquals(17, gameState.getActivePlayer().getLocation());
+        gameState.getActivePlayer().setLocation(17);
 
         /*        Test Move to field cards         */
         gameState.getChancecardDeck().rigDeck(8);
@@ -55,7 +55,7 @@ class ChanceTest {
         gameState.getActivePlayer().setLocation(22);
 
         /*        Test get out of Jail cards         */
-        gameState.getChancecardDeck().rigDeck(2);
+        gameState.getChancecardDeck().rigDeck(3);
         gameState.getFieldController().landOnField(gameState);
         assertTrue(gameState.getActivePlayer().hasGetOutOfJail());
     }
