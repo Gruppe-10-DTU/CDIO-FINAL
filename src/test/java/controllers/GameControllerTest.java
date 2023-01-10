@@ -11,8 +11,7 @@ import ui.GUIController;
 import java.util.Properties;
 
 import static junit.framework.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class GameControllerTest {
     GameController gameController;
@@ -129,8 +128,17 @@ class GameControllerTest {
         gameController.startGame();
         assertNotEquals(6, pc.getPlayerById(0).getLocation());
         assertEquals(12, pc.getPlayerById(0).getLocation());
-
-
+    }
+    @Test
+    void testJailPlayer3Rolls() {
+        pc.getPlayerById(0).setLocation(0);
+        diceHolder.setRolls(3,3);
+        diceHolder.setIsEqualAmount(5);
+        pc.getPlayerById(1).setBalance(-29999);
+        ((Street)fieldController.getField(6)).setOwner(pc.getPlayerById(0));
+        gameController.startGame();
+        assertTrue(fieldController.isJailed(pc.getPlayerById(0)));
+        assertEquals(10, pc.getPlayerById(0).getLocation());
     }
     /*
     @Test
