@@ -7,6 +7,7 @@ import models.fields.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class FieldController {
 
@@ -119,7 +120,6 @@ public class FieldController {
      * Recieves a player, locates the jail field, moves the player and jails them
      */
     public void jailPlayer(Player player) {
-
         for (Object field : fieldArrayList) {
             if (field instanceof Jail) {
                 if (((Jail) field).getName().equals("I fængsel/På besøg")){
@@ -218,6 +218,10 @@ public class FieldController {
         return fieldArrayList.stream().filter(field -> field instanceof Street && ((Street) field).getOwner() != player).toArray(Street[]::new);
     }
 
+    public Street[] getFieldsOfPlayer(Player player) {
+        return fieldArrayList.stream().filter(field -> field instanceof Street && ((Street) field).getOwner() == player).toArray(Street[]::new);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -230,5 +234,50 @@ public class FieldController {
     public boolean isJailed(Player player){
         return ((Jail)fieldArrayList.get(10)).isInJail(player);
     }
+
+
+
+    public int propertyCount(Street property){
+        int amountOfColour = 0;
+        for (int i = 0; i < fieldArrayList.size(); i++) {
+            if (fieldArrayList.get(i) instanceof Street) {
+                if(((Street) fieldArrayList.get(i)).getColor().equals(property.getColor())){
+                    amountOfColour++;
+                }
+            }
+        }
+        return amountOfColour;
+    }
+
+    public String[] ownsColourGroup(Player player) {
+        int propCount = 0;
+        LinkedHashMap<Integer, Integer> bookmark = new LinkedHashMap<>();
+        ArrayList<String> propertiesToUpgrade = new ArrayList<>();
+        for (int i = 0; i < getFieldsOfPlayer(player).length ; i++) {
+            for (int j = i+1; j < fieldArrayList.size(); j++) {
+                if(getFieldsOfPlayer(player)[i].getColor() == ((Street) fieldArrayList.get(j)).getColor()){
+                    propCount++;
+                }
+            }
+            bookmark.put(i,propCount);
+            if(bookmark.get(i) == propertyCount(getFieldsOfPlayer(player)[i])){
+                propertiesToUpgrade.add(getFieldsOfPlayer(player)[i].getColor() + " :Street");
+            }
+        }
+        String[] propertiesToUpgradeReal = new String[propertiesToUpgrade.size()];
+        for (int i = 0; i < propertiesToUpgrade.size(); i++) {
+            propertiesToUpgradeReal[i] = propertiesToUpgrade.get(i);
+        }
+        return propertiesToUpgradeReal;
+    }
+
+    public void addHouse(int amount, Street property){
+        property.setHouseAmount(amount);
+        property.getOwner().setBalance(-property.getHousePrice());
+
+    }
+
+
+
 
 }

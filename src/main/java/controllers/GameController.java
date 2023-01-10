@@ -3,6 +3,7 @@ package controllers;
 import models.chanceCards.*;
 import models.*;
 import models.dto.GameStateDTO;
+import models.fields.Street;
 import ui.GUIController;
 
 import javax.swing.*;
@@ -126,6 +127,7 @@ public class GameController implements ActionListener {
         gameState.setActivePlayer(player);
 
         gameState.setOtherPlayers(playerController.otherPlayers(player.getID()));
+        //Tjek huskøb
 
         //Tjek jail
         if(fieldController.isJailed(player)) {
