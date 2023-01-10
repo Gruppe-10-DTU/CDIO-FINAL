@@ -84,7 +84,9 @@ public class GameController implements ActionListener {
                 turnCounter++;
             }
             if(jailCounter==3){
+                guiController.displayMsg("Ulovligheder! Du har rullet ens 3 gange i træk og skal derfor i fængsel.");
                 fieldController.jailPlayer(currentPlayer);
+                guiController.updatePlayer(currentPlayer);
                 jailCounter=0;
                 turnCounter++;
             }else{
