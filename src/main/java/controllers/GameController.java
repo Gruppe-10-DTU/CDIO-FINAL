@@ -77,16 +77,23 @@ public class GameController implements ActionListener {
         guiController.setPlayers(playerController.getPlayers());
 
         int playerAmount = playerController.getPlayers().length;
-
+        int jailCounter = 0;
         do {
             //Håndterer problemet med at fjerne en spiller.
             while((currentPlayer = playerController.getPlayerById(turnCounter % playerAmount))==null){
                 turnCounter++;
             }
-
-            takeTurn(currentPlayer);
-            if(!diceHolder.isEqual()){
+            if(jailCounter==3){
+                fieldController.jailPlayer(currentPlayer);
+                jailCounter=0;
                 turnCounter++;
+            }else{
+                takeTurn(currentPlayer);
+                if(!diceHolder.isEqual()){
+                    turnCounter++;
+                }else {
+                    jailCounter++;
+                }
             }
         }while (!win());
         winMsg();
