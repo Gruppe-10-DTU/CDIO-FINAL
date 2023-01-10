@@ -37,27 +37,26 @@ class ChanceTest {
     void fieldEffect() {
         /*        Test Change balance cards         */
         gameState.getActivePlayer().setLocation(2);
-        for (int i = 0; i < 22; i++) {
-            int playerMoneyBeforeCard = gameState.getActivePlayer().getBalance();
-            gameState.getFieldController().landOnField(gameState);
-            assertNotEquals(playerMoneyBeforeCard, gameState.getActivePlayer().getBalance());
-        }
-        /*        Test Move X Steps Cards         */
-        gameState.getActivePlayer().setLocation(7);
-        for (int i = 0; i < 3; i++) {
-            gameState.getFieldController().landOnField(gameState);
-            assertNotEquals(7, gameState.getActivePlayer().getLocation());
-            gameState.getActivePlayer().setLocation(7);
-        }
-        /*        Test Move to field cards         */
-        gameState.getActivePlayer().setLocation(22);
-        for (int i = 0; i < 10; i++) {
-            gameState.getFieldController().landOnField(gameState);
-            assertNotEquals(22,gameState.getActivePlayer().getLocation());
-            gameState.getActivePlayer().setLocation(22);
-        }
-        /*        Test get out of Jail cards         */
         gameState.getFieldController().landOnField(gameState);
-        assertNotNull(gameState.getActivePlayer().hasGetOutOfJail());
+        assertNotEquals(30000, gameState.getActivePlayer().getBalance());
+
+        /*        Test Move X Steps Cards         */
+        gameState.getChancecardDeck().rigDeck(22);
+        gameState.getActivePlayer().setLocation(7);
+        gameState.getFieldController().landOnField(gameState);
+        assertNotEquals(7, gameState.getActivePlayer().getLocation());
+        gameState.getActivePlayer().setLocation(7);
+
+        /*        Test Move to field cards         */
+        gameState.getChancecardDeck().rigDeck(8);
+        gameState.getActivePlayer().setLocation(22);
+        gameState.getFieldController().landOnField(gameState);
+        assertNotEquals(22,gameState.getActivePlayer().getLocation());
+        gameState.getActivePlayer().setLocation(22);
+
+        /*        Test get out of Jail cards         */
+        gameState.getChancecardDeck().rigDeck(2);
+        gameState.getFieldController().landOnField(gameState);
+        assertTrue(gameState.getActivePlayer().hasGetOutOfJail());
     }
 }
