@@ -85,10 +85,10 @@ class JailTest {
 
         /*      Checks the card option              */
         gameState.getFieldController().jailPlayer(gameState.getActivePlayer());
-        gameState.getActivePlayer().setGetOutOfJail(new GetOutOfJail("GetOutOfJail", "Get Out of jail free"));
+        gameState.getActivePlayer().addGetOutOfJail(new GetOutOfJail("GetOutOfJail", "Get Out of jail free"));
         jail.fieldEffect(gameState);
         assertFalse(jail.isInJail(gameState.getActivePlayer()));
-        assertNull(gameState.getActivePlayer().getGetOutOfJail());
+        assertFalse(gameState.getActivePlayer().hasGetOutOfJail());
 
 
     }
