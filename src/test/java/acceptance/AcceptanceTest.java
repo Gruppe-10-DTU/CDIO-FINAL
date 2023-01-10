@@ -162,6 +162,7 @@ public class AcceptanceTest {
     public void AK15(){
         pc.addPlayer(0,"UFO","InterfaceTest",2);
         gui.setPlayers(pc.getPlayers());
+
         gc.startGame();
 
     }
@@ -203,6 +204,18 @@ public class AcceptanceTest {
 
         dH.setRolls(3,3);
         dH.setIsEqualAmount(1);
+        gc.startGame();
+        gui.displayMsg("Testen er nu overstået");
+    }
+
+    @Test
+    void AK20(){
+        pc.addPlayer(0,"UFO","StatiskSkat",2);
+        pc.addPlayer(1,"UFO","DynamiskSkat",3);
+        pc.getPlayerById(0).setLocation(34);
+        pc.getPlayerById(1).setBalance(-29999);
+
+        dH.setRolls(1,3);
         gc.startGame();
         gui.displayMsg("Testen er nu overstået");
     }

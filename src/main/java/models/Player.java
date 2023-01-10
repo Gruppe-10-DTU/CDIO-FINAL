@@ -20,24 +20,24 @@ public class Player {
     /**
      * @param iD   id of the player
      * @param name name
-     * @default Balance is set to 20, soldSign set to 12, location set to 0, character not set
+     * @default Balance is set to 30000, soldSign set to 12, location set to 0, character not set
      */
     public Player(int iD, String name){
         this.iD = iD;
         this.identifier = name;
-        balance = new Balance(20);
+        balance = new Balance(30000);
     }
     /**
      * @param iD        id of the player
      * @param name      name
      * @param character The player character
-     * @default Balance is set to 20, location set to 0 and soldSign set to 12
+     * @default Balance is set to 30000, location set to 0 and soldSign set to 12
      */
     public Player(int iD, String name, Character character){
         this.iD = iD;
         this.identifier = name;
         this.character = character;
-        balance = new Balance(20);
+        balance = new Balance(30000);
     }
 
     /**

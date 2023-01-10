@@ -72,7 +72,7 @@ public class Jail extends Field {
             case "pay":
                 player.setBalance(getOutOfJailPrice);
                 player.setRoundsInJail(0);
-                fieldController.freePlayer(player);
+                this.setInJailRemove(player);
 
                 /* OUTPUT MESSAGE To USER */
 
@@ -85,7 +85,7 @@ public class Jail extends Field {
                     io.displayDice(jailRoll);
                     if (jailRoll[0] == jailRoll[1]){
                         player.setRoundsInJail(0);
-                        fieldController.freePlayer(player);
+                        this.setInJailRemove(player);
 
                         /* OUTPUT MESSAGE To USER */
 
@@ -106,7 +106,7 @@ public class Jail extends Field {
         if(player.getRoundsInJail() >= 3){
             player.setBalance(getOutOfJailPrice);
             player.setRoundsInJail(0);
-            fieldController.freePlayer(player);
+            this.setInJailRemove(player);
 
             /* OUTPUT MESSAGE To USER */
 

@@ -23,12 +23,12 @@ public class PlayerTest extends TestCase {
     public void testSetBalanceValidate() {
 
         assertTrue(player.setBalance(-10));
-        assertEquals(10, player.getBalance());
+        assertEquals(29990, player.getBalance());
     }
 @Test
     public void testSetBalanceNotNegative() {
 
-        assertTrue(player.setBalance(-20));
+        assertTrue(player.setBalance(-30000));
         assertFalse(player.setBalance(-1));
         assertEquals(0, player.getBalance());
     }
