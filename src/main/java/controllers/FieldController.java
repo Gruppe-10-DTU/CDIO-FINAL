@@ -150,11 +150,6 @@ public class FieldController {
         return newGameState;
     }
 
-    /**
-     * Creates a Hashmap collecting the total value of all properties owned by a player
-     *
-     * @return Hashmap, key: player objects, value: the total property value of set player
-     */
     public int playerPropertyValues(Player player) {
         int totalAmount = 0;
         for (Field field : fieldArrayList) {
@@ -167,7 +162,6 @@ public class FieldController {
         }
         return totalAmount;
     }
-
 
     public Field getField(int fieldID) {
         return fieldArrayList.get(fieldID);
