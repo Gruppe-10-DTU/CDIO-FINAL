@@ -78,16 +78,17 @@ public class GameController implements ActionListener {
 
         int playerAmount = playerController.getPlayers().length;
 
-        while (!win()) {
+        do {
             //Håndterer problemet med at fjerne en spiller.
             while((currentPlayer = playerController.getPlayerById(turnCounter % playerAmount))==null){
                 turnCounter++;
             }
 
             takeTurn(currentPlayer);
-
-            turnCounter++;
-        }
+            if(!diceHolder.isEqual()){
+                turnCounter++;
+            }
+        }while (!win());
         winMsg();
     }
 
@@ -125,7 +126,6 @@ public class GameController implements ActionListener {
         gameState.setActivePlayer(player);
 
         gameState.setOtherPlayers(playerController.otherPlayers(player.getID()));
-
 
         //Tjek jail
         if(fieldController.isJailed(player)) {
