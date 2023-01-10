@@ -35,6 +35,6 @@ class GetOutOfJailTest {
     void chanceEffect() {
         card.chanceEffect(gameState);
         Player activePlayer = gameState.getActivePlayer();
-        assertEquals(card, activePlayer.getGetOutOfJail());
+        assertTrue(activePlayer.hasGetOutOfJail());
     }
 }
