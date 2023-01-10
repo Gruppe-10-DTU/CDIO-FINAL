@@ -133,7 +133,7 @@ class GameControllerTest {
     void testJailPlayer3Rolls() {
         pc.getPlayerById(0).setLocation(0);
         diceHolder.setRolls(3,3);
-        diceHolder.setIsEqualAmount(5);
+        diceHolder.setIsEqualAmount(2);
         pc.getPlayerById(1).setBalance(-29999);
         ((Street)fieldController.getField(6)).setOwner(pc.getPlayerById(0));
         gameController.startGame();

@@ -83,19 +83,11 @@ public class GameController implements ActionListener {
             while((currentPlayer = playerController.getPlayerById(turnCounter % playerAmount))==null){
                 turnCounter++;
             }
-            if(jailCounter==3){
-                guiController.displayMsg("Ulovligheder! Du har rullet ens 3 gange i træk og skal derfor i fængsel.");
-                fieldController.jailPlayer(currentPlayer);
-                guiController.updatePlayer(currentPlayer);
-                jailCounter=0;
+
+            takeTurn(currentPlayer);
+
+            if(diceHolder.getSameRolls()==0){
                 turnCounter++;
-            }else{
-                if(!diceHolder.isEqual()){
-                    turnCounter++;
-                }else {
-                    jailCounter++;
-                }
-                takeTurn(currentPlayer);
             }
         }while (!win());
         winMsg();
@@ -144,13 +136,21 @@ public class GameController implements ActionListener {
             guiController.getRoll(language.getLanguageValue("rollText", player.getIdentifier()), language.getLanguageValue("rollButton"));
             diceHolder.roll();
             guiController.displayDice(diceHolder.getRolls());
-            boolean overStart = player.getLocation() + diceHolder.sum() > StartValues.getInstance().getValue("boardSize");
-            playerController.playerMove(player, diceHolder.sum());
-            guiController.movePlayer(player);
-            if (overStart) {
-                guiController.displayMsg(language.getLanguageValue("passStart", String.valueOf(StartValues.getInstance().getValue("passStartBonus"))));
+            if(diceHolder.isEqual()){
+                diceHolder.incrementSameRolls();
+            }if (diceHolder.getSameRolls()==3){
+                guiController.displayMsg("Ulovligheder! Du har rullet ens 3 gange i træk og skal derfor i fængsel.");
+                fieldController.jailPlayer(currentPlayer);
+                diceHolder.setSameRolls(0);
+            }else{
+                boolean overStart = player.getLocation() + diceHolder.sum() > StartValues.getInstance().getValue("boardSize");
+                playerController.playerMove(player, diceHolder.sum());
+                guiController.movePlayer(player);
+                if (overStart) {
+                    guiController.displayMsg(language.getLanguageValue("passStart", String.valueOf(StartValues.getInstance().getValue("passStartBonus"))));
+                }
+                fieldController.landOnField(gameState);
             }
-            fieldController.landOnField(gameState);
             guiController.updatePlayer(player);
         }
     }
