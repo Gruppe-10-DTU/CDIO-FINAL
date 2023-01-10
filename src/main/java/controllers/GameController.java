@@ -90,12 +90,12 @@ public class GameController implements ActionListener {
                 jailCounter=0;
                 turnCounter++;
             }else{
-                takeTurn(currentPlayer);
                 if(!diceHolder.isEqual()){
                     turnCounter++;
                 }else {
                     jailCounter++;
                 }
+                takeTurn(currentPlayer);
             }
         }while (!win());
         winMsg();
@@ -325,9 +325,6 @@ public class GameController implements ActionListener {
         guiController.updatePlayer(currentPlayer);
         return false;
     }*/
-    public Integer getTurnCounter() {
-        return turnCounter;
-    }
 
     /*
      * Checks if there are more than one with the same balance then returns the one with most property, otherwise returns the one with the most balance
