@@ -36,10 +36,10 @@ Project starts the 2nd of january 2023
 
 
 [Gå i fængsel (K13)] as [K13] lasts 1 days
-[K13] is 90% complete
+[K13] is 100% complete
 
 [Kom ud af fængsel (K14)] as [K14] lasts 1 days
-[K14] is 90% complete
+[K14] is 100% complete
 
 [Land på felt (K6)] as [K6] lasts 2 days
 [K6] is 100% complete
@@ -51,11 +51,10 @@ Project starts the 2nd of january 2023
 [K7] is 100% complete
 
 [Køb grund (K8)] as [K8] lasts 1 days
-[K8] is 90% complete
-
+[K8] is 100% complete
 
 [Betal leje (K9)] as [K9] lasts 1 days
-[K9] is 90% complete
+[K9] is 100% complete
 
 [Køb rederi (K11)] as [K11] lasts 1 days
 [K11] is 100% complete
@@ -139,14 +138,13 @@ Project starts the 2nd of january 2023
 [K23] is 0% complete
 
 [Ekstra tur (K25)] as [K25] lasts 1 days
-[K25] is 0% complete
+[K25] is 90% complete
 
 [Bortaktioner grunde (K26)] as [K26] starts 2023-01-13
 [Bortaktioner grunde (K26)] as [K26] ends 2023-01-16
 [K26] is 0% complete
 
-[Skift sprog (K27)] as [K27] starts 2023-01-17
-[K27] is 0% complete
+
 
 [Forbered acceptencetest] as [test] starts 2023-01-16
 [Forbered acceptencetest] as [test] ends 2023-01-17
@@ -159,7 +157,6 @@ Project starts the 2nd of january 2023
 [MVP]->[K23]
 [MVP]->[K25]
 [MVP]->[K26]
-[MVP]->[K27]
 [MVP]->[test]
 
 [K19]-[#FF0000]->[K20]
