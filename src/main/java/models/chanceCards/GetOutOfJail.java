@@ -15,8 +15,13 @@ public class GetOutOfJail extends ChanceCard{
 
     @Override
     public GameStateDTO chanceEffect(GameStateDTO gameState){
-        gameState.getGuiController().showChanceCard(this.description);
-        gameState.getActivePlayer().addGetOutOfJail(this);
+        if (gameState.getFieldController().isJailed(gameState.getActivePlayer())) {
+            gameState.getFieldController().freePlayer(gameState.getActivePlayer());
+            gameState.getChancecardDeck().returnToDeck(this);
+        }else{
+            gameState.getGuiController().showChanceCard(this.description);
+            gameState.getActivePlayer().addGetOutOfJail(this);
+        }
         return gameState;
     }
 }
