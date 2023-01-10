@@ -30,7 +30,6 @@ public class Deck {
                 field = reader.getHeaderIndex("field");
 
         this.deck = new ArrayList<>();
-        int deckPosition = 0;
         for (ArrayList<String> element: cardData) {
             String description = language.getLanguageValue("cc" + element.get(name));
             switch (element.get(type)) {
@@ -64,7 +63,7 @@ public class Deck {
                             description
                     ));
                     break;
-                case "MoveTo);ield":
+                case "MoveToField":
                     deck.add(new MoveToField(
                             element.get(name),
                             description,
@@ -88,7 +87,6 @@ public class Deck {
                     ));
                     break;
             }
-            deckPosition++;
         }
         reader = null;
     }
