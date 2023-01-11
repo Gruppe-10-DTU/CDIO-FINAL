@@ -30,6 +30,7 @@ class StreetTest {
         gameStateDTO = new GameStateDTO(guiController);
         gameStateDTO.setActivePlayer(playerController.getPlayerById(0));
         gameStateDTO.setPlayerController(playerController);
+        gameStateDTO.setFieldController(fieldController);
     }
 
     @Test
@@ -56,20 +57,15 @@ class StreetTest {
     }
 
     @Test
-    void streetEffectKickPlayer() {
+    void streetEffectOwnerInJail() {
         Street street = (Street) fieldController.getField(1);
-        playerController.getPlayerById(1).setBalance(50);
         street.setOwner(playerController.getPlayerById(1));
-        playerController.getPlayerById(0).setBalance(-29950);
+        gameStateDTO.getFieldController().jailPlayer(playerController.getPlayerById(1));
+
+        assertTrue(fieldController.isJailed(playerController.getPlayerById(1)));
+
         street.fieldEffect(gameStateDTO);
 
-        assertEquals(0, playerController.getPlayerById(0).getBalance());
-
-        playerController.getPlayerById(0).setBalance(49);
-        street.fieldEffect(gameStateDTO);
-
-        assertEquals(1, playerController.getPlayers().length);
-        assertNull(playerController.getPlayerById(0));
-
+        assertEquals(30000, playerController.getPlayerById(0).getBalance());
     }
 }
