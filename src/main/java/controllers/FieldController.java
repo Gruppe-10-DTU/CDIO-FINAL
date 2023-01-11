@@ -244,6 +244,23 @@ public class FieldController {
         return ferrysOwned;
     }
 
+    public int breweriesOwned(Player owner, int fieldId) {
+        int breweriesOwned = 1;
+
+        if (fieldId == 12) {
+            Brewery Brewery28 = (Brewery) getField(28);
+            if (Brewery28.getOwner() == owner) {
+                breweriesOwned++;
+            }
+        } else {
+            Brewery Brewery12 = (Brewery) getField(12);
+            if (Brewery12.getOwner() == owner) {
+                breweriesOwned++;
+            }
+        }
+        return breweriesOwned;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
