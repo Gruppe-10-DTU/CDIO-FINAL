@@ -1,5 +1,6 @@
 package models.chanceCards;
 
+import models.Player;
 import models.dto.GameStateDTO;
 import org.apache.commons.lang.NotImplementedException;
 
@@ -12,17 +13,18 @@ public class Grant extends ChanceCard{
         this.BONUS = AwardsBonus;
         this.NET_WORTH = MaximumPlayerWorth;
     }
-
-    public int getBONUS() {
-        return BONUS;
-    }
-
-    public int getNET_WORTH() {
-        return NET_WORTH;
-    }
-
     @Override
     public GameStateDTO chanceEffect(GameStateDTO gameState){
-        throw new NotImplementedException();
+        gameState.getGuiController().showChanceCard(this.description);
+        Player player = gameState.getActivePlayer();
+        int playerWorth = player.getBalance() + gameState.getFieldController().playerPropertyValues(player);
+        if(playerWorth < NET_WORTH){
+            gameState.getGuiController().displayMsg("Du modtager matador-legatet");
+            player.setBalance(BONUS);
+        }
+        gameState.getGuiController().updatePlayer(player);
+        gameState.getChancecardDeck().returnToDeck(this);
+
+        return gameState;
     }
 }
