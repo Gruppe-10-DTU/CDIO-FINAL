@@ -35,3 +35,4 @@ MoveToField,MOVE_TO_FIELD_8,,,true,32
 MoveToField,MOVE_TO_FIELD_9,,,true,19
 MoveToField,MOVE_TO_FIELD_10,,,true,39
 GetOutOfJail,GET_OUT_OF_JAIL_1,,,,
+GetOutOfJail,GET_OUT_OF_JAIL_2,,,,

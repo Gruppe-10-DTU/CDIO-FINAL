@@ -77,7 +77,7 @@ public class GameController implements ActionListener {
         guiController.setPlayers(playerController.getPlayers());
 
         int playerAmount = playerController.getPlayers().length;
-
+        int jailCounter = 0;
         do {
             //Håndterer problemet med at fjerne en spiller.
             while((currentPlayer = playerController.getPlayerById(turnCounter % playerAmount))==null){
@@ -85,7 +85,8 @@ public class GameController implements ActionListener {
             }
 
             takeTurn(currentPlayer);
-            if(!diceHolder.isEqual()){
+
+            if(diceHolder.getSameRolls()==0){
                 turnCounter++;
             }
         }while (!win());
@@ -135,13 +136,21 @@ public class GameController implements ActionListener {
             guiController.getRoll(language.getLanguageValue("rollText", player.getIdentifier()), language.getLanguageValue("rollButton"));
             diceHolder.roll();
             guiController.displayDice(diceHolder.getRolls());
-            boolean overStart = player.getLocation() + diceHolder.sum() > StartValues.getInstance().getValue("boardSize");
-            playerController.playerMove(player, diceHolder.sum());
-            guiController.movePlayer(player);
-            if (overStart) {
-                guiController.displayMsg(language.getLanguageValue("passStart", String.valueOf(StartValues.getInstance().getValue("passStartBonus"))));
+            if(diceHolder.isEqual()){
+                diceHolder.incrementSameRolls();
+            }if (diceHolder.getSameRolls()==3){
+                guiController.displayMsg("Ulovligheder! Du har rullet ens 3 gange i træk og skal derfor i fængsel.");
+                fieldController.jailPlayer(currentPlayer);
+                diceHolder.setSameRolls(0);
+            }else{
+                boolean overStart = player.getLocation() + diceHolder.sum() > StartValues.getInstance().getValue("boardSize");
+                playerController.playerMove(player, diceHolder.sum());
+                guiController.movePlayer(player);
+                if (overStart) {
+                    guiController.displayMsg(language.getLanguageValue("passStart", String.valueOf(StartValues.getInstance().getValue("passStartBonus"))));
+                }
+                fieldController.landOnField(gameState);
             }
-            fieldController.landOnField(gameState);
             guiController.updatePlayer(player);
         }
     }
@@ -316,9 +325,6 @@ public class GameController implements ActionListener {
         guiController.updatePlayer(currentPlayer);
         return false;
     }*/
-    public Integer getTurnCounter() {
-        return turnCounter;
-    }
 
     /*
      * Checks if there are more than one with the same balance then returns the one with most property, otherwise returns the one with the most balance
