@@ -248,9 +248,11 @@ public class FieldController {
 
  */
 
-    public Street[] ownsColourGroup(Player player) {
+    public Map<String, Street[]> ownsColourGroup(Player player) {
         ArrayList<Street> localData = new ArrayList<>();
+        HashMap<String, Street[]> map = new HashMap<>();
         ArrayList<Street> propertiesToUpgrade = new ArrayList<>();
+
         for (int i = 0; i < fieldArrayList.size(); i += 4) {
             for (int k = i; k <= i + 4; k++) {
                 if (fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).getOwner() != player) {
@@ -270,7 +272,7 @@ public class FieldController {
             }
 
         }
-        return propertiesToUpgrade.toArray(Street[]::new);
+        return map;
     }
 
     public Map<String,Street[]> buildEqual(Map<String, Street[]> sort){

@@ -132,7 +132,7 @@ public class GameController implements ActionListener {
         Map<String,Street[]> ownsGroup = fieldController.ownsColourGroup(player);
         Map<String,Street[]> placesToBuild = fieldController.buildEqual(ownsGroup);
         //Tjek huskøb
-        if(ownsGroup.length >= 1) {
+        if(placesToBuild.size() >= 1) {
             boolean looper = guiController.yesnoSelection(language.getLanguageValue("canBuildHouses"));
             boolean loopdeloop = true;
             //Hvor kan der bygges?
@@ -153,6 +153,7 @@ public class GameController implements ActionListener {
                         looper = guiController.yesnoSelection(language.getLanguageValue("lackingFunds"));
                     }
                 }
+                placesToBuild = fieldController.buildEqual(fieldController.ownsColourGroup(player));
             }
         }
         //Tjek jail
