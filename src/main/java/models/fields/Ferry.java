@@ -40,8 +40,8 @@ public class Ferry extends Property{
             }
         } else {
             //Pay rent
-            int ownerOwnes = 1; //Change to the actual number of ferry fields owned by the player to include rent bonus
-            int rentToPay = rent[0];
+            int ownerOwnes = gameState.getFieldController().ferrysOwned(owner, iD, 4); //Change to the actual number of ferry fields owned by the player to include rent bonus
+            int rentToPay = rent[ownerOwnes-1];
 
             if (currentPlayer.setBalance(-rentToPay)) {
                 String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " betal leje " + rentToPay;

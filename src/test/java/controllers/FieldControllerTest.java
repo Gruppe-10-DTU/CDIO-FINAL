@@ -2,11 +2,13 @@ package controllers;
 
 import models.Language;
 import models.Player;
+import models.dto.GameStateDTO;
 import models.fields.Field;
 import models.fields.Jail;
 
 import models.fields.Start;
 import models.fields.Street;
+import models.fields.Ferry;
 import org.junit.jupiter.api.BeforeEach;
 
 import org.junit.jupiter.api.Test;
@@ -19,27 +21,45 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FieldControllerTest {
 
-    Language language = new Language();
+    private static GameStateDTO gameStateDTO;
+    private static FieldController fieldController;
+    private static GUIControllerStub guiController;
+    private static PlayerController playerController;
+
     ArrayList<ArrayList<String>> CSVMock = new ArrayList<>();
     Player mockPlayer1 = new Player(1, "player1");
     Player mockPlayer2 = new Player(2, "player2");
 
-    FieldController fieldcontroller = new FieldController(language);
 
     @BeforeEach
     void setUp() {
-        fieldcontroller.fieldArrayList.clear();
+        Language language = new Language();
+        fieldController = new FieldController(language);
+        guiController = new GUIControllerStub();
+        playerController = new PlayerController();
+        playerController.addPlayer(0, "car", "test1",1);
+        playerController.addPlayer(1, "car", "test2",1);
 
-        CSVMock.add(new ArrayList<>(Arrays.asList("Start","0","start","","","","","","","","","")));
-        CSVMock.add(new ArrayList<>(Arrays.asList("Rødovrevej","1","street","1200","1000","50","250","750","2250","4000","6000","blue")));
-        CSVMock.add(new ArrayList<>(Arrays.asList("Prøv lykken","2","chance","","","","","","","","","")));
-        CSVMock.add(new ArrayList<>(Arrays.asList("I fængsel/På besøg","3","jail","1000","","","","","","","","")));
-        CSVMock.add(new ArrayList<>(Arrays.asList("Hvidovrevej","4","street","1200","1000","50","250","400","750","2250","6000","blue")));
-        CSVMock.add(new ArrayList<>(Arrays.asList("Fængsel","5","jail","0","","","","","","","","")));
-        CSVMock.add(new ArrayList<>(Arrays.asList("Amagertorv","6","street","6000","4000","550","2600","7800","18000","22000","25000","yellow")));
-        CSVMock.add(new ArrayList<>(Arrays.asList("Vimmelskaftet","7","street","6000","4000","550","2600","7800","18000","22000","25000","yellow")));
+        gameStateDTO = new GameStateDTO(guiController);
+        gameStateDTO.setActivePlayer(playerController.getPlayerById(0));
+        gameStateDTO.setPlayerController(playerController);
+        gameStateDTO.setFieldController(fieldController);
+
+        gameStateDTO.getFieldController().fieldArrayList.clear();
+        CSVMock.add(new ArrayList<>(Arrays.asList("Helsingør - Helsingborg","0","ferry","4000","","500","1000","2000","4000","","","")));
+        CSVMock.add(new ArrayList<>(Arrays.asList("Start","1","start","","","","","","","","","")));
+        CSVMock.add(new ArrayList<>(Arrays.asList("Rødovrevej","2","street","1200","1000","50","250","750","2250","4000","6000","blue")));
+        CSVMock.add(new ArrayList<>(Arrays.asList("Prøv lykken","3","chance","","","","","","","","","")));
+        CSVMock.add(new ArrayList<>(Arrays.asList("I fængsel/På besøg","4","jail","1000","","","","","","","","")));
+        CSVMock.add(new ArrayList<>(Arrays.asList("Hvidovrevej","5","street","1200","1000","50","250","400","750","2250","6000","blue")));
+        CSVMock.add(new ArrayList<>(Arrays.asList("Fængsel","6","jail","0","","","","","","","","")));
+        CSVMock.add(new ArrayList<>(Arrays.asList("Amagertorv","7","street","6000","4000","550","2600","7800","18000","22000","25000","yellow")));
         CSVMock.add(new ArrayList<>(Arrays.asList("Vimmelskaftet","8","street","6000","4000","550","2600","7800","18000","22000","25000","yellow")));
-        fieldcontroller.createFieldArray(CSVMock);
+        CSVMock.add(new ArrayList<>(Arrays.asList("Vimmelskaftet","9","street","6000","4000","550","2600","7800","18000","22000","25000","yellow")));
+        CSVMock.add(new ArrayList<>(Arrays.asList("Mols-Linien","10","ferry","4000","","500","1000","2000","4000","","","")));
+        gameStateDTO.getFieldController().createFieldArray(CSVMock);
+
+
     }
 
 
@@ -47,19 +67,19 @@ class FieldControllerTest {
     @Test
     void construct() {
 
-        assertEquals(9, fieldcontroller.fieldArrayList.size());
+        assertEquals(11, gameStateDTO.getFieldController().fieldArrayList.size());
     }
 
 
     @Test
     void jailPlayer() {
 
-        fieldcontroller.jailPlayer(mockPlayer1);
+        gameStateDTO.getFieldController().jailPlayer(mockPlayer1);
 
         int jailIndex = 0;
 
 
-        for (Object field : fieldcontroller.fieldArrayList) {
+        for (Object field : gameStateDTO.getFieldController().fieldArrayList) {
             if ( field instanceof Jail) {
                 jailIndex = ((Jail) field).getID();
 
@@ -74,9 +94,9 @@ class FieldControllerTest {
     @Test
     void FreePlayer() {
         //Jail the player
-        fieldcontroller.jailPlayer(mockPlayer1);
+        gameStateDTO.getFieldController().jailPlayer(mockPlayer1);
 
-        for (Object field : fieldcontroller.fieldArrayList) {
+        for (Object field : gameStateDTO.getFieldController().fieldArrayList) {
             if ( field instanceof Jail) {
 
                 //Check that player was jailed
@@ -86,9 +106,9 @@ class FieldControllerTest {
         }
 
         //Free the player
-        fieldcontroller.freePlayer(mockPlayer1);
+        gameStateDTO.getFieldController().freePlayer(mockPlayer1);
 
-        for (Object field : fieldcontroller.fieldArrayList) {
+        for (Object field : gameStateDTO.getFieldController().fieldArrayList) {
             if ( field instanceof Jail) {
                 //Check that player is no longer jailed
                 assertFalse(((Jail) field).getInJail().contains(mockPlayer1));
@@ -96,6 +116,29 @@ class FieldControllerTest {
             }
         }
     }
+
+    @Test
+    void ferryOwnersAll() {
+        Ferry ferry1 = (Ferry) gameStateDTO.getFieldController().getField(0);
+        ferry1.setOwner(playerController.getPlayerById(1));
+        Ferry ferry2 = (Ferry) gameStateDTO.getFieldController().getField(10);
+        ferry2.setOwner(playerController.getPlayerById(1));
+
+        int owned = gameStateDTO.getFieldController().ferrysOwned(playerController.getPlayerById(1), 0, 2);
+
+        assertEquals(2, owned);
+    }
+
+    @Test
+    void ferryOwners1() {
+        Ferry ferry1 = (Ferry) gameStateDTO.getFieldController().getField(0);
+        ferry1.setOwner(playerController.getPlayerById(1));
+
+        int owned = gameStateDTO.getFieldController().ferrysOwned(playerController.getPlayerById(1), 0, 2);
+
+        assertEquals(1, owned);
+    }
+
     /*
     @Test
     void playerPropertyValues() {
