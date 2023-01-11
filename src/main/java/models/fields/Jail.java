@@ -56,11 +56,11 @@ public class Jail extends Field {
 
         String choice;
 
-        if(player.getGetOutOfJail() != null && (player.getBalance() + getOutOfJailPrice) > 0) {
+        if(player.hasGetOutOfJail() && (player.getBalance() + getOutOfJailPrice) > 0) {
             choice = io.getOutOfJailOptions(true, true);
         }else if(player.getBalance() >= getOutOfJailPrice * -1){
             choice = io.getOutOfJailOptions(true,false);
-        } else if (player.getGetOutOfJail() != null) {
+        } else if (player.hasGetOutOfJail()) {
             choice = io.getOutOfJailOptions(false, true);
         } else {
             choice = io.getOutOfJailOptions(false, false);
@@ -94,12 +94,10 @@ public class Jail extends Field {
                         io.getOutOfJailRollAgain();
                     }
                 }
-                player.setRoundsInJail(player.getRoundsInJail() + 1);
+                player.stayInJail();
                 break;
             case "card":
-                player.setRoundsInJail(0);
-                player.setGetOutOfJail(null);
-                this.setInJailRemove(player);
+                player.useGetOutOfJail(gameState);
 
                 /* OUTPUT MESSAGE To USER */
 
