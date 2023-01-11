@@ -20,9 +20,6 @@ public class PlayerControllerTest extends TestCase {
         pc.addPlayer(0,"UFO","Svend",0);
         pc.addPlayer(1,"UFO","Åge",0);
 
-
-
-
         //Testing start location is at start:
         assertEquals(0,pc.getPlayerById(0).getLocation());
 

@@ -42,15 +42,6 @@ class GameControllerTest {
 
         gameController = new GameController(gameState, language, deck);
     }
-    /*
-    @Test
-    void testEqualBalance() {
-        fieldController.setOwner(pc.getPlayers()[0],1);
-        assertEquals(pc.getPlayers()[0].getIdentifier(), gameController.checkAllBalance());
-    }
-
-     */
-
 
     @Test
     void win() {
