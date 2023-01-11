@@ -21,18 +21,20 @@ public abstract class Property extends Field{
 
     protected void auction(GameStateDTO gameStateDTO){
         Player[] players = gameStateDTO.getPlayerController().getPlayers();
+        //Get the player after the current player
         int index = (ArrayUtils.indexOf(players,gameStateDTO.getActivePlayer())+ 1) % players.length;
-        int k= index;
+        //Previous player. One player have to buy the property
+        int k= -1;
         int bid = 0;
-        {
-            if(gameStateDTO.getGuiController().getUserLeftButtonPressed(players[index].getIdentifier() + " do you want to bid?", "yes", "no")){
-                bid = gameStateDTO.getGuiController().getBid("Hvor meget vil du byde? Sidste bud var " + bid, bid, players[index].getBalance());
+        do{
+            if(players[index].getBalance()>bid && gameStateDTO.getGuiController().getUserLeftButtonPressed(players[index].getIdentifier() + " do you want to bid?", "yes", "no")){
+                bid = gameStateDTO.getGuiController().getBid("Hvor meget vil du byde? Sidste bud var " + bid, bid + 1, players[index].getBalance());
                 k=index;
             }
             index = (index + 1) % players.length;
         }while(k!=index);
-        players[index].setBalance(-this.price);
-        this.owner = players[index];
 
+        players[index].setBalance(-bid);
+        this.owner = players[index];
     }
 }

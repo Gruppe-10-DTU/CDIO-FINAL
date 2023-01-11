@@ -148,4 +148,9 @@ public class GUIControllerStub extends ui.GUIController {
     public void displayMsgNoBtn(String msg) {
 
     }
+
+    @Override
+    public int getBid(String msg, int min, int max) {
+        return min;
+    }
 }
