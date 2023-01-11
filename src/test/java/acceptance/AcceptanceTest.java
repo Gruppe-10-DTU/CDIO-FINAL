@@ -214,7 +214,6 @@ public class AcceptanceTest {
         pc.addPlayer(1,"UFO","DynamiskSkat",3);
         pc.getPlayerById(0).setLocation(34);
         pc.getPlayerById(1).setBalance(-29999);
-
         dH.setRolls(1,3);
         gc.startGame();
         gui.displayMsg("Testen er nu overstået");

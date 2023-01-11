@@ -4,13 +4,13 @@ import controllers.FieldController;
 import controllers.GUIConverter;
 import controllers.PlayerController;
 import controllers.StartValues;
+import gui_fields.GUI_Ownable;
 import gui_fields.GUI_Player;
 import gui_fields.GUI_Street;
 import gui_main.GUI;
 import models.Language;
 import models.Player;
-import models.fields.Field;
-import models.fields.Street;
+import models.fields.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -123,12 +123,16 @@ public class GUIController {
      * Set the owner on the property
      * @param property Property to be changed
      */
-    public void updateField(Street property){
-        GUI_Street street = (GUI_Street) gui.getFields()[property.getID()];
+    public void updateField(Property property){
+        GUI_Ownable field = (GUI_Ownable) gui.getFields()[property.getID()];
    //     street.setOwnableLabel(property.getOwner().getIdentifier());
     //    street.setOwnerName(property.getOwner().getIdentifier());
-        street.setHouses(1);
-        street.setSubText(property.getOwner().getIdentifier());
+        if(property instanceof Street){
+            ((GUI_Street) field).setHouses(((Street) property).getHouseAmount());
+        }
+        field.setOwnerName(property.getOwner().getIdentifier());
+        field.setBorder(property.getOwner().getCharacter().getColor());
+        //field.setSubText(property.getOwner().getIdentifier());
     }
 
     public void displayMsgNoBtn(String msg){
@@ -170,8 +174,8 @@ public class GUIController {
             updatePlayer(player);
         }
         for (Field field: fieldController.getFieldList()) {
-            if ( field instanceof Street && ((Street) field).getOwner() != null){
-                updateField((Street) field);
+            if ((field instanceof Street || field instanceof Brewery || field instanceof Ferry) && ((Property) field).getOwner() != null){
+                updateField((Property) field);
             }
         }
     }
