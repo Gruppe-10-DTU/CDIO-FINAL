@@ -171,31 +171,5 @@ class FieldControllerTest {
         assertEquals(34200, fieldcontroller.playerPropertyValues(mockPlayer1));
         assertEquals(22200, fieldcontroller.playerPropertyValues(mockPlayer2));
     }
-    /*@Test
-    void sameOwner() {
-        Player player1 = new Player(0,"test");
-        Field field;
-        fieldcontroller.setOwner(player1, 8);
-
-        Street property = (Street) fieldcontroller.getField(8);
-        assertFalse(fieldcontroller.sameOwner(property));
-        fieldcontroller.setOwner(player1, 7);
-        assertTrue(fieldcontroller.sameOwner(property));
-
-        //Reset
-        fieldcontroller.setOwner(null, 7);
-        fieldcontroller.setOwner(null, 8);
-        //Other way
-
-        fieldcontroller.setOwner(player1, 7);
-
-        property = (Street) fieldcontroller.getField(7);
-        assertFalse(fieldcontroller.sameOwner(property));
-        fieldcontroller.setOwner(player1, 8);
-        assertTrue(fieldcontroller.sameOwner(property));
-
-        fieldcontroller.setOwner(null, 7);
-        fieldcontroller.setOwner(null, 8);
-    }*/
 
 }
