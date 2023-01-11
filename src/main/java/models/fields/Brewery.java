@@ -54,6 +54,7 @@ public class Brewery extends Property{
             int ownerPropertyAmount = gameState.getFieldController().breweriesOwned(owner, iD);
             int rentToPay;
 
+
             if (ownerPropertyAmount == 2) {
                 rentToPay = rent1 * diceAmount;
             } else {
