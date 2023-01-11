@@ -218,6 +218,32 @@ public class FieldController {
         return fieldArrayList.stream().filter(field -> field instanceof Street && ((Street) field).getOwner() != player).toArray(Street[]::new);
     }
 
+    public int ferrysOwned(Player owner, int startField, int ferrys) {
+
+        int ferrysOwned = 1;
+        int lastFerry = startField;
+
+        int i = 1;
+        while (i < ferrys) {
+
+            int currentFerry = lastFerry + 10;
+
+            if (currentFerry >= 40) {
+                currentFerry = currentFerry - 40;
+            }
+            Ferry nextFerry = (Ferry) getField(currentFerry);
+
+            if (nextFerry.getOwner() == owner) {
+                ferrysOwned++;
+            }
+
+            lastFerry = currentFerry;
+            i++;
+        }
+
+        return ferrysOwned;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
