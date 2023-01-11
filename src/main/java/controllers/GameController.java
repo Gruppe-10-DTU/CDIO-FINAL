@@ -164,9 +164,12 @@ public class GameController implements ActionListener {
             guiController.getRoll(language.getLanguageValue("rollText", player.getIdentifier()), language.getLanguageValue("rollButton"));
             diceHolder.roll();
             guiController.displayDice(diceHolder.getRolls());
-            if(diceHolder.isEqual()){
+            if(diceHolder.isEqual()) {
                 diceHolder.incrementSameRolls();
-            }if (diceHolder.getSameRolls()==3){
+            }else {
+                diceHolder.setSameRolls(0);
+            }
+            if (diceHolder.getSameRolls()==3){
                 guiController.displayMsg("Ulovligheder! Du har rullet ens 3 gange i træk og skal derfor i fængsel.");
                 fieldController.jailPlayer(currentPlayer);
                 diceHolder.setSameRolls(0);
@@ -180,6 +183,7 @@ public class GameController implements ActionListener {
                 fieldController.landOnField(gameState);
             }
             guiController.updatePlayer(player);
+            guiController.updateBoard(playerController,fieldController);
         }
     }
 

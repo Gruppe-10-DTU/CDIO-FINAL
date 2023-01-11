@@ -10,7 +10,6 @@ import models.dto.GameStateDTO;
 import models.fields.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ui.GUIController;
 
@@ -149,7 +148,7 @@ public class AcceptanceTest {
         dH.setRolls(1,1);
         ToJail toJail = (ToJail) fc.getField(30);
         Jail jail = (Jail) fc.getField(10);
-        pc.getPlayerById(0).setGetOutOfJail(new GetOutOfJail("outofjail","outofjail"));
+        pc.getPlayerById(0).addGetOutOfJail(new GetOutOfJail("outofjail","outofjail"));
         gui.updatePlayer(pc.getPlayerById(0));
         gc.takeTurn(pc.getPlayerById(0));
         gui.updatePlayer(pc.getPlayerById(0));
@@ -215,7 +214,6 @@ public class AcceptanceTest {
         pc.addPlayer(1,"UFO","DynamiskSkat",3);
         pc.getPlayerById(0).setLocation(34);
         pc.getPlayerById(1).setBalance(-29999);
-
         dH.setRolls(1,3);
         gc.startGame();
         gui.displayMsg("Testen er nu overstået");

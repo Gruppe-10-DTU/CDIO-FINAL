@@ -1,6 +1,9 @@
 package models;
 
 import models.chanceCards.GetOutOfJail;
+import models.dto.GameStateDTO;
+
+import java.util.ArrayList;
 
 /**
  * Player class
@@ -12,7 +15,7 @@ public class Player {
     private Character character;
     private int soldSign = 12;
     private int location = 0;
-    private GetOutOfJail getOutOfJail;
+    private ArrayList<GetOutOfJail> getOutOfJail = new ArrayList<>();
     private int roundsInJail;
     /**
      * @param iD   id of the player
@@ -173,12 +176,17 @@ public class Player {
         this.location = location;
     }
 
-    public GetOutOfJail getGetOutOfJail() {
-        return getOutOfJail;
+    public boolean hasGetOutOfJail() {
+        return getOutOfJail.size() > 0;
     }
 
-    public void setGetOutOfJail(GetOutOfJail getOutOfJail) {
-        this.getOutOfJail = getOutOfJail;
+    public void addGetOutOfJail(GetOutOfJail getOutOfJail) {
+        this.getOutOfJail.add(getOutOfJail);
+    }
+    public void useGetOutOfJail(GameStateDTO gameState){
+        this.setRoundsInJail(0);
+        this.getOutOfJail.get(0).chanceEffect(gameState);
+        this.getOutOfJail.remove(0);
     }
 
     public int getRoundsInJail() {
@@ -187,5 +195,8 @@ public class Player {
 
     public void setRoundsInJail(int roundsInJail) {
         this.roundsInJail = roundsInJail;
+    }
+    public void stayInJail(){
+        this.roundsInJail++;
     }
 }
