@@ -11,6 +11,8 @@ public class Street extends Property{
 
     private int houseAmount = 0;
 
+    private boolean hotel = false;
+
     private int[] rent = new int[6];
 
 
@@ -38,9 +40,16 @@ public class Street extends Property{
             }
         } else {
             //Pay rent
+
             int rentToPay = rent[houseAmount];
 
-            if (currentPlayer.setBalance(-rentToPay)) {
+            if (owner == currentPlayer) {
+                String msg = "Du er landet på di egen grund";
+                gameState.getGuiController().displayMsg(msg);
+            } else if (gameState.getFieldController().isJailed(owner)) {
+                String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " men da ejeren er i fængselbetales ingen leje ";
+                gameState.getGuiController().displayMsg(msg);
+            } else if (currentPlayer.setBalance(-rentToPay)) {
                 String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " betal leje " + rentToPay;
                 gameState.getGuiController().displayMsg(msg);
 
@@ -95,5 +104,13 @@ public class Street extends Property{
 
     public int getHouseAmount() {
         return houseAmount;
+    }
+
+    public boolean isHotel() {
+        return hotel;
+    }
+
+    public void setHotel(boolean hotel) {
+        this.hotel = hotel;
     }
 }
