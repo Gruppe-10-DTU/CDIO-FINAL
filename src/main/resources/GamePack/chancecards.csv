@@ -24,8 +24,8 @@ ChangeBalance,CHANGE_BALANCE_22,,200,false,
 MoveXSteps,MOVE_X_STEPS_1,,3,,
 MoveXSteps,MOVE_X_STEPS_2,,-3,,
 MoveXSteps,MOVE_X_STEPS_3,,-3,,
-MoveToField,MOVE_TO_FIELD_1,,,false,0
-MoveToField,MOVE_TO_FIELD_2,,,false,0
+MoveToField,MOVE_TO_FIELD_1,,,true,0
+MoveToField,MOVE_TO_FIELD_2,,,true,0
 MoveToField,MOVE_TO_FIELD_3,,,false,10
 MoveToField,MOVE_TO_FIELD_4,,,false,10
 MoveToField,MOVE_TO_FIELD_5,,,true,37
