@@ -42,6 +42,6 @@ public class CheatDiceHolder extends DiceHolder{
 
     @Override
     public boolean isEqual() {
-        return 0<=this.isEqualAmount--;
+        return 0<this.isEqualAmount--;
     }
 }
