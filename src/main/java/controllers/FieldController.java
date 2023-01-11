@@ -121,7 +121,6 @@ public class FieldController {
      */
     public void jailPlayer(Player player) {
 
-
         for (Object field : fieldArrayList) {
             if (field instanceof Jail) {
                 if (((Jail) field).getName().equals("I fængsel/På besøg")){
@@ -130,6 +129,15 @@ public class FieldController {
                     player.setLocation(jailLocation);
                     break;
                 }
+            }
+        }
+    }
+
+    public void freePlayer(Player player) {
+        for (Object field : fieldArrayList) {
+            if (field instanceof Jail) {
+                ((Jail) field).setInJailRemove(player);
+                break;
             }
         }
     }
@@ -160,12 +168,39 @@ public class FieldController {
         return totalAmount;
     }
 
+
     public Field getField(int fieldID) {
         return fieldArrayList.get(fieldID);
     }
 
     public ArrayList<Field> getFieldList() {
         return fieldArrayList;
+    }
+
+
+
+    /**
+     * see if a propertys neighbor have the same owner
+     * @param property the property in question
+     * @return true if the same owner, otherwise false
+     */
+    public boolean sameOwner(Street property){
+        Street property2;
+        if(property.getID() % 3 == 1){
+            //If the property is the first one, %3 will always be one and we'll add one to get the neighbor and compare the owners
+            property2 = (Street) fieldArrayList.get(property.getID()+1);
+        }else{
+            //If the property is the second one, %3 will always be 2 and we'll subtract one to get the neighbor and compare the owners
+            property2 = (Street) fieldArrayList.get(property.getID()-1);
+        }
+        return property2.getOwner() != null && property.getOwner().equals(property2.getOwner());
+    }
+    public boolean sellField(Street property, Player buyer){
+        return true;
+    }
+
+    public Street[] getFieldOtherPlayers(Player player) {
+        return fieldArrayList.stream().filter(field -> field instanceof Street && ((Street) field).getOwner() != player).toArray(Street[]::new);
     }
 
     @Override
@@ -179,5 +214,12 @@ public class FieldController {
     }
     public boolean isJailed(Player player){
         return ((Jail)fieldArrayList.get(10)).isInJail(player);
+    }
+
+    public void setOwner(Player player, int propertyId) {
+        Field property = fieldArrayList.get(propertyId);
+        if (property instanceof Street) {
+            ((Street) property).setOwner(player);
+        }
     }
 }

@@ -67,6 +67,32 @@ class FieldControllerTest {
         assertEquals(jailIndex, mockPlayer1.getLocation());
     }
 
+
+    @Test
+    void FreePlayer() {
+        //Jail the player
+        fieldcontroller.jailPlayer(mockPlayer1);
+
+        for (Object field : fieldcontroller.fieldArrayList) {
+            if ( field instanceof Jail) {
+
+                //Check that player was jailed
+                assertTrue(((Jail) field).getInJail().contains(mockPlayer1));
+                break;
+            }
+        }
+
+        //Free the player
+        fieldcontroller.freePlayer(mockPlayer1);
+
+        for (Object field : fieldcontroller.fieldArrayList) {
+            if ( field instanceof Jail) {
+                //Check that player is no longer jailed
+                assertFalse(((Jail) field).getInJail().contains(mockPlayer1));
+                break;
+            }
+        }
+    }
     @Test
     void playerPropertyValuesNoHouses() {
 

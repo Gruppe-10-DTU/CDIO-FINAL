@@ -141,4 +141,4 @@ class GameControllerTest {
         assertEquals(10, pc.getPlayerById(0).getLocation());
     }
 
-}
+    }
