@@ -11,6 +11,8 @@ public class Street extends Property{
 
     private int houseAmount = 0;
 
+    private boolean hotel = false;
+
     private int[] rent = new int[6];
 
 
@@ -95,5 +97,13 @@ public class Street extends Property{
 
     public int getHouseAmount() {
         return houseAmount;
+    }
+
+    public boolean isHotel() {
+        return hotel;
+    }
+
+    public void setHotel(boolean hotel) {
+        this.hotel = hotel;
     }
 }
