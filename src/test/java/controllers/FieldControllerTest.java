@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class FieldControllerTest {
 
     private static GameStateDTO gameStateDTO;
-    private static FieldController fieldController;
+    private static FieldController fieldcontroller;
     private static GUIControllerStub guiController;
     private static PlayerController playerController;
 
@@ -35,7 +35,7 @@ class FieldControllerTest {
     @BeforeEach
     void setUp() {
         Language language = new Language();
-        fieldController = new FieldController(language);
+        fieldcontroller = new FieldController(language);
         guiController = new GUIControllerStub();
         playerController = new PlayerController();
         playerController.addPlayer(0, "car", "test1",1);
@@ -44,7 +44,7 @@ class FieldControllerTest {
         gameStateDTO = new GameStateDTO(guiController);
         gameStateDTO.setActivePlayer(playerController.getPlayerById(0));
         gameStateDTO.setPlayerController(playerController);
-        gameStateDTO.setFieldController(fieldController);
+        gameStateDTO.setFieldController(fieldcontroller);
 
         gameStateDTO.getFieldController().fieldArrayList.clear();
         CSVMock.add(new ArrayList<>(Arrays.asList("Helsingør - Helsingborg","0","ferry","4000","","500","1000","2000","4000","","","")));
@@ -140,7 +140,7 @@ class FieldControllerTest {
         assertEquals(1, owned);
     }
 
-    /*
+
     @Test
     void playerPropertyValuesNoHouses() {
 
