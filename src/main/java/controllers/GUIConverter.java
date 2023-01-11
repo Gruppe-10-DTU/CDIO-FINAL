@@ -13,31 +13,13 @@ public class GUIConverter {
     public static GUI_Player[] playerToGUI(Player[] players){
         GUI_Player[] gui_players = new GUI_Player[players.length];
         for (int i = 0; i < players.length; i++) {
-            Color color = getColorChoice(players[i].getCharacter().getColor());
+            Color color = players[i].getCharacter().getColor();
             GUI_Car car = new GUI_Car( color, color, GUI_Car.Type.getTypeFromString(players[i].getCharacter().getName().toUpperCase()), GUI_Car.Pattern.ZEBRA);
             gui_players[i] = new GUI_Player(players[i].getIdentifier(), players[i].getBalance(), car);
         }
         return gui_players;
     }
 
-    private static Color getColorChoice(int color) {
-        switch (color){
-            case 0:
-                return Color.YELLOW;
-            case 1:
-                return Color.blue;
-            case 2:
-                return Color.white;
-            case 3:
-                return Color.black;
-            case 4:
-                return Color.red;
-            case 5:
-                return Color.gray;
-            default:
-                return Color.PINK;
-        }
-    }
 
     public static GUI_Field[] fieldListToGUI(ArrayList<Field> fieldList) {
         GUI_Field[] fields = new GUI_Field[fieldList.size()];
@@ -98,7 +80,7 @@ public class GUIConverter {
                         }
                     }
 
-                    fields[field.getID()] = new GUI_Street(field.getName(), " ", field.getName(), Integer.toString(prop.getPrice()), fieldColor, textColor);
+                    fields[field.getID()] = new GUI_Street(field.getName(), Integer.toString(prop.getPrice()) + "kr", field.getName(), Integer.toString(prop.getPrice()), fieldColor, textColor);
                     break;
                 }
                 case "Chance": {
@@ -119,12 +101,12 @@ public class GUIConverter {
                 }
                 case "Brewery": {
                     Brewery brewery = (Brewery) field;
-                    fields[field.getID()]=new GUI_Brewery("Default",brewery.getName(),brewery.getName(),brewery.getName(),Integer.toString(brewery.getRent0()),Color.white, Color.black);
+                    fields[field.getID()]=new GUI_Brewery("Default",brewery.getName(),Integer.toString(brewery.getPrice()) + "kr",brewery.getName(),Integer.toString(brewery.getRent0()),Color.white, Color.black);
                     break;
                 }
                 case "Ferry": {
                     Ferry ferry = (Ferry) field;
-                    fields[field.getID()]=new GUI_Shipping("Default",ferry.getName(),ferry.getName(),ferry.getName(),Integer.toString(ferry.getPrice()),Color.white, Color.black);
+                    fields[field.getID()]=new GUI_Shipping("Default",ferry.getName(),Integer.toString(ferry.getPrice()) + "kr",ferry.getName(),Integer.toString(ferry.getPrice()),Color.white, Color.black);
                     break;
                 }
                 case "Refuge": {

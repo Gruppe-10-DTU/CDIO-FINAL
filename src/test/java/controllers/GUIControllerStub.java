@@ -2,7 +2,7 @@ package controllers;
 
 import models.Player;
 import models.fields.Field;
-import models.fields.Start;
+import models.fields.Property;
 import models.fields.Street;
 
 import java.util.ArrayList;
@@ -111,7 +111,7 @@ public class GUIControllerStub extends ui.GUIController {
      * @param property Property to be changed
      */
     @Override
-    public void updateField(Street property) {
+    public void updateField(Property property) {
 
     }
 

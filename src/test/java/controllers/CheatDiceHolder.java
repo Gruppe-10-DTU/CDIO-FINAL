@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class CheatDiceHolder extends DiceHolder{
     int nextRoll;
     int[] rolls;
-    private int isEqualAmount = 2;
+    private int isEqualAmount = -1;
 
     public void setRolls(int... rolls){
         this.rolls = rolls;
@@ -42,6 +42,6 @@ public class CheatDiceHolder extends DiceHolder{
 
     @Override
     public boolean isEqual() {
-        return 0<=this.isEqualAmount--;
+        return 0<this.isEqualAmount--;
     }
 }

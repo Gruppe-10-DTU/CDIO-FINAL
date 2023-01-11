@@ -30,6 +30,9 @@ public class FieldController {
         createFieldArray(fieldData);
     }
 
+    public FieldController() {
+    }
+
     protected void createFieldArray(ArrayList<ArrayList<String>> fieldData) {
 
         for (int i = 0; i < fieldData.size(); i++) {
@@ -107,10 +110,8 @@ public class FieldController {
                     refuge.setName(fieldData.get(i).get(0));
                     break;
                 case "tax":
-                    Tax tax = new Tax();
+                    Tax tax = new Tax(fieldData.get(i).get(0), Integer.parseInt(fieldData.get(i).get(1)), Integer.parseInt(fieldData.get(i).get(3)),Integer.parseInt(fieldData.get(i).get(4)));
                     fieldArrayList.add(tax);
-                    tax.setID(Integer.parseInt(fieldData.get(i).get(1)));
-                    tax.setName(fieldData.get(i).get(0));
                     break;
             }
         }
@@ -154,35 +155,19 @@ public class FieldController {
      *
      * @return Hashmap, key: player objects, value: the total property value of set player
      */
-    public HashMap<Player, Integer> playerPropertyValues() {
-
-        HashMap<Player, Integer> playerValue = new HashMap<Player, Integer>();
-
-        for (Object field : fieldArrayList) {
-            if (field instanceof Street) {
-                Player owner = ((Street) field).getOwner();
-                if (owner != null) {
-                    if (!playerValue.containsKey(owner)) {
-                        playerValue.put(owner, 0);
-                    }
-                    int propertyValue = ((Street) field).getPrice();
-                    int currentSum = playerValue.get(owner);
-
-                    playerValue.put(owner, currentSum + propertyValue);
+    public int playerPropertyValues(Player player) {
+        int totalAmount = 0;
+        for (Field field : fieldArrayList) {
+            if (field instanceof Property && ((Property) field).getOwner() == player) {
+                totalAmount += ((Property) field).getPrice();
+                if(field instanceof Street){
+                    totalAmount += ((Street) field).getHouseAmount()*((Street) field).getHousePrice();
                 }
             }
         }
-        return playerValue;
+        return totalAmount;
     }
 
-
-
-    public void setOwner(Player player, int propertyId) {
-        Field property = fieldArrayList.get(propertyId);
-        if (property instanceof Street) {
-            ((Street) property).setOwner(player);
-        }
-    }
 
     public Field getField(int fieldID) {
         return fieldArrayList.get(fieldID);
@@ -274,4 +259,10 @@ public class FieldController {
         return ((Jail)fieldArrayList.get(10)).isInJail(player);
     }
 
+    public void setOwner(Player player, int propertyId) {
+        Field property = fieldArrayList.get(propertyId);
+        if (property instanceof Street) {
+            ((Street) property).setOwner(player);
+        }
+    }
 }

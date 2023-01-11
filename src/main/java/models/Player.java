@@ -1,6 +1,9 @@
 package models;
 
 import models.chanceCards.GetOutOfJail;
+import models.dto.GameStateDTO;
+
+import java.util.ArrayList;
 
 /**
  * Player class
@@ -12,29 +15,29 @@ public class Player {
     private Character character;
     private int soldSign = 12;
     private int location = 0;
-    private GetOutOfJail getOutOfJail;
+    private ArrayList<GetOutOfJail> getOutOfJail = new ArrayList<>();
     private int roundsInJail;
     /**
      * @param iD   id of the player
      * @param name name
-     * @default Balance is set to 20, soldSign set to 12, location set to 0, character not set
+     * @default Balance is set to 30000, soldSign set to 12, location set to 0, character not set
      */
     public Player(int iD, String name){
         this.iD = iD;
         this.identifier = name;
-        balance = new Balance(20);
+        balance = new Balance(30000);
     }
     /**
      * @param iD        id of the player
      * @param name      name
      * @param character The player character
-     * @default Balance is set to 20, location set to 0 and soldSign set to 12
+     * @default Balance is set to 30000, location set to 0 and soldSign set to 12
      */
     public Player(int iD, String name, Character character){
         this.iD = iD;
         this.identifier = name;
         this.character = character;
-        balance = new Balance(20);
+        balance = new Balance(30000);
     }
 
     /**
@@ -173,12 +176,17 @@ public class Player {
         this.location = location;
     }
 
-    public GetOutOfJail getGetOutOfJail() {
-        return getOutOfJail;
+    public boolean hasGetOutOfJail() {
+        return getOutOfJail.size() > 0;
     }
 
-    public void setGetOutOfJail(GetOutOfJail getOutOfJail) {
-        this.getOutOfJail = getOutOfJail;
+    public void addGetOutOfJail(GetOutOfJail getOutOfJail) {
+        this.getOutOfJail.add(getOutOfJail);
+    }
+    public void useGetOutOfJail(GameStateDTO gameState){
+        this.setRoundsInJail(0);
+        this.getOutOfJail.get(0).chanceEffect(gameState);
+        this.getOutOfJail.remove(0);
     }
 
     public int getRoundsInJail() {
@@ -187,5 +195,8 @@ public class Player {
 
     public void setRoundsInJail(int roundsInJail) {
         this.roundsInJail = roundsInJail;
+    }
+    public void stayInJail(){
+        this.roundsInJail++;
     }
 }

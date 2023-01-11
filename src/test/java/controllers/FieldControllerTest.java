@@ -5,6 +5,7 @@ import models.Player;
 import models.dto.GameStateDTO;
 import models.fields.Field;
 import models.fields.Jail;
+import models.fields.*;
 
 import models.fields.Start;
 import models.fields.Street;
@@ -141,7 +142,7 @@ class FieldControllerTest {
 
     /*
     @Test
-    void playerPropertyValues() {
+    void playerPropertyValuesNoHouses() {
 
         boolean ownerPlayer1 = true;
 
@@ -158,40 +159,65 @@ class FieldControllerTest {
             }
         }
 
-        HashMap playerValues = fieldcontroller.playerPropertyValues();
-
-        assertEquals(5, playerValues.get(mockPlayer1));
-        assertEquals(3, playerValues.get(mockPlayer2));
+        //2 first cost 1200, 3 next cost 6000
+        assertEquals(13200, fieldcontroller.playerPropertyValues(mockPlayer1));
+        assertEquals(7200, fieldcontroller.playerPropertyValues(mockPlayer2));
     }
 
-     */
+    @Test
+    void playerPropertyValuesWithHouses() {
 
+        boolean ownerPlayer1 = true;
 
-    /*@Test
-    void sameOwner() {
-        Player player1 = new Player(0,"test");
-        Field field;
-        fieldcontroller.setOwner(player1, 8);
+        //place the players as owners
+        for (Object field : fieldcontroller.fieldArrayList) {
+            if ( field instanceof Street) {
+                if (ownerPlayer1) {
+                    ((Street) field).setOwner(mockPlayer1);
+                    ((Street) field).setHouseAmount(2);
+                    ownerPlayer1 = false;
+                } else {
+                    ((Street) field).setOwner(mockPlayer2);
+                    ((Street) field).setHouseAmount(3);
+                    ownerPlayer1 = true;
+                }
+            }
+        }
 
-        Street property = (Street) fieldcontroller.getField(8);
-        assertFalse(fieldcontroller.sameOwner(property));
-        fieldcontroller.setOwner(player1, 7);
-        assertTrue(fieldcontroller.sameOwner(property));
+        //2 first cost 1200, house 1000, 3 next cost 6000, house 4000
+        //Player one 2 houses, player 2 3
+        assertEquals(31200, fieldcontroller.playerPropertyValues(mockPlayer1));
+        assertEquals(22200, fieldcontroller.playerPropertyValues(mockPlayer2));
+    }
+    @Test
+    void playerPropertyValuesWithHousesAndBrewery() {
 
-        //Reset
-        fieldcontroller.setOwner(null, 7);
-        fieldcontroller.setOwner(null, 8);
-        //Other way
+        boolean ownerPlayer1 = true;
+        Brewery brewery = new Brewery();
+        brewery.setPrice(3000);
+        fieldcontroller.fieldArrayList.add(brewery);
 
-        fieldcontroller.setOwner(player1, 7);
+        //place the players as owners
+        for (Object field : fieldcontroller.fieldArrayList) {
+            if ( field instanceof Street) {
+                if (ownerPlayer1) {
+                    ((Street) field).setOwner(mockPlayer1);
+                    ((Street) field).setHouseAmount(2);
+                    ownerPlayer1 = false;
+                } else {
+                    ((Street) field).setOwner(mockPlayer2);
+                    ((Street) field).setHouseAmount(3);
+                    ownerPlayer1 = true;
+                }
+            } else if (field instanceof Brewery) {
+                ((Brewery) field).setOwner(mockPlayer1);
+            }
+        }
 
-        property = (Street) fieldcontroller.getField(7);
-        assertFalse(fieldcontroller.sameOwner(property));
-        fieldcontroller.setOwner(player1, 8);
-        assertTrue(fieldcontroller.sameOwner(property));
-
-        fieldcontroller.setOwner(null, 7);
-        fieldcontroller.setOwner(null, 8);
-    }*/
+        //2 first cost 1200, house 1000, 3 next cost 6000, house 4000
+        //Player one 2 houses, player 2 3
+        assertEquals(34200, fieldcontroller.playerPropertyValues(mockPlayer1));
+        assertEquals(22200, fieldcontroller.playerPropertyValues(mockPlayer2));
+    }
 
 }

@@ -3,7 +3,7 @@ Start,0,start,,,,,,,,,
 Rødovrevej,1,street,1200,1000,50,250,750,2250,4000,6000,blue
 Prøv lykken,2,chance,,,,,,,,,
 Hvidovrevej,3,street,1200,1000,50,250,400,750,2250,6000,blue
-Indkomstskat,4,tax,4000,,,,,,,,
+Indkomstskat,4,tax,4000,10,,,,,,,
 Helsingør - Helsingborg,5,ferry,4000,,500,1000,2000,4000,,,
 Roskildevej,6,street,2000,1000,100,600,1800,5400,8000,11000,pink
 Prøv lykken,7,chance,,,,,,,,,
@@ -37,5 +37,5 @@ Nygade,34,street,6400,4000,600,3000,9000,20000,24000,28000,yellow
 Rødby - Puttgarden,35,ferry,4000,,500,1000,2000,4000,,,
 Prøv lykken,36,chance,,,,,,,,,
 Frederiksberggade,37,street,7000,4000,700,3500,10000,22000,26000,30000,purple
-Ekstraordinær statsskat,38,tax,2000,,,,,,,,
+Ekstraordinær statsskat,38,tax,2000,0,,,,,,,
 Rådhuspladsen,39,street,8000,4000,1000,4000,12000,28000,34000,40000,purple
