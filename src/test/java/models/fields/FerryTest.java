@@ -31,6 +31,7 @@ class FerryTest {
         gameStateDTO = new GameStateDTO(guiController);
         gameStateDTO.setActivePlayer(playerController.getPlayerById(0));
         gameStateDTO.setPlayerController(playerController);
+        gameStateDTO.setFieldController(fieldController);
     }
 
 
@@ -75,6 +76,37 @@ class FerryTest {
         assertNull(playerController.getPlayerById(0));
 
     }
+
+    @Test
+    void steetEffectGetRent2Owned() {
+        Ferry ferry1 = (Ferry) fieldController.getField(5);
+        ferry1.setOwner(playerController.getPlayerById(1));
+        Ferry ferry2 = (Ferry) fieldController.getField(15);
+        ferry2.setOwner(playerController.getPlayerById(1));
+        ferry1.fieldEffect(gameStateDTO);
+
+        assertNotEquals(ferry1.getOwner().getIdentifier(), gameStateDTO.getActivePlayer().getIdentifier());
+        assertEquals(30000-ferry1.getRent()[1], gameStateDTO.getActivePlayer().getBalance());
+        assertEquals(30000+ferry1.getRent()[1], ferry1.getOwner().getBalance());
+    }
+
+    @Test
+    void steetEffectGetRent4Owned() {
+        Ferry ferry1 = (Ferry) fieldController.getField(5);
+        ferry1.setOwner(playerController.getPlayerById(1));
+        Ferry ferry2 = (Ferry) fieldController.getField(15);
+        ferry2.setOwner(playerController.getPlayerById(1));
+        Ferry ferry3 = (Ferry) fieldController.getField(25);
+        ferry3.setOwner(playerController.getPlayerById(1));
+        Ferry ferry4 = (Ferry) fieldController.getField(35);
+        ferry4.setOwner(playerController.getPlayerById(1));
+        ferry4.fieldEffect(gameStateDTO);
+
+        assertNotEquals(ferry4.getOwner().getIdentifier(), gameStateDTO.getActivePlayer().getIdentifier());
+        assertEquals(30000-ferry4.getRent()[3], gameStateDTO.getActivePlayer().getBalance());
+        assertEquals(30000+ferry4.getRent()[3], ferry4.getOwner().getBalance());
+    }
+
 
 
 }

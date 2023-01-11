@@ -34,6 +34,7 @@ class BreweryTest {
         gameStateDTO.setActivePlayer(playerController.getPlayerById(0));
         gameStateDTO.setPlayerController(playerController);
         gameStateDTO.setDiceHolder(cheatDiceHolder);
+        gameStateDTO.setFieldController(fieldController);
     }
 
     @Test
@@ -56,7 +57,6 @@ class BreweryTest {
         assertNotEquals(brewery.getOwner().getIdentifier(), gameStateDTO.getActivePlayer().getIdentifier());
         assertEquals(30000-brewery.getRent0()*cheatDiceHolder.sum(), gameStateDTO.getActivePlayer().getBalance());
         assertEquals(30000+brewery.getRent0()*cheatDiceHolder.sum(), brewery.getOwner().getBalance());
-
     }
 
     @Test
@@ -75,6 +75,20 @@ class BreweryTest {
         assertEquals(1, playerController.getPlayers().length);
         assertNull(playerController.getPlayerById(0));
 
+    }
+
+    @Test
+    void breweryEffectGetRent2Owned() {
+        Brewery brewery1 = (Brewery) fieldController.getField(12);
+        brewery1.setOwner(playerController.getPlayerById(1));
+        Brewery brewery2 = (Brewery) fieldController.getField(28);
+        brewery2.setOwner(playerController.getPlayerById(1));
+
+        brewery1.fieldEffect(gameStateDTO);
+
+        assertNotEquals(brewery1.getOwner().getIdentifier(), gameStateDTO.getActivePlayer().getIdentifier());
+        assertEquals(30000-brewery1.getRent1()*cheatDiceHolder.sum(), gameStateDTO.getActivePlayer().getBalance());
+        assertEquals(30000+brewery1.getRent1()*cheatDiceHolder.sum(), brewery1.getOwner().getBalance());
     }
 
 }
