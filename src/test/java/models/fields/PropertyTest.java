@@ -24,7 +24,7 @@ class PropertyTest {
     }
 
     @Test
-    void auction() {
+    void auctionTwoPeople() {
         Property property = new Street();
         pc.getPlayerById(1).setBalance(-29996);
         pc.getPlayerById(0).setBalance(-29990);
@@ -33,5 +33,28 @@ class PropertyTest {
         property.auction(gameStateDTO);
         assertEquals(5,pc.getPlayerById(0).getBalance());
         assertEquals(property.getOwner(), pc.getPlayerById(0));
+    }
+    @Test
+    void auctionOnePersonCanAfford() {
+        Property property = new Street();
+        pc.getPlayerById(0).setBalance(-30000);
+        gameStateDTO.setPlayerController(pc);
+        gui.setButtonClicked(true);
+        property.auction(gameStateDTO);
+        assertEquals(29999,pc.getPlayerById(1).getBalance());
+        assertEquals(property.getOwner(), pc.getPlayerById(1));
+    }
+
+    @Test
+    void auctionCorrectOrder() {
+        Property property = new Street();
+        gameStateDTO.setActivePlayer(pc.getPlayerById(0));
+        pc.getPlayerById(0).setBalance(-29999);
+        pc.getPlayerById(1).setBalance(-29999);
+        gameStateDTO.setPlayerController(pc);
+        gui.setButtonClicked(true);
+        property.auction(gameStateDTO);
+        assertEquals(0,pc.getPlayerById(1).getBalance());
+        assertEquals(property.getOwner(), pc.getPlayerById(1));
     }
 }
