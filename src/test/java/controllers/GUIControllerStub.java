@@ -11,7 +11,7 @@ public class GUIControllerStub extends ui.GUIController {
     public String[] names = {"test1","test2", "test3", "test4", "Test5"};
     public String[] characters = {"Car", "Tractor", "Racecar", "UFO"};
     int playerIndex = 0;
-    private boolean buttonClicked;
+    private boolean buttonClicked = true;
 
     public void setButtonClicked(boolean buttonClicked) {
         this.buttonClicked = buttonClicked;
