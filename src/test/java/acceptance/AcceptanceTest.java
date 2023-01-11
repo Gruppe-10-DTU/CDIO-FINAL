@@ -232,4 +232,25 @@ public class AcceptanceTest {
         gc.startGame();
         gui.displayMsg("Testen er nu overstået");
     }
+
+    @Test
+    void AK22(){
+        pc.addPlayer(0,"UFO","BuildHouseTest",2);
+        pc.addPlayer(1,"UFO","Dummy1",3);
+        gui.setPlayers(pc.getPlayers());
+        gui.updatePlayer(pc.getPlayerById(0));
+        pc.getPlayerById(0).setLocation(39);
+        gui.updatePlayer(pc.getPlayerById(0));
+        Street street1 = (Street) fc.getField(1);
+        Street street2 = (Street) fc.getField(3);
+        Chance chance = (Chance) fc.getField(2);
+        Deck deck = new Deck(language);
+        dH.setRolls(1,1);
+        gc.takeTurn(pc.getPlayerById(0));
+        gc.takeTurn(pc.getPlayerById(0));
+        pc.getPlayerById(0).setLocation(39);
+        gui.updatePlayer(pc.getPlayerById(0));
+        gc.takeTurn(pc.getPlayerById(0));
+
+    }
 }

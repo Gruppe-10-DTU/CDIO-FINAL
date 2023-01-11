@@ -132,24 +132,22 @@ public class GameController implements ActionListener {
         gameState.setOtherPlayers(playerController.otherPlayers(player.getID()));
         //Tjek huskøb
         if(ownsGroup.length >= 1) {
-            boolean looper = guiController.yesnoSelection("canBuildHouses");
-            while (looper) {
-                String whereToBuild = guiController.selectBuild("selectBuildingText", fieldController.ownsColourGroup(player));
+            boolean looper = guiController.yesnoSelection(language.getLanguageValue("canBuildHouses"));
+            while (looper && ownsGroup.length>=1) {
+                String whereToBuild = guiController.selectBuild(language.getLanguageValue( "selectBuildingText"), fieldController.ownsColourGroup(player));
                 if (!(player.getBalance() >= fieldController.getStreetFromString(whereToBuild).getHousePrice())) {
-                    looper = guiController.yesnoSelection("lackingFunds");
+                    looper = guiController.yesnoSelection(language.getLanguageValue("lackingFunds"));
                 } else {
                     //Tjek om hans huse er udlignet (For at bygge 2 skal der være mindst 1 på alle andre i samme farve.)
-                    if (fieldController.getStreetFromString(whereToBuild).getHousePrice() <= player.getBalance()) {
+                    if (fieldController.getStreetFromString(whereToBuild).getHousePrice() <= player.getBalance() && fieldController.getStreetFromString(whereToBuild).getHouseAmount() < 4) {
                         fieldController.addHouse(fieldController.getStreetFromString(whereToBuild));
-                        guiController.guiAddHouses(fieldController.getStreetFromString(whereToBuild));
+                        guiController.guiAddHouse(fieldController.getStreetFromString(whereToBuild),fieldController.getStreetFromString(whereToBuild).getHouseAmount());
                     } else {
-                        looper = guiController.yesnoSelection("lackingFunds");
+                        looper = guiController.yesnoSelection(language.getLanguageValue("lackingFunds"));
                     }
                 }
             }
-
-            }
-
+        }
         //Tjek jail
         if(fieldController.isJailed(player)) {
             fieldController.landOnField(gameState);

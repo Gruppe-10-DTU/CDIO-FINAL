@@ -217,7 +217,7 @@ public class GUIController {
     }
 
     public String selectBuild(String selectBuild, Street[] choices){
-        String[] strings = Arrays.copyOf(choices, choices.length, String[].class);
+        String[] strings = Arrays.stream(choices).map((x -> x.getName())).toArray(String[]::new);
         return gui.getUserSelection(selectBuild, strings);
     }
 
@@ -239,9 +239,9 @@ public class GUIController {
        return gui.getUserInteger(howMany);
     }
 
-    public void guiAddHouses(Street property){
+    public void guiAddHouse(Street property, int amount){
         GUI_Street street = (GUI_Street) gui.getFields()[property.getID()];
-        street.setHouses(1);
+        street.setHouses(amount);
     }
 
     public String selectedStreetBuild(String selectBuildingStreet,String streets){

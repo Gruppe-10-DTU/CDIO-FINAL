@@ -15,6 +15,11 @@ public class FieldController {
 
     private Language language;
 
+    private static int housePool = StartValues.getInstance().getValue("housePool");
+
+    private static int hotelPool = StartValues.getInstance().getValue("hotelPool");
+
+
     /**
      * The constructer recieves the language and constructs an arraylist of field objects in the corect language
      */
@@ -247,28 +252,36 @@ public class FieldController {
     public Street[] ownsColourGroup(Player player) {
         ArrayList<Street> localData = new ArrayList<>();
         ArrayList<Street> propertiesToUpgrade = new ArrayList<>();
-        for (int i = 0; i < fieldArrayList.size(); i += 5) {
-            for (int j = i; j <= i + 4; j++) {
-                if (fieldArrayList.get(j) instanceof Street && ((Street) fieldArrayList.get(j)).getOwner() != player) {
+        for (int i = 0; i < fieldArrayList.size(); i += 4) {
+            for (int k = i; k <= i + 4; k++) {
+                if (fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).getOwner() != player) {
                     localData.clear();
                     break;
-                } else {
-                    if(fieldArrayList.get(j) instanceof Street && ((Street) fieldArrayList.get(j)).getHouseAmount() == 4){
-                        ((Street) fieldArrayList.get(j)).setHotel(true);
-                        localData.add((Street) fieldArrayList.get(j));
-                    }else if(fieldArrayList.get(j) instanceof Street && ((Street) fieldArrayList.get(j)).getHouseAmount() < 4){
-                        localData.add((Street) fieldArrayList.get(j));
-                    }
+                } else{
+                    }if(fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).getHouseAmount() < 4 && ((Street) fieldArrayList.get(k)).getOwner() == player && buildingEqual(i,k)){
+                        localData.add((Street) fieldArrayList.get(k));
+                    }else if(fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).getHouseAmount() == 4 && ((Street) fieldArrayList.get(k)).getOwner() == player){
+                    localData.remove((Street) fieldArrayList.get(k));
+                }
                 }
                 propertiesToUpgrade.addAll(localData);
                 localData.clear();
-            }
         }
         return propertiesToUpgrade.toArray(Street[]::new);
     }
 
+    public boolean buildingEqual(int input1, int input2) {
+        if (fieldArrayList.get(input2) instanceof Street && ((Street) fieldArrayList.get(input2)).getHouseAmount() <= ((Street) fieldArrayList.get(input1)).getHouseAmount()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+
     public void addHouse(Street property) {
-        property.setHouseAmount(1);
+        property.setHouseAmount(property.getHouseAmount()+1);
         property.getOwner().setBalance(-property.getHousePrice());
 
     }
