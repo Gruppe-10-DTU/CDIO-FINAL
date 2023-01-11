@@ -43,12 +43,4 @@ public class MoveToField extends ChanceCard{
         gameState.getChancecardDeck().returnToDeck(this);
         return gameState;
     }
-
-    public int getFieldID() {
-        return FIELD_ID;
-    }
-
-    public boolean getPASS_START_BONUS() {
-        return PASS_START_BONUS;
-    }
 }

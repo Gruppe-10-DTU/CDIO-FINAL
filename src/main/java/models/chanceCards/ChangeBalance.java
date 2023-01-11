@@ -35,11 +35,4 @@ public class ChangeBalance extends ChanceCard{
         gameState.getChancecardDeck().returnToDeck(this);
         return gameState;
     }
-
-    public int getEffect() {
-        return EFFECT;
-    }
-    public boolean getFromOthers(){
-        return FROM_OTHERS;
-    }
 }

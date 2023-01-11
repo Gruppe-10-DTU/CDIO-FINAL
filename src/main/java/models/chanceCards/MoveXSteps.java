@@ -30,9 +30,4 @@ public class MoveXSteps extends ChanceCard{
         gameState.getChancecardDeck().returnToDeck(this);
         return gameState;
     }
-
-
-    public int getMaxSteps() {
-        return MAX_STEPS;
-    }
 }
