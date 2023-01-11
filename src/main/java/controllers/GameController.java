@@ -155,6 +155,7 @@ public class GameController implements ActionListener {
                 fieldController.landOnField(gameState);
             }
             guiController.updatePlayer(player);
+            guiController.updateBoard(playerController,fieldController);
         }
     }
 
