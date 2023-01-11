@@ -41,6 +41,7 @@ public class GameController implements ActionListener {
         gameState.setFieldController(fieldController);
         gameState.setPlayerController(playerController);
         gameState.setChancecardDeck(deck);
+        gameState.setDiceHolder(diceHolder);
         this.initialize();
     }
 
