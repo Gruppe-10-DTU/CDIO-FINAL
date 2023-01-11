@@ -51,7 +51,15 @@ public class Brewery extends Property{
         } else {
             //Pay rent
             int diceAmount = gameState.getDiceHolder().sum();
-            int rentToPay = rent0 * diceAmount;
+            int ownerPropertyAmount = gameState.getFieldController().breweriesOwned(owner, iD);
+            int rentToPay;
+
+
+            if (ownerPropertyAmount == 2) {
+                rentToPay = rent1 * diceAmount;
+            } else {
+                rentToPay = rent0 * diceAmount;
+            }
 
             if (currentPlayer.getBalance() >= rentToPay) {
                 String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " betal leje " + rentToPay;

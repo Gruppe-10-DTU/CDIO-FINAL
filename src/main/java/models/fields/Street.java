@@ -39,8 +39,7 @@ public class Street extends Property{
                 //Player must leve the game
             }
         } else {
-            //Pay rent
-
+        
             int rentToPay = rent[houseAmount];
 
             if (owner == currentPlayer) {

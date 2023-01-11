@@ -66,6 +66,38 @@ class StreetTest {
 
         street.fieldEffect(gameStateDTO);
 
+        assertEquals(1, playerController.getPlayers().length);
+        assertNull(playerController.getPlayerById(0));
+    }
+
+    @Test
+    void doubleRent2Properties() {
+        Street blueStreet1 = (Street) fieldController.getField(1);
+        blueStreet1.setOwner(playerController.getPlayerById(1));
+        Street blueStreet2 = (Street) fieldController.getField(3);
+        blueStreet2.setOwner(playerController.getPlayerById(1));
+
+        blueStreet1.fieldEffect(gameStateDTO);
+
+        assertEquals(30000-blueStreet1.getRent()[0]*2, gameStateDTO.getActivePlayer().getBalance());
+        assertEquals(30000+blueStreet1.getRent()[0]*2, blueStreet1.getOwner().getBalance());
+
+    }
+
+    @Test
+    void doubleRent3Properties() {
+        Street pinkStreet1 = (Street) fieldController.getField(6);
+        pinkStreet1.setOwner(playerController.getPlayerById(1));
+        Street pinkStreet2 = (Street) fieldController.getField(8);
+        pinkStreet2.setOwner(playerController.getPlayerById(1));
+        Street pinkStreet3 = (Street) fieldController.getField(9);
+        pinkStreet3.setOwner(playerController.getPlayerById(1));
+
+        pinkStreet3.fieldEffect(gameStateDTO);
+
+        assertEquals(30000-pinkStreet3.getRent()[0]*2, gameStateDTO.getActivePlayer().getBalance());
+        assertEquals(30000+pinkStreet3.getRent()[0]*2, pinkStreet3.getOwner().getBalance());
+
         assertEquals(30000, playerController.getPlayerById(0).getBalance());
     }
 }
