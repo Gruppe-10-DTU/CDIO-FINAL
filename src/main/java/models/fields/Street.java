@@ -38,7 +38,17 @@ public class Street extends Property{
             }
         } else {
             //Pay rent
-            int rentToPay = rent[houseAmount];
+            int ownerPropertyAmound = 1;
+            int rentToPay;
+
+            if (houseAmount > 0) {
+                rentToPay = rent[houseAmount];
+            } else if (ownerPropertyAmound == 3) {
+                rentToPay = rent[0]*2;
+            } else {
+                rentToPay = rent[0];
+            }
+
 
             if (currentPlayer.setBalance(-rentToPay)) {
                 String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " betal leje " + rentToPay;
