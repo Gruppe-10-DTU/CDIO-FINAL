@@ -241,10 +241,6 @@ public class AcceptanceTest {
         gui.updatePlayer(pc.getPlayerById(0));
         pc.getPlayerById(0).setLocation(39);
         gui.updatePlayer(pc.getPlayerById(0));
-        Street street1 = (Street) fc.getField(1);
-        Street street2 = (Street) fc.getField(3);
-        Chance chance = (Chance) fc.getField(2);
-        Deck deck = new Deck(language);
         dH.setRolls(1,1);
         gc.takeTurn(pc.getPlayerById(0));
         gc.takeTurn(pc.getPlayerById(0));

@@ -128,17 +128,24 @@ public class GameController implements ActionListener {
      */
     public void takeTurn(Player player) {
         gameState.setActivePlayer(player);
-        Street[] ownsGroup = fieldController.ownsColourGroup(player);
         gameState.setOtherPlayers(playerController.otherPlayers(player.getID()));
+        Map<String,Street[]> ownsGroup = fieldController.ownsColourGroup(player);
+        Map<String,Street[]> placesToBuild = fieldController.buildEqual(ownsGroup);
         //Tjek huskøb
         if(ownsGroup.length >= 1) {
             boolean looper = guiController.yesnoSelection(language.getLanguageValue("canBuildHouses"));
-            while (looper && ownsGroup.length>=1) {
-                String whereToBuild = guiController.selectBuild(language.getLanguageValue( "selectBuildingText"), fieldController.ownsColourGroup(player));
+            boolean loopdeloop = true;
+            //Hvor kan der bygges?
+            while (looper && placesToBuild.size()>=1) {
+                if(!loopdeloop){
+                    looper = guiController.yesnoSelection(language.getLanguageValue("canBuildHouses"));
+                }
+                loopdeloop = false;
+                String colorChosen = guiController.selectColorBuild(language.getLanguageValue( "chooseColorOptions"), placesToBuild.keySet().toArray(String[]::new));
+                String whereToBuild = guiController.selectBuild(language.getLanguageValue( "selectBuildingText"), placesToBuild.get(colorChosen));
                 if (!(player.getBalance() >= fieldController.getStreetFromString(whereToBuild).getHousePrice())) {
                     looper = guiController.yesnoSelection(language.getLanguageValue("lackingFunds"));
                 } else {
-                    //Tjek om hans huse er udlignet (For at bygge 2 skal der være mindst 1 på alle andre i samme farve.)
                     if (fieldController.getStreetFromString(whereToBuild).getHousePrice() <= player.getBalance() && fieldController.getStreetFromString(whereToBuild).getHouseAmount() < 4) {
                         fieldController.addHouse(fieldController.getStreetFromString(whereToBuild));
                         guiController.guiAddHouse(fieldController.getStreetFromString(whereToBuild),fieldController.getStreetFromString(whereToBuild).getHouseAmount());
@@ -429,7 +436,7 @@ public class GameController implements ActionListener {
     public boolean win() {
         return playerController.getAvailablePlayers().size() == 1;
     }
-    public void winMsg(){
+    public void winMsg() {
         String winner = playerController.getPlayers()[0].getIdentifier();
         guiController.displayMsgNoBtn(language.getLanguageValue("winner") + " " + winner);
         JFrame f = new JFrame("popup");
@@ -443,7 +450,8 @@ public class GameController implements ActionListener {
         b.addActionListener(this);
         p2.add(b);
         p.show();
-
     }
+
 }
+
 

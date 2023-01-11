@@ -235,17 +235,12 @@ public class GUIController {
         }
     }
 
-    public Integer howManyHouses(String howMany){
-       return gui.getUserInteger(howMany);
-    }
-
     public void guiAddHouse(Street property, int amount){
         GUI_Street street = (GUI_Street) gui.getFields()[property.getID()];
         street.setHouses(amount);
     }
-
-    public String selectedStreetBuild(String selectBuildingStreet,String streets){
-        return gui.getUserSelection(selectBuildingStreet,streets.split(","));
+    public String selectColorBuild(String chooseColorOptions, String[] color){
+        return gui.getUserSelection(chooseColorOptions,color);
     }
 
 

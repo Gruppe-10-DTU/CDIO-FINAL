@@ -130,3 +130,4 @@ selectBuildingText=Vælg hvilken vej du gerne vil bygge dine bygninger på
 canBuildHouses=Du har samlet en hel gruppe af ejendomme, og kan nu bygge huse. Vil du fortsætte?
 howManyHouse=Hvor mange huse vil du bygge?
 lackingFunds=Det har du ikke råd til. Vil du fortsætte?
+chooseColorOptions=Vælg hvilken boliggruppe du gerne vil bygge huse på

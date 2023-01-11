@@ -5,9 +5,8 @@ import models.Player;
 import models.dto.GameStateDTO;
 import models.fields.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class FieldController {
 
@@ -258,26 +257,45 @@ public class FieldController {
                     localData.clear();
                     break;
                 } else{
-                    }if(fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).getHouseAmount() < 4 && ((Street) fieldArrayList.get(k)).getOwner() == player && buildingEqual(i,k)){
+                    }if(fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).getHouseAmount() < 4 && ((Street) fieldArrayList.get(k)).getOwner() == player){
                         localData.add((Street) fieldArrayList.get(k));
                     }else if(fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).getHouseAmount() == 4 && ((Street) fieldArrayList.get(k)).getOwner() == player){
                     localData.remove((Street) fieldArrayList.get(k));
                 }
-                }
-                propertiesToUpgrade.addAll(localData);
+            }
+            if(!localData.isEmpty()){
+                map.put(localData.get(0).getColor(), localData.toArray(Street[]::new));
                 localData.clear();
+                propertiesToUpgrade.addAll(localData);
+            }
+
         }
         return propertiesToUpgrade.toArray(Street[]::new);
     }
 
-    public boolean buildingEqual(int input1, int input2) {
-        if (fieldArrayList.get(input2) instanceof Street && ((Street) fieldArrayList.get(input2)).getHouseAmount() <= ((Street) fieldArrayList.get(input1)).getHouseAmount()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    public Map<String,Street[]> buildEqual(Map<String, Street[]> sort){
+        int minVal = 5;
+        ArrayList<Street> sortedStreet = new ArrayList<>();
+        for (Map.Entry<String,Street[]> entry: sort.entrySet()){
+            for (int i = 0; i < entry.getValue().length; i++) {
+                if(entry.getValue()[i].getHouseAmount() < minVal){
+                    minVal = entry.getValue()[i].getHouseAmount();
+                }
+            }
+            for (int i = 0; i < entry.getValue().length; i++) {
+                if(entry.getValue()[i].getHouseAmount() == minVal && entry.getValue()[i].getHouseAmount() != 4 ){
+                    sortedStreet.add(entry.getValue()[i]);
+                }
+            }
+            if(!sortedStreet.isEmpty()){
+                sort.replace(entry.getKey(), sortedStreet.toArray(Street[]::new));
+                sortedStreet.clear();
+            }
 
+
+        }
+        return sort;
+    }
 
 
     public void addHouse(Street property) {
