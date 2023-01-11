@@ -222,4 +222,11 @@ public class FieldController {
             ((Street) property).setOwner(player);
         }
     }
+    public int distToFirstFerry(Player player){
+        int steps = player.getLocation();
+        do{
+            steps++;
+        }while(!(fieldArrayList.get(steps) instanceof Ferry));
+        return steps - player.getLocation();
+    }
 }
