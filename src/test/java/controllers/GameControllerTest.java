@@ -122,7 +122,7 @@ class GameControllerTest {
     void testExtraTurn() {
         pc.getPlayerById(0).setLocation(0);
         diceHolder.setRolls(3,3);
-        diceHolder.setIsEqualAmount(0);
+        diceHolder.setIsEqualAmount(1);
         pc.getPlayerById(1).setBalance(-29999);
         ((Street)fieldController.getField(6)).setOwner(pc.getPlayerById(0));
         gameController.startGame();
@@ -133,24 +133,12 @@ class GameControllerTest {
     void testJailPlayer3Rolls() {
         pc.getPlayerById(0).setLocation(0);
         diceHolder.setRolls(3,3);
-        diceHolder.setIsEqualAmount(2);
+        diceHolder.setIsEqualAmount(3);
         pc.getPlayerById(1).setBalance(-29999);
         ((Street)fieldController.getField(6)).setOwner(pc.getPlayerById(0));
         gameController.startGame();
         assertTrue(fieldController.isJailed(pc.getPlayerById(0)));
         assertEquals(10, pc.getPlayerById(0).getLocation());
     }
-    /*
-    @Test
-    void testZeroBalance() {
-        Player[] players = pc.getPlayers();
-        players[1].setBalance(-10);
-        players[2].setBalance(-18);
-         assertEquals(players[0].getIdentifier(), gameController.checkAllBalance());
-    }
-
- */
-
-
 
     }
