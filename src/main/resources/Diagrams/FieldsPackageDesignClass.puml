@@ -6,12 +6,33 @@ package models.fields {
 abstract Field {
  # name : string
  # iD : int
+ + {abstract} fieldEffect(gameStateDTO : GameStateDTO) : GameStateDTO
 }
 
 class Property {
  - color : String
  - price : int
  - owner : Player
+ + auction(gameStateDTO : GameStateDTO) : GameStateDTO
+}
+class Brewery {
+ - rent0 : int
+ - rent1 : int
+}
+class Ferry {
+    - rent : int[0..3]
+
+    + setRent(index : int, rentAmound : int)
+}
+class Street {
+    - color : String
+    - housePrice : int
+    - houseAmount : int = 0
+    - hotel : boolean = false
+    - rent : int[0..5]
+
+    + setPrice(price : String)
+    + setRent(index : int, rentAmound : int)
 }
 class Empty{
 
@@ -22,11 +43,11 @@ class Chance {
 }
 
 class Jail {
- - inJail : ArrayList<Player>
- + getInJail() : ArrayList<Player>
+ - inJail : Playey[]
+ + getInJail() : Player[]
  + isInJail(Player) : boolean
- + setInJailAdd(Player)
- + setInJailRemove(Player)
+ + setInJailAdd(player : Player)
+ + setInJailRemove(player : Player)
 }
 
 class ToJail {
