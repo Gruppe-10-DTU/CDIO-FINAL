@@ -47,12 +47,11 @@ public class Tax extends Field{
                     gameState.getGuiController().displayMsg("Du betalte "+priceValue+" i skat.");
                 }else{
                     //Auktion
-
                     gameState.getGuiController().displayMsg("Du havde ikke råd til at betale og bliver fjernet");
                     gameState.getPlayerController().removePlayer(gameState.getActivePlayer().getID());
                 }
             }else{
-                int totalAmount = gameState.getFieldController().playerPropertyValues(gameState.getActivePlayer())*(priceProcent/100);
+                int totalAmount = Math.round((gameState.getFieldController().playerPropertyValues(gameState.getActivePlayer()) + gameState.getActivePlayer().getBalance())*(priceProcent/100.0f));
                 if(gameState.getActivePlayer().setBalance(totalAmount*-1)){
                     gameState.getGuiController().displayMsg("Du betalte "+totalAmount+" i skat for dine ejendomme.");
                 }else{
