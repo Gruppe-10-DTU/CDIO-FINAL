@@ -37,6 +37,7 @@ public class Street extends Property{
                 gameState.getGuiController().displayMsg(msg);
 
                 //Player must leve the game
+                this.auction(gameState);
             }
         } else {
         
