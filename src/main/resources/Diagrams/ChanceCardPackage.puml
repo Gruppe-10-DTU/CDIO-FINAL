@@ -15,6 +15,7 @@ abstract ChanceCard{
  # NAME : String
  # DESCRIPTION : String
  + getType() : String
+ + abstract chanceEffect() : gameStateDTO
 }
 
 class Choice {
