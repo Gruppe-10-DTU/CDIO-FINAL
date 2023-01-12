@@ -256,7 +256,9 @@ public class AcceptanceTest {
         pc.getPlayerById(0).setLocation(39);
         gui.updatePlayer(pc.getPlayerById(0));
         gc.takeTurn(pc.getPlayerById(0));
+        pc.getPlayerById(1).setLocation(39);
         gc.takeTurn(pc.getPlayerById(1));
+        gui.displayMsg("Testen er ovre");
 
     }
 }

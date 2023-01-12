@@ -156,6 +156,7 @@ public class GameController implements ActionListener {
                            }else if(fieldController.getStreetFromString(whereToBuild).getHousePrice()*5 <= player.getBalance() && fieldController.getStreetFromString(whereToBuild).getHouseAmount() == 4 && fieldController.getHotelPool() > 0) {
                                fieldController.addBuilding(fieldController.getStreetFromString(whereToBuild));
                                guiController.guiAddHotel(fieldController.getStreetFromString(whereToBuild));
+                               guiController.updatePlayer(player);
                            }
 
                         } else {
@@ -180,7 +181,7 @@ public class GameController implements ActionListener {
                     diceHolder.setSameRolls(0);
                 }
                 if (diceHolder.getSameRolls() == 3) {
-                    guiController.displayMsg("Ulovligheder! Du har rullet ens 3 gange i træk og skal derfor i fængsel.");
+                    guiController.displayMsg("Ulovligheder! De har rullet ens 3 gange i træk og skal derfor i fængsel.");
                     fieldController.jailPlayer(currentPlayer);
                     diceHolder.setSameRolls(0);
                 } else {
