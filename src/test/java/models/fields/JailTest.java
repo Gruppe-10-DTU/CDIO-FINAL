@@ -2,7 +2,7 @@ package models.fields;
 
 import controllers.*;
 import models.Language;
-import models.chanceCards.Deck;
+import controllers.Deck;
 import models.chanceCards.GetOutOfJail;
 import models.dto.GameStateDTO;
 import org.junit.jupiter.api.BeforeEach;

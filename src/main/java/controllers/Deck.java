@@ -1,7 +1,8 @@
-package models.chanceCards;
+package controllers;
 
 import controllers.CSVReader;
 import models.Language;
+import models.chanceCards.*;
 
 import java.util.ArrayList;
 

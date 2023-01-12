@@ -156,7 +156,7 @@ public class FieldController {
     }
 
     public int playerPropertyValues(Player player) {
-        int totalAmount = 0;
+        int totalAmount = player.getBalance();
         for (Field field : fieldArrayList) {
             if (field instanceof Property && ((Property) field).getOwner() == player) {
                 totalAmount += ((Property) field).getPrice();
@@ -318,7 +318,6 @@ public class FieldController {
     public void addHouse(Street property) {
         property.setHouseAmount(property.getHouseAmount()+1);
         property.getOwner().setBalance(-property.getHousePrice());
-
     }
     public void addHotel(Street property){
         property.setHotel(true);

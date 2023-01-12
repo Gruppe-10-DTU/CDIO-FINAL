@@ -1,7 +1,7 @@
 package models.chanceCards;
 
 import models.Language;
-import models.chanceCards.Deck;
+import controllers.Deck;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -4,7 +4,7 @@ import controllers.DiceHolder;
 import controllers.FieldController;
 import controllers.PlayerController;
 import models.Player;
-import models.chanceCards.Deck;
+import controllers.Deck;
 import ui.GUIController;
 
 import java.util.ArrayList;

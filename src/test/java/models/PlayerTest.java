@@ -3,7 +3,7 @@ package models;
 import controllers.FieldController;
 import controllers.GUIControllerStub;
 import junit.framework.TestCase;
-import models.chanceCards.Deck;
+import controllers.Deck;
 import models.chanceCards.GetOutOfJail;
 import models.dto.GameStateDTO;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,14 +1,9 @@
 package controllers;
 
 import models.Language;
-import models.chanceCards.Deck;
 import models.dto.GameStateDTO;
-import models.fields.Street;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ui.GUIController;
-
-import java.util.Properties;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;

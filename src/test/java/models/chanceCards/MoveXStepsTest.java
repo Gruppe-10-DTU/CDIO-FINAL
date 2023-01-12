@@ -1,5 +1,6 @@
 package models.chanceCards;
 
+import controllers.Deck;
 import controllers.FieldController;
 import controllers.GUIControllerStub;
 import controllers.PlayerController;

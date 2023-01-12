@@ -1,0 +1,184 @@
+@startuml
+class models.Character {
+- name: String
+- image: String
+- color: Color
+}
+
+class controllers.GUIConverter {
++ {static} playerToGUI(players: Player[]) : GUI_Player[]
++ {static} fieldListToGUI(fields: Field[]) : GUI_Field[]
+}
+class controllers.GameController {
+- diceHolder : DiceHolder
+- turnCounter : int
+- isOver : boolean
+- language : Language
+- guiController : GUIController
+- playerController : PlayerController
+- currentPlayer : Player
+- fieldController : FieldController
+- deck : Deck
+- p : Popup
+- looper : boolean
+- gameState : GameStateDTO
++ initialize()
++ startGame()
++ takeTurn(player: Player)
++ actionPerformed(e : ActionEvent)
++ win() : boolean
++ winMsg()
+}
+class controllers.FieldController {
+# fieldArrayList : Field[]
+- Language language
+- housePool : int = 32
+- hotelPool : int = 12
+# createFieldArray(ArrayList<ArrayList<String>>)
++ jailPlayer(player : Player)
++ freePlayer(player : Player)
++ landOnField(gameStateDTO : GameStateDTO) : GameStateDTO
++ playerPropertyValues(player : Player) : int
++ getField(id : int) : Field
+
++ ferrysOwned(player : Player,int,int) : int
++ breweriesOwned(player : Player,int) : int
++ toString() : String
++ isJailed(player : Player) : boolean
++ addHouse(street: Street)
++ addHotel(street: Street)
++ getStreetFromString(name: String) : Street
++ Map<String,Street[]> ownsColourGroup(player : Player)
++ Map<String,Street[]> buildEqual(ownedGroups: Map<String,Street[]>)
+}
+class models.Language {
+- HashMap<String,String> languageValues
++ String getLanguageValue(key : String,valueInsert : String) : String
++ String getLanguageValue(key: String) : String
++ updateLanguage(languageCode: String)
+}
+abstract class models.ChanceCard {
+# String NAME
+# String description
++ {abstract} chanceEffect(gameStateDTO : GameStateDTO) : GameStateDTO
+}
+
+class models.Player {
+- iD : int
+- balance : Balance
+- identifier : String
+- character : Character
+- location : int
+- getOutOfJail : GetOutOfJail[]
+- roundsInJail : int
+
++ setLocation(oldValue: int, increase: int)
++ hasGetOutOfJail() : boolean
++ addGetOutOfJail(GetOutOfJail)
++ useGetOutOfJail(GameStateDTO)
++ stayInJail()
+}
+
+class ui.guiController{
+}
+
+abstract class models.Field {
+# name : String
+# iD : int
++ {abstract} fieldEffect(gameStateDTO : GameStateDTO) : GameStateDTO
+}
+
+class controllers.PlayerController {
+- availablePlayers : LinkedHashMap<Integer,Player>
++ getAvailablePlayers() : LinkedHashMap<Integer,Player>
++ addPlayer(id: int,characterName : String,name : String, color : int)
++ removePlayer(id : int)
++ playerMove(player : Player,spaces : int) : Player
++ getPlayerById(id : int) : Player
++ otherPlayers(id : int) : Player[]
++ playerUnique(name : String) : boolean
+}
+class controllers.DiceHolder {
+- dice : Die[]
+- rolls : int[]
+- sameRolls : int
++ roll()
+- rollDie()
++ sum() : int
++ isEqual() : boolean
++ toString() : String
++ void incrementSameRolls()
+}
+class controllers.StartValues {
+- properties : Properties
+- {static} instance : StartValues
++ getValue(key : String) : int
+}
+
+class models.Balance {
+- balance : int
++ checkBalance() : boolean
+}
+
+class models.Die {
+- sides : int
++ roll() : int
+}
+
+class models.dto.GameStateDTO {
+- activePlayer: Player
+- otherPlayers: Player[]
+- guiController: GUIController
+- fieldController: FieldController
+- playerController: PlayerController
+- chancecardDeck: Deck
+- diceHolder: DiceHolder
+}
+class controllers.Deck {
+- deck : Card[]
+- reader : CSVReader
++ shuffle()
++ drawCard() : ChanceCard
++ getDeckSize() : int
++ returnToDeck(chanceCard : ChanceCard)
++ rigDeck(offset : int)
+}
+
+class controllers.CSVReader {
+- DELIMITER : String
+- reader : BufferedReader
+- headers : String[]
+- file : String
+- fileAsArrList : String[][]
++ getDataAsArrList() : String[][]
++ toString(): String
++ getHeaderIndex(key: String): int
+}
+
+'Models ejere
+models.Player o- models.Character
+models.Player o- models.Balance
+models.Player o- models.ChanceCard
+
+'Controllers ejere
+controllers.DiceHolder"1" o- "2"models.Die
+controllers.PlayerController "1" o- "3..6" models.Player
+controllers.FieldController"1" o- "40" models.Field
+'Game controller
+controllers.GameController o- controllers.PlayerController
+controllers.GameController o- controllers.FieldController
+controllers.GameController o- controllers.Deck
+controllers.GameController o- controllers.DiceHolder
+controllers.GameController o- models.dto.GameStateDTO
+controllers.GameController o- ui.guiController : controllers.GUIConverter
+(controllers.GameController, ui.guiController) .. controllers.GUIConverter
+
+controllers.FieldController -- controllers.CSVReader
+controllers.Deck -- controllers.CSVReader
+
+controllers.PlayerController <.. controllers.StartValues : use
+ui.guiController <.. controllers.StartValues : use
+
+models.dto.GameStateDTO -- models.Field
+models.dto.GameStateDTO -- models.ChanceCard
+@enduml

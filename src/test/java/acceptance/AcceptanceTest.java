@@ -4,7 +4,7 @@ import controllers.FieldController;
 import controllers.GameController;
 import controllers.PlayerController;
 import models.Language;
-import models.chanceCards.Deck;
+import controllers.Deck;
 import models.chanceCards.GetOutOfJail;
 import models.dto.GameStateDTO;
 import models.fields.*;
