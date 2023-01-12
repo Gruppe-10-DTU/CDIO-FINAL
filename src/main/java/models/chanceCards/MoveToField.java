@@ -24,6 +24,7 @@ public class MoveToField extends ChanceCard{
 
     @Override
     public GameStateDTO chanceEffect(GameStateDTO gameState){
+        gameState.getGuiController().showChanceCard(description);
         PlayerController playerController = gameState.getPlayerController();
         Player activePlayer = gameState.getActivePlayer();
 

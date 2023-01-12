@@ -23,7 +23,7 @@ public class ChangeBalance extends ChanceCard{
     public GameStateDTO chanceEffect(GameStateDTO gameState){
         Player currentPlayer = gameState.getActivePlayer();
         int total = 0;
-        gameState.getGuiController().displayMsg(description);
+        gameState.getGuiController().showChanceCard(description);
         if (FROM_OTHERS){
             for (Player otherPlayer : gameState.getOtherPlayers()) {
                 if (!otherPlayer.setBalance(EFFECT * -1)) {
