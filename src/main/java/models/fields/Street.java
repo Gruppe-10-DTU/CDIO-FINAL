@@ -64,7 +64,7 @@ public class Street extends Property{
                 gameState.getGuiController().displayMsg(msg);
 
             } else if (gameState.getFieldController().isJailed(owner)) {
-                String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " men da ejeren er i fængselbetales ingen leje ";
+                String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " men da ejeren er i fængsel betales ingen leje ";
                 gameState.getGuiController().displayMsg(msg);
 
             } else if (currentPlayer.setBalance(-rentToPay)) {
@@ -74,9 +74,17 @@ public class Street extends Property{
                 owner.setBalance(rentToPay);
                 gameState.getGuiController().updatePlayer(owner);
             } else {
-                //Cant pay the rent
                 String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " du har ikke råd til at betale lejen";
-                gameState.getGuiController().displayMsg(msg);
+                //Cant pay the rent
+                while(currentPlayer.getBalance() > rentToPay && gameState.getFieldController().ownsColourGroup(currentPlayer).size() != 0) {
+                    //ARBEJDER VIDERE HERFRA IMORGEN - LAV GUI METODE TIL AT FINDE UD AF HVILKEN GRUND HAN GERNE VIL SÆLGE BYGNINGER FRA!
+                    /*
+                    gameState.getFieldController().sellBuilding(gameState.getFieldController().ownsColourGroup(currentPlayer).get(gameState.getFieldController().getStreetFromString(gameState.getGuiController().selectBuild("Select building to sell",gameState.getFieldController().ownsColourGroup(currentPlayer)))));
+
+                     */
+                    gameState.getGuiController().displayMsg(msg);
+                }
+
 
                 //Player must leave the game (later the player will be able to sell things and stay in the game)
                 gameState.getPlayerController().removePlayer(currentPlayer.getID());

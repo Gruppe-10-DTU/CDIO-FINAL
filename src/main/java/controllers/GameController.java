@@ -147,7 +147,7 @@ public class GameController implements ActionListener {
                     String whereToBuild = guiController.selectBuild(language.getLanguageValue("selectBuildingText","" + placesToBuild.get(colorChosen)[0].getHousePrice()), placesToBuild.get(colorChosen));
                     if (player.getBalance() < fieldController.getStreetFromString(whereToBuild).getHousePrice()) {
                         looper = guiController.yesnoSelection(language.getLanguageValue("lackingFunds"));
-                    } else {
+                    }else {
                         if (fieldController.getStreetFromString(whereToBuild).getHousePrice() <= player.getBalance() && fieldController.getStreetFromString(whereToBuild).getHouseAmount() < 5) {
                            if(fieldController.getStreetFromString(whereToBuild).getHouseAmount() < 4 && fieldController.getHousePool() > 0) {
                                fieldController.addBuilding(fieldController.getStreetFromString(whereToBuild));
@@ -158,8 +158,7 @@ public class GameController implements ActionListener {
                                guiController.guiAddHotel(fieldController.getStreetFromString(whereToBuild));
                                guiController.updatePlayer(player);
                            }
-
-                        } else {
+                        }else {
                             looper = guiController.yesnoSelection(language.getLanguageValue("lackingFunds"));
                         }
                     }
@@ -184,7 +183,7 @@ public class GameController implements ActionListener {
                     guiController.displayMsg("Ulovligheder! De har rullet ens 3 gange i træk og skal derfor i fængsel.");
                     fieldController.jailPlayer(currentPlayer);
                     diceHolder.setSameRolls(0);
-                } else {
+                } else{
                     boolean overStart = player.getLocation() + diceHolder.sum() > StartValues.getInstance().getValue("boardSize");
                     playerController.playerMove(player, diceHolder.sum());
                     guiController.movePlayer(player);

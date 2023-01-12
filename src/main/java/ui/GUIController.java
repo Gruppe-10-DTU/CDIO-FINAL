@@ -11,9 +11,12 @@ import gui_main.GUI;
 import models.Language;
 import models.Player;
 import models.fields.*;
+import org.apache.commons.lang.ArrayUtils;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 
 public class GUIController {
     private GUI gui;
