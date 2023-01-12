@@ -17,7 +17,7 @@ public class Deck {
     public Deck(Language language) {
         final String DELIMITER = ",";
 
-        reader = new CSVReader("/GamePack/chancecards.csv", DELIMITER, true);
+        reader = new CSVReader("/GamePack/chancecards.final.csv", DELIMITER, true);
 
         ArrayList<ArrayList<String>> cardData = reader.getDataAsArrList();
 
