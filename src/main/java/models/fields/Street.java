@@ -2,6 +2,8 @@ package models.fields;
 import models.Player;
 import models.dto.GameStateDTO;
 
+import java.util.Map;
+
 
 public class Street extends Property{
 
@@ -36,15 +38,28 @@ public class Street extends Property{
                 String msg = "Du er landet på " + name + " Til en værdi af " + price + "og har dessværre ikke råd til at købe den";
                 gameState.getGuiController().displayMsg(msg);
 
-                //Player must leve the game
                 this.auction(gameState);
             }
         } else {
-        
-            int rentToPay = rent[houseAmount];
+
+            Map<String,Street[]> ownsGroup = gameState.getFieldController().ownsColourGroup(owner);
+
+            int rentToPay;
+
+            if (ownsGroup.containsKey(color)) {
+
+                if (houseAmount == 0) {
+                    rentToPay = rent[houseAmount]*2;
+                } else {
+                    rentToPay = rent[houseAmount];
+                }
+            } else {
+                rentToPay = rent[0];
+            }
+
 
             if (owner == currentPlayer) {
-                String msg = "Du er landet på di egen grund";
+                String msg = "Du er landet på din egen grund";
                 gameState.getGuiController().displayMsg(msg);
 
             } else if (gameState.getFieldController().isJailed(owner)) {
