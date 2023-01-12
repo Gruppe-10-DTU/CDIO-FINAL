@@ -136,20 +136,21 @@ public class GameController implements ActionListener {
         gameState.setOtherPlayers(playerController.otherPlayers(player.getID()));
         Map<String,Street[]> ownsGroup = fieldController.ownsColourGroup(player);
         Map<String,Street[]> placesToBuild = fieldController.buildEqual(ownsGroup);
-        Map<String,Street[]> placesToBuildHotels = fieldController.buildHotels(player);
+        Map<String,Street[]> placesToBuildHotels = fieldController.buildHotels(placesToBuild);
         //Tjek huskøb
         if(placesToBuild.size() >= 1 || placesToBuildHotels.size() >= 1) {
             if (placesToBuild.size() >= 1 && placesToBuildHotels.size() >= 1) {
-                boolean looper = guiController.yesnoSelection(language.getLanguageValue("canBuildHousesAndHotels", player.getIdentifier()));
-                boolean buildHouse = looper;
-                boolean buildHotel = looper;
+                looper = guiController.yesnoSelection(language.getLanguageValue("canBuildHousesAndHotels", player.getIdentifier()));
+                buildHouse = looper;
+                buildHotel = looper;
             } else if (placesToBuild.size() < 1 && placesToBuildHotels.size() >= 1) {
-                boolean looper = guiController.yesnoSelection(language.getLanguageValue("canBuildHotels", player.getIdentifier()));
-                boolean buildHotel = looper;
+                looper = guiController.yesnoSelection(language.getLanguageValue("canBuildHotels", player.getIdentifier()));
+                buildHotel = looper;
             } else {
-                boolean looper = guiController.yesnoSelection(language.getLanguageValue("canBuildHouses", player.getIdentifier()));
-                boolean buildHouse = looper;
+                looper = guiController.yesnoSelection(language.getLanguageValue("canBuildHouses", player.getIdentifier()));
+                buildHouse = looper;
             }
+        }
             boolean loopdeloop = true;
             //Hvor kan der bygges?
             while (looper && placesToBuild.size() >= 1 || looper && placesToBuildHotels.size() >= 1) {
@@ -184,7 +185,7 @@ public class GameController implements ActionListener {
                     if(placesToBuildHotels.size() <= 1){
                         buildHotel = true;
                     }
-                }else{
+                }else if(!buildHouse && buildHotel){
                     String colorChosen = guiController.selectColorBuild(language.getLanguageValue("chooseColorOptions"), placesToBuildHotels.keySet().toArray(String[]::new));
                     String whereToBuild = guiController.selectBuild(language.getLanguageValue("selectBuildingText"), placesToBuildHotels.get(colorChosen));
                     if (player.getBalance() < fieldController.getStreetFromString(whereToBuild).getHousePrice()*StartValues.getInstance().getValue("hotelPrice")) {
@@ -198,12 +199,12 @@ public class GameController implements ActionListener {
                         }
                     }
                     placesToBuild = fieldController.buildEqual(fieldController.ownsColourGroup(player));
-                    if(placesToBuildHotels.size() <= 1){
-                        buildHotel = true;
+                    if(placesToBuild.size() <= 1){
+                        buildHouse = true;
                     }
                 }
                 }
-            }
+
             //Tjek jail
             if (fieldController.isJailed(player)) {
                 fieldController.landOnField(gameState);

@@ -277,12 +277,14 @@ public class FieldController {
                     break;
                 } else {
                 }
-                if (fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).getHouseAmount() < 4 && ((Street) fieldArrayList.get(k)).getOwner() == player) {
+                if (fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).getHouseAmount() <= 4 && ((Street) fieldArrayList.get(k)).getOwner() == player) {
                     localData.add((Street) fieldArrayList.get(k));
-                } else if (fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).getHouseAmount() == 4 && ((Street) fieldArrayList.get(k)).getOwner() == player) {
-                    localData.remove((Street) fieldArrayList.get(k));
-                    ((Street) fieldArrayList.get(k)).setHotel(true);
                 }
+                /*else if (fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).getHouseAmount() == 4 && ((Street) fieldArrayList.get(k)).getOwner() == player) {
+                    localData.add((Street) fieldArrayList.get(k));
+                }
+
+                 */
             }
             if (!localData.isEmpty()) {
                 map.put(localData.get(0).getColor(), localData.toArray(Street[]::new));
@@ -306,6 +308,8 @@ public class FieldController {
             for (int i = 0; i < entry.getValue().length; i++) {
                 if (entry.getValue()[i].getHouseAmount() == minVal && entry.getValue()[i].getHouseAmount() != 4) {
                     sortedStreet.add(entry.getValue()[i]);
+                } else if(entry.getValue()[i].getHouseAmount() == minVal && entry.getValue()[i].getHouseAmount() == 4 && !entry.getValue()[i].isHotel() && !entry.getValue()[i].isHotelBuilt()) {
+                    entry.getValue()[i].setHotel(true);
                 }
             }
             if (!sortedStreet.isEmpty()) {
@@ -319,29 +323,20 @@ public class FieldController {
     }
 
 
-    public Map<String, Street[]> buildHotels(Player player) {
-        ArrayList<Street> localData = new ArrayList<>();
-        HashMap<String, Street[]> map = new HashMap<>();
-        for (int i = 0; i < fieldArrayList.size(); i += 5) {
-            for (int k = i; k < i + 4; k++) {
-                if (fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).getOwner() != player || fieldArrayList.get(k) instanceof Street && !((Street) fieldArrayList.get(k)).isHotel()) {
-                    localData.clear();
-                    break;
-                } else {
-                    if (fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).isHotel() && ((Street) fieldArrayList.get(k)).getOwner() == player) {
-                        localData.add((Street) fieldArrayList.get(k));
-                    } else if (fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).isHotelBuilt() && ((Street) fieldArrayList.get(k)).getOwner() == player) {
-                        localData.remove((Street) fieldArrayList.get(k));
-                    }
+    public Map<String, Street[]> buildHotels(Map<String, Street[]> buildHotels){
+        ArrayList<Street> sortedStreet = new ArrayList<>();
+        for (Map.Entry<String, Street[]> entry : buildHotels.entrySet()) {
+            for (int i = 0; i < entry.getValue().length; i++) {
+                if(entry.getValue()[i].isHotel() && !entry.getValue()[i].isHotelBuilt()){
+                    sortedStreet.add(entry.getValue()[i]);
                 }
             }
+            if (!sortedStreet.isEmpty()) {
+                buildHotels.replace(entry.getKey(), sortedStreet.toArray(Street[]::new));
+                sortedStreet.clear();
+            }
         }
-
-        if(!localData.isEmpty()){
-            map.put(localData.get(0).getColor(), localData.toArray(Street[]::new));
-            localData.clear();
-        }
-        return map;
+          return buildHotels;
     }
 
 
