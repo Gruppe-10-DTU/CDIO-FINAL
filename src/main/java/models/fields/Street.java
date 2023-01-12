@@ -13,6 +13,9 @@ public class Street extends Property{
 
     private boolean hotel = false;
 
+
+    private boolean hotelBuilt = false;
+
     private int[] rent = new int[6];
 
 
@@ -111,5 +114,12 @@ public class Street extends Property{
 
     public void setHotel(boolean hotel) {
         this.hotel = hotel;
+    }
+    public boolean isHotelBuilt() {
+        return hotelBuilt;
+    }
+
+    public void setHotelBuilt(boolean hotelBuilt) {
+        this.hotelBuilt = hotelBuilt;
     }
 }

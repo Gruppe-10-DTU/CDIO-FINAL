@@ -27,6 +27,10 @@ public class GameController implements ActionListener {
 
     private boolean looper = false;
 
+    private boolean buildHouse = false;
+
+    private boolean buildHotel = false;
+
     private GameStateDTO gameState;
 
     public GameController() {
@@ -132,60 +136,103 @@ public class GameController implements ActionListener {
         gameState.setOtherPlayers(playerController.otherPlayers(player.getID()));
         Map<String,Street[]> ownsGroup = fieldController.ownsColourGroup(player);
         Map<String,Street[]> placesToBuild = fieldController.buildEqual(ownsGroup);
+        Map<String,Street[]> placesToBuildHotels = fieldController.buildHotels(player);
         //Tjek huskøb
-        if(placesToBuild.size() >= 1) {
-            boolean looper = guiController.yesnoSelection(language.getLanguageValue("canBuildHouses"));
+        if(placesToBuild.size() >= 1 || placesToBuildHotels.size() >= 1) {
+            if (placesToBuild.size() >= 1 && placesToBuildHotels.size() >= 1) {
+                boolean looper = guiController.yesnoSelection(language.getLanguageValue("canBuildHousesAndHotels", player.getIdentifier()));
+                boolean buildHouse = looper;
+                boolean buildHotel = looper;
+            } else if (placesToBuild.size() < 1 && placesToBuildHotels.size() >= 1) {
+                boolean looper = guiController.yesnoSelection(language.getLanguageValue("canBuildHotels", player.getIdentifier()));
+                boolean buildHotel = looper;
+            } else {
+                boolean looper = guiController.yesnoSelection(language.getLanguageValue("canBuildHouses", player.getIdentifier()));
+                boolean buildHouse = looper;
+            }
             boolean loopdeloop = true;
             //Hvor kan der bygges?
-            while (looper && placesToBuild.size()>=1) {
-                if(!loopdeloop){
-                    looper = guiController.yesnoSelection(language.getLanguageValue("canBuildHouses"));
-                }
-                loopdeloop = false;
-                String colorChosen = guiController.selectColorBuild(language.getLanguageValue( "chooseColorOptions"), placesToBuild.keySet().toArray(String[]::new));
-                String whereToBuild = guiController.selectBuild(language.getLanguageValue( "selectBuildingText"), placesToBuild.get(colorChosen));
-                if (!(player.getBalance() >= fieldController.getStreetFromString(whereToBuild).getHousePrice())) {
-                    looper = guiController.yesnoSelection(language.getLanguageValue("lackingFunds"));
-                } else {
-                    if (fieldController.getStreetFromString(whereToBuild).getHousePrice() <= player.getBalance() && fieldController.getStreetFromString(whereToBuild).getHouseAmount() < 4) {
-                        fieldController.addHouse(fieldController.getStreetFromString(whereToBuild));
-                        guiController.guiAddHouse(fieldController.getStreetFromString(whereToBuild),fieldController.getStreetFromString(whereToBuild).getHouseAmount());
+            while (looper && placesToBuild.size() >= 1 || looper && placesToBuildHotels.size() >= 1) {
+                if (buildHotel && buildHouse) {
+                    String whatToBuild = guiController.selectWhatToBuild(language.getLanguageValue("canBuildHousesAndHotels", player.getIdentifier()), language.getLanguageValue("houseHotelNothing"));
+                    if (whatToBuild.equals("Abort")) {
+                        looper = false;
+                    } else if (whatToBuild.equals("Hotel")) {
+                        buildHouse = false;
                     } else {
-                        looper = guiController.yesnoSelection(language.getLanguageValue("lackingFunds"));
+                        buildHotel = false;
                     }
                 }
-                placesToBuild = fieldController.buildEqual(fieldController.ownsColourGroup(player));
-            }
-        }
-        //Tjek jail
-        if(fieldController.isJailed(player)) {
-            fieldController.landOnField(gameState);
-        }
-        if(!(fieldController.isJailed(player))) {
-            guiController.getRoll(language.getLanguageValue("rollText", player.getIdentifier()), language.getLanguageValue("rollButton"));
-            diceHolder.roll();
-            guiController.displayDice(diceHolder.getRolls());
-            if(diceHolder.isEqual()) {
-                diceHolder.incrementSameRolls();
-            }else {
-                diceHolder.setSameRolls(0);
-            }
-            if (diceHolder.getSameRolls()==3){
-                guiController.displayMsg("Ulovligheder! Du har rullet ens 3 gange i træk og skal derfor i fængsel.");
-                fieldController.jailPlayer(currentPlayer);
-                diceHolder.setSameRolls(0);
-            }else{
-                boolean overStart = player.getLocation() + diceHolder.sum() > StartValues.getInstance().getValue("boardSize");
-                playerController.playerMove(player, diceHolder.sum());
-                guiController.movePlayer(player);
-                if (overStart) {
-                    guiController.displayMsg(language.getLanguageValue("passStart", String.valueOf(StartValues.getInstance().getValue("passStartBonus"))));
+                if (!loopdeloop) {
+                    looper = guiController.yesnoSelection(language.getLanguageValue("canBuild"));
                 }
+                loopdeloop = false;
+                if (buildHouse && !buildHotel) {
+                    String colorChosen = guiController.selectColorBuild(language.getLanguageValue("chooseColorOptions"), placesToBuild.keySet().toArray(String[]::new));
+                    String whereToBuild = guiController.selectBuild(language.getLanguageValue("selectBuildingText"), placesToBuild.get(colorChosen));
+                    if (player.getBalance() < fieldController.getStreetFromString(whereToBuild).getHousePrice()) {
+                        looper = guiController.yesnoSelection(language.getLanguageValue("lackingFunds"));
+                    } else {
+                        if (fieldController.getStreetFromString(whereToBuild).getHousePrice() <= player.getBalance() && fieldController.getStreetFromString(whereToBuild).getHouseAmount() < 4) {
+                            fieldController.addHouse(fieldController.getStreetFromString(whereToBuild));
+                            guiController.guiAddHouse(fieldController.getStreetFromString(whereToBuild), fieldController.getStreetFromString(whereToBuild).getHouseAmount());
+                        } else {
+                            looper = guiController.yesnoSelection(language.getLanguageValue("lackingFunds"));
+                        }
+                    }
+                    placesToBuild = fieldController.buildEqual(fieldController.ownsColourGroup(player));
+                    if(placesToBuildHotels.size() <= 1){
+                        buildHotel = true;
+                    }
+                }else{
+                    String colorChosen = guiController.selectColorBuild(language.getLanguageValue("chooseColorOptions"), placesToBuildHotels.keySet().toArray(String[]::new));
+                    String whereToBuild = guiController.selectBuild(language.getLanguageValue("selectBuildingText"), placesToBuildHotels.get(colorChosen));
+                    if (player.getBalance() < fieldController.getStreetFromString(whereToBuild).getHousePrice()*StartValues.getInstance().getValue("hotelPrice")) {
+                        looper = guiController.yesnoSelection(language.getLanguageValue("lackingFunds"));
+                    } else {
+                        if (fieldController.getStreetFromString(whereToBuild).getHousePrice()*StartValues.getInstance().getValue("hotelPrice") <= player.getBalance() && fieldController.getStreetFromString(whereToBuild).getHouseAmount() == 4) {
+                            fieldController.addHotel(fieldController.getStreetFromString(whereToBuild));
+                            guiController.guiAddHotel(fieldController.getStreetFromString(whereToBuild));
+                        } else {
+                            looper = guiController.yesnoSelection(language.getLanguageValue("lackingFunds"));
+                        }
+                    }
+                    placesToBuild = fieldController.buildEqual(fieldController.ownsColourGroup(player));
+                    if(placesToBuildHotels.size() <= 1){
+                        buildHotel = true;
+                    }
+                }
+                }
+            }
+            //Tjek jail
+            if (fieldController.isJailed(player)) {
                 fieldController.landOnField(gameState);
             }
-            guiController.updatePlayer(player);
-            guiController.updateBoard(playerController,fieldController);
-        }
+            if (!(fieldController.isJailed(player))) {
+                guiController.getRoll(language.getLanguageValue("rollText", player.getIdentifier()), language.getLanguageValue("rollButton"));
+                diceHolder.roll();
+                guiController.displayDice(diceHolder.getRolls());
+                if (diceHolder.isEqual()) {
+                    diceHolder.incrementSameRolls();
+                } else {
+                    diceHolder.setSameRolls(0);
+                }
+                if (diceHolder.getSameRolls() == 3) {
+                    guiController.displayMsg("Ulovligheder! Du har rullet ens 3 gange i træk og skal derfor i fængsel.");
+                    fieldController.jailPlayer(currentPlayer);
+                    diceHolder.setSameRolls(0);
+                } else {
+                    boolean overStart = player.getLocation() + diceHolder.sum() > StartValues.getInstance().getValue("boardSize");
+                    playerController.playerMove(player, diceHolder.sum());
+                    guiController.movePlayer(player);
+                    if (overStart) {
+                        guiController.displayMsg(language.getLanguageValue("passStart", String.valueOf(StartValues.getInstance().getValue("passStartBonus"))));
+                    }
+                    fieldController.landOnField(gameState);
+                }
+                guiController.updatePlayer(player);
+                guiController.updateBoard(playerController, fieldController);
+            }
     }
 
 

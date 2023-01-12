@@ -115,12 +115,13 @@ public class FieldController {
                     refuge.setName(fieldData.get(i).get(0));
                     break;
                 case "tax":
-                    Tax tax = new Tax(fieldData.get(i).get(0), Integer.parseInt(fieldData.get(i).get(1)), Integer.parseInt(fieldData.get(i).get(3)),Integer.parseInt(fieldData.get(i).get(4)));
+                    Tax tax = new Tax(fieldData.get(i).get(0), Integer.parseInt(fieldData.get(i).get(1)), Integer.parseInt(fieldData.get(i).get(3)), Integer.parseInt(fieldData.get(i).get(4)));
                     fieldArrayList.add(tax);
                     break;
             }
         }
     }
+
     /**
      * Recieves a player, locates the jail field, moves the player and jails them
      */
@@ -160,8 +161,8 @@ public class FieldController {
         for (Field field : fieldArrayList) {
             if (field instanceof Property && ((Property) field).getOwner() == player) {
                 totalAmount += ((Property) field).getPrice();
-                if(field instanceof Street){
-                    totalAmount += ((Street) field).getHouseAmount()*((Street) field).getHousePrice();
+                if (field instanceof Street) {
+                    totalAmount += ((Street) field).getHouseAmount() * ((Street) field).getHousePrice();
                 }
             }
         }
@@ -177,24 +178,25 @@ public class FieldController {
     }
 
 
-
     /**
      * see if a propertys neighbor have the same owner
+     *
      * @param property the property in question
      * @return true if the same owner, otherwise false
      */
-    public boolean sameOwner(Street property){
+    public boolean sameOwner(Street property) {
         Street property2;
-        if(property.getID() % 3 == 1){
+        if (property.getID() % 3 == 1) {
             //If the property is the first one, %3 will always be one and we'll add one to get the neighbor and compare the owners
-            property2 = (Street) fieldArrayList.get(property.getID()+1);
-        }else{
+            property2 = (Street) fieldArrayList.get(property.getID() + 1);
+        } else {
             //If the property is the second one, %3 will always be 2 and we'll subtract one to get the neighbor and compare the owners
-            property2 = (Street) fieldArrayList.get(property.getID()-1);
+            property2 = (Street) fieldArrayList.get(property.getID() - 1);
         }
         return property2.getOwner() != null && property.getOwner().equals(property2.getOwner());
     }
-    public boolean sellField(Street property, Player buyer){
+
+    public boolean sellField(Street property, Player buyer) {
         return true;
     }
 
@@ -268,19 +270,21 @@ public class FieldController {
         HashMap<String, Street[]> map = new HashMap<>();
         ArrayList<Street> propertiesToUpgrade = new ArrayList<>();
 
-        for (int i = 0; i < fieldArrayList.size(); i += 4) {
+        for (int i = 0; i < fieldArrayList.size(); i += 5) {
             for (int k = i; k <= i + 4; k++) {
                 if (fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).getOwner() != player) {
                     localData.clear();
                     break;
-                } else{
-                    }if(fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).getHouseAmount() < 4 && ((Street) fieldArrayList.get(k)).getOwner() == player){
-                        localData.add((Street) fieldArrayList.get(k));
-                    }else if(fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).getHouseAmount() == 4 && ((Street) fieldArrayList.get(k)).getOwner() == player){
+                } else {
+                }
+                if (fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).getHouseAmount() < 4 && ((Street) fieldArrayList.get(k)).getOwner() == player) {
+                    localData.add((Street) fieldArrayList.get(k));
+                } else if (fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).getHouseAmount() == 4 && ((Street) fieldArrayList.get(k)).getOwner() == player) {
                     localData.remove((Street) fieldArrayList.get(k));
+                    ((Street) fieldArrayList.get(k)).setHotel(true);
                 }
             }
-            if(!localData.isEmpty()){
+            if (!localData.isEmpty()) {
                 map.put(localData.get(0).getColor(), localData.toArray(Street[]::new));
                 localData.clear();
                 propertiesToUpgrade.addAll(localData);
@@ -290,21 +294,21 @@ public class FieldController {
         return map;
     }
 
-    public Map<String,Street[]> buildEqual(Map<String, Street[]> sort){
+    public Map<String, Street[]> buildEqual(Map<String, Street[]> sort) {
         int minVal = 5;
         ArrayList<Street> sortedStreet = new ArrayList<>();
-        for (Map.Entry<String,Street[]> entry: sort.entrySet()){
+        for (Map.Entry<String, Street[]> entry : sort.entrySet()) {
             for (int i = 0; i < entry.getValue().length; i++) {
-                if(entry.getValue()[i].getHouseAmount() < minVal){
+                if (entry.getValue()[i].getHouseAmount() < minVal) {
                     minVal = entry.getValue()[i].getHouseAmount();
                 }
             }
             for (int i = 0; i < entry.getValue().length; i++) {
-                if(entry.getValue()[i].getHouseAmount() == minVal && entry.getValue()[i].getHouseAmount() != 4 ){
+                if (entry.getValue()[i].getHouseAmount() == minVal && entry.getValue()[i].getHouseAmount() != 4) {
                     sortedStreet.add(entry.getValue()[i]);
                 }
             }
-            if(!sortedStreet.isEmpty()){
+            if (!sortedStreet.isEmpty()) {
                 sort.replace(entry.getKey(), sortedStreet.toArray(Street[]::new));
                 sortedStreet.clear();
             }
@@ -315,14 +319,42 @@ public class FieldController {
     }
 
 
+    public Map<String, Street[]> buildHotels(Player player) {
+        ArrayList<Street> localData = new ArrayList<>();
+        HashMap<String, Street[]> map = new HashMap<>();
+        for (int i = 0; i < fieldArrayList.size(); i += 5) {
+            for (int k = i; k < i + 4; k++) {
+                if (fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).getOwner() != player || fieldArrayList.get(k) instanceof Street && !((Street) fieldArrayList.get(k)).isHotel()) {
+                    localData.clear();
+                    break;
+                } else {
+                    if (fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).isHotel() && ((Street) fieldArrayList.get(k)).getOwner() == player) {
+                        localData.add((Street) fieldArrayList.get(k));
+                    } else if (fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).isHotelBuilt() && ((Street) fieldArrayList.get(k)).getOwner() == player) {
+                        localData.remove((Street) fieldArrayList.get(k));
+                    }
+                }
+            }
+        }
+
+        if(!localData.isEmpty()){
+            map.put(localData.get(0).getColor(), localData.toArray(Street[]::new));
+            localData.clear();
+        }
+        return map;
+    }
+
+
     public void addHouse(Street property) {
         property.setHouseAmount(property.getHouseAmount()+1);
         property.getOwner().setBalance(-property.getHousePrice());
-
+        setHousePool(getHousePool()-1);
     }
     public void addHotel(Street property){
         property.setHotel(true);
-        property.getOwner().setBalance(-property.getHousePrice()*4);
+        property.getOwner().setBalance(-property.getHousePrice()*StartValues.getInstance().getValue("hotelPrice"));
+        property.setHotelBuilt(true);
+        setHotelPool(getHotelPool()-1);
     }
 
     public Street getStreetFromString(String street){
@@ -334,7 +366,21 @@ public class FieldController {
         }
         return field;
     }
+    public static int getHousePool() {
+        return housePool;
+    }
 
+    public static int getHotelPool() {
+        return hotelPool;
+    }
+
+    public static void setHousePool(int housePool) {
+        FieldController.housePool = housePool;
+    }
+
+    public static void setHotelPool(int hotelPool) {
+        FieldController.hotelPool = hotelPool;
+    }
 }
 
 
