@@ -150,6 +150,7 @@ public class GameController implements ActionListener {
                     if (fieldController.getStreetFromString(whereToBuild).getHousePrice() <= player.getBalance() && fieldController.getStreetFromString(whereToBuild).getHouseAmount() < 4) {
                         fieldController.addHouse(fieldController.getStreetFromString(whereToBuild));
                         guiController.guiAddHouse(fieldController.getStreetFromString(whereToBuild),fieldController.getStreetFromString(whereToBuild).getHouseAmount());
+                        guiController.updatePlayer(player);
                     } else {
                         looper = guiController.yesnoSelection(language.getLanguageValue("lackingFunds"));
                     }
