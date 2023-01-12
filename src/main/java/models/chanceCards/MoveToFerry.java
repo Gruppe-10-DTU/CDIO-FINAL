@@ -2,7 +2,6 @@ package models.chanceCards;
 
 import models.Player;
 import models.dto.GameStateDTO;
-import org.apache.commons.lang.NotImplementedException;
 
 public class MoveToFerry extends ChanceCard{
 
@@ -27,9 +26,10 @@ public class MoveToFerry extends ChanceCard{
 
         gameState.getGuiController().updatePlayer(player);
 
-        if(RENT_MULTIPLIER > 1){
+        if(RENT_MULTIPLIER == 1){
             gameState.getFieldController().landOnField(gameState);
         }else{
+            //Different approach needed but currently works
             for (int i = 0; i < RENT_MULTIPLIER; i++) {
                 gameState.getFieldController().landOnField(gameState);
             }
