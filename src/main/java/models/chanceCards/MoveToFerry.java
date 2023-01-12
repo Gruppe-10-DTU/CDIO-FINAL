@@ -24,7 +24,7 @@ public class MoveToFerry extends ChanceCard{
             gameState.getPlayerController().playerMove(player, distToFerry);
         }else player.setLocation(player.getLocation() + distToFerry);
 
-        gameState.getGuiController().updatePlayer(player);
+        gameState.getGuiController().movePlayer(player);
 
         if(RENT_MULTIPLIER == 1){
             gameState.getFieldController().landOnField(gameState);
