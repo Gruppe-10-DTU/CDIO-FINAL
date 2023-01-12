@@ -3,7 +3,7 @@ package models.fields;
 import controllers.DiceHolder;
 import controllers.FieldController;
 import models.Player;
-import models.dto.IGameStateDTOField;
+import models.dto.IGameStateDTO;
 import ui.GUIController;
 
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ public class Jail extends Field {
     }
 
     @Override
-    public void fieldEffect(IGameStateDTOField gameState){
+    public void fieldEffect(IGameStateDTO gameState){
         if(!(this.isInJail(gameState.getActivePlayer()))) return;
 
         Player player = gameState.getActivePlayer();

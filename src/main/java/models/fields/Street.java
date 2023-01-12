@@ -1,6 +1,6 @@
 package models.fields;
 import models.Player;
-import models.dto.IGameStateDTOField;
+import models.dto.IGameStateDTO;
 
 import java.util.Map;
 
@@ -19,7 +19,7 @@ public class Street extends Property{
 
 
     @Override
-    public void fieldEffect(IGameStateDTOField gameState) {
+    public void fieldEffect(IGameStateDTO gameState) {
         Player currentPlayer = gameState.getActivePlayer();
         if (owner == null) {
 
@@ -56,7 +56,6 @@ public class Street extends Property{
             } else {
                 rentToPay = rent[0];
             }
-
 
             if (owner == currentPlayer) {
                 String msg = "Du er landet på din egen grund";

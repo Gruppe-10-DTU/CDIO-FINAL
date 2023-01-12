@@ -1,11 +1,11 @@
 package models.fields;
 
-import models.dto.IGameStateDTOField;
+import models.dto.IGameStateDTO;
 
 public class Start extends Field{
 
     @Override
-    public void fieldEffect(IGameStateDTOField gameState){
+    public void fieldEffect(IGameStateDTO gameState){
 
         //Key fieldLandStart
         gameState.getGuiController().displayMsg("Du er landet på start. Tillykke med de gratis penge");
