@@ -31,6 +31,7 @@ public class Tax extends ChanceCard {
             //Optional house selling
             gameState.getPlayerController().removePlayer(player.getID());
         }
+        gameState.getChancecardDeck().returnToDeck(this);
         return gameState;
     }
 }
