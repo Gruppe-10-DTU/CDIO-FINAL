@@ -5,14 +5,19 @@ import models.Player;
 import models.dto.GameStateDTO;
 import models.fields.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class FieldController {
 
     protected ArrayList<Field> fieldArrayList = new ArrayList<>();
 
     private Language language;
+
+    private static int housePool = StartValues.getInstance().getValue("housePool");
+
+    private static int hotelPool = StartValues.getInstance().getValue("hotelPool");
+
 
     /**
      * The constructer recieves the language and constructs an arraylist of field objects in the corect language
@@ -123,7 +128,7 @@ public class FieldController {
 
         for (Object field : fieldArrayList) {
             if (field instanceof Jail) {
-                if (((Jail) field).getName().equals("I fængsel/På besøg")){
+                if (((Jail) field).getName().equals("I fængsel/På besøg")) {
                     ((Jail) field).setInJailAdd(player);
                     int jailLocation = ((Jail) field).getID();
                     player.setLocation(jailLocation);
@@ -142,7 +147,7 @@ public class FieldController {
         }
     }
 
-    public GameStateDTO landOnField (GameStateDTO gamestate) {
+    public GameStateDTO landOnField(GameStateDTO gamestate) {
         Field currentField = fieldArrayList.get(gamestate.getActivePlayer().getLocation());
 
         GameStateDTO newGameState = currentField.fieldEffect(gamestate);
@@ -150,11 +155,6 @@ public class FieldController {
         return newGameState;
     }
 
-    /**
-     * Creates a Hashmap collecting the total value of all properties owned by a player
-     *
-     * @return Hashmap, key: player objects, value: the total property value of set player
-     */
     public int playerPropertyValues(Player player) {
         int totalAmount = 0;
         for (Field field : fieldArrayList) {
@@ -167,7 +167,6 @@ public class FieldController {
         }
         return totalAmount;
     }
-
 
     public Field getField(int fieldID) {
         return fieldArrayList.get(fieldID);
@@ -203,30 +202,139 @@ public class FieldController {
         return fieldArrayList.stream().filter(field -> field instanceof Street && ((Street) field).getOwner() != player).toArray(Street[]::new);
     }
 
+    public int ferrysOwned(Player owner, int startField, int ferrys) {
+
+        int ferrysOwned = 1;
+        int lastFerry = startField;
+
+        int i = 1;
+        while (i < ferrys) {
+
+            int currentFerry = lastFerry + 10;
+
+            if (currentFerry >= 40) {
+                currentFerry = currentFerry - 40;
+            }
+            Ferry nextFerry = (Ferry) getField(currentFerry);
+
+            if (nextFerry.getOwner() == owner) {
+                ferrysOwned++;
+            }
+
+            lastFerry = currentFerry;
+            i++;
+        }
+
+        return ferrysOwned;
+    }
+
+    public int breweriesOwned(Player owner, int fieldId) {
+        int breweriesOwned = 1;
+
+        if (fieldId == 12) {
+            Brewery Brewery28 = (Brewery) getField(28);
+            if (Brewery28.getOwner() == owner) {
+                breweriesOwned++;
+            }
+        } else {
+            Brewery Brewery12 = (Brewery) getField(12);
+            if (Brewery12.getOwner() == owner) {
+                breweriesOwned++;
+            }
+        }
+        return breweriesOwned;
+    }
+
+    public Street[] getFieldsOfPlayer(Player player) {
+        return fieldArrayList.stream().filter(field -> field instanceof Street && ((Street) field).getOwner() == player).toArray(Street[]::new);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < fieldArrayList.size(); i++) {
+        for (int i = 0; i < fieldArrayList.size(); i++) {
             sb.append("Field" + i + ": " + fieldArrayList.get(i).getName() + ", ");
         }
         String str = sb.toString();
         return str;
     }
-    public boolean isJailed(Player player){
-        return ((Jail)fieldArrayList.get(10)).isInJail(player);
+
+    public boolean isJailed(Player player) {
+        return ((Jail) fieldArrayList.get(10)).isInJail(player);
     }
 
-    public void setOwner(Player player, int propertyId) {
-        Field property = fieldArrayList.get(propertyId);
-        if (property instanceof Street) {
-            ((Street) property).setOwner(player);
+    public Map<String, Street[]> ownsColourGroup(Player player) {
+        ArrayList<Street> localData = new ArrayList<>();
+        HashMap<String, Street[]> map = new HashMap<>();
+        ArrayList<Street> propertiesToUpgrade = new ArrayList<>();
+
+        for (int i = 0; i < fieldArrayList.size(); i += 4) {
+            for (int k = i; k <= i + 4; k++) {
+                if (fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).getOwner() != player) {
+                    localData.clear();
+                    break;
+                } else{
+                    }if(fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).getHouseAmount() < 4 && ((Street) fieldArrayList.get(k)).getOwner() == player){
+                        localData.add((Street) fieldArrayList.get(k));
+                    }else if(fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).getHouseAmount() == 4 && ((Street) fieldArrayList.get(k)).getOwner() == player){
+                    localData.remove((Street) fieldArrayList.get(k));
+                }
+            }
+            if(!localData.isEmpty()){
+                map.put(localData.get(0).getColor(), localData.toArray(Street[]::new));
+                localData.clear();
+                propertiesToUpgrade.addAll(localData);
+            }
+
         }
+        return map;
     }
-    public int distToFirstFerry(Player player){
-        int steps = player.getLocation();
-        do{
-            steps++;
-        }while(!(fieldArrayList.get(steps) instanceof Ferry));
-        return steps - player.getLocation();
+
+    public Map<String,Street[]> buildEqual(Map<String, Street[]> sort){
+        int minVal = 5;
+        ArrayList<Street> sortedStreet = new ArrayList<>();
+        for (Map.Entry<String,Street[]> entry: sort.entrySet()){
+            for (int i = 0; i < entry.getValue().length; i++) {
+                if(entry.getValue()[i].getHouseAmount() < minVal){
+                    minVal = entry.getValue()[i].getHouseAmount();
+                }
+            }
+            for (int i = 0; i < entry.getValue().length; i++) {
+                if(entry.getValue()[i].getHouseAmount() == minVal && entry.getValue()[i].getHouseAmount() != 4 ){
+                    sortedStreet.add(entry.getValue()[i]);
+                }
+            }
+            if(!sortedStreet.isEmpty()){
+                sort.replace(entry.getKey(), sortedStreet.toArray(Street[]::new));
+                sortedStreet.clear();
+            }
+
+
+        }
+        return sort;
     }
+
+
+    public void addHouse(Street property) {
+        property.setHouseAmount(property.getHouseAmount()+1);
+        property.getOwner().setBalance(-property.getHousePrice());
+
+    }
+    public void addHotel(Street property){
+        property.setHotel(true);
+        property.getOwner().setBalance(-property.getHousePrice()*4);
+    }
+
+    public Street getStreetFromString(String street){
+        Street field = null;
+        for (int i = 0; i < fieldArrayList.size(); i++) {
+            if(fieldArrayList.get(i).getName().equals(street)){
+                field = (Street) fieldArrayList.get(i);
+            }
+        }
+        return field;
+    }
+
 }
+
+

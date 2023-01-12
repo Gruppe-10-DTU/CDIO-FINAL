@@ -40,7 +40,7 @@ public class Brewery extends Property{
                     owner = currentPlayer;
                     currentPlayer.setBalance(-price);
                 } else {
-                    //Auktion
+                    this.auction(gameState);
                 }
             } else {
                 //Player cant buy (possibly give the player an option to sell other values and then buy?)
@@ -51,7 +51,15 @@ public class Brewery extends Property{
         } else {
             //Pay rent
             int diceAmount = gameState.getDiceHolder().sum();
-            int rentToPay = rent0 * diceAmount;
+            int ownerPropertyAmount = gameState.getFieldController().breweriesOwned(owner, iD);
+            int rentToPay;
+
+
+            if (ownerPropertyAmount == 2) {
+                rentToPay = rent1 * diceAmount;
+            } else {
+                rentToPay = rent0 * diceAmount;
+            }
 
             if (currentPlayer.getBalance() >= rentToPay) {
                 String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " betal leje " + rentToPay;

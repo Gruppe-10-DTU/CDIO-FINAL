@@ -30,6 +30,9 @@ public class GUIController {
         gui = new GUI(GUIConverter.fieldListToGUI(fieldList));
         this.language = language;
     }
+    public int getBid(String msg, int min, int max){
+        return gui.getUserInteger(msg, min, max);
+    }
 
     /**
      * Ask the user the amount of players in this game session. Min 2, max 4
@@ -219,6 +222,38 @@ public class GUIController {
         String msg = language.getLanguageValue("getOutOfJailRollAgain");
         gui.getUserButtonPressed(msg,"ok");
     }
+
+    public String selectBuild(String selectBuild, Street[] choices){
+        String[] strings = Arrays.stream(choices).map((x -> x.getName())).toArray(String[]::new);
+        return gui.getUserSelection(selectBuild, strings);
+    }
+
+    public String amountOfHouses(String amountOfHouses){
+        return gui.getUserString(amountOfHouses);
+    }
+
+    public boolean yesnoSelection(String yesorno){
+        String yesno = "Yes,No";
+        String choice = gui.getUserSelection(yesorno,yesno.split(","));
+        if(choice.toLowerCase().equals("yes")){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public void guiAddHouse(Street property, int amount){
+        GUI_Street street = (GUI_Street) gui.getFields()[property.getID()];
+        street.setHouses(amount);
+    }
+    public String selectColorBuild(String chooseColorOptions, String[] color){
+        return gui.getUserSelection(chooseColorOptions,color);
+    }
+
+
+
+
+
 }
 
 

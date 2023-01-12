@@ -3,6 +3,7 @@ package controllers;
 import models.chanceCards.*;
 import models.*;
 import models.dto.GameStateDTO;
+import models.fields.Street;
 import ui.GUIController;
 
 import javax.swing.*;
@@ -24,6 +25,8 @@ public class GameController implements ActionListener {
     private Deck deck;
     private Popup p;
 
+    private boolean looper = false;
+
     private GameStateDTO gameState;
 
     public GameController() {
@@ -38,6 +41,7 @@ public class GameController implements ActionListener {
         gameState.setFieldController(fieldController);
         gameState.setPlayerController(playerController);
         gameState.setChancecardDeck(deck);
+        gameState.setDiceHolder(diceHolder);
         this.initialize();
     }
 
@@ -125,9 +129,34 @@ public class GameController implements ActionListener {
      */
     public void takeTurn(Player player) {
         gameState.setActivePlayer(player);
-
         gameState.setOtherPlayers(playerController.otherPlayers(player.getID()));
-
+        Map<String,Street[]> ownsGroup = fieldController.ownsColourGroup(player);
+        Map<String,Street[]> placesToBuild = fieldController.buildEqual(ownsGroup);
+        //Tjek huskøb
+        if(placesToBuild.size() >= 1) {
+            boolean looper = guiController.yesnoSelection(language.getLanguageValue("canBuildHouses"));
+            boolean loopdeloop = true;
+            //Hvor kan der bygges?
+            while (looper && placesToBuild.size()>=1) {
+                if(!loopdeloop){
+                    looper = guiController.yesnoSelection(language.getLanguageValue("canBuildHouses"));
+                }
+                loopdeloop = false;
+                String colorChosen = guiController.selectColorBuild(language.getLanguageValue( "chooseColorOptions"), placesToBuild.keySet().toArray(String[]::new));
+                String whereToBuild = guiController.selectBuild(language.getLanguageValue( "selectBuildingText"), placesToBuild.get(colorChosen));
+                if (!(player.getBalance() >= fieldController.getStreetFromString(whereToBuild).getHousePrice())) {
+                    looper = guiController.yesnoSelection(language.getLanguageValue("lackingFunds"));
+                } else {
+                    if (fieldController.getStreetFromString(whereToBuild).getHousePrice() <= player.getBalance() && fieldController.getStreetFromString(whereToBuild).getHouseAmount() < 4) {
+                        fieldController.addHouse(fieldController.getStreetFromString(whereToBuild));
+                        guiController.guiAddHouse(fieldController.getStreetFromString(whereToBuild),fieldController.getStreetFromString(whereToBuild).getHouseAmount());
+                    } else {
+                        looper = guiController.yesnoSelection(language.getLanguageValue("lackingFunds"));
+                    }
+                }
+                placesToBuild = fieldController.buildEqual(fieldController.ownsColourGroup(player));
+            }
+        }
         //Tjek jail
         if(fieldController.isJailed(player)) {
             fieldController.landOnField(gameState);
@@ -413,7 +442,7 @@ public class GameController implements ActionListener {
     public boolean win() {
         return playerController.getAvailablePlayers().size() == 1;
     }
-    public void winMsg(){
+    public void winMsg() {
         String winner = playerController.getPlayers()[0].getIdentifier();
         guiController.displayMsgNoBtn(language.getLanguageValue("winner") + " " + winner);
         JFrame f = new JFrame("popup");
@@ -427,7 +456,8 @@ public class GameController implements ActionListener {
         b.addActionListener(this);
         p2.add(b);
         p.show();
-
     }
+
 }
+
 

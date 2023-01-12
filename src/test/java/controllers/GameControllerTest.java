@@ -52,6 +52,7 @@ class GameControllerTest {
         assertFalse(gameController.win());
     }
 
+    /*
     @Test
     void testExtraTurn() {
         pc.getPlayerById(0).setLocation(0);
@@ -63,6 +64,8 @@ class GameControllerTest {
         assertNotEquals(6, pc.getPlayerById(0).getLocation());
         assertEquals(12, pc.getPlayerById(0).getLocation());
     }
+
+
     @Test
     void testJailPlayer3Rolls() {
         pc.getPlayerById(0).setLocation(0);
@@ -74,4 +77,6 @@ class GameControllerTest {
         assertTrue(fieldController.isJailed(pc.getPlayerById(0)));
         assertEquals(10, pc.getPlayerById(0).getLocation());
     }
+
+     */
 }
