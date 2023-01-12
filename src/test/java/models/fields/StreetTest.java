@@ -65,8 +65,7 @@ class StreetTest {
 
         street.fieldEffect(gameStateDTO);
 
-        assertEquals(1, playerController.getPlayers().length);
-        assertNull(playerController.getPlayerById(0));
+        assertEquals(30000, playerController.getPlayerById(0).getBalance());
     }
 
     @Test
