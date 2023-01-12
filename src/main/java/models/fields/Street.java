@@ -58,7 +58,7 @@ public class Street extends Property{
 
 
             if (owner == currentPlayer) {
-                String msg = "Du er landet på di egen grund";
+                String msg = "Du er landet på din egen grund";
                 gameState.getGuiController().displayMsg(msg);
 
             } else if (gameState.getFieldController().isJailed(owner)) {
