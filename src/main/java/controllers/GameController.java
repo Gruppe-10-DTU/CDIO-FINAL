@@ -155,7 +155,6 @@ public class GameController implements ActionListener {
                            }else if(fieldController.getStreetFromString(whereToBuild).getHousePrice()*5 <= player.getBalance() && fieldController.getStreetFromString(whereToBuild).getHouseAmount() == 4 && fieldController.getHotelPool() > 0) {
                                fieldController.addBuilding(fieldController.getStreetFromString(whereToBuild));
                                guiController.guiAddHotel(fieldController.getStreetFromString(whereToBuild));
-                               fieldController.getStreetFromString(whereToBuild).setHotel(true);
                            }
 
                         } else {

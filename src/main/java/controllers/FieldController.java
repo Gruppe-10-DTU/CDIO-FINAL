@@ -324,6 +324,7 @@ public class FieldController {
         }else if(property.getHouseAmount() == 4){
             property.setHouseAmount(property.getHouseAmount()+1);
             property.getOwner().setBalance(-property.getHousePrice()*5);
+            property.setHotel(true);
             setHotelPool(getHotelPool()-1);
         }
     }
