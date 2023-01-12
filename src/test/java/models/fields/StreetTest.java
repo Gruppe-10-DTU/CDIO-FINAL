@@ -53,7 +53,6 @@ class StreetTest {
         assertNotEquals(street.getOwner().getIdentifier(), gameStateDTO.getActivePlayer().getIdentifier());
         assertEquals(30000-street.getRent()[street.getHouseAmount()], gameStateDTO.getActivePlayer().getBalance());
         assertEquals(30000+street.getRent()[street.getHouseAmount()], street.getOwner().getBalance());
-
     }
 
     @Test

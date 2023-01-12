@@ -40,7 +40,7 @@ public class Brewery extends Property{
                     owner = currentPlayer;
                     currentPlayer.setBalance(-price);
                 } else {
-                    //Auktion
+                    this.auction(gameState);
                 }
             } else {
                 //Player cant buy (possibly give the player an option to sell other values and then buy?)

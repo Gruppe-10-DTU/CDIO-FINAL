@@ -29,6 +29,7 @@ class ChanceTest {
         gameState.setFieldController(fieldController);
         gameState.setPlayerController(playerController);
         GUIControllerStub guiControllerStub = new GUIControllerStub();
+        guiControllerStub.setButtonClicked(true);
         gameState.setGuiController(guiControllerStub);
     }
 

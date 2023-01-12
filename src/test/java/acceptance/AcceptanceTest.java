@@ -220,6 +220,17 @@ public class AcceptanceTest {
     }
 
     @Test
+    void AK27(){
+        pc.addPlayer(0,"UFO","Player1",2);
+        pc.addPlayer(1,"UFO","Player2",3);
+        pc.getPlayerById(1).setBalance(-2);
+
+        dH.setRolls(2,3);
+        gc.startGame();
+        gui.displayMsg("Testen er nu overstået");
+    }
+
+    @Test
     void AK31(){
         pc.addPlayer(0,"UFO","fængsel",2);
         pc.addPlayer(1,"UFO","taber",3);

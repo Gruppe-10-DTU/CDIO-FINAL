@@ -30,6 +30,9 @@ public class GUIController {
         gui = new GUI(GUIConverter.fieldListToGUI(fieldList));
         this.language = language;
     }
+    public int getBid(String msg, int min, int max){
+        return gui.getUserInteger(msg, min, max);
+    }
 
     /**
      * Ask the user the amount of players in this game session. Min 2, max 4
