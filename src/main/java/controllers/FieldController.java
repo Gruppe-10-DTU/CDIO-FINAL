@@ -351,6 +351,17 @@ public class FieldController {
         }
         return steps - player.getLocation();
     }
+    public int[] housesAndHotelsOwned (Player player){
+        int houses = 0;
+        int hotels = 0;
+        for (Field field : fieldArrayList) {
+            if (field instanceof Street){
+                if (((Street) field).isHotel()) hotels++;
+                else houses += ((Street) field).getHouseAmount();
+            }
+        }
+        return new int[]{houses, hotels};
+    }
 
 }
 
