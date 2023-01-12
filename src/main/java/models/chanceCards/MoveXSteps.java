@@ -14,7 +14,7 @@ public class MoveXSteps extends ChanceCard{
      * @param Description
      * @param StepsToMove
      */
-         public MoveXSteps(String Name, String Description, int StepsToMove) {
+     public MoveXSteps(String Name, String Description, int StepsToMove) {
         super(Name, Description);
 
         this.MAX_STEPS = StepsToMove;
