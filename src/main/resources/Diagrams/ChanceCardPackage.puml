@@ -2,14 +2,13 @@
 'https://plantuml.com/class-diagram
 skinparam linetype polyline
 
-
-package models.chanceCards{
-class Deck{
+class controllers.Deck{
  - deck : ChanceCard[]
  + shuffle()
  + drawCard() : ChanceCard
  + getDeckSize() : int
 }
+package models.chanceCards{
 
 abstract ChanceCard{
  # NAME : String {final}
@@ -51,7 +50,7 @@ class Tax {
  - HOTEL_TAX : int {final}
  Tax(name : String, description : String, houseTax : int, hotelTax : int){
 }
-Deck o-- ChanceCard
+controllers.Deck o-- ChanceCard
 
 ChanceCard <|-left- ChangeBalance
 ChanceCard <|-right- Grant
