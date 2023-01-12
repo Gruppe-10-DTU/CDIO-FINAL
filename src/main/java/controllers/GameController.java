@@ -140,6 +140,7 @@ public class GameController implements ActionListener {
             while (looper && placesToBuild.size()>=1) {
                 if(!loopdeloop){
                     looper = guiController.yesnoSelection(language.getLanguageValue("canBuildHouses"));
+                    if (!looper) break;
                 }
                 loopdeloop = false;
                 String colorChosen = guiController.selectColorBuild(language.getLanguageValue( "chooseColorOptions"), placesToBuild.keySet().toArray(String[]::new));
@@ -150,6 +151,7 @@ public class GameController implements ActionListener {
                     if (fieldController.getStreetFromString(whereToBuild).getHousePrice() <= player.getBalance() && fieldController.getStreetFromString(whereToBuild).getHouseAmount() < 4) {
                         fieldController.addHouse(fieldController.getStreetFromString(whereToBuild));
                         guiController.guiAddHouse(fieldController.getStreetFromString(whereToBuild),fieldController.getStreetFromString(whereToBuild).getHouseAmount());
+                        guiController.updatePlayer(player);
                     } else {
                         looper = guiController.yesnoSelection(language.getLanguageValue("lackingFunds"));
                     }
