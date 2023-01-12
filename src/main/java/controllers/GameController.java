@@ -140,6 +140,7 @@ public class GameController implements ActionListener {
             while (looper && placesToBuild.size()>=1) {
                 if(!loopdeloop){
                     looper = guiController.yesnoSelection(language.getLanguageValue("canBuildHouses"));
+                    if (!looper) break;
                 }
                 loopdeloop = false;
                 String colorChosen = guiController.selectColorBuild(language.getLanguageValue( "chooseColorOptions"), placesToBuild.keySet().toArray(String[]::new));
