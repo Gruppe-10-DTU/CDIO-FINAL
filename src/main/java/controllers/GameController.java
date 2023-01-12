@@ -27,10 +27,6 @@ public class GameController implements ActionListener {
 
     private boolean looper = false;
 
-    private boolean buildHouse = false;
-
-    private boolean buildHotel = false;
-
     private GameStateDTO gameState;
 
     public GameController() {
@@ -136,72 +132,37 @@ public class GameController implements ActionListener {
         gameState.setOtherPlayers(playerController.otherPlayers(player.getID()));
         Map<String,Street[]> ownsGroup = fieldController.ownsColourGroup(player);
         Map<String,Street[]> placesToBuild = fieldController.buildEqual(ownsGroup);
-        Map<String,Street[]> placesToBuildHotels = fieldController.buildHotels(placesToBuild);
         //Tjek huskøb
-        if(placesToBuild.size() >= 1 || placesToBuildHotels.size() >= 1) {
-            if (placesToBuild.size() >= 1 && placesToBuildHotels.size() >= 1) {
-                looper = guiController.yesnoSelection(language.getLanguageValue("canBuildHousesAndHotels", player.getIdentifier()));
-                buildHouse = looper;
-                buildHotel = looper;
-            } else if (placesToBuild.size() < 1 && placesToBuildHotels.size() >= 1) {
-                looper = guiController.yesnoSelection(language.getLanguageValue("canBuildHotels", player.getIdentifier()));
-                buildHotel = looper;
-            } else {
-                looper = guiController.yesnoSelection(language.getLanguageValue("canBuildHouses", player.getIdentifier()));
-                buildHouse = looper;
-            }
-        }
+        //Spørg om de vil bygge på grund, hvis grunden kan have et hotel så skal den få det, ellers et hus.
+        if(placesToBuild.size() >= 1) {
+            looper = guiController.yesnoSelection(language.getLanguageValue("canBuild", player.getIdentifier()));
             boolean loopdeloop = true;
             //Hvor kan der bygges?
-            while (looper && placesToBuild.size() >= 1 || looper && placesToBuildHotels.size() >= 1) {
-                if (buildHotel && buildHouse) {
-                    String whatToBuild = guiController.selectWhatToBuild(language.getLanguageValue("canBuildHousesAndHotels", player.getIdentifier()), language.getLanguageValue("houseHotelNothing"));
-                    if (whatToBuild.equals("Abort")) {
-                        looper = false;
-                    } else if (whatToBuild.equals("Hotel")) {
-                        buildHouse = false;
-                    } else {
-                        buildHotel = false;
-                    }
-                }
+            while (looper && placesToBuild.size() >= 1) {
                 if (!loopdeloop) {
                     looper = guiController.yesnoSelection(language.getLanguageValue("canBuild"));
                 }
                 loopdeloop = false;
-                if (buildHouse && !buildHotel) {
                     String colorChosen = guiController.selectColorBuild(language.getLanguageValue("chooseColorOptions"), placesToBuild.keySet().toArray(String[]::new));
-                    String whereToBuild = guiController.selectBuild(language.getLanguageValue("selectBuildingText"), placesToBuild.get(colorChosen));
+                    String whereToBuild = guiController.selectBuild(language.getLanguageValue("selectBuildingText","" + placesToBuild.get(colorChosen)[0].getHousePrice()), placesToBuild.get(colorChosen));
                     if (player.getBalance() < fieldController.getStreetFromString(whereToBuild).getHousePrice()) {
                         looper = guiController.yesnoSelection(language.getLanguageValue("lackingFunds"));
                     } else {
-                        if (fieldController.getStreetFromString(whereToBuild).getHousePrice() <= player.getBalance() && fieldController.getStreetFromString(whereToBuild).getHouseAmount() < 4) {
-                            fieldController.addHouse(fieldController.getStreetFromString(whereToBuild));
-                            guiController.guiAddHouse(fieldController.getStreetFromString(whereToBuild), fieldController.getStreetFromString(whereToBuild).getHouseAmount());
+                        if (fieldController.getStreetFromString(whereToBuild).getHousePrice() <= player.getBalance() && fieldController.getStreetFromString(whereToBuild).getHouseAmount() < 5) {
+                           if(fieldController.getStreetFromString(whereToBuild).getHouseAmount() < 4 && fieldController.getHousePool() > 0) {
+                               fieldController.addBuilding(fieldController.getStreetFromString(whereToBuild));
+                               guiController.guiAddHouse(fieldController.getStreetFromString(whereToBuild), fieldController.getStreetFromString(whereToBuild).getHouseAmount());
+                           }else if(fieldController.getStreetFromString(whereToBuild).getHousePrice()*5 <= player.getBalance() && fieldController.getStreetFromString(whereToBuild).getHouseAmount() == 4 && fieldController.getHotelPool() > 0) {
+                               fieldController.addBuilding(fieldController.getStreetFromString(whereToBuild));
+                               guiController.guiAddHotel(fieldController.getStreetFromString(whereToBuild));
+                               fieldController.getStreetFromString(whereToBuild).setHotel(true);
+                           }
+
                         } else {
                             looper = guiController.yesnoSelection(language.getLanguageValue("lackingFunds"));
                         }
                     }
                     placesToBuild = fieldController.buildEqual(fieldController.ownsColourGroup(player));
-                    if(placesToBuildHotels.size() <= 1){
-                        buildHotel = true;
-                    }
-                }else if(!buildHouse && buildHotel){
-                    String colorChosen = guiController.selectColorBuild(language.getLanguageValue("chooseColorOptions"), placesToBuildHotels.keySet().toArray(String[]::new));
-                    String whereToBuild = guiController.selectBuild(language.getLanguageValue("selectBuildingText"), placesToBuildHotels.get(colorChosen));
-                    if (player.getBalance() < fieldController.getStreetFromString(whereToBuild).getHousePrice()*StartValues.getInstance().getValue("hotelPrice")) {
-                        looper = guiController.yesnoSelection(language.getLanguageValue("lackingFunds"));
-                    } else {
-                        if (fieldController.getStreetFromString(whereToBuild).getHousePrice()*StartValues.getInstance().getValue("hotelPrice") <= player.getBalance() && fieldController.getStreetFromString(whereToBuild).getHouseAmount() == 4) {
-                            fieldController.addHotel(fieldController.getStreetFromString(whereToBuild));
-                            guiController.guiAddHotel(fieldController.getStreetFromString(whereToBuild));
-                        } else {
-                            looper = guiController.yesnoSelection(language.getLanguageValue("lackingFunds"));
-                        }
-                    }
-                    placesToBuild = fieldController.buildEqual(fieldController.ownsColourGroup(player));
-                    if(placesToBuild.size() <= 1){
-                        buildHouse = true;
-                    }
                 }
                 }
 

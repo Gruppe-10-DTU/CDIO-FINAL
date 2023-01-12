@@ -5,7 +5,6 @@ import models.Player;
 import models.dto.GameStateDTO;
 import models.fields.*;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class FieldController {
@@ -14,9 +13,9 @@ public class FieldController {
 
     private Language language;
 
-    private static int housePool = StartValues.getInstance().getValue("housePool");
+    private int housePool = StartValues.getInstance().getValue("housePool");
 
-    private static int hotelPool = StartValues.getInstance().getValue("hotelPool");
+    private int hotelPool = StartValues.getInstance().getValue("hotelPool");
 
 
     /**
@@ -276,15 +275,10 @@ public class FieldController {
                     localData.clear();
                     break;
                 } else {
+                    if(fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).getOwner() == player) {
+                        localData.add((Street) fieldArrayList.get(k));
+                    }
                 }
-                if (fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).getHouseAmount() <= 4 && ((Street) fieldArrayList.get(k)).getOwner() == player) {
-                    localData.add((Street) fieldArrayList.get(k));
-                }
-                /*else if (fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).getHouseAmount() == 4 && ((Street) fieldArrayList.get(k)).getOwner() == player) {
-                    localData.add((Street) fieldArrayList.get(k));
-                }
-
-                 */
             }
             if (!localData.isEmpty()) {
                 map.put(localData.get(0).getColor(), localData.toArray(Street[]::new));
@@ -305,51 +299,33 @@ public class FieldController {
                     minVal = entry.getValue()[i].getHouseAmount();
                 }
             }
-            for (int i = 0; i < entry.getValue().length; i++) {
-                if (entry.getValue()[i].getHouseAmount() == minVal && entry.getValue()[i].getHouseAmount() != 4) {
-                    sortedStreet.add(entry.getValue()[i]);
-                } else if(entry.getValue()[i].getHouseAmount() == minVal && entry.getValue()[i].getHouseAmount() == 4 && !entry.getValue()[i].isHotel() && !entry.getValue()[i].isHotelBuilt()) {
-                    entry.getValue()[i].setHotel(true);
+            if(minVal == 5){
+                sort.remove(entry.getKey());
+            }else{
+                for (int i = 0; i < entry.getValue().length; i++) {
+                    if (entry.getValue()[i].getHouseAmount() == minVal) {
+                        sortedStreet.add(entry.getValue()[i]);
+                    }
+                }
+                if (!sortedStreet.isEmpty()) {
+                    sort.replace(entry.getKey(), sortedStreet.toArray(Street[]::new));
+                    sortedStreet.clear();
                 }
             }
-            if (!sortedStreet.isEmpty()) {
-                sort.replace(entry.getKey(), sortedStreet.toArray(Street[]::new));
-                sortedStreet.clear();
-            }
-
-
         }
         return sort;
     }
 
-
-    public Map<String, Street[]> buildHotels(Map<String, Street[]> buildHotels){
-        ArrayList<Street> sortedStreet = new ArrayList<>();
-        for (Map.Entry<String, Street[]> entry : buildHotels.entrySet()) {
-            for (int i = 0; i < entry.getValue().length; i++) {
-                if(entry.getValue()[i].isHotel() && !entry.getValue()[i].isHotelBuilt()){
-                    sortedStreet.add(entry.getValue()[i]);
-                }
-            }
-            if (!sortedStreet.isEmpty()) {
-                buildHotels.replace(entry.getKey(), sortedStreet.toArray(Street[]::new));
-                sortedStreet.clear();
-            }
+    public void addBuilding(Street property) {
+        if(property.getHouseAmount() < 4) {
+            property.setHouseAmount(property.getHouseAmount() + 1);
+            property.getOwner().setBalance(-property.getHousePrice());
+            setHousePool(getHousePool()-1);
+        }else if(property.getHouseAmount() == 4){
+            property.setHouseAmount(property.getHouseAmount()+1);
+            property.getOwner().setBalance(-property.getHousePrice()*5);
+            setHotelPool(getHotelPool()-1);
         }
-          return buildHotels;
-    }
-
-
-    public void addHouse(Street property) {
-        property.setHouseAmount(property.getHouseAmount()+1);
-        property.getOwner().setBalance(-property.getHousePrice());
-        setHousePool(getHousePool()-1);
-    }
-    public void addHotel(Street property){
-        property.setHotel(true);
-        property.getOwner().setBalance(-property.getHousePrice()*StartValues.getInstance().getValue("hotelPrice"));
-        property.setHotelBuilt(true);
-        setHotelPool(getHotelPool()-1);
     }
 
     public Street getStreetFromString(String street){
@@ -361,20 +337,20 @@ public class FieldController {
         }
         return field;
     }
-    public static int getHousePool() {
+    public int getHousePool() {
         return housePool;
     }
 
-    public static int getHotelPool() {
+    public int getHotelPool() {
         return hotelPool;
     }
 
-    public static void setHousePool(int housePool) {
-        FieldController.housePool = housePool;
+    public void setHousePool(int housePool) {
+        this.housePool = housePool;
     }
 
-    public static void setHotelPool(int hotelPool) {
-        FieldController.hotelPool = hotelPool;
+    public void setHotelPool(int hotelPool) {
+        this.hotelPool = hotelPool;
     }
 }
 
