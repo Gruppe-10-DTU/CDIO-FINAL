@@ -334,6 +334,13 @@ public class FieldController {
         }
         return field;
     }
+    public int distToFirstFerry(Player player){
+        int steps = player.getLocation();
+        do{
+            steps++;
+        }while(!(fieldArrayList.get(steps) instanceof Ferry));
+        return steps - player.getLocation();
+    }
 
 }
 
