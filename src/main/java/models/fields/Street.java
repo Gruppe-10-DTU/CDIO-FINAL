@@ -1,6 +1,6 @@
 package models.fields;
 import models.Player;
-import models.dto.GameStateDTO;
+import models.dto.IGameStateDTOField;
 
 import java.util.Map;
 
@@ -19,7 +19,7 @@ public class Street extends Property{
 
 
     @Override
-    public GameStateDTO fieldEffect(GameStateDTO gameState) {
+    public void fieldEffect(IGameStateDTOField gameState) {
         Player currentPlayer = gameState.getActivePlayer();
         if (owner == null) {
 
@@ -81,7 +81,6 @@ public class Street extends Property{
                 gameState.getPlayerController().removePlayer(currentPlayer.getID());
             }
         }
-        return gameState;
     }
 
 

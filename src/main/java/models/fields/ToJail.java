@@ -1,12 +1,11 @@
 package models.fields;
 
-import models.dto.GameStateDTO;
+import models.dto.IGameStateDTOField;
 
 public class ToJail extends Field {
 
     @Override
-    public GameStateDTO fieldEffect(GameStateDTO gameState) {
+    public void fieldEffect(IGameStateDTOField gameState) {
         gameState.getFieldController().jailPlayer(gameState.getActivePlayer());
-        return gameState;
     }
 }

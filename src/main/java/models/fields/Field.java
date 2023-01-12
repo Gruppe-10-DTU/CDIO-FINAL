@@ -1,7 +1,5 @@
 package models.fields;
-import gui_fields.GUI_Field;
-import models.Player;
-import models.dto.GameStateDTO;
+import models.dto.IGameStateDTOField;
 
 public abstract class Field {
     protected String name;
@@ -23,5 +21,5 @@ public abstract class Field {
         return iD;
     }
 
-    public abstract GameStateDTO fieldEffect(GameStateDTO gameState);
+    public abstract void fieldEffect(IGameStateDTOField gameState);
 }

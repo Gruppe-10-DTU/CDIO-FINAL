@@ -1,8 +1,7 @@
 package models.fields;
 
 import models.Player;
-import models.dto.GameStateDTO;
-import org.apache.commons.lang.NotImplementedException;
+import models.dto.IGameStateDTOField;
 
 public class Ferry extends Property{
 
@@ -18,7 +17,7 @@ public class Ferry extends Property{
 
 
     @Override
-    public GameStateDTO fieldEffect(GameStateDTO gameState) {
+    public void fieldEffect(IGameStateDTOField gameState) {
         Player currentPlayer = gameState.getActivePlayer();
 
         if (owner == null) {
@@ -66,6 +65,5 @@ public class Ferry extends Property{
 
 
         }
-        return gameState;
     }
 }
