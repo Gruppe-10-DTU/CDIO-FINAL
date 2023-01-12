@@ -57,9 +57,13 @@ class ToJail {
 
 
 Field <|-left- Property
-Field <|--- Empty
+Property <|-up- Street
+Property <|-down- Ferry
+Property <|-down- Brewery
 Field <|-- Chance
 Field <|-- Jail
-Field <|-right- ToJail
+Field <|-up- ToJail
+Field <|-up- Empty
+
 }
 @enduml
