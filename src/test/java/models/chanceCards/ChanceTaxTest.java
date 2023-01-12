@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TaxTest {
+class ChanceTaxTest {
     GameStateDTO gameState;
     Tax card1;
     Tax card2;
