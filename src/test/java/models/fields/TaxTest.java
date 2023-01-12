@@ -34,7 +34,14 @@ class TaxTest {
         assertNotEquals(30000, gameState.getActivePlayer().getBalance());
         assertEquals(29000, gameState.getActivePlayer().getBalance());
     }
+    @Test
+    public void testRemoveStaticAmountDead(){
+        gameState.getActivePlayer().setBalance(-30000);
 
+        tax.fieldEffect(gameState);
+        assertEquals(0, gameState.getActivePlayer().getBalance());
+        assertNull(gameState.getPlayerController().getPlayerById(0));
+    }
     @Test
     public void removeStaticAmountFromChoice(){
         tax.setPriceProcent(10);
@@ -46,13 +53,33 @@ class TaxTest {
     }
 
     @Test
-    public void removeDynamicAmountFromChoice(){
+    public void removeDynamicAmountFromChoiceNoHouse(){
         tax.setPriceProcent(10);
         ((GUIControllerStub) gameState.getGuiController()).setButtonClicked(false);
+        ((FieldControllerStub)gameState.getFieldController()).setPropertyValue(0);
         tax.fieldEffect(gameState);
 
         assertNotEquals(30000, gameState.getActivePlayer().getBalance());
-        assertEquals(27000, gameState.getActivePlayer().getBalance());
+        assertEquals(30000-30000*0.10, gameState.getActivePlayer().getBalance());
     }
+    @Test
+    public void removeDynamicAmount3000PropertyValue(){
+        tax.setPriceProcent(10);
+        ((GUIControllerStub) gameState.getGuiController()).setButtonClicked(false);
+        ((FieldControllerStub)gameState.getFieldController()).setPropertyValue(3000);
+        tax.fieldEffect(gameState);
 
+        assertNotEquals(30000, gameState.getActivePlayer().getBalance());
+        assertEquals(30000-33000*0.10, gameState.getActivePlayer().getBalance());
+    }
+    @Test
+    public void removeDynamicChoiceAmountDead(){
+        tax.setPriceProcent(100);
+        ((GUIControllerStub) gameState.getGuiController()).setButtonClicked(false);
+        ((FieldControllerStub)gameState.getFieldController()).setPropertyValue(1);
+        tax.fieldEffect(gameState);
+
+        assertEquals(30000, gameState.getActivePlayer().getBalance());
+        assertNull(gameState.getPlayerController().getPlayerById(0));
+    }
 }
