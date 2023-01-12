@@ -11,6 +11,7 @@ class StartTest {
 
     @Test
     void fieldEffectNoChance() {
-
+        GameStateDTO gameStateDTO = new GameStateDTO(new GUIControllerStub());
+        new Start().fieldEffect(gameStateDTO);
     }
 }

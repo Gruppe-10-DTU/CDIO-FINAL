@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class EmptyTest {
     @Test
     void testEmptyFieldNoChange() {
-
+        GameStateDTO gameStateDTO = new GameStateDTO(new GUIControllerStub());
+        new Empty().fieldEffect(gameStateDTO);
     }
 }
