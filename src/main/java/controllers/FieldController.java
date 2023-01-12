@@ -338,7 +338,17 @@ public class FieldController {
         int steps = player.getLocation();
         do{
             steps++;
+            if (steps == StartValues.getInstance().getValue("boardSize")){
+                steps = 0;
+                break;
+            }
         }while(!(fieldArrayList.get(steps) instanceof Ferry));
+        if (steps < player.getLocation()){
+            do {
+                steps++;
+            } while(!(fieldArrayList.get(steps) instanceof Ferry));
+            return StartValues.getInstance().getValue("boardSize") - player.getLocation() + steps;
+        }
         return steps - player.getLocation();
     }
 
