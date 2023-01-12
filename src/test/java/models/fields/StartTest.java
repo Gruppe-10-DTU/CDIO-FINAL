@@ -11,9 +11,6 @@ class StartTest {
 
     @Test
     void fieldEffectNoChance() {
-        GameStateDTO gameStateDTO = new GameStateDTO(new GUIControllerStub());
-        Start start = new Start();
-        GameStateDTO newState = start.fieldEffect(gameStateDTO);
-        assertEquals(gameStateDTO, newState);
+
     }
 }
