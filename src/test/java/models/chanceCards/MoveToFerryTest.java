@@ -19,7 +19,6 @@ class MoveToFerryTest {
     GameStateDTO gameState;
     ChanceCard card1;
     ChanceCard card2;
-    ChanceCard card3;
 
     @BeforeEach
     void setUp() {
@@ -31,18 +30,27 @@ class MoveToFerryTest {
         gameState.setGuiController(new GUIControllerStub());
         gameState.setFieldController(new FieldController(new Language()));
         gameState.setChancecardDeck(new Deck(new Language()));
-        card1 = new MoveToFerry("", "",2,false);
-        card2 = new MoveToFerry("", "",2,false);
-        card3 = new MoveToFerry("", "",1,true);
+        card1 = new MoveToFerry("", "",2,true);
+        card2 = new MoveToFerry("", "",1,true);
     }
 
     @Test
     void chanceEffect() {
-        gameState.getActivePlayer().setLocation(3);
-        int money = gameState.getActivePlayer().getBalance();
-        GameStateDTO newState = card1.chanceEffect(gameState);
+        //Checks with rent multiplier
+        gameState.getActivePlayer().setLocation(7);
+        ((Property)gameState.getFieldController().getField(15)).setOwner(gameState.getOtherPlayers().get(0));
+        card1.chanceEffect(gameState);
+        assertEquals(15, gameState.getActivePlayer().getLocation());
+        assertEquals(29000, gameState.getActivePlayer().getBalance());
+        assertEquals(31000,gameState.getOtherPlayers().get(0).getBalance());
+
+        //Checks passing start and with no rent multiplier (note other player has 2 ferries in this test)
+        gameState.getActivePlayer().setLocation(36);
         ((Property)gameState.getFieldController().getField(5)).setOwner(gameState.getOtherPlayers().get(0));
-        assertEquals(5, gameState.getActivePlayer().getLocation());
-        assertTrue(money > gameState.getActivePlayer().getBalance());
+        card2.chanceEffect(gameState);
+        assertEquals(5,gameState.getActivePlayer().getLocation());
+        assertEquals(32000, gameState.getActivePlayer().getBalance());
+        assertEquals(32000,gameState.getOtherPlayers().get(0).getBalance());
+
     }
 }
