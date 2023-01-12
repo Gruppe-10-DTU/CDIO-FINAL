@@ -1,6 +1,6 @@
 package models.chanceCards;
 
-import models.dto.GameStateDTO;
+import models.dto.IGameStateDTO;
 
 public abstract class ChanceCard {
     protected final String NAME;
@@ -16,7 +16,7 @@ public abstract class ChanceCard {
         this.description = Description;
     }
 
-    public abstract GameStateDTO chanceEffect(GameStateDTO gameState);
+    public abstract void chanceEffect(IGameStateDTO gameState);
 
     public String getType(){
         return this.getClass().toString().replaceAll("class models.chanceCards.", "");

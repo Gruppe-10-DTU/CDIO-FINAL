@@ -1,7 +1,7 @@
 package models;
 
 import models.chanceCards.GetOutOfJail;
-import models.dto.GameStateDTO;
+import models.dto.IGameStateDTO;
 
 import java.util.ArrayList;
 
@@ -183,7 +183,7 @@ public class Player {
     public void addGetOutOfJail(GetOutOfJail getOutOfJail) {
         this.getOutOfJail.add(getOutOfJail);
     }
-    public void useGetOutOfJail(GameStateDTO gameState){
+    public void useGetOutOfJail(IGameStateDTO gameState){
         this.setRoundsInJail(0);
         this.getOutOfJail.get(0).chanceEffect(gameState);
         this.getOutOfJail.remove(0);

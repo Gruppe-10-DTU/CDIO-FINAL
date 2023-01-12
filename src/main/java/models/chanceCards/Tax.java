@@ -1,6 +1,6 @@
 package models.chanceCards;
 
-import models.dto.GameStateDTO;
+import models.dto.IGameStateDTO;
 import org.apache.commons.lang.NotImplementedException;
 
 public class Tax extends ChanceCard {
@@ -16,7 +16,7 @@ public class Tax extends ChanceCard {
     }
 
     @Override
-    public GameStateDTO chanceEffect(GameStateDTO gameState){
+    public void chanceEffect(IGameStateDTO gameState){
         throw new NotImplementedException();
     }
 

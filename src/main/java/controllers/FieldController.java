@@ -2,11 +2,9 @@ package controllers;
 
 import models.Language;
 import models.Player;
-import models.dto.GameStateDTO;
-import models.dto.IGameStateDTOField;
+import models.dto.IGameStateDTO;
 import models.fields.*;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class FieldController {
@@ -148,7 +146,7 @@ public class FieldController {
         }
     }
 
-    public void landOnField(IGameStateDTOField gamestate) {
+    public void landOnField(IGameStateDTO gamestate) {
         Field currentField = fieldArrayList.get(gamestate.getActivePlayer().getLocation());
 
         currentField.fieldEffect(gamestate);

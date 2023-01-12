@@ -1,8 +1,7 @@
 package models.chanceCards;
 
 import models.Player;
-import models.dto.GameStateDTO;
-import org.apache.commons.lang.NotImplementedException;
+import models.dto.IGameStateDTO;
 
 public class ChangeBalance extends ChanceCard{
 
@@ -21,7 +20,7 @@ public class ChangeBalance extends ChanceCard{
     }
 
     @Override
-    public GameStateDTO chanceEffect(GameStateDTO gameState){
+    public void chanceEffect(IGameStateDTO gameState){
         Player currentPlayer = gameState.getActivePlayer();
 
         gameState.getGuiController().displayMsg(description);
@@ -33,7 +32,6 @@ public class ChangeBalance extends ChanceCard{
             gameState.getPlayerController().removePlayer(currentPlayer.getID());
         }
         gameState.getChancecardDeck().returnToDeck(this);
-        return gameState;
     }
 
     public int getEffect() {

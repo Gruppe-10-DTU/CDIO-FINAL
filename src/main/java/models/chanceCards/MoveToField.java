@@ -3,7 +3,7 @@ package models.chanceCards;
 import controllers.PlayerController;
 import controllers.StartValues;
 import models.Player;
-import models.dto.GameStateDTO;
+import models.dto.IGameStateDTO;
 
 public class MoveToField extends ChanceCard{
 
@@ -23,7 +23,7 @@ public class MoveToField extends ChanceCard{
     }
 
     @Override
-    public GameStateDTO chanceEffect(GameStateDTO gameState){
+    public void chanceEffect(IGameStateDTO gameState){
         PlayerController playerController = gameState.getPlayerController();
         Player activePlayer = gameState.getActivePlayer();
 
@@ -41,7 +41,6 @@ public class MoveToField extends ChanceCard{
             gameState.getFieldController().landOnField(gameState);
         }
         gameState.getChancecardDeck().returnToDeck(this);
-        return gameState;
     }
 
     public int getFieldID() {
