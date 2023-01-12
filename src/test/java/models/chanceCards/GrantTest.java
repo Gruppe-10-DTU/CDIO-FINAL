@@ -6,6 +6,8 @@ import controllers.PlayerController;
 import models.Language;
 import models.Player;
 import models.dto.GameStateDTO;
+import models.fields.Street;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -19,10 +21,8 @@ class GrantTest {
     Grant card1;
     Grant card2;
 
-
-    @Test
-    @DisplayName("correctly awards bonus")
-    void chanceEffect() {
+    @BeforeEach
+    void setup(){
         Player player1 = new Player(0,"Player1");
         ArrayList<Player> otherPlayers = new ArrayList<>();
         otherPlayers.add(new Player(1,"player2"));
@@ -33,13 +33,34 @@ class GrantTest {
         gameState.setChancecardDeck(new Deck(new Language()));
         card1 = new Grant("", "",15000,40000);
         card2 = new Grant("", "",15000,40000);
+    }
 
-        int startMoney = player1.getBalance();
+    @Test
+    @DisplayName("correctly awards bonus when owning no properties")
+    void chanceEffectNoProperties() {
+        int startMoney = gameState.getActivePlayer().getBalance();
         card1.chanceEffect(gameState);
         assertEquals(startMoney, gameState.getActivePlayer().getBalance());
         gameState.getActivePlayer().setBalance(-20000);
         card2.chanceEffect(gameState);
         assertTrue(startMoney < gameState.getActivePlayer().getBalance());
 
+    }
+    @Test
+    @DisplayName("Correctly awards bonus when owning properties")
+    void chanceEffectWithProperties(){
+        ((Street) gameState.getFieldController().getField(6)).setOwner(gameState.getActivePlayer());
+        ((Street) gameState.getFieldController().getField(6)).setHouseAmount(3);
+        ((Street) gameState.getFieldController().getField(8)).setOwner(gameState.getActivePlayer());
+        ((Street) gameState.getFieldController().getField(8)).setHotel(true);
+        ((Street) gameState.getFieldController().getField(9)).setOwner(gameState.getActivePlayer());
+        ((Street) gameState.getFieldController().getField(9)).setHotel(true);
+
+        int startMoney = gameState.getActivePlayer().getBalance();
+        card1.chanceEffect(gameState);
+        assertEquals(startMoney, gameState.getActivePlayer().getBalance());
+        gameState.getActivePlayer().setBalance(-25000);
+        card2.chanceEffect(gameState);
+        assertTrue(startMoney < gameState.getActivePlayer().getBalance());
     }
 }
