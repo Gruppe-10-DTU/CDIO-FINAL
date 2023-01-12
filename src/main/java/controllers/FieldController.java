@@ -353,6 +353,17 @@ public class FieldController {
     public void setHotelPool(int hotelPool) {
         this.hotelPool = hotelPool;
     }
+    public void sellBuilding(Street property){
+        if(property.isHotel()){
+            property.setHouseAmount(property.getHouseAmount()-1);
+            property.getOwner().setBalance(property.getHousePrice()*5);
+            setHotelPool(hotelPool+1);
+        }else {
+            property.setHouseAmount(property.getHouseAmount() - 1);
+            property.getOwner().setBalance(property.getHousePrice());
+            setHousePool(housePool+1);
+        }
+    }
 }
 
 
