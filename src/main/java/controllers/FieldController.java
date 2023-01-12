@@ -268,7 +268,7 @@ public class FieldController {
         HashMap<String, Street[]> map = new HashMap<>();
         ArrayList<Street> propertiesToUpgrade = new ArrayList<>();
 
-        for (int i = 0; i < fieldArrayList.size(); i += 4) {
+        for (int i = 0; i < fieldArrayList.size(); i += 5) {
             for (int k = i; k <= i + 4; k++) {
                 if (fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).getOwner() != player) {
                     localData.clear();
