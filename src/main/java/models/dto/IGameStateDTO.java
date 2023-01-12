@@ -7,13 +7,11 @@ import models.Player;
 import models.chanceCards.Deck;
 import ui.GUIController;
 
-public interface IGameStateDTOField {
+public interface IGameStateDTO {
     Player getActivePlayer();
     GUIController getGuiController();
     FieldController getFieldController();
     PlayerController getPlayerController();
-
     DiceHolder getDiceHolder();
-
     Deck getChancecardDeck();
 }

@@ -9,7 +9,7 @@ import ui.GUIController;
 
 import java.util.ArrayList;
 
-public class GameStateDTO implements IGameStateDTOField {
+public class GameStateDTO implements IGameStateDTO {
     private Player activePlayer;
     private ArrayList<Player> otherPlayers;
     private GUIController guiController;
