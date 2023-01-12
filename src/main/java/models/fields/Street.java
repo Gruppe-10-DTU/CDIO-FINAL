@@ -38,6 +38,7 @@ public class Street extends Property{
                 String msg = "Du er landet på " + name + " Til en værdi af " + price + "og har dessværre ikke råd til at købe den";
                 gameState.getGuiController().displayMsg(msg);
 
+                this.auction(gameState);
             }
         } else {
 
