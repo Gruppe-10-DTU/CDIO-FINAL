@@ -2,7 +2,6 @@ package models.chanceCards;
 
 import models.Player;
 import models.dto.GameStateDTO;
-import org.apache.commons.lang.NotImplementedException;
 
 public class Grant extends ChanceCard{
 
@@ -24,7 +23,6 @@ public class Grant extends ChanceCard{
         }
         gameState.getGuiController().updatePlayer(player);
         gameState.getChancecardDeck().returnToDeck(this);
-
         return gameState;
     }
 }
