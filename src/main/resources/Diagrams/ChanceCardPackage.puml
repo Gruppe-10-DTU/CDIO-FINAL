@@ -12,51 +12,53 @@ class Deck{
 }
 
 abstract ChanceCard{
- # NAME : String
- # DESCRIPTION : String
- + getType() : String
+ # NAME : String {final}
+ # DESCRIPTION : String {final}
+ + getType() : String {final}
+ + ChanceCard(name : String, description : String)
  + abstract chanceEffect() : gameStateDTO
 }
-
-class Choice {
- - MOVE : int
- - DRAW_AGAIN : boolean
+class ChangeBalance {
+ - EFFECT : int {final}
+ - FROM_OTHERS : boolean {final}
+ + ChangeBalance(name: String, description: String, EFFECT: int, FromOtherPlayers: boolean)
 }
-
-class MoveXSteps {
- - MIN_STEPS : int
- - MAX_STEPS : int
+class GetOutOfJail {
+    GetOutOfJail(name : String, description : String)
 }
-class MoveToColor {
- - COLOUR_1 : String
- - COLOUR_2 : String
+class Grant {
+ - BONUS : int {final}
+ - MAXWORTH : int {final}
+ + Grant(name : String, description : String, bonus : int, maxWorth : int)
+}
+class MoveToFerry {
+ - RENTMULTIPLIER : int {final}
+ - PASSSTARTBONUS : boolean {final}
+ + MoveToFerry(name : String, description : String, rentMultiplier : int, passStartBonus : boolean) {
 }
 
 class MoveToField {
- - FIELD_ID : int
+ - FIELD_ID : int {final}
+ - PASS_START_BONUS : boolean {final}
+ + MoveToField(name : String, description : String, passStartBonus : boolean, fieldId : int) {
 }
-
-class CharacterSpecific {
- - CHARACTER : Character
+class MoveXSteps {
+ - MAX_STEPS : int {final}
+ + MoveXSteps(name : String, description : String, stepsToMove : int) {
 }
-
-class ChangeBalance {
- - EFFECT : int
- - FROM_OTHERS : boolean
+class Tax {
+ - HOUSE_TAX : int {final}
+ - HOTEL_TAX : int {final}
+ Tax(name : String, description : String, houseTax : int, hotelTax : int){
 }
+Deck o-- ChanceCard
 
-class GetOutOfJail {
-}
-}
-
-Deck o-- "1..*"ChanceCard
-
-ChanceCard <|-- Choice
-ChanceCard <|--- MoveXSteps
-ChanceCard <|-- MoveToColor
-ChanceCard <|-- MoveToField
-ChanceCard <|-- CharacterSpecific
-ChanceCard <|-- ChangeBalance
+ChanceCard <|-left- ChangeBalance
+ChanceCard <|-right- Grant
+ChanceCard <|-- Tax
+ChanceCard <|-- MoveXSteps
+ChanceCard <|-right- MoveToFerry
 ChanceCard <|-- GetOutOfJail
+ChanceCard <|-- MoveToField
 
 @enduml
