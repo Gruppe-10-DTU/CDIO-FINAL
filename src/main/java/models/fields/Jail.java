@@ -88,6 +88,9 @@ public class Jail extends Field {
                         this.setInJailRemove(player);
 
                         /* OUTPUT MESSAGE To USER */
+                        gameState.getPlayerController().playerMove(player, diceHolder.sum());
+                        gameState.getGuiController().movePlayer(player);
+                        gameState.getFieldController().landOnField(gameState);
 
                         break;
                     }else if (jailRoll[0] != jailRoll[1] && i != 2) {

@@ -47,6 +47,7 @@ public class Brewery extends Property{
                 String msg = "Du er landet på " + name + " Til en værdi af " + price + "og har dessværre ikke råd til at købe den";
 
                 gameState.getGuiController().displayMsg(msg);
+                this.auction(gameState);
             }
         } else {
             //Pay rent
@@ -61,7 +62,13 @@ public class Brewery extends Property{
                 rentToPay = rent0 * diceAmount;
             }
 
-            if (currentPlayer.getBalance() >= rentToPay) {
+            if (owner == currentPlayer) {
+                String msg = "Du er landet på din egen grund";
+                gameState.getGuiController().displayMsg(msg);
+            } else if (gameState.getFieldController().isJailed(owner)) {
+                String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " men da ejeren er i fængselbetales ingen leje ";
+                gameState.getGuiController().displayMsg(msg);
+            } else if (currentPlayer.getBalance() >= rentToPay) {
                 String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " betal leje " + rentToPay;
                 gameState.getGuiController().displayMsg(msg);
 
