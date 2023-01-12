@@ -133,7 +133,6 @@ public class GameController implements ActionListener {
         Map<String,Street[]> ownsGroup = fieldController.ownsColourGroup(player);
         Map<String,Street[]> placesToBuild = fieldController.buildEqual(ownsGroup);
         //Tjek huskøb
-        //Spørg om de vil bygge på grund, hvis grunden kan have et hotel så skal den få det, ellers et hus.
         if(placesToBuild.size() >= 1) {
             looper = guiController.yesnoSelection(language.getLanguageValue("canBuild", player.getIdentifier()));
             boolean loopdeloop = true;
@@ -141,6 +140,7 @@ public class GameController implements ActionListener {
             while (looper && placesToBuild.size() >= 1) {
                 if (!loopdeloop) {
                     looper = guiController.yesnoSelection(language.getLanguageValue("canBuild"));
+                    if(!looper) break;
                 }
                 loopdeloop = false;
                     String colorChosen = guiController.selectColorBuild(language.getLanguageValue("chooseColorOptions"), placesToBuild.keySet().toArray(String[]::new));
@@ -152,6 +152,7 @@ public class GameController implements ActionListener {
                            if(fieldController.getStreetFromString(whereToBuild).getHouseAmount() < 4 && fieldController.getHousePool() > 0) {
                                fieldController.addBuilding(fieldController.getStreetFromString(whereToBuild));
                                guiController.guiAddHouse(fieldController.getStreetFromString(whereToBuild), fieldController.getStreetFromString(whereToBuild).getHouseAmount());
+                               guiController.updatePlayer(player);
                            }else if(fieldController.getStreetFromString(whereToBuild).getHousePrice()*5 <= player.getBalance() && fieldController.getStreetFromString(whereToBuild).getHouseAmount() == 4 && fieldController.getHotelPool() > 0) {
                                fieldController.addBuilding(fieldController.getStreetFromString(whereToBuild));
                                guiController.guiAddHotel(fieldController.getStreetFromString(whereToBuild));
