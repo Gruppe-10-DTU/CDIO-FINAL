@@ -56,7 +56,7 @@ class ToJail {
 
 
 
-Field <|-left- Property
+Field <|-right- Property
 Property <|-up- Street
 Property <|-down- Ferry
 Property <|-down- Brewery
