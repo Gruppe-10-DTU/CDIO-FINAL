@@ -192,4 +192,21 @@ class FieldControllerTest {
         assertEquals(22200, fieldcontroller.playerPropertyValues(mockPlayer2));
     }
 
+    @Test
+    void testRemovePlayerFromProperties() {
+        Player player = playerController.getPlayerById(0);
+        for (Object field : fieldcontroller.fieldArrayList) {
+            if ( field instanceof Property) {
+               ((Property) field).setOwner(player);
+            }
+        }
+
+        fieldcontroller.removePlayer(player);
+
+        for (Object field : fieldcontroller.fieldArrayList) {
+            if ( field instanceof Property) {
+                assertNull(((Property) field).getOwner());
+            }
+        }
+    }
 }

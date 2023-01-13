@@ -350,6 +350,15 @@ public class FieldController {
         }
         return new int[]{houses, hotels};
     }
+
+    public void removePlayer(Player player){
+        for (Field field: fieldArrayList
+             ) {
+            if(field instanceof Property && ((Property) field).getOwner() == player){
+                ((Property) field).setOwner(null);
+            }
+        }
+    }
 }
 
 
