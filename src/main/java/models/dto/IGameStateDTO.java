@@ -17,5 +17,4 @@ public interface IGameStateDTO {
     DiceHolder getDiceHolder();
     Deck getChanceCardDeck();
     ArrayList<Player> getOtherPlayers();
-    void removePlayer(Player player);
 }

@@ -29,7 +29,7 @@ public class Tax extends ChanceCard {
         } else {
             gameState.getGuiController().displayMsg("Du kan ikke betale din afgift");
             //Optional house selling
-            gameState.getPlayerController().removePlayer(player.getID());
+            gameState.getPlayerController().removePlayer(gameState.getActivePlayer().getID());
         }
         gameState.getChanceCardDeck().returnToDeck(this);
     }

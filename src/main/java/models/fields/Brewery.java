@@ -80,7 +80,7 @@ public class Brewery extends Property{
                 gameState.getGuiController().displayMsg(msg);
 
                 //Player must leave the game (later the player will be able to sell things and stay in the game)
-                gameState.getPlayerController().removePlayer(currentPlayer.getID());
+                gameState.getPlayerController().removePlayer(gameState.getActivePlayer().getID());
             }
 
         }

@@ -85,9 +85,4 @@ public class GameStateDTO implements IGameStateDTO {
     public void setOtherPlayers(ArrayList<Player> otherPlayers) {
         this.otherPlayers = otherPlayers;
     }
-
-    public void removePlayer(Player player){
-        this.playerController.removePlayer(player.getID());
-        this.guiController.removePlayer(player, this.fieldController.removePlayer(player));
-    }
 }

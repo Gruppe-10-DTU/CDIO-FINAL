@@ -90,6 +90,9 @@ public class GameController implements ActionListener {
 
             takeTurn(currentPlayer);
 
+            if(playerController.getPlayerById(turnCounter % playerAmount)==null){
+                guiController.removePlayer(currentPlayer, fieldController.removePlayer(currentPlayer));
+            }
             if(diceHolder.getSameRolls()==0){
                 turnCounter++;
             }
