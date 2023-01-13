@@ -1,7 +1,7 @@
 package models.chanceCards;
 
 import models.Player;
-import models.dto.GameStateDTO;
+import models.dto.IGameStateDTO;
 
 public class MoveToFerry extends ChanceCard{
 
@@ -15,7 +15,7 @@ public class MoveToFerry extends ChanceCard{
     }
 
     @Override
-    public GameStateDTO chanceEffect(GameStateDTO gameState){
+    public void chanceEffect(IGameStateDTO gameState){
         gameState.getGuiController().showChanceCard(this.description);
         Player player = gameState.getActivePlayer();
         int distToFerry = gameState.getFieldController().distToFirstFerry(player);
@@ -31,7 +31,6 @@ public class MoveToFerry extends ChanceCard{
         }else {
             gameState.getFieldController().landOnField(gameState, RENT_MULTIPLIER);
         }
-        gameState.getChancecardDeck().returnToDeck(this);
-        return gameState;
+        gameState.getChanceCardDeck().returnToDeck(this);
     }
 }

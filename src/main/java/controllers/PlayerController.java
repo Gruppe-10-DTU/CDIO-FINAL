@@ -12,11 +12,7 @@ public class PlayerController {
     //make int Amount variable until GUI controller complete
     public PlayerController() {
     }
-   private  LinkedHashMap<Integer, Player> availablePlayers = new LinkedHashMap<>();
-
-    public LinkedHashMap<Integer, Player> getAvailablePlayers() {
-        return availablePlayers;
-    }
+    private  LinkedHashMap<Integer, Player> availablePlayers = new LinkedHashMap<>();
 
     /**
      * Adds a new player to the game.
@@ -90,8 +86,6 @@ public class PlayerController {
     public ArrayList<Player> otherPlayers(int playerId){
         return availablePlayers.values().stream().filter(x-> x.getID() != playerId).collect(Collectors.toCollection(ArrayList::new));
     }
-
-
     /**
      * Compares player name and checks if it is unique.
      * @param name Name of new player
@@ -106,27 +100,4 @@ public class PlayerController {
         }
         return true;
     }
-
-
-
-
-    /**
-     * Checks if given player can afford to pay rent of specified square, then transfers money.
-     * @param player : Player-class. Who is renting the place?
-     * @param property : Property-class. Property in mention.
-     * @return
-     */
-    public boolean getRent(Player player, Street property, boolean doubleRent) {
-        int rent = doubleRent ? property.getPrice() * 2 : property.getPrice();
-        if (property.getOwner() == player) {
-            return true;
-        } else {
-            if (player.setBalance(-rent)) {
-                property.getOwner().setBalance(rent);
-                return true;
-            }
-            return false;
-        }
-    }
-
 }

@@ -10,7 +10,7 @@ import ui.GUIController;
 import java.security.PublicKey;
 import java.util.ArrayList;
 
-public class GameStateDTO {
+public class GameStateDTO implements IGameStateDTO {
     private Player activePlayer;
     private ArrayList<Player> otherPlayers;
     private GUIController guiController;
@@ -76,25 +76,24 @@ public class GameStateDTO {
         this.activePlayer = activePlayer;
     }
 
-    public void setOtherPlayers(ArrayList<Player> otherPlayers) {
-        this.otherPlayers = otherPlayers;
-    }
-
     public Player getActivePlayer() {
         return activePlayer;
-    }
-
-    public ArrayList<Player> getOtherPlayers() {
-        return otherPlayers;
     }
 
     public void setChancecardDeck(Deck chancecardDeck) {
         this.chancecardDeck = chancecardDeck;
     }
 
-    public Deck getChancecardDeck(){
+    public Deck getChanceCardDeck(){
         return this.chancecardDeck;
     }
 
+    @Override
+    public ArrayList<Player> getOtherPlayers() {
+        return otherPlayers;
+    }
 
+    public void setOtherPlayers(ArrayList<Player> otherPlayers) {
+        this.otherPlayers = otherPlayers;
+    }
 }

@@ -1,6 +1,6 @@
 package models.chanceCards;
 
-import models.dto.GameStateDTO;
+import models.dto.IGameStateDTO;
 
 public class GetOutOfJail extends ChanceCard{
 
@@ -14,14 +14,12 @@ public class GetOutOfJail extends ChanceCard{
     }
 
     @Override
-    public GameStateDTO chanceEffect(GameStateDTO gameState){
+    public void chanceEffect(IGameStateDTO gameState){
         if (gameState.getFieldController().isJailed(gameState.getActivePlayer())) {
-            gameState.getFieldController().freePlayer(gameState.getActivePlayer());
-            gameState.getChancecardDeck().returnToDeck(this);
+            gameState.getChanceCardDeck().returnToDeck(this);
         }else{
             gameState.getGuiController().showChanceCard(this.description);
             gameState.getActivePlayer().addGetOutOfJail(this);
         }
-        return gameState;
     }
 }

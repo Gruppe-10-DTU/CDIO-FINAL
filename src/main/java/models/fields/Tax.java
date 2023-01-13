@@ -1,6 +1,6 @@
 package models.fields;
 
-import models.dto.GameStateDTO;
+import models.dto.IGameStateDTO;
 
 public class Tax extends Field{
 
@@ -32,7 +32,7 @@ public class Tax extends Field{
     }
 
     @Override
-    public GameStateDTO fieldEffect(GameStateDTO gameState, int rentMultiplier){
+    public void fieldEffect(IGameStateDTO gameState, int rentMultiplier){
         if(priceProcent==0){
             if(gameState.getActivePlayer().setBalance(priceValue*-1)){
                 gameState.getGuiController().displayMsg("Du skal betale skal på "+priceValue);
@@ -60,6 +60,5 @@ public class Tax extends Field{
                 }
             }
         }
-        return gameState;
     }
 }

@@ -40,16 +40,15 @@ class MoveXStepsTest {
     @DisplayName("player is moved the correct amount")
     void moveXStepsChanceEffect() {
         gameState.getActivePlayer().setLocation(2);
-        GameStateDTO newState = card1.chanceEffect(gameState);
+        card1.chanceEffect(gameState);
         assertEquals(5,gameState.getActivePlayer().getLocation());
 
         gameState.getActivePlayer().setLocation(17);
-        newState = card2.chanceEffect(gameState);
+        card2.chanceEffect(gameState);
         assertEquals(14,gameState.getActivePlayer().getLocation());
 
         gameState.getActivePlayer().setLocation(2);
-        newState = card3.chanceEffect(gameState);
+        card3.chanceEffect(gameState);
         assertEquals(39,gameState.getActivePlayer().getLocation());
-
     }
 }
