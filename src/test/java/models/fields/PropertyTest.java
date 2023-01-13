@@ -1,7 +1,6 @@
 package models.fields;
 
 import controllers.GUIControllerStub;
-import controllers.GameController;
 import controllers.PlayerController;
 import models.dto.GameStateDTO;
 import org.junit.jupiter.api.BeforeEach;

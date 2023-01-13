@@ -54,7 +54,7 @@ class DeckTest {
     @DisplayName("Cards can be returned to deck")
     void returnToDeck(){
         ChanceCard card = new GetOutOfJail("Test", "test");
-        int startSize = deck.getDeckSize();;
+        int startSize = deck.getDeckSize();
         deck.returnToDeck(card);
         assertTrue(startSize < deck.getDeckSize());
     }

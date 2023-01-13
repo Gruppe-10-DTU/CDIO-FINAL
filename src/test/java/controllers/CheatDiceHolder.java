@@ -3,7 +3,6 @@ package controllers;
 import java.util.Arrays;
 
 public class CheatDiceHolder extends DiceHolder{
-    int nextRoll;
     int[] rolls;
     private int isEqualAmount = -1;
 

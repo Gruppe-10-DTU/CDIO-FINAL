@@ -28,7 +28,7 @@ class ChangeBalanceTest {
         gameState.setPlayerController(new PlayerController());
         gameState.setGuiController(new GUIControllerStub());
         gameState.setFieldController(new FieldController(new Language()));
-        gameState.setChancecardDeck(new Deck(new Language()));
+        gameState.setChanceCardDeck(new Deck(new Language()));
         card1 = new ChangeBalance("", "",-1000,false);
         card2 = new ChangeBalance("", "",1000,false);
     }

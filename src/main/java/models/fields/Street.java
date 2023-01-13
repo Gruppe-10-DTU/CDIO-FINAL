@@ -5,7 +5,7 @@ import models.dto.IGameStateDTO;
 import java.util.Map;
 
 
-public class Street extends Property{
+public class Street extends Property {
 
     private String color;
     //private int price;
@@ -14,6 +14,7 @@ public class Street extends Property{
     private int houseAmount = 0;
 
     private boolean hotel = false;
+
 
     private int[] rent = new int[6];
 
@@ -35,14 +36,14 @@ public class Street extends Property{
                 }
             } else {
                 //Player cant buy (possibly give the player an option to sell other values and then buy?)
-                String msg = "Du er landet på " + name + " Til en værdi af " + price + "og har dessværre ikke råd til at købe den";
+                String msg = "Du er landet på " + name + " Til en værdi af " + price + "og har desværre ikke råd til at købe den";
                 gameState.getGuiController().displayMsg(msg);
 
                 this.auction(gameState);
             }
         } else {
 
-            Map<String,Street[]> ownsGroup = gameState.getFieldController().ownsColourGroup(owner);
+            Map<String, Street[]> ownsGroup = gameState.getFieldController().ownsColourGroup(owner);
 
             int rentToPay;
 
@@ -57,12 +58,13 @@ public class Street extends Property{
                 rentToPay = rent[0];
             }
 
+
             if (owner == currentPlayer) {
                 String msg = "Du er landet på din egen grund";
                 gameState.getGuiController().displayMsg(msg);
 
             } else if (gameState.getFieldController().isJailed(owner)) {
-                String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " men da ejeren er i fængselbetales ingen leje ";
+                String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " men da ejeren er i fængsel betales ingen leje ";
                 gameState.getGuiController().displayMsg(msg);
 
             } else if (currentPlayer.setBalance(-rentToPay)) {
@@ -72,12 +74,34 @@ public class Street extends Property{
                 owner.setBalance(rentToPay);
                 gameState.getGuiController().updatePlayer(owner);
             } else {
-                //Cant pay the rent
                 String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " du har ikke råd til at betale lejen";
                 gameState.getGuiController().displayMsg(msg);
+                //Cant pay the rent
+                while (currentPlayer.getBalance() < rentToPay) {
+                    if (gameState.getFieldController().countHouse(gameState.getFieldController().ownsColourGroup(currentPlayer)) == 0) {
+                        gameState.getGuiController().displayMsg("You cannot pay the rent, and therefore you are disqualified from the game.");
+                        owner.setBalance(currentPlayer.getBalance());
+                        currentPlayer.setBalance(-currentPlayer.getBalance());
+                        gameState.getGuiController().updatePlayer(currentPlayer);
+                        gameState.getGuiController().updatePlayer(owner);
+                        gameState.getPlayerController().removePlayer(currentPlayer.getID());
+                        break;
+                    } else {
+                        String colorChosen = gameState.getGuiController().selectColorBuild("Choose where you want to sell buildings from", gameState.getFieldController().ownsColourGroup(currentPlayer).keySet().toArray(String[]::new));
+                        String whereToSell = gameState.getGuiController().selectBuild("Sell building. 1 house sells for: " + gameState.getFieldController().ownsColourGroup(currentPlayer).get(colorChosen)[0].getHousePrice() / 2 + "", gameState.getFieldController().checkSell(gameState.getFieldController().ownsColourGroup(currentPlayer)).get(colorChosen));
+                        if (gameState.getFieldController().getStreetFromString(whereToSell).isHotel()) {
+                            gameState.getFieldController().sellBuilding(gameState.getFieldController().getStreetFromString(whereToSell), 0);
+                            gameState.getGuiController().guiRemoveHotel(gameState.getFieldController().getStreetFromString(whereToSell));
+                            gameState.getGuiController().updatePlayer(currentPlayer);
+                        } else if (gameState.getFieldController().getStreetFromString(whereToSell).getHouseAmount() >= 1) {
+                            int maxHouse = gameState.getFieldController().getStreetFromString(whereToSell).getHouseAmount();
+                            gameState.getFieldController().sellBuilding(gameState.getFieldController().getStreetFromString(whereToSell), gameState.getGuiController().sellAmount(0, maxHouse));
+                            gameState.getGuiController().guiAddHouse(gameState.getFieldController().getStreetFromString(whereToSell), (maxHouse - gameState.getFieldController().getStreetFromString(whereToSell).getHouseAmount()));
+                            gameState.getGuiController().updatePlayer(currentPlayer);
+                        }
+                    }
 
-                //Player must leave the game (later the player will be able to sell things and stay in the game)
-                gameState.getPlayerController().removePlayer(currentPlayer.getID());
+                }
             }
         }
     }
@@ -113,8 +137,8 @@ public class Street extends Property{
         return rent;
     }
 
-    public void setRent(int index, int rentAmound) {
-        this.rent[index] = rentAmound;
+    public void setRent(int index, int rentAmount) {
+        this.rent[index] = rentAmount;
     }
 
     public int getHouseAmount() {

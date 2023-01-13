@@ -4,7 +4,6 @@ import controllers.FieldController;
 import controllers.GUIControllerStub;
 import controllers.PlayerController;
 import controllers.StartValues;
-import models.Character;
 import models.Language;
 import models.Player;
 import models.dto.GameStateDTO;
@@ -32,7 +31,7 @@ class MoveToFieldTest {
         gameState.setPlayerController(new PlayerController());
         gameState.setGuiController(new GUIControllerStub());
         gameState.setFieldController(new FieldController(new Language()));
-        gameState.setChancecardDeck(new Deck(new Language()));
+        gameState.setChanceCardDeck(new Deck(new Language()));
         card1 = new MoveToField("", "",true,37);
         card2 = new MoveToField("", "",true,24);
         card3 = new MoveToField("GoToJail", "",false,10);

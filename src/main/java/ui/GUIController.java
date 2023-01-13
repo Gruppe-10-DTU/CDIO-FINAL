@@ -133,8 +133,6 @@ public class GUIController {
      */
     public void updateField(Property property){
         GUI_Ownable field = (GUI_Ownable) gui.getFields()[property.getID()];
-   //     street.setOwnableLabel(property.getOwner().getIdentifier());
-    //    street.setOwnerName(property.getOwner().getIdentifier());
         if(property instanceof Street){
             if (((Street) property).isHotel()) {
                 ((GUI_Street) field).setHotel(true);
@@ -144,7 +142,6 @@ public class GUIController {
         }
         field.setOwnerName(property.getOwner().getIdentifier());
         field.setBorder(property.getOwner().getCharacter().getColor());
-        //field.setSubText(property.getOwner().getIdentifier());
     }
 
     public void displayMsgNoBtn(String msg){
@@ -153,12 +150,6 @@ public class GUIController {
 
     public void showChanceCard(String message){
         gui.displayChanceCard(message);
-    }
-    public String showChanceCardChoice(String message, String option1, String option2){
-        return gui.getUserSelection(message, option1,option2);
-    }
-    public int getXStepsToMove(String message, int MinVal, int MaxVal){
-        return gui.getUserInteger(message,MinVal,MaxVal);
     }
 
     public void endGame(){gui.close();}
@@ -193,8 +184,7 @@ public class GUIController {
     }
 
     public Boolean getUserLeftButtonPressed(java.lang.String msg, java.lang.String trueButton, java.lang.String falseButton) {
-        boolean response = gui.getUserLeftButtonPressed(msg, trueButton, falseButton);
-        return response;
+        return gui.getUserLeftButtonPressed(msg, trueButton, falseButton);
     }
 
     /**
@@ -235,10 +225,6 @@ public class GUIController {
         gui.getUserButtonPressed(msg,"ok");
     }
 
-    public String selectWhatToBuild(String buildingChoices, String choices){
-        return gui.getUserSelection(buildingChoices, choices.split(","));
-    }
-
     public String selectBuild(String selectBuild, Street[] choices){
         String[] strings = Arrays.stream(choices).map((x -> x.getName())).toArray(String[]::new);
         return gui.getUserSelection(selectBuild, strings);
@@ -251,11 +237,7 @@ public class GUIController {
     public boolean yesnoSelection(String yesorno){
         String yesno = "Yes,No";
         String choice = gui.getUserSelection(yesorno,yesno.split(","));
-        if(choice.toLowerCase().equals("yes")){
-            return true;
-        }else{
-            return false;
-        }
+        return choice.equalsIgnoreCase("yes");
     }
 
     public void guiAddHouse(Street property, int amount){
@@ -266,9 +248,17 @@ public class GUIController {
         GUI_Street street = (GUI_Street) gui.getFields()[property.getID()];
         street.setHotel(true);
     }
+    public void guiRemoveHotel(Street property){
+        GUI_Street street = (GUI_Street) gui.getFields()[property.getID()];
+        street.setHotel(false);
+    }
     public String selectColorBuild(String chooseColorOptions, String[] color){
         return gui.getUserSelection(chooseColorOptions,color);
     }
+    public int sellAmount(int minHouse, int maxHouse){
+        return gui.getUserInteger("How many buildings do you wish to sell?", minHouse, maxHouse);
+    }
+
 
 
 

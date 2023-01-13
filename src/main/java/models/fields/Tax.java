@@ -15,17 +15,6 @@ public class Tax extends Field{
 
     private int priceProcent;
 
-    public int getPriceValue() {
-        return priceValue;
-    }
-
-    public void setPriceValue(int priceValue) {
-        this.priceValue = priceValue;
-    }
-
-    public int getPriceProcent() {
-        return priceProcent;
-    }
 
     public void setPriceProcent(int priceProcent) {
         this.priceProcent = priceProcent;

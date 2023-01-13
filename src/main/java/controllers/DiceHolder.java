@@ -21,7 +21,7 @@ public class DiceHolder {
 
     //Constructor with n amount of dice, in case customer wants to change the game
     public DiceHolder(int diceAmt) {
-        //Instanciate dice
+        //Instance dice
         dice = new Die[diceAmt];
         for (int i = 0; i < diceAmt; i++) {
             dice[i] = new Die();
@@ -64,10 +64,7 @@ public class DiceHolder {
 
     //See if the n die are equal
     public boolean isEqual() {
-        if (Arrays.stream(rolls).distinct().count() == 1) {
-            return true;
-        }
-        return false;
+        return Arrays.stream(rolls).distinct().count() == 1;
     }
 
     @Override
