@@ -82,7 +82,7 @@ public class GUIControllerStub extends ui.GUIController {
      * @param player Player to be moved
      */
     @Override
-    public void movePlayer(Player player) {
+    public void movePlayer(Player player, boolean reverse) {
 
     }
 

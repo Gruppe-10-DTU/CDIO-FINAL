@@ -35,12 +35,12 @@ public class MoveToField extends ChanceCard{
             }else {
                 gameState.getFieldController().landOnField(gameState);
             }
-            gameState.getGuiController().movePlayer(activePlayer);
+            gameState.getGuiController().movePlayer(activePlayer, gameState.isReverse());
         }else{
             int spacesToMove = FIELD_ID - activePlayer.getLocation();
             if(spacesToMove < 0) spacesToMove += StartValues.getInstance().getValue("boardSize");
             playerController.playerMove(activePlayer,spacesToMove);
-            gameState.getGuiController().movePlayer(activePlayer);
+            gameState.getGuiController().movePlayer(activePlayer, gameState.isReverse());
             gameState.getFieldController().landOnField(gameState);
         }
         gameState.getChanceCardDeck().returnToDeck(this);

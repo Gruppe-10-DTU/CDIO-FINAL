@@ -85,8 +85,8 @@ public class Jail extends Field {
                         diceHolder.incrementSameRolls();
 
                         /* OUTPUT MESSAGE To USER */
-                        gameState.getPlayerController().playerMove(player, diceHolder.sum());
-                        gameState.getGuiController().movePlayer(player);
+                        gameState.getPlayerController().playerMove(player, diceHolder.sum(gameState.isReverse()));
+                        gameState.getGuiController().movePlayer(player, gameState.isReverse());
                         gameState.getFieldController().landOnField(gameState);
 
                         break;

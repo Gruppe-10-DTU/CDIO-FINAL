@@ -24,6 +24,8 @@ public class GameController implements ActionListener {
     private Deck deck;
     private Popup p;
 
+    private boolean reverse;
+
     private boolean looper = false;
 
     private GameStateDTO gameState;
@@ -77,6 +79,9 @@ public class GameController implements ActionListener {
     }
 
     public void startGame(){
+        reverse = guiController.getUserLeftButtonPressed("Hvilken retning skal spillet gå", "Mod uret", "Med uret");
+        gameState.setReverse(reverse);
+
         guiController.setPlayers(playerController.getPlayers());
 
         int playerAmount = playerController.getPlayers().length;
@@ -157,9 +162,9 @@ public class GameController implements ActionListener {
                     fieldController.jailPlayer(currentPlayer);
                     diceHolder.setSameRolls(0);
                 } else {
-                    boolean overStart = player.getLocation() + diceHolder.sum() > StartValues.getInstance().getValue("boardSize");
-                    playerController.playerMove(player, diceHolder.sum());
-                    guiController.movePlayer(player);
+                    boolean overStart = player.getLocation() + diceHolder.sum(reverse) > StartValues.getInstance().getValue("boardSize");
+                    playerController.playerMove(player, diceHolder.sum(reverse));
+                    guiController.movePlayer(player, reverse);
                     if (overStart) {
                         guiController.displayMsg(language.getLanguageValue("passStart", String.valueOf(StartValues.getInstance().getValue("passStartBonus"))));
                     }
