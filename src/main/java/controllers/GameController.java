@@ -40,7 +40,7 @@ public class GameController implements ActionListener {
         gameState = new GameStateDTO(guiController);
         gameState.setFieldController(fieldController);
         gameState.setPlayerController(playerController);
-        gameState.setChancecardDeck(deck);
+        gameState.setChanceCardDeck(deck);
         gameState.setDiceHolder(diceHolder);
         this.initialize();
     }

@@ -10,9 +10,9 @@ public class MoveXSteps extends ChanceCard{
 
     /**
      *
-     * @param Name
-     * @param Description
-     * @param StepsToMove
+     * @param Name card name
+     * @param Description card text
+     * @param StepsToMove how many steps the card moves the player
      */
          public MoveXSteps(String Name, String Description, int StepsToMove) {
         super(Name, Description);
@@ -28,6 +28,6 @@ public class MoveXSteps extends ChanceCard{
         playerController.playerMove(activePlayer, this.MAX_STEPS);
         gameState.getGuiController().movePlayer(activePlayer);
         gameState.getFieldController().landOnField(gameState);
-        gameState.getChancecardDeck().returnToDeck(this);
+        gameState.getChanceCardDeck().returnToDeck(this);
     }
 }

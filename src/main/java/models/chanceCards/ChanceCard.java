@@ -15,18 +15,10 @@ public abstract class ChanceCard {
         this.NAME = NAME;
         this.description = Description;
     }
-
     public abstract void chanceEffect(IGameStateDTO gameState);
-
-    public String getType(){
-        return this.getClass().toString().replaceAll("class models.chanceCards.", "");
-    }
 
     public String getName() {
         return NAME;
     }
 
-    public String getDescription() {
-        return description;
-    }
 }

@@ -29,7 +29,7 @@ class ChanceTaxTest {
         gameState.setPlayerController(new PlayerController());
         gameState.setGuiController(new GUIControllerStub());
         gameState.setFieldController(new FieldController(new Language()));
-        gameState.setChancecardDeck(new Deck(new Language()));
+        gameState.setChanceCardDeck(new Deck(new Language()));
         card1 = new Tax("Tax_1", "",800,2300);
         card2 = new Tax("tax_2", "",500,2000);
     }

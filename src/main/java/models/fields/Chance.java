@@ -8,7 +8,7 @@ public class Chance extends Field {
 
     @Override
     public void fieldEffect(IGameStateDTO gameState, int rentMultiplier){
-        ChanceCard drawnCard = gameState.getChancecardDeck().drawCard();
+        ChanceCard drawnCard = gameState.getChanceCardDeck().drawCard();
         drawnCard.chanceEffect(gameState);
     }
 }

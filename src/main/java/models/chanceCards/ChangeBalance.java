@@ -9,7 +9,7 @@ public class ChangeBalance extends ChanceCard{
     private final boolean FROM_OTHERS;
 
     /**
-     * Constructor for the Chancecards that have an effect on the players money.
+     * Constructor for the ChanceCards that have an effect on the player's money.
      * @param Name        Must match a key in the language hashmap
      * @param Description Must be imported from the language hashmap
      */
@@ -41,6 +41,6 @@ public class ChangeBalance extends ChanceCard{
 
             gameState.getPlayerController().removePlayer(currentPlayer.getID());
         }
-        gameState.getChancecardDeck().returnToDeck(this);
+        gameState.getChanceCardDeck().returnToDeck(this);
     }
 }
