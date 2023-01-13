@@ -239,10 +239,9 @@ public class FieldController {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < fieldArrayList.size(); i++) {
-            sb.append("Field" + i + ": " + fieldArrayList.get(i).getName() + ", ");
+            sb.append("Field").append(i).append(": ").append(fieldArrayList.get(i).getName()).append(", ");
         }
-        String str = sb.toString();
-        return str;
+        return sb.toString();
     }
 
     public boolean isJailed(Player player) {

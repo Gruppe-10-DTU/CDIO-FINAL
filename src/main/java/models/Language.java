@@ -1,5 +1,7 @@
 package models;
 
+import org.apache.commons.lang.NotImplementedException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;

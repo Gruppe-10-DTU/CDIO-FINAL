@@ -14,9 +14,6 @@ public class Character {
         this.color = setColor(colorCode);
     }
 
-    public String getImage() {
-        return image;
-    }
     public String getName() {
         return name;
     }

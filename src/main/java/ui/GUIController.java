@@ -125,8 +125,6 @@ public class GUIController {
      */
     public void updateField(Property property){
         GUI_Ownable field = (GUI_Ownable) gui.getFields()[property.getID()];
-   //     street.setOwnableLabel(property.getOwner().getIdentifier());
-    //    street.setOwnerName(property.getOwner().getIdentifier());
         if(property instanceof Street){
             if (((Street) property).isHotel()) {
                 ((GUI_Street) field).setHotel(true);
@@ -136,7 +134,6 @@ public class GUIController {
         }
         field.setOwnerName(property.getOwner().getIdentifier());
         field.setBorder(property.getOwner().getCharacter().getColor());
-        //field.setSubText(property.getOwner().getIdentifier());
     }
 
     public void displayMsgNoBtn(String msg){
@@ -185,8 +182,7 @@ public class GUIController {
     }
 
     public Boolean getUserLeftButtonPressed(java.lang.String msg, java.lang.String trueButton, java.lang.String falseButton) {
-        boolean response = gui.getUserLeftButtonPressed(msg, trueButton, falseButton);
-        return response;
+        return gui.getUserLeftButtonPressed(msg, trueButton, falseButton);
     }
 
     /**
@@ -243,11 +239,7 @@ public class GUIController {
     public boolean yesnoSelection(String yesorno){
         String yesno = "Yes,No";
         String choice = gui.getUserSelection(yesorno,yesno.split(","));
-        if(choice.toLowerCase().equals("yes")){
-            return true;
-        }else{
-            return false;
-        }
+        return choice.equalsIgnoreCase("yes");
     }
 
     public void guiAddHouse(Street property, int amount){

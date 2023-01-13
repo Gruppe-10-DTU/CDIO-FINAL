@@ -8,7 +8,6 @@ import java.util.ArrayList;
 public class Deck {
 
     private ArrayList<ChanceCard> deck;
-    private CSVReader reader;
 
 
     /**
@@ -17,7 +16,7 @@ public class Deck {
     public Deck(Language language) {
         final String DELIMITER = ",";
 
-        reader = new CSVReader("/GamePack/chancecards.final.csv", DELIMITER, true);
+        CSVReader reader = new CSVReader("/GamePack/chancecards.final.csv", DELIMITER, true);
 
         ArrayList<ArrayList<String>> cardData = reader.getDataAsArrList();
 
@@ -88,7 +87,6 @@ public class Deck {
                     break;
             }
         }
-        reader = null;
     }
 
     /**

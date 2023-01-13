@@ -1,7 +1,6 @@
 package models;
 
 import models.chanceCards.GetOutOfJail;
-import models.dto.IGameStateDTO;
 
 import java.util.ArrayList;
 

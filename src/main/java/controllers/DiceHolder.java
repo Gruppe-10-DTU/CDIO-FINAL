@@ -52,10 +52,7 @@ public class DiceHolder {
 
     //See if the n die are equal
     public boolean isEqual() {
-        if (Arrays.stream(rolls).distinct().count() == 1) {
-            return true;
-        }
-        return false;
+        return Arrays.stream(rolls).distinct().count() == 1;
     }
 
     @Override
