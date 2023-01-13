@@ -18,15 +18,7 @@ public abstract class ChanceCard {
 
     public abstract GameStateDTO chanceEffect(GameStateDTO gameState);
 
-    public String getType(){
-        return this.getClass().toString().replaceAll("class models.chanceCards.", "");
-    }
-
     public String getName() {
         return NAME;
-    }
-
-    public String getDescription() {
-        return description;
     }
 }
