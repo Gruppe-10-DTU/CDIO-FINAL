@@ -48,7 +48,7 @@ public class PlayerTest extends TestCase {
         GameStateDTO gameState = new GameStateDTO(player, new ArrayList<>(1));
         gameState.setGuiController(new GUIControllerStub());
         gameState.setFieldController(new FieldController(language));
-        gameState.setChancecardDeck(new Deck(language));
+        gameState.setChanceCardDeck(new Deck(language));
         GetOutOfJail card = new GetOutOfJail("GET_OUT_OF_JAIL_1", "Get Out of Jail card");
         player.addGetOutOfJail(card);
         gameState.getFieldController().jailPlayer(player);

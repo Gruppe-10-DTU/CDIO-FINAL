@@ -15,10 +15,10 @@ public abstract class ChanceCard {
         this.NAME = NAME;
         this.description = Description;
     }
-
     public abstract void chanceEffect(IGameStateDTO gameState);
 
     public String getName() {
         return NAME;
     }
+
 }

@@ -36,7 +36,7 @@ public class Street extends Property {
                 }
             } else {
                 //Player cant buy (possibly give the player an option to sell other values and then buy?)
-                String msg = "Du er landet på " + name + " Til en værdi af " + price + "og har dessværre ikke råd til at købe den";
+                String msg = "Du er landet på " + name + " Til en værdi af " + price + "og har desværre ikke råd til at købe den";
                 gameState.getGuiController().displayMsg(msg);
 
                 this.auction(gameState);
@@ -137,8 +137,8 @@ public class Street extends Property {
         return rent;
     }
 
-    public void setRent(int index, int rentAmound) {
-        this.rent[index] = rentAmound;
+    public void setRent(int index, int rentAmount) {
+        this.rent[index] = rentAmount;
     }
 
     public int getHouseAmount() {

@@ -1,14 +1,9 @@
 package controllers;
 
 import junit.framework.TestCase;
-import models.Language;
-import models.fields.Field;
-import models.fields.Street;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class PlayerControllerTest extends TestCase {
 @Test

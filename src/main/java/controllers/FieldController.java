@@ -19,7 +19,7 @@ public class FieldController {
 
 
     /**
-     * The constructer recieves the language and constructs an arraylist of field objects in the corect language
+     * The constructor receives the language and constructs an arraylist of field objects in the correct language
      */
     public FieldController(Language language) {
         this.language = language;
@@ -122,7 +122,7 @@ public class FieldController {
     }
 
     /**
-     * Recieves a player, locates the jail field, moves the player and jails them
+     * Receives a player, locates the jail field, moves the player and jails them
      */
     public void jailPlayer(Player player) {
         /*
@@ -143,14 +143,14 @@ public class FieldController {
         }
     }
 
-    public void landOnField(IGameStateDTO gamestate) {
-        landOnField(gamestate, 1);
+    public void landOnField(IGameStateDTO gameState) {
+        landOnField(gameState, 1);
     }
 
-    public void landOnField(IGameStateDTO gamestate, int rentMultiplier) {
-        Field currentField = fieldArrayList.get(gamestate.getActivePlayer().getLocation());
+    public void landOnField(IGameStateDTO gameState, int rentMultiplier) {
+        Field currentField = fieldArrayList.get(gameState.getActivePlayer().getLocation());
 
-        currentField.fieldEffect(gamestate, rentMultiplier);
+        currentField.fieldEffect(gameState, rentMultiplier);
     }
 
     public int playerPropertyValues(Player player) {
@@ -239,10 +239,9 @@ public class FieldController {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < fieldArrayList.size(); i++) {
-            sb.append("Field" + i + ": " + fieldArrayList.get(i).getName() + ", ");
+            sb.append("Field").append(i).append(": ").append(fieldArrayList.get(i).getName()).append(", ");
         }
-        String str = sb.toString();
-        return str;
+        return sb.toString();
     }
 
     public boolean isJailed(Player player) {

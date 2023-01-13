@@ -3,14 +3,9 @@ package controllers;
 import models.Language;
 import models.chanceCards.Deck;
 import models.dto.GameStateDTO;
-import models.fields.Street;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ui.GUIController;
 
-import java.util.Properties;
-
-import static junit.framework.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameControllerTest {
@@ -34,7 +29,7 @@ class GameControllerTest {
         pc = new PlayerController();
         gameState.setPlayerController(pc);
         deck = new Deck(language);
-        gameState.setChancecardDeck(deck);
+        gameState.setChanceCardDeck(deck);
         gameState.setFieldController(fieldController);
         for (int i = 0; i < gui.playerAmount("test"); i++) {
             pc.addPlayer(i, gui.selectCharacter("test", "test"), gui.getName("test"),0);
