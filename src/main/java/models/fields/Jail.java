@@ -42,8 +42,7 @@ public class Jail extends Field {
      * Remove a player from the jail array
      */
     public void setInJailRemove(Player player) {
-        int index = inJail.indexOf(player);
-        inJail.remove(index);
+        inJail.remove(player);
     }
 
     @Override
