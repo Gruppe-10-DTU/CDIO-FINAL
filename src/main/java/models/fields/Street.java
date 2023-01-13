@@ -104,8 +104,6 @@ public class Street extends Property {
                 }
             }
         }
-
-        return gameState;
     }
 
 
