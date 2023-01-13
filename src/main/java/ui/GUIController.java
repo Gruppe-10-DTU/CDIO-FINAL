@@ -263,9 +263,12 @@ public class GUIController {
     }
 
 
-
-
-
+    public void removePlayer(Player player, Property[] properties) {
+        gui_players[player.getID()].getCar().setPosition(null);
+        for (int i = 0; i < properties.length; i++) {
+            updateField(properties[i]);
+        }
+    }
 }
 
 
