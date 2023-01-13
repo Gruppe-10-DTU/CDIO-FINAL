@@ -42,11 +42,23 @@ public class DiceHolder {
     }
 
     //Get total value of last roll
+    public int sum(boolean reverse) {
+        int totalValue = 0;
+        for (int roll : rolls) {
+            totalValue += roll;
+        }
+        if (reverse) {
+            totalValue = totalValue * -1;
+        }
+        return totalValue;
+    }
+
     public int sum() {
         int totalValue = 0;
         for (int roll : rolls) {
             totalValue += roll;
         }
+
         return totalValue;
     }
 

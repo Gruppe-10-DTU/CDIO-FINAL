@@ -7,6 +7,7 @@ import models.Player;
 import models.chanceCards.Deck;
 import ui.GUIController;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 
 public class GameStateDTO {
@@ -18,6 +19,16 @@ public class GameStateDTO {
 
     private PlayerController playerController;
     private Deck chancecardDeck;
+
+    private boolean reverse;
+
+    public void setReverse(boolean reverse) {
+        this.reverse = reverse;
+    }
+
+    public boolean isReverse() {
+        return reverse;
+    }
 
     public PlayerController getPlayerController() {
         return playerController;
