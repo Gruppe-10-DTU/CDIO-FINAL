@@ -44,17 +44,25 @@ public class PlayerController {
      * @param spaces
      * Moves designated player x amount of spaces from current position.
      */
-    public void playerMove(Player player, int spaces){
+    public Player playerMove(Player player, int spaces){
         int oldLocation = player.getLocation();
-        if(spaces + oldLocation < 0){
-            spaces += StartValues.getInstance().getValue("boardSize");
-        }
-        if(oldLocation + spaces >= StartValues.getInstance().getValue("boardSize")){
+        //if(spaces + oldLocation < 0){
+            //spaces += StartValues.getInstance().getValue("boardSize");
+        //}
+        if(oldLocation + spaces >= StartValues.getInstance().getValue("boardSize")) {
             player.setLocation(oldLocation, spaces);
-            player.setLocation(player.getLocation(),- StartValues.getInstance().getValue("boardSize"));
+            player.setPreviousLocation(player.getLocation());
+            player.setLocation(player.getLocation(), -StartValues.getInstance().getValue("boardSize"));
             player.setBalance(StartValues.getInstance().getValue("passStartBonus"));
-
+        } else if (oldLocation + spaces < 0) {
+            spaces += StartValues.getInstance().getValue("boardSize");
+            player.setPreviousLocation(player.getLocation());
+            player.setLocation(oldLocation, spaces);
+            if (player.getPreviousLocation() > 0) {
+                player.setBalance(StartValues.getInstance().getValue("passStartBonus"));
+            }
         }else{
+            player.setPreviousLocation(player.getLocation());
             player.setLocation(oldLocation,spaces);
         }
     }

@@ -91,10 +91,18 @@ public class GUIController {
      * Update the player to move to a new field
      * @param player Player to be moved. Simulates movement by moving the gui mirror of player 1 stpe at a time.
      */
-    public void movePlayer(Player player){
+    public void movePlayer(Player player, boolean reverse){
+        int direction = reverse ? -1 : 1;
         int carIndex = Arrays.asList(gui.getFields()).indexOf(gui_players[player.getID()].getCar().getPosition());
             while(carIndex != player.getLocation()){
-                carIndex = (carIndex+1)%40;
+                if (reverse) {
+                    carIndex = carIndex-1;
+                    if (carIndex < 0) {
+                        carIndex = 39;
+                    }
+                } else {
+                    carIndex = (carIndex+1)%40;
+                }
                 gui_players[player.getID()].getCar().setPosition(gui.getFields()[carIndex]);
                 try {
                     Thread.sleep(200);
