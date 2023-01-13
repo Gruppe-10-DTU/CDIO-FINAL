@@ -28,11 +28,8 @@ public class MoveToFerry extends ChanceCard{
 
         if(RENT_MULTIPLIER == 1){
             gameState.getFieldController().landOnField(gameState);
-        }else{
-            //Different approach needed but currently works
-            for (int i = 0; i < RENT_MULTIPLIER; i++) {
-                gameState.getFieldController().landOnField(gameState);
-            }
+        }else {
+            gameState.getFieldController().landOnField(gameState, RENT_MULTIPLIER);
         }
         gameState.getChancecardDeck().returnToDeck(this);
         return gameState;
