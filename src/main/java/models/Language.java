@@ -38,7 +38,7 @@ public class Language {
                 target = "/LanguagePack/danish.txt";
                 break;
             default:
-                target = "/LanguagePack/english.txt";
+                target = "/LanguagePack/danish.txt";
                 break;
         }
         Class c = this.getClass();
@@ -55,6 +55,7 @@ public class Language {
                 }
             }
         } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
