@@ -227,6 +227,10 @@ public class GUIController {
         gui.getUserButtonPressed(msg,"ok");
     }
 
+    public String selectWhatToBuild(String buildingChoices, String choices){
+        return gui.getUserSelection(buildingChoices, choices.split(","));
+    }
+
     public String selectBuild(String selectBuild, Street[] choices){
         String[] strings = Arrays.stream(choices).map((x -> x.getName())).toArray(String[]::new);
         return gui.getUserSelection(selectBuild, strings);
@@ -249,6 +253,10 @@ public class GUIController {
     public void guiAddHouse(Street property, int amount){
         GUI_Street street = (GUI_Street) gui.getFields()[property.getID()];
         street.setHouses(amount);
+    }
+    public void guiAddHotel(Street property){
+        GUI_Street street = (GUI_Street) gui.getFields()[property.getID()];
+        street.setHotel(true);
     }
     public String selectColorBuild(String chooseColorOptions, String[] color){
         return gui.getUserSelection(chooseColorOptions,color);
