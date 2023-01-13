@@ -21,7 +21,7 @@ public class Jail extends Field {
     }
 
     /**
-     * @param player
+     * @param player the player in question
      * @return True: if player is in the jail array / False if player is not in the jail array
      */
     public boolean isInJail (Player player) {
