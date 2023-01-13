@@ -44,7 +44,7 @@ public class PlayerController {
      * @param spaces
      * Moves designated player x amount of spaces from current position.
      */
-    public Player playerMove(Player player, int spaces){
+    public void playerMove(Player player, int spaces){
         int oldLocation = player.getLocation();
         //if(spaces + oldLocation < 0){
             //spaces += StartValues.getInstance().getValue("boardSize");
