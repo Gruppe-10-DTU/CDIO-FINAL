@@ -44,7 +44,6 @@ public class GameController implements ActionListener {
         gameState.setPlayerController(playerController);
         gameState.setChancecardDeck(deck);
         gameState.setDiceHolder(diceHolder);
-        gameState.setReverse(reverse);
         this.initialize();
     }
 
@@ -82,6 +81,7 @@ public class GameController implements ActionListener {
 
     public void startGame(){
         reverse = guiController.getUserLeftButtonPressed("Hvilken omløbsretning skal spillet have","Mod uret", "Med uret");
+        gameState.setReverse(reverse);
 
         guiController.setPlayers(playerController.getPlayers());
 
