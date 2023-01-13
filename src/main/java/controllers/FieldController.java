@@ -148,9 +148,13 @@ public class FieldController {
     }
 
     public GameStateDTO landOnField(GameStateDTO gamestate) {
+        return landOnField(gamestate, 1);
+    }
+
+    public GameStateDTO landOnField(GameStateDTO gamestate, int rentMultiplier) {
         Field currentField = fieldArrayList.get(gamestate.getActivePlayer().getLocation());
 
-        GameStateDTO newGameState = currentField.fieldEffect(gamestate);
+        GameStateDTO newGameState = currentField.fieldEffect(gamestate, rentMultiplier);
 
         return newGameState;
     }
@@ -201,6 +205,23 @@ public class FieldController {
 
     public Street[] getFieldOtherPlayers(Player player) {
         return fieldArrayList.stream().filter(field -> field instanceof Street && ((Street) field).getOwner() != player).toArray(Street[]::new);
+    }
+    public int distToFirstFerry(Player player){
+        int steps = player.getLocation();
+        do{
+            steps++;
+            if (steps == StartValues.getInstance().getValue("boardSize")){
+                steps = 0;
+                break;
+            }
+        }while(!(fieldArrayList.get(steps) instanceof Ferry));
+        if (steps < player.getLocation()){
+            do {
+                steps++;
+            } while(!(fieldArrayList.get(steps) instanceof Ferry));
+            return StartValues.getInstance().getValue("boardSize") - player.getLocation() + steps;
+        }
+        return steps - player.getLocation();
     }
 
     public int ferrysOwned(Player owner, int startField, int ferrys) {
@@ -352,6 +373,18 @@ public class FieldController {
 
     public void setHotelPool(int hotelPool) {
         this.hotelPool = hotelPool;
+    }
+
+    public int[] housesAndHotelsOwned (Player player){
+        int houses = 0;
+        int hotels = 0;
+        for (Field field : fieldArrayList) {
+            if (field instanceof Street && ((Street) field).getOwner() != null &&((Street) field).getOwner().equals(player)){
+                if (((Street) field).isHotel()) hotels++;
+                else houses += ((Street) field).getHouseAmount();
+            }
+        }
+        return new int[]{houses, hotels};
     }
 }
 

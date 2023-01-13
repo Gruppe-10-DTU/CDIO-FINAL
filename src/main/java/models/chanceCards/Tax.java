@@ -1,8 +1,7 @@
 package models.chanceCards;
 
+import models.Player;
 import models.dto.GameStateDTO;
-import org.apache.commons.lang.NotImplementedException;
-
 public class Tax extends ChanceCard {
 
     private final int HOUSE_TAX;
@@ -17,14 +16,22 @@ public class Tax extends ChanceCard {
 
     @Override
     public GameStateDTO chanceEffect(GameStateDTO gameState){
-        throw new NotImplementedException();
-    }
+        gameState.getGuiController().showChanceCard(description);
+        Player player = gameState.getActivePlayer();
+        int[] buildingsOwned = gameState.getFieldController().housesAndHotelsOwned(player);
+        int houseTax = buildingsOwned[0] * HOUSE_TAX;
+        int hotelTax = buildingsOwned[1] * HOTEL_TAX;
+        int totalTax = (houseTax + hotelTax)* -1;
 
-    public int getHOUSE_TAX() {
-        return HOUSE_TAX;
-    }
-
-    public int getHOTEL_TAX() {
-        return HOTEL_TAX;
+        if (player.getBalance() > totalTax){
+            player.setBalance(totalTax);
+            gameState.getGuiController().updatePlayer(player);
+        } else {
+            gameState.getGuiController().displayMsg("Du kan ikke betale din afgift");
+            //Optional house selling
+            gameState.getPlayerController().removePlayer(player.getID());
+        }
+        gameState.getChancecardDeck().returnToDeck(this);
+        return gameState;
     }
 }

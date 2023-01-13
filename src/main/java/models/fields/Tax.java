@@ -1,8 +1,6 @@
 package models.fields;
 
-import models.Player;
 import models.dto.GameStateDTO;
-import org.apache.commons.lang.NotImplementedException;
 
 public class Tax extends Field{
 
@@ -34,7 +32,7 @@ public class Tax extends Field{
     }
 
     @Override
-    public GameStateDTO fieldEffect(GameStateDTO gameState){
+    public GameStateDTO fieldEffect(GameStateDTO gameState, int rentMultiplier){
         if(priceProcent==0){
             if(gameState.getActivePlayer().setBalance(priceValue*-1)){
                 gameState.getGuiController().displayMsg("Du skal betale skal på "+priceValue);

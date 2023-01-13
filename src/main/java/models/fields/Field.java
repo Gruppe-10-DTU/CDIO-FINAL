@@ -1,6 +1,4 @@
 package models.fields;
-import gui_fields.GUI_Field;
-import models.Player;
 import models.dto.GameStateDTO;
 
 public abstract class Field {
@@ -23,5 +21,9 @@ public abstract class Field {
         return iD;
     }
 
-    public abstract GameStateDTO fieldEffect(GameStateDTO gameState);
+    public GameStateDTO fieldEffect(GameStateDTO gameState) {
+        return fieldEffect(gameState, 1);
+    }
+
+    public abstract GameStateDTO fieldEffect(GameStateDTO gameState, int rentMultiplier);
 }
