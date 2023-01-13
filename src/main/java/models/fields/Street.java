@@ -75,17 +75,18 @@ public class Street extends Property{
                 gameState.getGuiController().updatePlayer(owner);
             } else {
                 String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " du har ikke råd til at betale lejen";
+                gameState.getGuiController().displayMsg(msg);
                 //Cant pay the rent
-                while(currentPlayer.getBalance() > rentToPay) {
+                while(currentPlayer.getBalance() < rentToPay) {
                     String colorChosen = gameState.getGuiController().selectColorBuild("Choose where you want to sell buildings from", gameState.getFieldController().ownsColourGroup(currentPlayer).keySet().toArray(String[]::new));
-                    String whereToSell = gameState.getGuiController().selectBuild("Sell building. 1 house sells for: " + gameState.getFieldController().ownsColourGroup(currentPlayer).get(colorChosen)[0].getHousePrice()/2 +"", gameState.getFieldController().ownsColourGroup(currentPlayer).get(colorChosen));
+                    String whereToSell = gameState.getGuiController().selectBuild("Sell building. 1 house sells for: " + gameState.getFieldController().ownsColourGroup(currentPlayer).get(colorChosen)[0].getHousePrice()/2 +"", gameState.getFieldController().checkSell(gameState.getFieldController().ownsColourGroup(currentPlayer)).get(colorChosen));
                     if(gameState.getFieldController().getStreetFromString(whereToSell).isHotel()){
                         gameState.getFieldController().sellBuilding(gameState.getFieldController().getStreetFromString(whereToSell),0);
                         gameState.getGuiController().guiRemoveHotel(gameState.getFieldController().getStreetFromString(whereToSell));
                     }else if(gameState.getFieldController().getStreetFromString(whereToSell).getHouseAmount() >= 1){
                         int maxHouse = gameState.getFieldController().getStreetFromString(whereToSell).getHouseAmount();
                         gameState.getFieldController().sellBuilding(gameState.getFieldController().getStreetFromString(whereToSell),gameState.getGuiController().sellAmount(0,maxHouse));
-                        gameState.getGuiController().guiAddHouse(gameState.getFieldController().getStreetFromString(whereToSell),-(maxHouse-gameState.getFieldController().getStreetFromString(whereToSell).getHouseAmount()));
+                        gameState.getGuiController().guiAddHouse(gameState.getFieldController().getStreetFromString(whereToSell),(maxHouse-gameState.getFieldController().getStreetFromString(whereToSell).getHouseAmount()));
                     }else{
                         gameState.getGuiController().displayMsg("You cannot make rent, and therefore you are disqualified from the game.");
                         gameState.getPlayerController().removePlayer(currentPlayer.getID());

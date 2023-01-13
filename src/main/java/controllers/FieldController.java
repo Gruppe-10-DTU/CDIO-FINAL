@@ -316,6 +316,17 @@ public class FieldController {
         return sort;
     }
 
+    public Map<String, Street[]> checkSell(Map<String, Street[]> checkProps){
+        for (Map.Entry<String, Street[]> entry : checkProps.entrySet()) {
+            for (int i = 0; i < entry.getValue().length; i++) {
+                if (entry.getValue()[i].getHouseAmount() == 0){
+                    checkProps.remove(entry.getKey());
+                }
+            }
+        }
+        return checkProps;
+    }
+
     public void addBuilding(Street property) {
         if(property.getHouseAmount() < 4) {
             property.setHouseAmount(property.getHouseAmount() + 1);

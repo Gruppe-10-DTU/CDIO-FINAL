@@ -1,8 +1,5 @@
 package acceptance;
-import controllers.CheatDiceHolder;
-import controllers.FieldController;
-import controllers.GameController;
-import controllers.PlayerController;
+import controllers.*;
 import models.Language;
 import models.chanceCards.Deck;
 import models.chanceCards.GetOutOfJail;
@@ -262,7 +259,25 @@ public class AcceptanceTest {
     }
     @Test
     void AK26(){
-        pc.addPlayer(0,"UFO","BuildHouseTest",2);
-        pc.addPlayer(1,"UFO","bankRuptPlayer",3);
+        pc.addPlayer(0,"UFO","OwnerOfBigProperties",2);
+        pc.addPlayer(1,"UFO","bankruptPlayer",3);
+        gui.setPlayers(pc.getPlayers());
+
+        pc.getPlayerById(0).setLocation(39);
+        gui.updatePlayer(pc.getPlayerById(0));
+
+        dH.setRolls(1,1);
+        gc.takeTurn(pc.getPlayerById(0));
+        gc.takeTurn(pc.getPlayerById(0));
+
+        pc.getPlayerById(1).setLocation(35);
+        gui.updatePlayer(pc.getPlayerById(1));
+        gc.takeTurn(pc.getPlayerById(1));
+        gc.takeTurn(pc.getPlayerById(1));
+        gc.takeTurn(pc.getPlayerById(1));
+        gc.takeTurn(pc.getPlayerById(0));
+        pc.getPlayerById(1).setBalance(-pc.getPlayerById(1).getBalance());
+        gc.takeTurn(pc.getPlayerById(1));
+        gui.displayMsg("Testen er ovre");
     }
 }
