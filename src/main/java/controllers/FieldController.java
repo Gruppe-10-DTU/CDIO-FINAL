@@ -14,9 +14,9 @@ public class FieldController {
 
     private Language language;
 
-    private static int housePool = StartValues.getInstance().getValue("housePool");
+    private int housePool = StartValues.getInstance().getValue("housePool");
 
-    private static int hotelPool = StartValues.getInstance().getValue("hotelPool");
+    private int hotelPool = StartValues.getInstance().getValue("hotelPool");
 
 
     /**
@@ -115,12 +115,13 @@ public class FieldController {
                     refuge.setName(fieldData.get(i).get(0));
                     break;
                 case "tax":
-                    Tax tax = new Tax(fieldData.get(i).get(0), Integer.parseInt(fieldData.get(i).get(1)), Integer.parseInt(fieldData.get(i).get(3)),Integer.parseInt(fieldData.get(i).get(4)));
+                    Tax tax = new Tax(fieldData.get(i).get(0), Integer.parseInt(fieldData.get(i).get(1)), Integer.parseInt(fieldData.get(i).get(3)), Integer.parseInt(fieldData.get(i).get(4)));
                     fieldArrayList.add(tax);
                     break;
             }
         }
     }
+
     /**
      * Recieves a player, locates the jail field, moves the player and jails them
      */
@@ -160,8 +161,8 @@ public class FieldController {
         for (Field field : fieldArrayList) {
             if (field instanceof Property && ((Property) field).getOwner() == player) {
                 totalAmount += ((Property) field).getPrice();
-                if(field instanceof Street){
-                    totalAmount += ((Street) field).getHouseAmount()*((Street) field).getHousePrice();
+                if (field instanceof Street) {
+                    totalAmount += ((Street) field).getHouseAmount() * ((Street) field).getHousePrice();
                 }
             }
         }
@@ -177,24 +178,25 @@ public class FieldController {
     }
 
 
-
     /**
      * see if a propertys neighbor have the same owner
+     *
      * @param property the property in question
      * @return true if the same owner, otherwise false
      */
-    public boolean sameOwner(Street property){
+    public boolean sameOwner(Street property) {
         Street property2;
-        if(property.getID() % 3 == 1){
+        if (property.getID() % 3 == 1) {
             //If the property is the first one, %3 will always be one and we'll add one to get the neighbor and compare the owners
-            property2 = (Street) fieldArrayList.get(property.getID()+1);
-        }else{
+            property2 = (Street) fieldArrayList.get(property.getID() + 1);
+        } else {
             //If the property is the second one, %3 will always be 2 and we'll subtract one to get the neighbor and compare the owners
-            property2 = (Street) fieldArrayList.get(property.getID()-1);
+            property2 = (Street) fieldArrayList.get(property.getID() - 1);
         }
         return property2.getOwner() != null && property.getOwner().equals(property2.getOwner());
     }
-    public boolean sellField(Street property, Player buyer){
+
+    public boolean sellField(Street property, Player buyer) {
         return true;
     }
 
@@ -334,35 +336,21 @@ public class FieldController {
         }
         return field;
     }
-    public int distToFirstFerry(Player player){
-        int steps = player.getLocation();
-        do{
-            steps++;
-            if (steps == StartValues.getInstance().getValue("boardSize")){
-                steps = 0;
-                break;
-            }
-        }while(!(fieldArrayList.get(steps) instanceof Ferry));
-        if (steps < player.getLocation()){
-            do {
-                steps++;
-            } while(!(fieldArrayList.get(steps) instanceof Ferry));
-            return StartValues.getInstance().getValue("boardSize") - player.getLocation() + steps;
-        }
-        return steps - player.getLocation();
-    }
-    public int[] housesAndHotelsOwned (Player player){
-        int houses = 0;
-        int hotels = 0;
-        for (Field field : fieldArrayList) {
-            if (field instanceof Street && ((Street) field).getOwner().equals(player)){
-                if (((Street) field).isHotel()) hotels++;
-                else houses += ((Street) field).getHouseAmount();
-            }
-        }
-        return new int[]{houses, hotels};
+    public int getHousePool() {
+        return housePool;
     }
 
+    public int getHotelPool() {
+        return hotelPool;
+    }
+
+    public void setHousePool(int housePool) {
+        this.housePool = housePool;
+    }
+
+    public void setHotelPool(int hotelPool) {
+        this.hotelPool = hotelPool;
+    }
 }
 
 
