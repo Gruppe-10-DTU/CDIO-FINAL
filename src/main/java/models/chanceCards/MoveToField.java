@@ -24,6 +24,9 @@ public class MoveToField extends ChanceCard{
 
     @Override
     public void chanceEffect(IGameStateDTO gameState){
+        int direction = 1;
+        int boardSize = StartValues.getInstance().getValue("boardSize");
+        if (gameState.isReverse()) direction = -1;
         gameState.getGuiController().showChanceCard(description);
         PlayerController playerController = gameState.getPlayerController();
         Player activePlayer = gameState.getActivePlayer();
@@ -37,8 +40,20 @@ public class MoveToField extends ChanceCard{
             }
             gameState.getGuiController().movePlayer(activePlayer, gameState.isReverse());
         }else{
-            int spacesToMove = FIELD_ID - activePlayer.getLocation();
-            if(spacesToMove < 0) spacesToMove += StartValues.getInstance().getValue("boardSize");
+            int spacesToMove;
+            if (gameState.isReverse()) {
+                if (FIELD_ID > activePlayer.getLocation()) {
+                    spacesToMove = (FIELD_ID - (boardSize + activePlayer.getLocation()));
+                }else {
+                    spacesToMove = FIELD_ID - activePlayer.getLocation();
+                }
+            } else {
+                if (FIELD_ID < activePlayer.getLocation()){
+                    spacesToMove = (FIELD_ID + boardSize) - activePlayer.getLocation();
+                } else {
+                    spacesToMove = (FIELD_ID - activePlayer.getLocation());
+                }
+            }
             playerController.playerMove(activePlayer,spacesToMove);
             gameState.getGuiController().movePlayer(activePlayer, gameState.isReverse());
             gameState.getFieldController().landOnField(gameState);
