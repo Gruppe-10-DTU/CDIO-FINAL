@@ -174,22 +174,36 @@ public class FieldController {
         return fieldArrayList;
     }
 
-    public int distToFirstFerry(Player player){
+    public int distToFirstFerry(Player player) {
+        return distToFirstFerry(player, false);
+    }
+
+    public int distToFirstFerry(Player player, boolean gameInReverse){
+        int boardSize = StartValues.getInstance().getValue("boardSize");
+        int direction = 1;
+        if (gameInReverse) direction *= -1;
         int steps = player.getLocation();
-        do{
-            steps++;
-            if (steps == StartValues.getInstance().getValue("boardSize")){
+        while (!(fieldArrayList.get(steps) instanceof Ferry)) {
+            steps += direction;
+            if (steps == boardSize) {
                 steps = 0;
-                break;
+            } else if (steps < 0) {
+                steps = boardSize - 1;
             }
-        }while(!(fieldArrayList.get(steps) instanceof Ferry));
-        if (steps < player.getLocation()){
-            do {
-                steps++;
-            } while(!(fieldArrayList.get(steps) instanceof Ferry));
-            return StartValues.getInstance().getValue("boardSize") - player.getLocation() + steps;
         }
-        return steps - player.getLocation();
+        if (gameInReverse) {
+            if (steps > player.getLocation()) {
+                return (steps - (boardSize + player.getLocation()));
+            }else {
+                return steps - player.getLocation();
+            }
+        } else {
+            if (steps < player.getLocation()){
+                return (steps + boardSize) - player.getLocation();
+            } else {
+                return (steps - player.getLocation());
+            }
+        }
     }
 
     public int ferrysOwned(Player owner, int startField, int ferrys) {
