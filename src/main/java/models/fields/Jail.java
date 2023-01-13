@@ -48,7 +48,7 @@ public class Jail extends Field {
     }
 
     @Override
-    public GameStateDTO fieldEffect(GameStateDTO gameState){
+    public GameStateDTO fieldEffect(GameStateDTO gameState, int rentMultiplier){
         if(!(this.isInJail(gameState.getActivePlayer()))) return gameState;
 
         Player player = gameState.getActivePlayer();

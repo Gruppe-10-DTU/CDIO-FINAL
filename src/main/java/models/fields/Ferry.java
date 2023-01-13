@@ -2,7 +2,6 @@ package models.fields;
 
 import models.Player;
 import models.dto.GameStateDTO;
-import org.apache.commons.lang.NotImplementedException;
 
 public class Ferry extends Property{
 
@@ -18,7 +17,7 @@ public class Ferry extends Property{
 
 
     @Override
-    public GameStateDTO fieldEffect(GameStateDTO gameState) {
+    public GameStateDTO fieldEffect(GameStateDTO gameState, int rentMultiplier) {
         Player currentPlayer = gameState.getActivePlayer();
 
         if (owner == null) {
@@ -42,7 +41,7 @@ public class Ferry extends Property{
         } else {
             //Pay rent
             int ownerOwnes = gameState.getFieldController().ferrysOwned(owner, iD, 4); //Change to the actual number of ferry fields owned by the player to include rent bonus
-            int rentToPay = rent[ownerOwnes-1];
+            int rentToPay = rent[ownerOwnes-1] * rentMultiplier;
 
             if (owner == currentPlayer) {
                 String msg = "Du er landet på din egen grund";

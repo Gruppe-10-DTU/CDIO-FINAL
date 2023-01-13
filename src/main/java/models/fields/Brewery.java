@@ -2,7 +2,6 @@ package models.fields;
 
 import models.Player;
 import models.dto.GameStateDTO;
-import org.apache.commons.lang.NotImplementedException;
 
 public class Brewery extends Property{
 
@@ -27,7 +26,7 @@ public class Brewery extends Property{
     }
 
     @Override
-    public GameStateDTO fieldEffect(GameStateDTO gameState) {
+    public GameStateDTO fieldEffect(GameStateDTO gameState, int rentMultiplier) {
         Player currentPlayer = gameState.getActivePlayer();
 
         if (owner == null) {

@@ -15,11 +15,12 @@ public class Street extends Property{
 
     private boolean hotel = false;
 
+
     private int[] rent = new int[6];
 
 
     @Override
-    public GameStateDTO fieldEffect(GameStateDTO gameState) {
+    public GameStateDTO fieldEffect(GameStateDTO gameState, int rentMultiplier) {
         Player currentPlayer = gameState.getActivePlayer();
         if (owner == null) {
 
@@ -130,4 +131,5 @@ public class Street extends Property{
     public void setHotel(boolean hotel) {
         this.hotel = hotel;
     }
+
 }
