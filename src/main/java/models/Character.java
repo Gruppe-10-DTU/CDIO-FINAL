@@ -4,13 +4,11 @@ import java.awt.*;
 
 public class Character {
     private String name;
-    private String image;
     private Color color;
 
 
-    public Character(String name, String image, int colorCode) {
+    public Character(String name, int colorCode) {
         this.name = name;
-        this.image = image;
         this.color = setColor(colorCode);
     }
 

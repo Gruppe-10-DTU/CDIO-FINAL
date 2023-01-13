@@ -143,12 +143,6 @@ public class GUIController {
     public void showChanceCard(String message){
         gui.displayChanceCard(message);
     }
-    public String showChanceCardChoice(String message, String option1, String option2){
-        return gui.getUserSelection(message, option1,option2);
-    }
-    public int getXStepsToMove(String message, int MinVal, int MaxVal){
-        return gui.getUserInteger(message,MinVal,MaxVal);
-    }
 
     public void endGame(){gui.close();}
 
@@ -221,10 +215,6 @@ public class GUIController {
     public void getOutOfJailRollAgain(){
         String msg = language.getLanguageValue("getOutOfJailRollAgain");
         gui.getUserButtonPressed(msg,"ok");
-    }
-
-    public String selectWhatToBuild(String buildingChoices, String choices){
-        return gui.getUserSelection(buildingChoices, choices.split(","));
     }
 
     public String selectBuild(String selectBuild, Street[] choices){

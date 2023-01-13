@@ -1,7 +1,6 @@
 package models.fields;
 
 import controllers.DiceHolder;
-import controllers.FieldController;
 import models.Player;
 import models.dto.IGameStateDTO;
 import ui.GUIController;
@@ -65,8 +64,6 @@ public class Jail extends Field {
         } else {
             choice = io.getOutOfJailOptions(false, false);
         }
-
-        FieldController fieldController = gameState.getFieldController();
 
         switch (choice) {
             case "pay":

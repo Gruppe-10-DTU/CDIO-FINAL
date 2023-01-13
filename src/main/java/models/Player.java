@@ -25,18 +25,6 @@ public class Player {
         this.identifier = name;
         balance = new Balance(30000);
     }
-    /**
-     * @param iD        id of the player
-     * @param name      name
-     * @param character The player character
-     * @default Balance is set to 30000, location set to 0 and soldSign set to 12
-     */
-    public Player(int iD, String name, Character character){
-        this.iD = iD;
-        this.identifier = name;
-        this.character = character;
-        balance = new Balance(30000);
-    }
 
     /**
      * @param iD              id of the player
@@ -79,20 +67,6 @@ public class Player {
     // getter
     public String getIdentifier() {
         return identifier;
-    }
-
-    /**
-     * @param newIdentifier Set name of player
-     */
-    // setter
-    public void setIdentifier(String newIdentifier) {
-        this.identifier = newIdentifier;
-    }
-    /**
-     * @param character New character
-     */
-    public void setCharacter(Character character) {
-        this.character = character;
     }
 
     /**

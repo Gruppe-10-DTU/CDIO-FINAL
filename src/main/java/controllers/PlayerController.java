@@ -24,7 +24,7 @@ public class PlayerController {
      *
      */
     public void addPlayer(int player, String characterName, String name, int color){
-        Character ch = new Character(characterName, "", color);
+        Character ch = new Character(characterName, color);
         Player playerNow = new Player(player,name,StartValues.getInstance().getValue("startingMoney"), ch);
         availablePlayers.put(player, playerNow);
     }
