@@ -316,12 +316,30 @@ public class FieldController {
         return sort;
     }
 
+    public int countHouse(Map<String, Street[]> countHouses) {
+        int counter = 0;
+        for (Map.Entry<String, Street[]> entry : countHouses.entrySet()) {
+            for (int i = 0; i < entry.getValue().length; i++) {
+                if (entry.getValue()[i].getHouseAmount() > 0) {
+                    counter++;
+                }
+            }
+        }
+        return counter;
+    }
+
     public Map<String, Street[]> checkSell(Map<String, Street[]> checkProps){
+        ArrayList<Street> sortedStreet = new ArrayList<>();
         for (Map.Entry<String, Street[]> entry : checkProps.entrySet()) {
             for (int i = 0; i < entry.getValue().length; i++) {
-                if (entry.getValue()[i].getHouseAmount() == 0){
-                    checkProps.remove(entry.getKey());
+                if (entry.getValue()[i].getHouseAmount() > 0){
+                    sortedStreet.add(entry.getValue()[i]);
                 }
+            }
+
+            if (!sortedStreet.isEmpty()) {
+                checkProps.replace(entry.getKey(), sortedStreet.toArray(Street[]::new));
+                sortedStreet.clear();
             }
         }
         return checkProps;
