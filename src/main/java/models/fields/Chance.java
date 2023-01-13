@@ -1,15 +1,14 @@
 package models.fields;
 
 import models.chanceCards.ChanceCard;
-import models.dto.GameStateDTO;
+import models.dto.IGameStateDTO;
 
 public class Chance extends Field {
     private int number;
 
     @Override
-    public GameStateDTO fieldEffect(GameStateDTO gameState, int rentMultiplier){
+    public void fieldEffect(IGameStateDTO gameState, int rentMultiplier){
         ChanceCard drawnCard = gameState.getChancecardDeck().drawCard();
         drawnCard.chanceEffect(gameState);
-        return gameState;
     }
 }

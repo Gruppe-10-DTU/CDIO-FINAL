@@ -1,13 +1,12 @@
 package models.fields;
 
-import models.dto.GameStateDTO;
+import models.dto.IGameStateDTO;
 
 public class Refuge extends Field{
 
     @Override
-    public GameStateDTO fieldEffect(GameStateDTO gameState, int rentMultiplier){
+    public void fieldEffect(IGameStateDTO gameState, int rentMultiplier){
         //Language key: fieldFreeParking
         gameState.getGuiController().displayMsg("Du er landet på gratis parkering");
-        return gameState;
     }
 }

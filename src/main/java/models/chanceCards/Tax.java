@@ -1,7 +1,7 @@
 package models.chanceCards;
 
 import models.Player;
-import models.dto.GameStateDTO;
+import models.dto.IGameStateDTO;
 public class Tax extends ChanceCard {
 
     private final int HOUSE_TAX;
@@ -15,7 +15,7 @@ public class Tax extends ChanceCard {
     }
 
     @Override
-    public GameStateDTO chanceEffect(GameStateDTO gameState){
+    public void chanceEffect(IGameStateDTO gameState){
         gameState.getGuiController().showChanceCard(description);
         Player player = gameState.getActivePlayer();
         int[] buildingsOwned = gameState.getFieldController().housesAndHotelsOwned(player);
@@ -32,6 +32,5 @@ public class Tax extends ChanceCard {
             gameState.getPlayerController().removePlayer(player.getID());
         }
         gameState.getChancecardDeck().returnToDeck(this);
-        return gameState;
     }
 }

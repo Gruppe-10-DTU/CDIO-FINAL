@@ -1,7 +1,7 @@
 package models.chanceCards;
 
+import models.dto.IGameStateDTO;
 import models.Player;
-import models.dto.GameStateDTO;
 
 public class Grant extends ChanceCard{
 
@@ -13,7 +13,7 @@ public class Grant extends ChanceCard{
         this.NET_WORTH = MaximumPlayerWorth;
     }
     @Override
-    public GameStateDTO chanceEffect(GameStateDTO gameState){
+    public void chanceEffect(IGameStateDTO gameState){
         gameState.getGuiController().showChanceCard(this.description);
         Player player = gameState.getActivePlayer();
         int playerWorth = player.getBalance() + gameState.getFieldController().playerPropertyValues(player);
@@ -23,6 +23,5 @@ public class Grant extends ChanceCard{
         }
         gameState.getGuiController().updatePlayer(player);
         gameState.getChancecardDeck().returnToDeck(this);
-        return gameState;
     }
 }

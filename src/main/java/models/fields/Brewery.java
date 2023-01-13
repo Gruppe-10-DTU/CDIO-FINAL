@@ -1,7 +1,7 @@
 package models.fields;
 
 import models.Player;
-import models.dto.GameStateDTO;
+import models.dto.IGameStateDTO;
 
 public class Brewery extends Property{
 
@@ -26,7 +26,7 @@ public class Brewery extends Property{
     }
 
     @Override
-    public GameStateDTO fieldEffect(GameStateDTO gameState, int rentMultiplier) {
+    public void fieldEffect(IGameStateDTO gameState, int rentMultiplier) {
         Player currentPlayer = gameState.getActivePlayer();
 
         if (owner == null) {
@@ -84,6 +84,5 @@ public class Brewery extends Property{
             }
 
         }
-        return gameState;
     }
 }

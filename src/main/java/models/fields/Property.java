@@ -1,7 +1,7 @@
 package models.fields;
 
 import models.Player;
-import models.dto.GameStateDTO;
+import models.dto.IGameStateDTO;
 import org.apache.commons.lang.ArrayUtils;
 
 public abstract class Property extends Field{
@@ -19,7 +19,7 @@ public abstract class Property extends Field{
     public Player getOwner() {return owner;}
     public void setOwner(Player owner) {this.owner = owner;}
 
-    protected void auction(GameStateDTO gameStateDTO){
+    protected void auction(IGameStateDTO gameStateDTO){
         Player[] players = gameStateDTO.getPlayerController().getPlayers();
         //Get the player after the current player
         int index = (ArrayUtils.indexOf(players,gameStateDTO.getActivePlayer())+ 1) % players.length;
