@@ -1,6 +1,6 @@
 package models.fields;
 import models.Player;
-import models.dto.GameStateDTO;
+import models.dto.IGameStateDTO;
 
 import java.util.Map;
 
@@ -15,12 +15,11 @@ public class Street extends Property{
 
     private boolean hotel = false;
 
-
     private int[] rent = new int[6];
 
 
     @Override
-    public GameStateDTO fieldEffect(GameStateDTO gameState, int rentMultiplier) {
+    public void fieldEffect(IGameStateDTO gameState, int rentMultiplier) {
         Player currentPlayer = gameState.getActivePlayer();
         if (owner == null) {
 
@@ -58,7 +57,6 @@ public class Street extends Property{
                 rentToPay = rent[0];
             }
 
-
             if (owner == currentPlayer) {
                 String msg = "Du er landet på din egen grund";
                 gameState.getGuiController().displayMsg(msg);
@@ -82,7 +80,6 @@ public class Street extends Property{
                 gameState.getPlayerController().removePlayer(currentPlayer.getID());
             }
         }
-        return gameState;
     }
 
 

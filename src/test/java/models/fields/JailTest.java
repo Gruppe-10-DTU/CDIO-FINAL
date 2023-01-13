@@ -60,13 +60,12 @@ class JailTest {
     @Test
     @DisplayName("Check that the player can be released if they are jailed")
     void fieldEffect() {
-        gameState = new GameStateDTO(playerController.getPlayerById(0), playerController.otherPlayers(1));
+        gameState = new GameStateDTO(new GUIControllerStub());
         gameState.setPlayerController(playerController);
-        GUIControllerStub guiControllerStub = new GUIControllerStub();
         gameState.setFieldController(fieldController);
-        gameState.setGuiController(guiControllerStub);
         gameState.setDiceHolder(new CheatDiceHolder(2));
         gameState.setChancecardDeck(new Deck(new Language()));
+        gameState.setActivePlayer(playerController.getPlayerById(0));
 
 
         /*      Check the pay out of jail option    */

@@ -2,7 +2,7 @@ package controllers;
 
 import models.Language;
 import models.Player;
-import models.dto.GameStateDTO;
+import models.dto.IGameStateDTO;
 import models.fields.*;
 
 import java.util.*;
@@ -125,7 +125,12 @@ public class FieldController {
      * Recieves a player, locates the jail field, moves the player and jails them
      */
     public void jailPlayer(Player player) {
+        /*
+        Faster way but doesn't work with test
+        ((Jail) fieldArrayList.get(10)).setInJailAdd(player);
+        player.setLocation(10);
 
+         */
         for (Object field : fieldArrayList) {
             if (field instanceof Jail) {
                 if (((Jail) field).getName().equals("I fængsel/På besøg")) {
@@ -138,25 +143,14 @@ public class FieldController {
         }
     }
 
-    public void freePlayer(Player player) {
-        for (Object field : fieldArrayList) {
-            if (field instanceof Jail) {
-                ((Jail) field).setInJailRemove(player);
-                break;
-            }
-        }
+    public void landOnField(IGameStateDTO gamestate) {
+        landOnField(gamestate, 1);
     }
 
-    public GameStateDTO landOnField(GameStateDTO gamestate) {
-        return landOnField(gamestate, 1);
-    }
-
-    public GameStateDTO landOnField(GameStateDTO gamestate, int rentMultiplier) {
+    public void landOnField(IGameStateDTO gamestate, int rentMultiplier) {
         Field currentField = fieldArrayList.get(gamestate.getActivePlayer().getLocation());
 
-        GameStateDTO newGameState = currentField.fieldEffect(gamestate, rentMultiplier);
-
-        return newGameState;
+        currentField.fieldEffect(gamestate, rentMultiplier);
     }
 
     public int playerPropertyValues(Player player) {
@@ -180,32 +174,6 @@ public class FieldController {
         return fieldArrayList;
     }
 
-
-    /**
-     * see if a propertys neighbor have the same owner
-     *
-     * @param property the property in question
-     * @return true if the same owner, otherwise false
-     */
-    public boolean sameOwner(Street property) {
-        Street property2;
-        if (property.getID() % 3 == 1) {
-            //If the property is the first one, %3 will always be one and we'll add one to get the neighbor and compare the owners
-            property2 = (Street) fieldArrayList.get(property.getID() + 1);
-        } else {
-            //If the property is the second one, %3 will always be 2 and we'll subtract one to get the neighbor and compare the owners
-            property2 = (Street) fieldArrayList.get(property.getID() - 1);
-        }
-        return property2.getOwner() != null && property.getOwner().equals(property2.getOwner());
-    }
-
-    public boolean sellField(Street property, Player buyer) {
-        return true;
-    }
-
-    public Street[] getFieldOtherPlayers(Player player) {
-        return fieldArrayList.stream().filter(field -> field instanceof Street && ((Street) field).getOwner() != player).toArray(Street[]::new);
-    }
     public int distToFirstFerry(Player player){
         int steps = player.getLocation();
         do{
@@ -265,10 +233,6 @@ public class FieldController {
             }
         }
         return breweriesOwned;
-    }
-
-    public Street[] getFieldsOfPlayer(Player player) {
-        return fieldArrayList.stream().filter(field -> field instanceof Street && ((Street) field).getOwner() == player).toArray(Street[]::new);
     }
 
     @Override

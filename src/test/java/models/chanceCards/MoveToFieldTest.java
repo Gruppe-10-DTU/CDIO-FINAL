@@ -43,19 +43,21 @@ class MoveToFieldTest {
     void chanceEffect() {
         gameState.getActivePlayer().setLocation(2);
         int expectedBalance = gameState.getActivePlayer().getBalance();
-        GameStateDTO newState = card1.chanceEffect(gameState);
+        card1.chanceEffect(gameState);
         assertEquals(37,gameState.getActivePlayer().getLocation());
-        //assertEquals(expectedBalance,gameState.getActivePlayer().getBalance());
+        //Felt 37 koster 7000
+        assertEquals(expectedBalance - 7000, gameState.getActivePlayer().getBalance());
 
         gameState.getActivePlayer().setLocation(39);
         expectedBalance = gameState.getActivePlayer().getBalance() + StartValues.getInstance().getValue("passStartBonus");
-        newState = card2.chanceEffect(gameState);
+        card2.chanceEffect(gameState);
         assertEquals(24,gameState.getActivePlayer().getLocation());
-        //assertEquals(expectedBalance,gameState.getActivePlayer().getBalance());
+        //Felt 24 koster 4800
+        assertEquals(expectedBalance - 4800,gameState.getActivePlayer().getBalance());
 
         gameState.getActivePlayer().setLocation(24);
         expectedBalance = gameState.getActivePlayer().getBalance();
-        newState = card3.chanceEffect(gameState);
+        card3.chanceEffect(gameState);
         assertEquals(10,gameState.getActivePlayer().getLocation());
         assertEquals(expectedBalance,gameState.getActivePlayer().getBalance());
         Jail jail = (Jail) gameState.getFieldController().getField(10);
