@@ -103,7 +103,6 @@ public class GameController implements ActionListener {
      */
     public void takeTurn(Player player) {
         gameState.setActivePlayer(player);
-        gameState.setOtherPlayers(playerController.otherPlayers(player.getID()));
         Map<String,Street[]> ownsGroup = fieldController.ownsColourGroup(player);
         Map<String,Street[]> placesToBuild = fieldController.buildEqual(ownsGroup);
         //Tjek huskøb
@@ -177,7 +176,7 @@ public class GameController implements ActionListener {
     }
 
     public boolean win() {
-        return playerController.getAvailablePlayers().size() == 1;
+        return playerController.getPlayers().length == 1;
     }
     public void winMsg() {
         String winner = playerController.getPlayers()[0].getIdentifier();

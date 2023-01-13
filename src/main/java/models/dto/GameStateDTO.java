@@ -65,16 +65,8 @@ public class GameStateDTO implements IGameStateDTO {
         this.activePlayer = activePlayer;
     }
 
-    public void setOtherPlayers(ArrayList<Player> otherPlayers) {
-        this.otherPlayers = otherPlayers;
-    }
-
     public Player getActivePlayer() {
         return activePlayer;
-    }
-
-    public ArrayList<Player> getOtherPlayers() {
-        return otherPlayers;
     }
 
     public void setChancecardDeck(Deck chancecardDeck) {

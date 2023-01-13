@@ -24,13 +24,13 @@ class ChanceTest {
         PlayerController playerController = new PlayerController();
         playerController.addPlayer(0,"car","player1",0);
         playerController.addPlayer(1,"car", "player2", 1);
-        gameState = new GameStateDTO(playerController.getPlayerById(0), playerController.otherPlayers(1));
+        GUIControllerStub guiControllerStub = new GUIControllerStub();
+        guiControllerStub.setButtonClicked(true);
+        gameState = new GameStateDTO(guiControllerStub);
+        gameState.setActivePlayer(playerController.getPlayerById(0));
         gameState.setChancecardDeck(deck);
         gameState.setFieldController(fieldController);
         gameState.setPlayerController(playerController);
-        GUIControllerStub guiControllerStub = new GUIControllerStub();
-        guiControllerStub.setButtonClicked(true);
-        gameState.setGuiController(guiControllerStub);
     }
 
     @Test

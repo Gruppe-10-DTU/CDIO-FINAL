@@ -20,12 +20,10 @@ class ToJailTest {
         playerController.addPlayer(0,"car","player1",0);
         playerController.addPlayer(1,"car", "player2", 1);
         FieldController fieldController = new FieldController(new Language());
-        gameState = new GameStateDTO(playerController.getPlayerById(0), playerController.otherPlayers(1));
+        gameState = new GameStateDTO(new GUIControllerStub());
         gameState.setPlayerController(playerController);
-        GUIControllerStub guiControllerStub = new GUIControllerStub();
         gameState.setFieldController(fieldController);
-        gameState.setGuiController(guiControllerStub);
-
+        gameState.setActivePlayer(playerController.getPlayerById(0));
     }
 
     @Test
