@@ -175,32 +175,6 @@ public class FieldController {
         return fieldArrayList;
     }
 
-
-
-    /**
-     * see if a propertys neighbor have the same owner
-     * @param property the property in question
-     * @return true if the same owner, otherwise false
-     */
-    public boolean sameOwner(Street property){
-        Street property2;
-        if(property.getID() % 3 == 1){
-            //If the property is the first one, %3 will always be one and we'll add one to get the neighbor and compare the owners
-            property2 = (Street) fieldArrayList.get(property.getID()+1);
-        }else{
-            //If the property is the second one, %3 will always be 2 and we'll subtract one to get the neighbor and compare the owners
-            property2 = (Street) fieldArrayList.get(property.getID()-1);
-        }
-        return property2.getOwner() != null && property.getOwner().equals(property2.getOwner());
-    }
-    public boolean sellField(Street property, Player buyer){
-        return true;
-    }
-
-    public Street[] getFieldOtherPlayers(Player player) {
-        return fieldArrayList.stream().filter(field -> field instanceof Street && ((Street) field).getOwner() != player).toArray(Street[]::new);
-    }
-
     public int ferrysOwned(Player owner, int startField, int ferrys) {
 
         int ferrysOwned = 1;
@@ -242,10 +216,6 @@ public class FieldController {
             }
         }
         return breweriesOwned;
-    }
-
-    public Street[] getFieldsOfPlayer(Player player) {
-        return fieldArrayList.stream().filter(field -> field instanceof Street && ((Street) field).getOwner() == player).toArray(Street[]::new);
     }
 
     @Override
