@@ -24,9 +24,7 @@ public class MoveToField extends ChanceCard{
 
     @Override
     public void chanceEffect(IGameStateDTO gameState){
-        int direction = 1;
         int boardSize = StartValues.getInstance().getValue("boardSize");
-        if (gameState.isReverse()) direction = -1;
         gameState.getGuiController().showChanceCard(description);
         PlayerController playerController = gameState.getPlayerController();
         Player activePlayer = gameState.getActivePlayer();
@@ -39,22 +37,16 @@ public class MoveToField extends ChanceCard{
                 gameState.getFieldController().landOnField(gameState);
             }
             gameState.getGuiController().movePlayer(activePlayer, gameState.isReverse());
-        }else{
+        }else {
             int spacesToMove;
-            if (gameState.isReverse()) {
-                if (FIELD_ID > activePlayer.getLocation()) {
-                    spacesToMove = (FIELD_ID - (boardSize + activePlayer.getLocation()));
-                }else {
-                    spacesToMove = FIELD_ID - activePlayer.getLocation();
-                }
+            if (gameState.isReverse() && FIELD_ID > activePlayer.getLocation()) {
+                spacesToMove = (FIELD_ID - (boardSize + activePlayer.getLocation()));
+            } else if (!gameState.isReverse() && FIELD_ID < activePlayer.getLocation()) {
+                spacesToMove = (FIELD_ID + boardSize) - activePlayer.getLocation();
             } else {
-                if (FIELD_ID < activePlayer.getLocation()){
-                    spacesToMove = (FIELD_ID + boardSize) - activePlayer.getLocation();
-                } else {
-                    spacesToMove = (FIELD_ID - activePlayer.getLocation());
-                }
+                spacesToMove = (FIELD_ID - activePlayer.getLocation());
             }
-            playerController.playerMove(activePlayer,spacesToMove);
+            playerController.playerMove(activePlayer, spacesToMove);
             gameState.getGuiController().movePlayer(activePlayer, gameState.isReverse());
             gameState.getFieldController().landOnField(gameState);
         }
