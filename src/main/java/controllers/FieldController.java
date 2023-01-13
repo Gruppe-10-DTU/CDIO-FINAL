@@ -124,17 +124,8 @@ public class FieldController {
      * Recieves a player, locates the jail field, moves the player and jails them
      */
     public void jailPlayer(Player player) {
-
-        for (Object field : fieldArrayList) {
-            if (field instanceof Jail) {
-                if (((Jail) field).getName().equals("I fængsel/På besøg")) {
-                    ((Jail) field).setInJailAdd(player);
-                    int jailLocation = ((Jail) field).getID();
-                    player.setLocation(jailLocation);
-                    break;
-                }
-            }
-        }
+        ((Jail) fieldArrayList.get(10)).setInJailAdd(player);
+        player.setLocation(10);
     }
 
     public void freePlayer(Player player) {
