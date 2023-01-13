@@ -16,7 +16,6 @@ import java.util.List;
 public class GameController implements ActionListener {
     private DiceHolder diceHolder;
     private int turnCounter = 0;
-    private boolean isOver = false;
     private Language language;
     private GUIController guiController;
     private PlayerController playerController;
@@ -81,7 +80,6 @@ public class GameController implements ActionListener {
         guiController.setPlayers(playerController.getPlayers());
 
         int playerAmount = playerController.getPlayers().length;
-        int jailCounter = 0;
         do {
             //Håndterer problemet med at fjerne en spiller.
             while((currentPlayer = playerController.getPlayerById(turnCounter % playerAmount))==null){
