@@ -125,7 +125,12 @@ public class FieldController {
      * Recieves a player, locates the jail field, moves the player and jails them
      */
     public void jailPlayer(Player player) {
+        /*
+        Faster way but doesn't work with test
+        ((Jail) fieldArrayList.get(10)).setInJailAdd(player);
+        player.setLocation(10);
 
+         */
         for (Object field : fieldArrayList) {
             if (field instanceof Jail) {
                 if (((Jail) field).getName().equals("I fængsel/På besøg")) {
@@ -138,17 +143,8 @@ public class FieldController {
         }
     }
 
-    public void freePlayer(Player player) {
-        for (Object field : fieldArrayList) {
-            if (field instanceof Jail) {
-                ((Jail) field).setInJailRemove(player);
-                break;
-            }
-        }
-    }
-
     public void landOnField(IGameStateDTO gamestate) {
-        return landOnField(gamestate, 1);
+        landOnField(gamestate, 1);
     }
 
     public void landOnField(IGameStateDTO gamestate, int rentMultiplier) {
@@ -176,6 +172,24 @@ public class FieldController {
 
     public ArrayList<Field> getFieldList() {
         return fieldArrayList;
+    }
+
+    public int distToFirstFerry(Player player){
+        int steps = player.getLocation();
+        do{
+            steps++;
+            if (steps == StartValues.getInstance().getValue("boardSize")){
+                steps = 0;
+                break;
+            }
+        }while(!(fieldArrayList.get(steps) instanceof Ferry));
+        if (steps < player.getLocation()){
+            do {
+                steps++;
+            } while(!(fieldArrayList.get(steps) instanceof Ferry));
+            return StartValues.getInstance().getValue("boardSize") - player.getLocation() + steps;
+        }
+        return steps - player.getLocation();
     }
 
     public int ferrysOwned(Player owner, int startField, int ferrys) {

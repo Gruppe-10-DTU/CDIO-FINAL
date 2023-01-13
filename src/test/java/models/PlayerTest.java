@@ -53,7 +53,7 @@ public class PlayerTest extends TestCase {
         player.addGetOutOfJail(card);
         gameState.getFieldController().jailPlayer(player);
         assertTrue(player.hasGetOutOfJail());
-        player.useGetOutOfJail(gameState);
+        player.useGetOutOfJail();
         assertFalse(player.hasGetOutOfJail());
         assertFalse(gameState.getFieldController().isJailed(player));
     }

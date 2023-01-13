@@ -7,6 +7,8 @@ import models.Player;
 import models.chanceCards.Deck;
 import ui.GUIController;
 
+import java.util.ArrayList;
+
 public interface IGameStateDTO {
     Player getActivePlayer();
     GUIController getGuiController();
@@ -14,4 +16,5 @@ public interface IGameStateDTO {
     PlayerController getPlayerController();
     DiceHolder getDiceHolder();
     Deck getChancecardDeck();
+    ArrayList<Player> getOtherPlayers();
 }

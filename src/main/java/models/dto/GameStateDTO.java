@@ -77,5 +77,12 @@ public class GameStateDTO implements IGameStateDTO {
         return this.chancecardDeck;
     }
 
+    @Override
+    public ArrayList<Player> getOtherPlayers() {
+        return otherPlayers;
+    }
 
+    public void setOtherPlayers(ArrayList<Player> otherPlayers) {
+        this.otherPlayers = otherPlayers;
+    }
 }

@@ -22,7 +22,7 @@ public abstract class Field {
     }
 
     public void fieldEffect(IGameStateDTO gameState) {
-        return fieldEffect(gameState, 1);
+        fieldEffect(gameState, 1);
     }
 
     public abstract void fieldEffect(IGameStateDTO gameState, int rentMultiplier);

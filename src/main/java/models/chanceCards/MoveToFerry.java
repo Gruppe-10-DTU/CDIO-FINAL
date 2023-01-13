@@ -32,6 +32,5 @@ public class MoveToFerry extends ChanceCard{
             gameState.getFieldController().landOnField(gameState, RENT_MULTIPLIER);
         }
         gameState.getChancecardDeck().returnToDeck(this);
-        return gameState;
     }
 }

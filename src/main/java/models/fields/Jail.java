@@ -48,7 +48,7 @@ public class Jail extends Field {
     }
 
     @Override
-    public void fieldEffect(IGameStateDTO gameState){
+    public void fieldEffect(IGameStateDTO gameState, int rentMultiplier){
         if(!(this.isInJail(gameState.getActivePlayer()))) return;
 
         Player player = gameState.getActivePlayer();
@@ -101,8 +101,8 @@ public class Jail extends Field {
                 player.stayInJail();
                 break;
             case "card":
-                player.useGetOutOfJail(gameState);
-
+                player.useGetOutOfJail().chanceEffect(gameState);
+                setInJailRemove(player);
                 /* OUTPUT MESSAGE To USER */
 
                 break;

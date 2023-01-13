@@ -103,6 +103,7 @@ public class GameController implements ActionListener {
      */
     public void takeTurn(Player player) {
         gameState.setActivePlayer(player);
+        gameState.setOtherPlayers(playerController.otherPlayers(player.getID()));
         Map<String,Street[]> ownsGroup = fieldController.ownsColourGroup(player);
         Map<String,Street[]> placesToBuild = fieldController.buildEqual(ownsGroup);
         //Tjek huskøb
