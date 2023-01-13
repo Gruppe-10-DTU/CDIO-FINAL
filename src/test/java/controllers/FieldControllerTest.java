@@ -3,21 +3,13 @@ package controllers;
 import models.Language;
 import models.Player;
 import models.dto.GameStateDTO;
-import models.fields.Field;
-import models.fields.Jail;
 import models.fields.*;
-
-import models.fields.Start;
-import models.fields.Street;
-import models.fields.Ferry;
 import org.junit.jupiter.api.BeforeEach;
 
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class FieldControllerTest {

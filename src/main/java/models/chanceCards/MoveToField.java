@@ -11,7 +11,7 @@ public class MoveToField extends ChanceCard{
     private final boolean PASS_START_BONUS;
 
     /**
-     * Constructor for the Chancecards that move the player to a specific field.
+     * Constructor for the Chance-cards that move the player to a specific field.
      * @param Name        Must match a key in the language hashmap
      * @param Description Must be imported from the language hashmap
      * @param FIELD_ID   The name of the field to move to

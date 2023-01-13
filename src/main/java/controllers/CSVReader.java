@@ -15,8 +15,8 @@ public class CSVReader {
      * @param CSVFilePath the path to the CSV file
      * @param HasHeaders a boolean representing whether the columns have titles
      */
-    public CSVReader(String CSVFilePath, String ValueSeperator, boolean HasHeaders)  {
-        this.DELIMITER = ValueSeperator;
+    public CSVReader(String CSVFilePath, String ValueSeparator, boolean HasHeaders)  {
+        this.DELIMITER = ValueSeparator;
         this.file = CSVFilePath;
         InputStream stream = this.getClass().getResourceAsStream(file);
         assert stream != null;
@@ -80,7 +80,7 @@ public class CSVReader {
 
     /**
      * Searches for the desired title not case-sensitive
-     * @param HeaderTitle the deisred column
+     * @param HeaderTitle the desired column
      * @return index of title or -1 if title not found
      */
     public int getHeaderIndex(String HeaderTitle){

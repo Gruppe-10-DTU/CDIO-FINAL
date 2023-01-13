@@ -38,13 +38,13 @@ public class Language {
                 target = "/LanguagePack/danish.txt";
                 break;
             default:
-                target = "/LanguagePack/english.txt";
+                target = "/LanguagePack/danish.txt";
                 break;
         }
         Class c = this.getClass();
         InputStream file = c.getResourceAsStream(target);
 
-        languageValues = new HashMap<String, String>();
+        languageValues = new HashMap<>();
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(file));
             String line;
@@ -55,6 +55,7 @@ public class Language {
                 }
             }
         } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

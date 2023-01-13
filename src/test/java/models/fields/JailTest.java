@@ -64,7 +64,7 @@ class JailTest {
         gameState.setPlayerController(playerController);
         gameState.setFieldController(fieldController);
         gameState.setDiceHolder(new CheatDiceHolder(2));
-        gameState.setChancecardDeck(new Deck(new Language()));
+        gameState.setChanceCardDeck(new Deck(new Language()));
         gameState.setActivePlayer(playerController.getPlayerById(0));
 
 
