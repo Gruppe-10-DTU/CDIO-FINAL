@@ -20,7 +20,7 @@ public class Street extends Property{
 
 
     @Override
-    public GameStateDTO fieldEffect(GameStateDTO gameState) {
+    public GameStateDTO fieldEffect(GameStateDTO gameState, int rentMultiplier) {
         Player currentPlayer = gameState.getActivePlayer();
         if (owner == null) {
 

@@ -148,9 +148,13 @@ public class FieldController {
     }
 
     public GameStateDTO landOnField(GameStateDTO gamestate) {
+        return landOnField(gamestate, 1);
+    }
+
+    public GameStateDTO landOnField(GameStateDTO gamestate, int rentMultiplier) {
         Field currentField = fieldArrayList.get(gamestate.getActivePlayer().getLocation());
 
-        GameStateDTO newGameState = currentField.fieldEffect(gamestate);
+        GameStateDTO newGameState = currentField.fieldEffect(gamestate, rentMultiplier);
 
         return newGameState;
     }
