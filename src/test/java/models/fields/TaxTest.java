@@ -1,6 +1,5 @@
 package models.fields;
 
-import controllers.FieldController;
 import controllers.FieldControllerStub;
 import controllers.GUIControllerStub;
 import controllers.PlayerController;

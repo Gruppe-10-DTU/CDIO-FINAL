@@ -28,7 +28,7 @@ class ChanceTest {
         guiControllerStub.setButtonClicked(true);
         gameState = new GameStateDTO(guiControllerStub);
         gameState.setActivePlayer(playerController.getPlayerById(0));
-        gameState.setChancecardDeck(deck);
+        gameState.setChanceCardDeck(deck);
         gameState.setFieldController(fieldController);
         gameState.setPlayerController(playerController);
     }

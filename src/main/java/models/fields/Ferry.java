@@ -11,8 +11,8 @@ public class Ferry extends Property{
         return rent;
     }
 
-    public void setRent(int index, int rentAmound) {
-        this.rent[index] = rentAmound;
+    public void setRent(int index, int rentAmount) {
+        this.rent[index] = rentAmount;
     }
 
 
@@ -33,21 +33,21 @@ public class Ferry extends Property{
                 }
             } else {
                 //Player cant buy (possibly give the player an option to sell other values and then buy?)
-                String msg = "Du er landet på " + name + " Til en værdi af " + price + "og har dessværre ikke råd til at købe den";
+                String msg = "Du er landet på " + name + " Til en værdi af " + price + "og har desværre ikke råd til at købe den";
 
                 gameState.getGuiController().displayMsg(msg);
                 this.auction(gameState);
             }
         } else {
             //Pay rent
-            int ownerOwnes = gameState.getFieldController().ferrysOwned(owner, iD, 4); //Change to the actual number of ferry fields owned by the player to include rent bonus
-            int rentToPay = rent[ownerOwnes-1] * rentMultiplier;
+            int ownerOwns = gameState.getFieldController().ferrysOwned(owner, iD, 4); //Change to the actual number of ferry fields owned by the player to include rent bonus
+            int rentToPay = rent[ownerOwns-1] * rentMultiplier;
 
             if (owner == currentPlayer) {
                 String msg = "Du er landet på din egen grund";
                 gameState.getGuiController().displayMsg(msg);
             } else if (gameState.getFieldController().isJailed(owner)) {
-                String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " men da ejeren er i fængselbetales ingen leje ";
+                String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " men da ejeren er i fængsel betales ingen leje ";
                 gameState.getGuiController().displayMsg(msg);
             } else if (currentPlayer.setBalance(-rentToPay)) {
                 String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " betal leje " + rentToPay;

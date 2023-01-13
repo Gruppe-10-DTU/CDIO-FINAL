@@ -190,7 +190,7 @@ public class AcceptanceTest {
 
         Chance chance = (Chance) fc.getField(2);
         Deck deck = new Deck(language);
-        gs.setChancecardDeck(deck);
+        gs.setChanceCardDeck(deck);
         dH.setRolls(1,1);
         gc.takeTurn(pc.getPlayerById(0));
         gui.displayMsg("Testen er nu overstået");
