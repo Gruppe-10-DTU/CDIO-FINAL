@@ -48,6 +48,7 @@ class FieldControllerTest {
         CSVMock.add(new ArrayList<>(Arrays.asList("Fængsel","6","jail","0","","","","","","","","")));
         CSVMock.add(new ArrayList<>(Arrays.asList("Amagertorv","7","street","6000","4000","550","2600","7800","18000","22000","25000","yellow")));
         CSVMock.add(new ArrayList<>(Arrays.asList("Vimmelskaftet","8","street","6000","4000","550","2600","7800","18000","22000","25000","yellow")));
+        CSVMock.add(new ArrayList<>(Arrays.asList("Vimmelskaftet","9","street","6000","4000","550","2600","7800","18000","22000","25000","yellow")));
         CSVMock.add(new ArrayList<>(Arrays.asList("Mols-Linien","10","ferry","4000","","500","1000","2000","4000","","","")));
         gameStateDTO.getFieldController().createFieldArray(CSVMock);
 
@@ -59,7 +60,7 @@ class FieldControllerTest {
     @Test
     void construct() {
 
-        assertEquals(10, gameStateDTO.getFieldController().fieldArrayList.size());
+        assertEquals(11, gameStateDTO.getFieldController().fieldArrayList.size());
     }
 
 
@@ -187,7 +188,8 @@ class FieldControllerTest {
 
     @Test
     void ownsColourGroup() {
-        //Note to whoever reads this. This method _ONLY_ works if the amount of fields is devisable by 5.
+        fieldcontroller.fieldArrayList.remove(9);
+        //Note to whoever reads this. This method _ONLY_ works if the amount of fields is devisable by 5. That's why we remove a field.
         for(Object field : fieldcontroller.fieldArrayList){
             if(field instanceof Street){
                 ((Street) field).setOwner(mockPlayer1);
@@ -198,6 +200,7 @@ class FieldControllerTest {
 
     @Test
     void buildEqual() {
+        fieldcontroller.fieldArrayList.remove(9);
         for(Object field : fieldcontroller.fieldArrayList){
             if(field instanceof Street){
                 ((Street) field).setOwner(mockPlayer1);
@@ -213,6 +216,7 @@ class FieldControllerTest {
 
     @Test
     void countHouse() {
+        fieldcontroller.fieldArrayList.remove(9);
         //Misleading name. It doesn't count the total amount of houses, it counts how many properties the player owns, that still has houses left.
         for(Object field : fieldcontroller.fieldArrayList){
             if(field instanceof Street){
@@ -227,6 +231,7 @@ class FieldControllerTest {
 
     @Test
     void checkSell() {
+        fieldcontroller.fieldArrayList.remove(9);
         //Might seem a bit redundant however, it used to check if the chosen color has any houses left and sort by those that still have.
         for(Object field : fieldcontroller.fieldArrayList){
             if(field instanceof Street){
@@ -241,6 +246,7 @@ class FieldControllerTest {
 
     @Test
     void addBuilding() {
+        fieldcontroller.fieldArrayList.remove(9);
         for(Object field : fieldcontroller.fieldArrayList){
             if(field instanceof Street){
                 ((Street) field).setOwner(mockPlayer1);
@@ -257,6 +263,7 @@ class FieldControllerTest {
 
     @Test
     void sellBuilding() {
+        fieldcontroller.fieldArrayList.remove(9);
         for(Object field : fieldcontroller.fieldArrayList){
             if(field instanceof Street){
                 ((Street) field).setOwner(mockPlayer1);
