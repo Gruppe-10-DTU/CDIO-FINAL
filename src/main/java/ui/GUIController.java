@@ -11,12 +11,9 @@ import gui_main.GUI;
 import models.Language;
 import models.Player;
 import models.fields.*;
-import org.apache.commons.lang.ArrayUtils;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Map;
 
 public class GUIController {
     private GUI gui;
@@ -261,9 +258,17 @@ public class GUIController {
         GUI_Street street = (GUI_Street) gui.getFields()[property.getID()];
         street.setHotel(true);
     }
+    public void guiRemoveHotel(Street property){
+        GUI_Street street = (GUI_Street) gui.getFields()[property.getID()];
+        street.setHotel(false);
+    }
     public String selectColorBuild(String chooseColorOptions, String[] color){
         return gui.getUserSelection(chooseColorOptions,color);
     }
+    public int sellAmount(int minHouse, int maxHouse){
+        return gui.getUserInteger("How many buildings do you wish to sell?", minHouse, maxHouse);
+    }
+
 
 
 

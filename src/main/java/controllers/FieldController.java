@@ -329,6 +329,7 @@ public class FieldController {
         }
     }
 
+
     public Street getStreetFromString(String street){
         Street field = null;
         for (int i = 0; i < fieldArrayList.size(); i++) {
@@ -357,6 +358,7 @@ public class FieldController {
         if(property.isHotel()){
             property.setHouseAmount(property.getHouseAmount()-5);
             property.getOwner().setBalance((property.getHousePrice()/2)*5);
+            property.setHotel(false);
             setHotelPool(hotelPool+1);
         }else {
             property.setHouseAmount(property.getHouseAmount() - amountToSell);

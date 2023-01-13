@@ -259,6 +259,10 @@ public class AcceptanceTest {
         pc.getPlayerById(1).setLocation(39);
         gc.takeTurn(pc.getPlayerById(1));
         gui.displayMsg("Testen er ovre");
-
+    }
+    @Test
+    void AK26(){
+        pc.addPlayer(0,"UFO","BuildHouseTest",2);
+        pc.addPlayer(1,"UFO","bankRuptPlayer",3);
     }
 }

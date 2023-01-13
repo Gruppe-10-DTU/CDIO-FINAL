@@ -138,7 +138,7 @@ public class GameController implements ActionListener {
             boolean loopdeloop = true;
             //Hvor kan der bygges?
             while (looper && placesToBuild.size() >= 1) {
-                if (!loopdeloop) {
+                if (!loopdeloop){
                     looper = guiController.yesnoSelection(language.getLanguageValue("canBuild"));
                     if(!looper) break;
                 }
