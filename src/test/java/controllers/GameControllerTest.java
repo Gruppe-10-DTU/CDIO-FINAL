@@ -45,7 +45,7 @@ class GameControllerTest {
 
     @Test
     void win() {
-        for (int i = pc.getAvailablePlayers().size(); i > 1 ; i--) {
+        for (int i = pc.getPlayers().length; i > 1 ; i--) {
             assertNotEquals(true,gameController.win());
             pc.removePlayer(i);
         }

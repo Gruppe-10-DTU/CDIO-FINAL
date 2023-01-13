@@ -90,33 +90,6 @@ class FieldControllerTest {
         assertEquals(jailIndex, mockPlayer1.getLocation());
     }
 
-
-    @Test
-    void FreePlayer() {
-        //Jail the player
-        gameStateDTO.getFieldController().jailPlayer(mockPlayer1);
-
-        for (Object field : gameStateDTO.getFieldController().fieldArrayList) {
-            if ( field instanceof Jail) {
-
-                //Check that player was jailed
-                assertTrue(((Jail) field).getInJail().contains(mockPlayer1));
-                break;
-            }
-        }
-
-        //Free the player
-        gameStateDTO.getFieldController().freePlayer(mockPlayer1);
-
-        for (Object field : gameStateDTO.getFieldController().fieldArrayList) {
-            if ( field instanceof Jail) {
-                //Check that player is no longer jailed
-                assertFalse(((Jail) field).getInJail().contains(mockPlayer1));
-                break;
-            }
-        }
-    }
-
     @Test
     void ferryOwnersAll() {
         Ferry ferry1 = (Ferry) gameStateDTO.getFieldController().getField(0);

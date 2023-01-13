@@ -1,7 +1,7 @@
 package models.chanceCards;
 
-import models.dto.GameStateDTO;
-import org.apache.commons.lang.NotImplementedException;
+import models.Player;
+import models.dto.IGameStateDTO;
 
 public class MoveToFerry extends ChanceCard{
 
@@ -15,15 +15,22 @@ public class MoveToFerry extends ChanceCard{
     }
 
     @Override
-    public GameStateDTO chanceEffect(GameStateDTO gameState){
-        throw new NotImplementedException();
-    }
+    public void chanceEffect(IGameStateDTO gameState){
+        gameState.getGuiController().showChanceCard(this.description);
+        Player player = gameState.getActivePlayer();
+        int distToFerry = gameState.getFieldController().distToFirstFerry(player);
 
-    public int getRENT_MULTIPLIER() {
-        return RENT_MULTIPLIER;
-    }
+        if(PASS_START_BONUS) {
+            gameState.getPlayerController().playerMove(player, distToFerry);
+        }else player.setLocation(player.getLocation() + distToFerry);
 
-    public boolean getPASS_START_BONUS() {
-        return PASS_START_BONUS;
+        gameState.getGuiController().movePlayer(player);
+
+        if(RENT_MULTIPLIER == 1){
+            gameState.getFieldController().landOnField(gameState);
+        }else {
+            gameState.getFieldController().landOnField(gameState, RENT_MULTIPLIER);
+        }
+        gameState.getChanceCardDeck().returnToDeck(this);
     }
 }

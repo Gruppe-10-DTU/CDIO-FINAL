@@ -2,7 +2,7 @@ package controllers;
 
 import models.Language;
 import models.Player;
-import models.dto.GameStateDTO;
+import models.dto.IGameStateDTO;
 import models.fields.*;
 
 import java.util.*;
@@ -125,7 +125,12 @@ public class FieldController {
      * Recieves a player, locates the jail field, moves the player and jails them
      */
     public void jailPlayer(Player player) {
+        /*
+        Faster way but doesn't work with test
+        ((Jail) fieldArrayList.get(10)).setInJailAdd(player);
+        player.setLocation(10);
 
+         */
         for (Object field : fieldArrayList) {
             if (field instanceof Jail) {
                 if (((Jail) field).getName().equals("I fængsel/På besøg")) {
@@ -138,21 +143,14 @@ public class FieldController {
         }
     }
 
-    public void freePlayer(Player player) {
-        for (Object field : fieldArrayList) {
-            if (field instanceof Jail) {
-                ((Jail) field).setInJailRemove(player);
-                break;
-            }
-        }
+    public void landOnField(IGameStateDTO gamestate) {
+        landOnField(gamestate, 1);
     }
 
-    public GameStateDTO landOnField(GameStateDTO gamestate) {
+    public void landOnField(IGameStateDTO gamestate, int rentMultiplier) {
         Field currentField = fieldArrayList.get(gamestate.getActivePlayer().getLocation());
 
-        GameStateDTO newGameState = currentField.fieldEffect(gamestate);
-
-        return newGameState;
+        currentField.fieldEffect(gamestate, rentMultiplier);
     }
 
     public int playerPropertyValues(Player player) {
@@ -176,31 +174,22 @@ public class FieldController {
         return fieldArrayList;
     }
 
-
-    /**
-     * see if a propertys neighbor have the same owner
-     *
-     * @param property the property in question
-     * @return true if the same owner, otherwise false
-     */
-    public boolean sameOwner(Street property) {
-        Street property2;
-        if (property.getID() % 3 == 1) {
-            //If the property is the first one, %3 will always be one and we'll add one to get the neighbor and compare the owners
-            property2 = (Street) fieldArrayList.get(property.getID() + 1);
-        } else {
-            //If the property is the second one, %3 will always be 2 and we'll subtract one to get the neighbor and compare the owners
-            property2 = (Street) fieldArrayList.get(property.getID() - 1);
+    public int distToFirstFerry(Player player){
+        int steps = player.getLocation();
+        do{
+            steps++;
+            if (steps == StartValues.getInstance().getValue("boardSize")){
+                steps = 0;
+                break;
+            }
+        }while(!(fieldArrayList.get(steps) instanceof Ferry));
+        if (steps < player.getLocation()){
+            do {
+                steps++;
+            } while(!(fieldArrayList.get(steps) instanceof Ferry));
+            return StartValues.getInstance().getValue("boardSize") - player.getLocation() + steps;
         }
-        return property2.getOwner() != null && property.getOwner().equals(property2.getOwner());
-    }
-
-    public boolean sellField(Street property, Player buyer) {
-        return true;
-    }
-
-    public Street[] getFieldOtherPlayers(Player player) {
-        return fieldArrayList.stream().filter(field -> field instanceof Street && ((Street) field).getOwner() != player).toArray(Street[]::new);
+        return steps - player.getLocation();
     }
 
     public int ferrysOwned(Player owner, int startField, int ferrys) {
@@ -246,10 +235,6 @@ public class FieldController {
         return breweriesOwned;
     }
 
-    public Street[] getFieldsOfPlayer(Player player) {
-        return fieldArrayList.stream().filter(field -> field instanceof Street && ((Street) field).getOwner() == player).toArray(Street[]::new);
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -268,6 +253,7 @@ public class FieldController {
         ArrayList<Street> localData = new ArrayList<>();
         HashMap<String, Street[]> map = new HashMap<>();
         ArrayList<Street> propertiesToUpgrade = new ArrayList<>();
+
         for (int i = 0; i < fieldArrayList.size(); i += 5) {
             for (int k = i; k <= i + 4; k++) {
                 if (fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).getOwner() != player) {
@@ -357,7 +343,6 @@ public class FieldController {
         }
     }
 
-
     public Street getStreetFromString(String street){
         Street field = null;
         for (int i = 0; i < fieldArrayList.size(); i++) {
@@ -393,6 +378,18 @@ public class FieldController {
             property.getOwner().setBalance((property.getHousePrice()/2)*amountToSell);
             setHousePool(housePool+amountToSell);
         }
+    }
+
+    public int[] housesAndHotelsOwned (Player player){
+        int houses = 0;
+        int hotels = 0;
+        for (Field field : fieldArrayList) {
+            if (field instanceof Street && ((Street) field).getOwner() != null &&((Street) field).getOwner().equals(player)){
+                if (((Street) field).isHotel()) hotels++;
+                else houses += ((Street) field).getHouseAmount();
+            }
+        }
+        return new int[]{houses, hotels};
     }
 }
 

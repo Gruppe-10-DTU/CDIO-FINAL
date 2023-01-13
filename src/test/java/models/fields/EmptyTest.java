@@ -10,8 +10,6 @@ class EmptyTest {
     @Test
     void testEmptyFieldNoChange() {
         GameStateDTO gameStateDTO = new GameStateDTO(new GUIControllerStub());
-        Empty empty = new Empty();
-
-        assertEquals(gameStateDTO, empty.fieldEffect(gameStateDTO));
+        new Empty().fieldEffect(gameStateDTO);
     }
 }

@@ -1,7 +1,7 @@
 package models;
 
 import models.chanceCards.GetOutOfJail;
-import models.dto.GameStateDTO;
+import models.dto.IGameStateDTO;
 
 import java.util.ArrayList;
 
@@ -13,7 +13,6 @@ public class Player {
     private final Balance balance;
     private String identifier;
     private Character character;
-    private int soldSign = 12;
     private int location = 0;
     private ArrayList<GetOutOfJail> getOutOfJail = new ArrayList<>();
     private int roundsInJail;
@@ -45,30 +44,12 @@ public class Player {
      * @param name            Name of player
      * @param startingBalance starting balance
      * @param character       Player character
-     * @defaults set to 12 by default, location set to 0
      */
     public Player(int iD, String name, int startingBalance, Character character){
         this.iD = iD;
         identifier = name;
         balance = new Balance(startingBalance);
         this.character = character;
-    }
-
-    /**
-     * @param iD              ID of player
-     * @param name            Name of player
-     * @param startingBalance Starting bank account value
-     * @param character       Players character token
-     * @param soldSign        Amount of properties they can own
-     * @defaults location set to 0
-     */
-
-    public Player(int iD, String name, int startingBalance, Character character, int soldSign){
-        this.iD = iD;
-        identifier = name;
-        balance = new Balance(startingBalance);
-        this.character = character;
-        this.soldSign = soldSign;
     }
 
     /**
@@ -108,14 +89,6 @@ public class Player {
     public void setIdentifier(String newIdentifier) {
         this.identifier = newIdentifier;
     }
-
-    /**
-     * @return Get soldSigns left
-     */
-    public int getSoldSign() {
-        return soldSign;
-    }
-
     /**
      * @param character New character
      */
@@ -128,30 +101,6 @@ public class Player {
      */
     public Character getCharacter() {
         return character;
-    }
-
-    /**
-     * Decrease sold sign by one after the player buys a property.
-     * @return Return true if soldSign is above or equal to 0 otherwise return false
-     */
-    public boolean decreaseSoldSign(){
-        if(this.soldSign<=0){
-            return false;
-        }
-        this.soldSign--;
-        return true;
-    }
-
-    /**
-     * Increase soldSign by one. Cannot increase if at 12 already due to rules.
-     * @return boolean showing if the increase was possible
-     */
-    public boolean increaseSolgSign(){
-        if(this.soldSign>=12){
-            return false;
-        }
-        this.soldSign++;
-        return true;
     }
 
     public int getLocation() {
@@ -169,9 +118,6 @@ public class Player {
     public int getID() {
         return iD;
     }
-
-    public int setID(int newID) {return newID;}
-
     public void setLocation(int location) {
         this.location = location;
     }
@@ -183,10 +129,11 @@ public class Player {
     public void addGetOutOfJail(GetOutOfJail getOutOfJail) {
         this.getOutOfJail.add(getOutOfJail);
     }
-    public void useGetOutOfJail(GameStateDTO gameState){
+    public GetOutOfJail useGetOutOfJail(){
         this.setRoundsInJail(0);
-        this.getOutOfJail.get(0).chanceEffect(gameState);
+        GetOutOfJail card = this.getOutOfJail.get(0);
         this.getOutOfJail.remove(0);
+        return card;
     }
 
     public int getRoundsInJail() {

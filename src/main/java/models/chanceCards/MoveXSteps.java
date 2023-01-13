@@ -2,7 +2,7 @@ package models.chanceCards;
 
 import controllers.PlayerController;
 import models.Player;
-import models.dto.GameStateDTO;
+import models.dto.IGameStateDTO;
 
 public class MoveXSteps extends ChanceCard{
 
@@ -21,18 +21,13 @@ public class MoveXSteps extends ChanceCard{
     }
 
     @Override
-    public GameStateDTO chanceEffect(GameStateDTO gameState){
+    public void chanceEffect(IGameStateDTO gameState){
         PlayerController playerController = gameState.getPlayerController();
         Player activePlayer = gameState.getActivePlayer();
         gameState.getGuiController().showChanceCard(this.description);
         playerController.playerMove(activePlayer, this.MAX_STEPS);
+        gameState.getGuiController().movePlayer(activePlayer);
         gameState.getFieldController().landOnField(gameState);
-        gameState.getChancecardDeck().returnToDeck(this);
-        return gameState;
-    }
-
-
-    public int getMaxSteps() {
-        return MAX_STEPS;
+        gameState.getChanceCardDeck().returnToDeck(this);
     }
 }

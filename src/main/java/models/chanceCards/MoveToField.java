@@ -3,7 +3,7 @@ package models.chanceCards;
 import controllers.PlayerController;
 import controllers.StartValues;
 import models.Player;
-import models.dto.GameStateDTO;
+import models.dto.IGameStateDTO;
 
 public class MoveToField extends ChanceCard{
 
@@ -23,7 +23,8 @@ public class MoveToField extends ChanceCard{
     }
 
     @Override
-    public GameStateDTO chanceEffect(GameStateDTO gameState){
+    public void chanceEffect(IGameStateDTO gameState){
+        gameState.getGuiController().showChanceCard(description);
         PlayerController playerController = gameState.getPlayerController();
         Player activePlayer = gameState.getActivePlayer();
 
@@ -34,21 +35,14 @@ public class MoveToField extends ChanceCard{
             }else {
                 gameState.getFieldController().landOnField(gameState);
             }
+            gameState.getGuiController().movePlayer(activePlayer);
         }else{
             int spacesToMove = FIELD_ID - activePlayer.getLocation();
             if(spacesToMove < 0) spacesToMove += StartValues.getInstance().getValue("boardSize");
             playerController.playerMove(activePlayer,spacesToMove);
+            gameState.getGuiController().movePlayer(activePlayer);
             gameState.getFieldController().landOnField(gameState);
         }
-        gameState.getChancecardDeck().returnToDeck(this);
-        return gameState;
-    }
-
-    public int getFieldID() {
-        return FIELD_ID;
-    }
-
-    public boolean getPASS_START_BONUS() {
-        return PASS_START_BONUS;
+        gameState.getChanceCardDeck().returnToDeck(this);
     }
 }

@@ -3,7 +3,7 @@ package models.fields;
 import controllers.DiceHolder;
 import controllers.FieldController;
 import models.Player;
-import models.dto.GameStateDTO;
+import models.dto.IGameStateDTO;
 import ui.GUIController;
 
 import java.util.ArrayList;
@@ -48,8 +48,8 @@ public class Jail extends Field {
     }
 
     @Override
-    public GameStateDTO fieldEffect(GameStateDTO gameState){
-        if(!(this.isInJail(gameState.getActivePlayer()))) return gameState;
+    public void fieldEffect(IGameStateDTO gameState, int rentMultiplier){
+        if(!(this.isInJail(gameState.getActivePlayer()))) return;
 
         Player player = gameState.getActivePlayer();
         GUIController io = gameState.getGuiController();
@@ -86,6 +86,7 @@ public class Jail extends Field {
                     if (jailRoll[0] == jailRoll[1]){
                         player.setRoundsInJail(0);
                         this.setInJailRemove(player);
+                        diceHolder.incrementSameRolls();
 
                         /* OUTPUT MESSAGE To USER */
                         gameState.getPlayerController().playerMove(player, diceHolder.sum());
@@ -100,8 +101,8 @@ public class Jail extends Field {
                 player.stayInJail();
                 break;
             case "card":
-                player.useGetOutOfJail(gameState);
-
+                player.useGetOutOfJail().chanceEffect(gameState);
+                setInJailRemove(player);
                 /* OUTPUT MESSAGE To USER */
 
                 break;
@@ -112,8 +113,6 @@ public class Jail extends Field {
             this.setInJailRemove(player);
 
             /* OUTPUT MESSAGE To USER */
-
         }
-        return  gameState;
     }
 }

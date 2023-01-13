@@ -1,6 +1,6 @@
 package models.fields;
 import models.Player;
-import models.dto.GameStateDTO;
+import models.dto.IGameStateDTO;
 
 import java.util.Map;
 
@@ -20,7 +20,7 @@ public class Street extends Property {
 
 
     @Override
-    public GameStateDTO fieldEffect(GameStateDTO gameState) {
+    public void fieldEffect(IGameStateDTO gameState, int rentMultiplier) {
         Player currentPlayer = gameState.getActivePlayer();
         if (owner == null) {
 
@@ -50,7 +50,7 @@ public class Street extends Property {
             if (ownsGroup.containsKey(color)) {
 
                 if (houseAmount == 0) {
-                    rentToPay = rent[houseAmount] * 2;
+                    rentToPay = rent[houseAmount]*2;
                 } else {
                     rentToPay = rent[houseAmount];
                 }
@@ -107,7 +107,6 @@ public class Street extends Property {
 
         return gameState;
     }
-
 
 
 

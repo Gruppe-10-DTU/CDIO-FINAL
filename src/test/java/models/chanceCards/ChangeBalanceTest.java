@@ -14,11 +14,10 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MoveXStepsTest {
+class ChangeBalanceTest {
     GameStateDTO gameState;
-    MoveXSteps card1;
-    MoveXSteps card2;
-    MoveXSteps card3;
+    ChangeBalance card1;
+    ChangeBalance card2;
 
     @BeforeEach
     void setUp() {
@@ -30,25 +29,28 @@ class MoveXStepsTest {
         gameState.setGuiController(new GUIControllerStub());
         gameState.setFieldController(new FieldController(new Language()));
         gameState.setChancecardDeck(new Deck(new Language()));
-        card1 = new MoveXSteps("card1", "",3);
-        card2 = new MoveXSteps("card2", "",-3);
-        card3 = new MoveXSteps("card3", "",-3);
-
+        card1 = new ChangeBalance("", "",-1000,false);
+        card2 = new ChangeBalance("", "",1000,false);
     }
 
     @Test
-    @DisplayName("player is moved the correct amount")
-    void moveXStepsChanceEffect() {
-        gameState.getActivePlayer().setLocation(2);
+    @DisplayName("Normal ChangeBalance cards")
+    void chanceEffectNormal() {
+        card1 = new ChangeBalance("", "",-1000,false);
+        card2 = new ChangeBalance("", "",1000,false);
+        int startMoney = gameState.getActivePlayer().getBalance();
         card1.chanceEffect(gameState);
-        assertEquals(5,gameState.getActivePlayer().getLocation());
-
-        gameState.getActivePlayer().setLocation(17);
+        assertTrue(startMoney > gameState.getActivePlayer().getBalance());
         card2.chanceEffect(gameState);
-        assertEquals(14,gameState.getActivePlayer().getLocation());
-
-        gameState.getActivePlayer().setLocation(2);
-        card3.chanceEffect(gameState);
-        assertEquals(39,gameState.getActivePlayer().getLocation());
+        assertEquals(startMoney, gameState.getActivePlayer().getBalance());
+    }
+    @Test
+    @DisplayName("Changebalance money from other players")
+    void chanceEffectFromOthers() {
+        card1 = new ChangeBalance("", "",1000,true);
+        card1.chanceEffect(gameState);
+        int player1money = gameState.getActivePlayer().getBalance();
+        int player2Money = gameState.getOtherPlayers().get(0).getBalance();
+        assertTrue(player1money > player2Money);
     }
 }

@@ -1,16 +1,13 @@
 package models.fields;
 
-import models.Player;
-import models.dto.GameStateDTO;
-import org.apache.commons.lang.NotImplementedException;
+import models.dto.IGameStateDTO;
 
 public class Empty extends Field {
 
     @Override
-    public GameStateDTO fieldEffect(GameStateDTO gameState){
+    public void fieldEffect(IGameStateDTO gameState, int rentMultiplier){
         //Language key: fieldFreeParking
         gameState.getGuiController().displayMsg("Du er landet på gratis parkering. Slap af og nyd en læske");
-        return gameState;
     }
 
 }

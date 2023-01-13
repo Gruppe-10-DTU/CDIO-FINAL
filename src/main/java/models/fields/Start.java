@@ -1,17 +1,14 @@
 package models.fields;
 
-import models.Player;
-import models.dto.GameStateDTO;
-import org.apache.commons.lang.NotImplementedException;
+import models.dto.IGameStateDTO;
 
 public class Start extends Field{
 
     @Override
-    public GameStateDTO fieldEffect(GameStateDTO gameState){
+    public void fieldEffect(IGameStateDTO gameState, int rentMultiplier){
 
         //Key fieldLandStart
         gameState.getGuiController().displayMsg("Du er landet på start. Tillykke med de gratis penge");
 
-        return gameState;
     }
 }
