@@ -16,9 +16,9 @@ public class Player {
     private ArrayList<GetOutOfJail> getOutOfJail = new ArrayList<>();
     private int roundsInJail;
     /**
+     * Defauld balance of player is 30,000
      * @param iD   id of the player
      * @param name name
-     * @default Balance is set to 30000, soldSign set to 12, location set to 0, character not set
      */
     public Player(int iD, String name){
         this.iD = iD;
