@@ -248,9 +248,17 @@ public class GUIController {
         GUI_Street street = (GUI_Street) gui.getFields()[property.getID()];
         street.setHotel(true);
     }
+    public void guiRemoveHotel(Street property){
+        GUI_Street street = (GUI_Street) gui.getFields()[property.getID()];
+        street.setHotel(false);
+    }
     public String selectColorBuild(String chooseColorOptions, String[] color){
         return gui.getUserSelection(chooseColorOptions,color);
     }
+    public int sellAmount(int minHouse, int maxHouse){
+        return gui.getUserInteger("How many buildings do you wish to sell?", minHouse, maxHouse);
+    }
+
 
 
 
