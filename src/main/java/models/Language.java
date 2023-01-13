@@ -44,7 +44,7 @@ public class Language {
         Class c = this.getClass();
         InputStream file = c.getResourceAsStream(target);
 
-        languageValues = new HashMap<String, String>();
+        languageValues = new HashMap<>();
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(file));
             String line;
