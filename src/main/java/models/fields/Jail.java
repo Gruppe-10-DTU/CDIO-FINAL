@@ -86,6 +86,7 @@ public class Jail extends Field {
                     if (jailRoll[0] == jailRoll[1]){
                         player.setRoundsInJail(0);
                         this.setInJailRemove(player);
+                        diceHolder.incrementSameRolls();
 
                         /* OUTPUT MESSAGE To USER */
                         gameState.getPlayerController().playerMove(player, diceHolder.sum());
