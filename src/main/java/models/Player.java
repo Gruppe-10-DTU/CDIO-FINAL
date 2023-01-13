@@ -15,6 +15,8 @@ public class Player {
     private Character character;
     private int soldSign = 12;
     private int location = 0;
+
+    private int previousLocation = -1;
     private ArrayList<GetOutOfJail> getOutOfJail = new ArrayList<>();
     private int roundsInJail;
     /**
@@ -198,5 +200,13 @@ public class Player {
     }
     public void stayInJail(){
         this.roundsInJail++;
+    }
+
+    public void setPreviousLocation(int previousLocation) {
+        this.previousLocation = previousLocation;
+    }
+
+    public int getPreviousLocation() {
+        return previousLocation;
     }
 }

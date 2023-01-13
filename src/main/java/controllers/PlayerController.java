@@ -58,15 +58,18 @@ public class PlayerController {
         //}
         if(oldLocation + spaces >= StartValues.getInstance().getValue("boardSize")) {
             player.setLocation(oldLocation, spaces);
+            player.setPreviousLocation(player.getLocation());
             player.setLocation(player.getLocation(), -StartValues.getInstance().getValue("boardSize"));
             player.setBalance(StartValues.getInstance().getValue("passStartBonus"));
         } else if (oldLocation + spaces < 0) {
             spaces += StartValues.getInstance().getValue("boardSize");
+            player.setPreviousLocation(player.getLocation());
             player.setLocation(oldLocation, spaces);
-            if (oldLocation > 0) {
+            if (player.getPreviousLocation() > 0) {
                 player.setBalance(StartValues.getInstance().getValue("passStartBonus"));
             }
         }else{
+            player.setPreviousLocation(player.getLocation());
             player.setLocation(oldLocation,spaces);
         }
         return player;
