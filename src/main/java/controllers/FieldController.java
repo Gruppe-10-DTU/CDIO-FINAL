@@ -375,7 +375,7 @@ public class FieldController {
         int houses = 0;
         int hotels = 0;
         for (Field field : fieldArrayList) {
-            if (field instanceof Street && ((Street) field).getOwner().equals(player)){
+            if (field instanceof Street && ((Street) field).getOwner() != null &&((Street) field).getOwner().equals(player)){
                 if (((Street) field).isHotel()) hotels++;
                 else houses += ((Street) field).getHouseAmount();
             }
