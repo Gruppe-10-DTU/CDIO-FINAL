@@ -2,7 +2,6 @@ package controllers;
 
 import models.*;
 import models.Character;
-import models.fields.Street;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -44,9 +43,8 @@ public class PlayerController {
      * Player-class input : Designate what player you want to move.
      * @param spaces
      * Moves designated player x amount of spaces from current position.
-     * @return
      */
-    public Player playerMove(Player player, int spaces){
+    public void playerMove(Player player, int spaces){
         int oldLocation = player.getLocation();
         if(spaces + oldLocation < 0){
             spaces += StartValues.getInstance().getValue("boardSize");
@@ -59,7 +57,6 @@ public class PlayerController {
         }else{
             player.setLocation(oldLocation,spaces);
         }
-        return player;
     }
 
     /**
