@@ -11,6 +11,5 @@ public class Chance extends Field {
         gameState.getGuiController().displayMsg("Du er landet på Prøv Lykken, og må derfor trække et kort.");
         ChanceCard drawnCard = gameState.getChanceCardDeck().drawCard();
         drawnCard.chanceEffect(gameState);
-        return gameState;
     }
 }

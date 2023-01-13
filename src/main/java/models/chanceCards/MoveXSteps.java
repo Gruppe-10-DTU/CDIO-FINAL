@@ -28,6 +28,6 @@ public class MoveXSteps extends ChanceCard{
         playerController.playerMove(activePlayer, this.MAX_STEPS);
         gameState.getGuiController().movePlayer(activePlayer);
         gameState.getFieldController().landOnField(gameState);
-        gameState.getChancecardDeck().returnToDeck(this);
+        gameState.getChanceCardDeck().returnToDeck(this);
     }
 }

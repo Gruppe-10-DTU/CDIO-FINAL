@@ -43,6 +43,6 @@ public class MoveToField extends ChanceCard{
             gameState.getGuiController().movePlayer(activePlayer);
             gameState.getFieldController().landOnField(gameState);
         }
-        gameState.getChancecardDeck().returnToDeck(this);
+        gameState.getChanceCardDeck().returnToDeck(this);
     }
 }

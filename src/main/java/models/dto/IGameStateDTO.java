@@ -15,6 +15,6 @@ public interface IGameStateDTO {
     FieldController getFieldController();
     PlayerController getPlayerController();
     DiceHolder getDiceHolder();
-    Deck getChancecardDeck();
+    Deck getChanceCardDeck();
     ArrayList<Player> getOtherPlayers();
 }

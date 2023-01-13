@@ -48,13 +48,13 @@ class ChanceTest {
         assertNotEquals(30000, gameState.getActivePlayer().getBalance());
 
         /*        Test Change balance cards         */
-        gameState.getChancecardDeck().rigDeck(1);
+        gameState.getChanceCardDeck().rigDeck(1);
         gameState.getActivePlayer().setLocation(2);
         gameState.getFieldController().landOnField(gameState);
         assertNotEquals(30000, gameState.getActivePlayer().getBalance());
 
         /*        Test grant card         */
-        gameState.getChancecardDeck().rigDeck(24);
+        gameState.getChanceCardDeck().rigDeck(24);
         gameState.getFieldController().landOnField(gameState);
         assertTrue(30000 > gameState.getActivePlayer().getBalance());
 
@@ -64,19 +64,19 @@ class ChanceTest {
         assertNotEquals(17, gameState.getActivePlayer().getLocation());
 
         /*        Test Move to field cards         */
-        gameState.getChancecardDeck().rigDeck(8);
+        gameState.getChanceCardDeck().rigDeck(8);
         gameState.getActivePlayer().setLocation(22);
         gameState.getFieldController().landOnField(gameState);
         assertNotEquals(22,gameState.getActivePlayer().getLocation());
 
         /*        Test move to ferry cards         */
-        gameState.getChancecardDeck().rigDeck(3);
+        gameState.getChanceCardDeck().rigDeck(3);
         gameState.getActivePlayer().setLocation(22);
         gameState.getFieldController().landOnField(gameState);
         assertEquals(25, gameState.getActivePlayer().getLocation());
 
         /*        Test get out of Jail cards         */
-        gameState.getChancecardDeck().rigDeck(3);
+        gameState.getChanceCardDeck().rigDeck(3);
         gameState.getActivePlayer().setLocation(36);
         gameState.getFieldController().landOnField(gameState);
         assertTrue(gameState.getActivePlayer().hasGetOutOfJail());

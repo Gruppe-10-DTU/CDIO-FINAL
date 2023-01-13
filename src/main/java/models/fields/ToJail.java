@@ -9,6 +9,5 @@ public class ToJail extends Field {
         gameState.getGuiController().displayMsg("Du fængsles, og modtager ikke penge for at passere start.");
         gameState.getFieldController().jailPlayer(gameState.getActivePlayer());
         gameState.getGuiController().movePlayer(gameState.getActivePlayer());
-        return gameState;
     }
 }

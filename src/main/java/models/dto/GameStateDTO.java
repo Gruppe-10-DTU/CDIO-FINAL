@@ -73,7 +73,7 @@ public class GameStateDTO implements IGameStateDTO {
         this.chancecardDeck = chancecardDeck;
     }
 
-    public Deck getChancecardDeck(){
+    public Deck getChanceCardDeck(){
         return this.chancecardDeck;
     }
 
