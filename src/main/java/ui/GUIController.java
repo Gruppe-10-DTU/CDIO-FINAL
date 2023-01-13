@@ -128,7 +128,11 @@ public class GUIController {
    //     street.setOwnableLabel(property.getOwner().getIdentifier());
     //    street.setOwnerName(property.getOwner().getIdentifier());
         if(property instanceof Street){
-            ((GUI_Street) field).setHouses(((Street) property).getHouseAmount());
+            if (((Street) property).isHotel()) {
+                ((GUI_Street) field).setHotel(true);
+            }else {
+                ((GUI_Street) field).setHouses(((Street) property).getHouseAmount());
+            }
         }
         field.setOwnerName(property.getOwner().getIdentifier());
         field.setBorder(property.getOwner().getCharacter().getColor());
