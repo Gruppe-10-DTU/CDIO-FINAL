@@ -22,6 +22,6 @@ public class Grant extends ChanceCard{
             player.setBalance(BONUS);
         }
         gameState.getGuiController().updatePlayer(player);
-        gameState.getChancecardDeck().returnToDeck(this);
+        gameState.getChanceCardDeck().returnToDeck(this);
     }
 }

@@ -41,6 +41,6 @@ public class ChangeBalance extends ChanceCard{
 
             gameState.getPlayerController().removePlayer(currentPlayer.getID());
         }
-        gameState.getChancecardDeck().returnToDeck(this);
+        gameState.getChanceCardDeck().returnToDeck(this);
     }
 }
