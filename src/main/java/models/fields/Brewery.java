@@ -26,7 +26,7 @@ public class Brewery extends Property{
     }
 
     @Override
-    public void fieldEffect(IGameStateDTO gameState) {
+    public void fieldEffect(IGameStateDTO gameState, int rentMultiplier) {
         Player currentPlayer = gameState.getActivePlayer();
 
         if (owner == null) {

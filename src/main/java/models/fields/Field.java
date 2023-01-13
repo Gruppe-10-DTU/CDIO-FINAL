@@ -21,5 +21,9 @@ public abstract class Field {
         return iD;
     }
 
-    public abstract void fieldEffect(IGameStateDTO gameState);
+    public void fieldEffect(IGameStateDTO gameState) {
+        return fieldEffect(gameState, 1);
+    }
+
+    public abstract void fieldEffect(IGameStateDTO gameState, int rentMultiplier);
 }

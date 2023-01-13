@@ -17,7 +17,7 @@ public class Ferry extends Property{
 
 
     @Override
-    public void fieldEffect(IGameStateDTO gameState) {
+    public void fieldEffect(IGameStateDTO gameState, int rentMultiplier) {
         Player currentPlayer = gameState.getActivePlayer();
 
         if (owner == null) {
@@ -41,7 +41,7 @@ public class Ferry extends Property{
         } else {
             //Pay rent
             int ownerOwnes = gameState.getFieldController().ferrysOwned(owner, iD, 4); //Change to the actual number of ferry fields owned by the player to include rent bonus
-            int rentToPay = rent[ownerOwnes-1];
+            int rentToPay = rent[ownerOwnes-1] * rentMultiplier;
 
             if (owner == currentPlayer) {
                 String msg = "Du er landet på din egen grund";

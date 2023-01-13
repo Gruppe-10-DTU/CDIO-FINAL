@@ -19,7 +19,7 @@ public class Street extends Property{
 
 
     @Override
-    public void fieldEffect(IGameStateDTO gameState) {
+    public void fieldEffect(IGameStateDTO gameState, int rentMultiplier) {
         Player currentPlayer = gameState.getActivePlayer();
         if (owner == null) {
 
@@ -128,4 +128,5 @@ public class Street extends Property{
     public void setHotel(boolean hotel) {
         this.hotel = hotel;
     }
+
 }

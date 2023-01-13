@@ -32,7 +32,7 @@ public class Tax extends Field{
     }
 
     @Override
-    public void fieldEffect(IGameStateDTO gameState){
+    public void fieldEffect(IGameStateDTO gameState, int rentMultiplier){
         if(priceProcent==0){
             if(gameState.getActivePlayer().setBalance(priceValue*-1)){
                 gameState.getGuiController().displayMsg("Du skal betale skal på "+priceValue);
