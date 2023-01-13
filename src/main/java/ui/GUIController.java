@@ -12,6 +12,7 @@ import models.Language;
 import models.Player;
 import models.fields.*;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -266,7 +267,8 @@ public class GUIController {
     public void removePlayer(Player player, Property[] properties) {
         gui_players[player.getID()].getCar().setPosition(null);
         for (int i = 0; i < properties.length; i++) {
-            updateField(properties[i]);
+            ((GUI_Ownable) gui.getFields()[properties[i].getID()]).setBorder(Color.black);
+            ((GUI_Ownable) gui.getFields()[properties[i].getID()]).setOwnerName(null);
         }
     }
 }
