@@ -238,9 +238,9 @@ class FieldControllerTest {
             }
         }
         ((Street) fieldcontroller.getField(2)).setHouseAmount(1);
-       assertEquals(1,fieldcontroller.checkSell(fieldcontroller.ownsColourGroup(mockPlayer1)).get("blue").length);
+       assertEquals(1,fieldcontroller.sellEqual(fieldcontroller.ownsColourGroup(mockPlayer1)).get("blue").length);
         ((Street) fieldcontroller.getField(3)).setHouseAmount(1);
-        assertEquals(2,fieldcontroller.checkSell(fieldcontroller.ownsColourGroup(mockPlayer1)).get("blue").length);
+        assertEquals(2,fieldcontroller.sellEqual(fieldcontroller.ownsColourGroup(mockPlayer1)).get("blue").length);
     }
 
     @Test

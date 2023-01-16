@@ -302,34 +302,29 @@ public class FieldController {
         }
         return buildingMap;
     }
-
-    public int countHouse(Map<String, Street[]> countHouses) {
-        int counter = 0;
-        for (Map.Entry<String, Street[]> entry : countHouses.entrySet()) {
-            for (int i = 0; i < entry.getValue().length; i++) {
-                if (entry.getValue()[i].getHouseAmount() > 0) {
-                    counter++;
-                }
-            }
-        }
-        return counter;
-    }
-
-    public Map<String, Street[]> checkSell(Map<String, Street[]> checkProps){
+    public Map<String, Street[]> sellEqual(Map<String, Street[]> checkProps){
+        int minVal = 0;
         ArrayList<Street> sortedStreet = new ArrayList<>();
+        HashMap<String, Street[]> buildingMap = new HashMap<>();
         for (Map.Entry<String, Street[]> entry : checkProps.entrySet()) {
             for (int i = 0; i < entry.getValue().length; i++) {
-                if (entry.getValue()[i].getHouseAmount() > 0){
-                    sortedStreet.add(entry.getValue()[i]);
+                if (entry.getValue()[i].getHouseAmount() > minVal) {
+                    minVal = entry.getValue()[i].getHouseAmount();
                 }
             }
-
-            if (!sortedStreet.isEmpty()) {
-                checkProps.replace(entry.getKey(), sortedStreet.toArray(Street[]::new));
-                sortedStreet.clear();
+            if(minVal != 0){
+                for (int i = 0; i < entry.getValue().length; i++) {
+                    if (entry.getValue()[i].getHouseAmount() == minVal) {
+                        sortedStreet.add(entry.getValue()[i]);
+                    }
+                }
+                if (!sortedStreet.isEmpty()) {
+                    buildingMap.put(entry.getKey(), sortedStreet.toArray(Street[]::new));
+                    sortedStreet.clear();
+                }
             }
         }
-        return checkProps;
+        return buildingMap;
     }
 
     public void addBuilding(Street property) {
