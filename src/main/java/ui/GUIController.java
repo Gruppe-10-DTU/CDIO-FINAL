@@ -132,17 +132,31 @@ public class GUIController {
      * Set the owner on the property
      * @param property Property to be changed
      */
-    public void updateField(Property property){
+    public void updateField(Property property, FieldController fieldController) {
         GUI_Ownable field = (GUI_Ownable) gui.getFields()[property.getID()];
-        if(property instanceof Street){
+        if (property instanceof Street) {
             if (((Street) property).isHotel()) {
                 ((GUI_Street) field).setHotel(true);
-            }else {
+                field.setRent(String.valueOf(((Street) property).getRent()[5]));
+            } else {
                 ((GUI_Street) field).setHouses(((Street) property).getHouseAmount());
+                field.setRent(String.valueOf(((Street) property).getRent()[((Street) property).getHouseAmount()]));
             }
+        } else if (property instanceof Ferry) {
+            int ferriesOwned = fieldController.ferrysOwned(property.getOwner(), property.getID(), 4) - 1;
+            field.setRent(String.valueOf(((Ferry) property).getRent()[ferriesOwned]));
+        } else if (property instanceof Brewery) {
+            int breweriesOwned = fieldController.breweriesOwned(property.getOwner(), property.getID()) - 1;
+            if (breweriesOwned > 0) {
+                field.setRent(((Brewery) property).getRent1() + " gange terningslag");
+            } else field.setRent(((Brewery) property).getRent0() + " gange terningslag");
         }
         field.setOwnerName(property.getOwner().getIdentifier());
-        field.setBorder(property.getOwner().getCharacter().getColor());
+        if (property.getOwner() == null) {
+            field.setBorder(Color.black);
+        } else {
+            field.setBorder(property.getOwner().getCharacter().getColor());
+        }
     }
 
     public void displayMsgNoBtn(String msg){
@@ -179,7 +193,7 @@ public class GUIController {
         }
         for (Field field: fieldController.getFieldList()) {
             if ((field instanceof Street || field instanceof Brewery || field instanceof Ferry) && ((Property) field).getOwner() != null){
-                updateField((Property) field);
+                updateField((Property) field, fieldController);
             }
         }
     }
