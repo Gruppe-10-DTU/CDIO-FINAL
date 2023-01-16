@@ -30,7 +30,7 @@ public class ChangeBalance extends ChanceCard{
 
                     gameState.getGuiController().displayMsg(otherPlayer.getIdentifier()+", du har ikke penge nok til at betale til" + currentPlayer.getIdentifier() + " og må derfor forlade spillet");
 
-                    gameState.getPlayerController().removePlayer(currentPlayer.getID());
+                    gameState.getPlayerController().removePlayer(gameState.getActivePlayer().getID());
                 }else total+= EFFECT;
             }
         } else total = EFFECT;

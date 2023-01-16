@@ -59,7 +59,6 @@ class FieldControllerTest {
 
     @Test
     void construct() {
-
         assertEquals(11, gameStateDTO.getFieldController().fieldArrayList.size());
     }
 
@@ -279,5 +278,22 @@ class FieldControllerTest {
         assertEquals(31500,((Street) fieldcontroller.getField(2)).getOwner().getBalance());
         //Test to see if housing pool is increased again.
         assertEquals(35,fieldcontroller.getHousePool());
+    }
+    @Test
+    void testRemovePlayerFromProperties() {
+        Player player = playerController.getPlayerById(0);
+        for (Object field : fieldcontroller.fieldArrayList) {
+            if ( field instanceof Property) {
+               ((Property) field).setOwner(player);
+            }
+        }
+
+        fieldcontroller.removePlayer(player);
+
+        for (Object field : fieldcontroller.fieldArrayList) {
+            if ( field instanceof Property) {
+                assertNull(((Property) field).getOwner());
+            }
+        }
     }
 }

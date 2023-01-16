@@ -29,7 +29,7 @@ public class Character {
             case 2:
                 return Color.white;
             case 3:
-                return Color.black;
+                return Color.ORANGE;
             case 4:
                 return Color.red;
             case 5:

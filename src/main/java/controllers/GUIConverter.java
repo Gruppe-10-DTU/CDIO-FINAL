@@ -86,7 +86,8 @@ public class GUIConverter {
                         }
                     }
 
-                    fields[field.getID()] = new GUI_Street(field.getName(), (prop.getPrice()) + "kr", field.getName(), Integer.toString(prop.getPrice()), fieldColor, textColor);
+                    fields[field.getID()] = new GUI_Street(field.getName(), Integer.toString(prop.getPrice()) + "kr", field.getName(), Integer.toString(prop.getPrice()), fieldColor, textColor);
+                    ((GUI_Ownable)fields[field.getID()]).setBorder(Color.black);
                     break;
                 }
                 case "Chance": {
@@ -107,12 +108,14 @@ public class GUIConverter {
                 }
                 case "Brewery": {
                     Brewery brewery = (Brewery) field;
-                    fields[field.getID()]=new GUI_Brewery("Default",brewery.getName(),(brewery.getPrice() + "kr"),brewery.getName(),Integer.toString(brewery.getRent0()),new Color(250, 247, 217), Color.black);
+                    fields[field.getID()]=new GUI_Brewery("Default",brewery.getName(),Integer.toString(brewery.getPrice()) + "kr",brewery.getName(),Integer.toString(brewery.getRent0()),new Color(250, 247, 217), Color.black);
+                    ((GUI_Ownable)fields[field.getID()]).setBorder(Color.black);
                     break;
                 }
                 case "Ferry": {
                     Ferry ferry = (Ferry) field;
-                    fields[field.getID()]=new GUI_Shipping("Default",ferry.getName(),(ferry.getPrice() + "kr"),ferry.getName(),Integer.toString(ferry.getPrice()),new Color(250, 247, 217), Color.black);
+                    fields[field.getID()]=new GUI_Shipping("Default",ferry.getName(),Integer.toString(ferry.getPrice()) + "kr",ferry.getName(),Integer.toString(ferry.getPrice()),new Color(250, 247, 217), Color.black);
+                    ((GUI_Ownable)fields[field.getID()]).setBorder(Color.black);
                     break;
                 }
                 case "Refuge": {
