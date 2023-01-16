@@ -396,6 +396,30 @@ public class FieldController {
         }
         return properties.toArray(Property[]::new);
     }
+    public boolean sell(Player affectedPlayer, int price, IGameStateDTO gameState){
+        Map<String, Street[]> ownsGroup = ownsColourGroup(affectedPlayer);
+        while(!affectedPlayer.setBalance(price)){
+            Map<String, Street[]> buildingsToSell = propertyWithBuilding(ownsGroup);
+            if (buildingsToSell.size() == 0) {
+                gameState.getGuiController().displayMsg("You cannot pay the rent, and therefore you are disqualified from the game.");
+                gameState.getPlayerController().removePlayer(affectedPlayer.getID());
+                return false;
+            } else {
+                //Find the properties the player can sell for
+                String colorChosen = gameState.getGuiController().selectColorBuild("Choose where you want to sell buildings from", buildingsToSell.keySet().toArray(String[]::new));
+                String whereToSell = gameState.getGuiController().selectBuild("Sell building. 1 house sells for: " + buildingsToSell.get(colorChosen)[0].getHousePrice() / 2 + "", buildingsToSell.get(colorChosen));
+                Street target = getStreetFromString(whereToSell);
+                if (target.isHotel()) {
+                    sellBuilding(getStreetFromString(whereToSell), 0);
+                    gameState.getGuiController().guiRemoveHotel(getStreetFromString(whereToSell));
+                } else {
+                    gameState.getGuiController().guiAddHouse(target, -1);
+                }
+                affectedPlayer.setBalance(target.getHousePrice()/2);
+            }
+        }
+        return true;
+    }
 }
 
 

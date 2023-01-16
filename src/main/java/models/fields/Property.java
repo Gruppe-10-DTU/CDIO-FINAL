@@ -68,27 +68,7 @@ public abstract class Property extends Field{
                 gameState.getGuiController().displayMsg(msg);
                 //Cant pay the rent
 
-                while (!currentPlayer.setBalance(-rentToPay) ) {
-                    Map<String, Street[]> buildingsToSell = gameState.getFieldController().sellEqual(ownsGroup);
-                    if (buildingsToSell.size() == 0) {
-                        gameState.getGuiController().displayMsg("You cannot pay the rent, and therefore you are disqualified from the game.");
-                        gameState.getPlayerController().removePlayer(currentPlayer.getID());
-                        return;
-                    } else {
-                        //Find the properties the player can sell for
-                        String colorChosen = gameState.getGuiController().selectColorBuild("Choose where you want to sell buildings from", buildingsToSell.keySet().toArray(String[]::new));
-                        String whereToSell = gameState.getGuiController().selectBuild("Sell building. 1 house sells for: " + buildingsToSell.get(colorChosen)[0].getHousePrice() / 2 + "", buildingsToSell.get(colorChosen));
-                        Street target = gameState.getFieldController().getStreetFromString(whereToSell);
-                        if (target.isHotel()) {
-                            gameState.getFieldController().sellBuilding(gameState.getFieldController().getStreetFromString(whereToSell), 0);
-                            gameState.getGuiController().guiRemoveHotel(gameState.getFieldController().getStreetFromString(whereToSell));
-                        } else {
-                            gameState.getGuiController().guiAddHouse(target, -1);
-                        }
-                        currentPlayer.setBalance(target.getHousePrice()/2);
-                    }
-                    gameState.getGuiController().updatePlayer(currentPlayer);
-                }
+                gameState.getPlayerController().removePlayer(currentPlayer.getID());
             }
         }
     }

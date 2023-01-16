@@ -2,6 +2,9 @@ package models.chanceCards;
 
 import models.Player;
 import models.dto.IGameStateDTO;
+import models.fields.Street;
+
+import java.util.Map;
 
 public class ChangeBalance extends ChanceCard{
 
@@ -33,9 +36,9 @@ public class ChangeBalance extends ChanceCard{
         }else total = EFFECT;
         if (!currentPlayer.setBalance(total) || gameState.getFieldController().sell(currentPlayer, EFFECT, gameState)) {
             gameState.getGuiController().displayMsg("Du har ikke penge nok til at betale bøden og må derfor forlade spillet");
-
             gameState.getPlayerController().removePlayer(currentPlayer.getID());
         }
         gameState.getChanceCardDeck().returnToDeck(this);
     }
+
 }
