@@ -235,12 +235,6 @@ public class GUIController {
         return gui.getUserString(amountOfHouses);
     }
 
-    public boolean yesnoSelection(String yesorno){
-        String yesno = "Yes,No";
-        String choice = gui.getUserSelection(yesorno,yesno.split(","));
-        return choice.equalsIgnoreCase("yes");
-    }
-
     public void guiAddHouse(Street property, int amount){
         GUI_Street street = (GUI_Street) gui.getFields()[property.getID()];
         street.setHouses(amount);
