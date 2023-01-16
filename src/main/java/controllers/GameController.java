@@ -114,19 +114,19 @@ public class GameController implements ActionListener {
         Map<String,Street[]> placesToBuild = fieldController.buildEqual(ownsGroup);
         //Tjek huskøb
         if(placesToBuild.size() >= 1) {
-            looper = guiController.yesnoSelection(language.getLanguageValue("canBuild", player.getIdentifier()));
+            looper = guiController.getUserLeftButtonPressed(language.getLanguageValue("canBuild", player.getIdentifier()), "Ja", "Nej");
             boolean loopdeloop = true;
             //Hvor kan der bygges?
             while (looper && placesToBuild.size() >= 1) {
                 if (!loopdeloop) {
-                    looper = guiController.yesnoSelection(language.getLanguageValue("canBuild"));
+                    looper = guiController.getUserLeftButtonPressed(language.getLanguageValue("canBuild", player.getIdentifier()), "Ja", "Nej");
                     if(!looper) break;
                 }
                 loopdeloop = false;
                     String colorChosen = guiController.selectColorBuild(language.getLanguageValue("chooseColorOptions"), placesToBuild.keySet().toArray(String[]::new));
                     String whereToBuild = guiController.selectBuild(language.getLanguageValue("selectBuildingText","" + placesToBuild.get(colorChosen)[0].getHousePrice()), placesToBuild.get(colorChosen));
                     if (player.getBalance() < fieldController.getStreetFromString(whereToBuild).getHousePrice()) {
-                        looper = guiController.yesnoSelection(language.getLanguageValue("lackingFunds"));
+                        looper = guiController.getUserLeftButtonPressed(language.getLanguageValue("lackingFunds"), "Ja", "Nej");
                     } else {
                         if (fieldController.getStreetFromString(whereToBuild).getHousePrice() <= player.getBalance() && fieldController.getStreetFromString(whereToBuild).getHouseAmount() < 5) {
                            if(fieldController.getStreetFromString(whereToBuild).getHouseAmount() < 4 && fieldController.getHousePool() > 0) {
@@ -140,7 +140,7 @@ public class GameController implements ActionListener {
                            }
 
                         } else {
-                            looper = guiController.yesnoSelection(language.getLanguageValue("lackingFunds"));
+                            looper = guiController.getUserLeftButtonPressed(language.getLanguageValue("lackingFunds"), "Ja", "Nej");
                         }
                     }
                     placesToBuild = fieldController.buildEqual(fieldController.ownsColourGroup(player));
