@@ -47,8 +47,6 @@ public abstract class Property extends Field{
             }
         } else {
 
-            Map<String, Street[]> ownsGroup = gameState.getFieldController().ownsColourGroup(owner);
-
             int rentToPay = getRentAmount(gameState)*rentMultiplier;
 
             if (owner == currentPlayer) {
@@ -59,7 +57,7 @@ public abstract class Property extends Field{
                 String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " men da ejeren er i fængsel betales ingen leje ";
                 gameState.getGuiController().displayMsg(msg);
 
-            } else if (currentPlayer.setBalance(-rentToPay)) {
+            } else if (currentPlayer.setBalance(-rentToPay) || gameState.getFieldController().sell(currentPlayer, -rentToPay, gameState)) {
                 String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " betal leje " + rentToPay;
                 gameState.getGuiController().displayMsg(msg);
 
