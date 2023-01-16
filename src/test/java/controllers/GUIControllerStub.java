@@ -111,7 +111,7 @@ public class GUIControllerStub extends ui.GUIController {
      * @param property Property to be changed
      */
     @Override
-    public void updateField(Property property) {
+    public void updateField(Property property, FieldController fieldController) {
 
     }
 
