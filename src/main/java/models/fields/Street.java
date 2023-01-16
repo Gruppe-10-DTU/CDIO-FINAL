@@ -15,7 +15,6 @@ public class Street extends Property {
 
     private boolean hotel = false;
 
-
     private int[] rent = new int[6];
 
 

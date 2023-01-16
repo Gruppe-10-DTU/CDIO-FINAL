@@ -249,12 +249,6 @@ public class GUIController {
         return gui.getUserString(amountOfHouses);
     }
 
-    public boolean yesnoSelection(String yesorno){
-        String yesno = "Yes,No";
-        String choice = gui.getUserSelection(yesorno,yesno.split(","));
-        return choice.equalsIgnoreCase("yes");
-    }
-
     public void guiAddHouse(Street property, int amount){
         GUI_Street street = (GUI_Street) gui.getFields()[property.getID()];
         street.setHouses(amount);
@@ -276,9 +270,13 @@ public class GUIController {
 
 
 
-
-
-
+    public void removePlayer(Player player, Property[] properties) {
+        gui_players[player.getID()].getCar().setPosition(null);
+        for (int i = 0; i < properties.length; i++) {
+            ((GUI_Ownable) gui.getFields()[properties[i].getID()]).setBorder(Color.black);
+            ((GUI_Ownable) gui.getFields()[properties[i].getID()]).setOwnerName(null);
+        }
+    }
 }
 
 

@@ -394,6 +394,18 @@ public class FieldController {
         }
         return new int[]{houses, hotels};
     }
+
+    public Property[] removePlayer(Player player){
+        ArrayList<Property> properties = new ArrayList<>();
+        for (Field field: fieldArrayList
+             ) {
+            if(field instanceof Property && ((Property) field).getOwner() == player){
+                ((Property) field).setOwner(null);
+                properties.add((Property) field);
+            }
+        }
+        return properties.toArray(Property[]::new);
+    }
 }
 
 
