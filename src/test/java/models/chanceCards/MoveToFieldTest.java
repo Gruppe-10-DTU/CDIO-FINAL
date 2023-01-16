@@ -62,4 +62,30 @@ class MoveToFieldTest {
         Jail jail = (Jail) gameState.getFieldController().getField(10);
         assertTrue(jail.isInJail(gameState.getActivePlayer()));
     }
+    @Test
+    @DisplayName("game in reverse")
+    void chanceEffectReverse() {
+        gameState.setReverse(true);
+        gameState.getActivePlayer().setLocation(2);
+        int expectedBalance = gameState.getActivePlayer().getBalance();
+        card1.chanceEffect(gameState);
+        assertEquals(37,gameState.getActivePlayer().getLocation());
+        //Felt 37 koster 7000 + der modtages 4000 for at passere start
+        assertEquals(expectedBalance - 3000, gameState.getActivePlayer().getBalance());
+
+        gameState.getActivePlayer().setLocation(39);
+        expectedBalance = gameState.getActivePlayer().getBalance();
+        card2.chanceEffect(gameState);
+        assertEquals(24,gameState.getActivePlayer().getLocation());
+        //Felt 24 koster 4800
+        assertEquals(expectedBalance - 4800,gameState.getActivePlayer().getBalance());
+
+        gameState.getActivePlayer().setLocation(24);
+        expectedBalance = gameState.getActivePlayer().getBalance();
+        card3.chanceEffect(gameState);
+        assertEquals(10,gameState.getActivePlayer().getLocation());
+        assertEquals(expectedBalance,gameState.getActivePlayer().getBalance());
+        Jail jail = (Jail) gameState.getFieldController().getField(10);
+        assertTrue(jail.isInJail(gameState.getActivePlayer()));
+    }
 }
