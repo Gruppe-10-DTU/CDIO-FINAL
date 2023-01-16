@@ -281,27 +281,26 @@ public class FieldController {
     public Map<String, Street[]> buildEqual(Map<String, Street[]> sort) {
         int minVal = 5;
         ArrayList<Street> sortedStreet = new ArrayList<>();
+        HashMap<String, Street[]> buildingMap = new HashMap<>();
         for (Map.Entry<String, Street[]> entry : sort.entrySet()) {
             for (int i = 0; i < entry.getValue().length; i++) {
                 if (entry.getValue()[i].getHouseAmount() < minVal) {
                     minVal = entry.getValue()[i].getHouseAmount();
                 }
             }
-            if(minVal == 5){
-                sort.remove(entry.getKey());
-            }else{
+            if(minVal != 5){
                 for (int i = 0; i < entry.getValue().length; i++) {
                     if (entry.getValue()[i].getHouseAmount() == minVal) {
                         sortedStreet.add(entry.getValue()[i]);
                     }
                 }
                 if (!sortedStreet.isEmpty()) {
-                    sort.replace(entry.getKey(), sortedStreet.toArray(Street[]::new));
+                    buildingMap.put(entry.getKey(), sortedStreet.toArray(Street[]::new));
                     sortedStreet.clear();
                 }
             }
         }
-        return sort;
+        return buildingMap;
     }
 
     public int countHouse(Map<String, Street[]> countHouses) {

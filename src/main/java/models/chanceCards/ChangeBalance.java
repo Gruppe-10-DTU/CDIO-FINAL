@@ -39,7 +39,7 @@ public class ChangeBalance extends ChanceCard{
 
             gameState.getGuiController().displayMsg("Du har ikke penge nok til at betale bøden og må derfor forlade spillet");
 
-            gameState.getPlayerController().removePlayer(gameState.getActivePlayer().getID());
+            gameState.getPlayerController().removePlayer(currentPlayer.getID());
         }
         gameState.getChanceCardDeck().returnToDeck(this);
     }
