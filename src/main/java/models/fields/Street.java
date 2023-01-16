@@ -15,6 +15,7 @@ public class Street extends Property {
 
     private boolean hotel = false;
 
+
     private int[] rent = new int[6];
 
 
@@ -22,7 +23,6 @@ public class Street extends Property {
     public void fieldEffect(IGameStateDTO gameState, int rentMultiplier) {
         Player currentPlayer = gameState.getActivePlayer();
         if (owner == null) {
-
             if (currentPlayer.getBalance() >= price) {
                 String msg = "Du er landet på " + name + " Vil du købe den for " + price + "kr";
                 boolean wantToBuy = gameState.getGuiController().getUserLeftButtonPressed(msg, "Ja", "Nej");
@@ -76,29 +76,27 @@ public class Street extends Property {
                 String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " du har ikke råd til at betale lejen";
                 gameState.getGuiController().displayMsg(msg);
                 //Cant pay the rent
-                while (currentPlayer.getBalance() < rentToPay) {
-                    if (gameState.getFieldController().countHouse(gameState.getFieldController().ownsColourGroup(currentPlayer)) == 0) {
+
+                while (!currentPlayer.setBalance(-rentToPay) ) {
+                    Map<String, Street[]> buildingsToSell = gameState.getFieldController().sellEqual(ownsGroup);
+                    if (buildingsToSell.size() == 0) {
                         gameState.getGuiController().displayMsg("You cannot pay the rent, and therefore you are disqualified from the game.");
-                        owner.setBalance(currentPlayer.getBalance());
-                        currentPlayer.setBalance(-currentPlayer.getBalance());
-                        gameState.getGuiController().updatePlayer(currentPlayer);
-                        gameState.getGuiController().updatePlayer(owner);
                         gameState.getPlayerController().removePlayer(currentPlayer.getID());
-                        break;
+                        return;
                     } else {
-                        String colorChosen = gameState.getGuiController().selectColorBuild("Choose where you want to sell buildings from", gameState.getFieldController().ownsColourGroup(currentPlayer).keySet().toArray(String[]::new));
-                        String whereToSell = gameState.getGuiController().selectBuild("Sell building. 1 house sells for: " + gameState.getFieldController().ownsColourGroup(currentPlayer).get(colorChosen)[0].getHousePrice() / 2 + "", gameState.getFieldController().checkSell(gameState.getFieldController().ownsColourGroup(currentPlayer)).get(colorChosen));
-                        if (gameState.getFieldController().getStreetFromString(whereToSell).isHotel()) {
+                        //Find the properties the player can sell for
+                        String colorChosen = gameState.getGuiController().selectColorBuild("Choose where you want to sell buildings from", buildingsToSell.keySet().toArray(String[]::new));
+                        String whereToSell = gameState.getGuiController().selectBuild("Sell building. 1 house sells for: " + buildingsToSell.get(colorChosen)[0].getHousePrice() / 2 + "", buildingsToSell.get(colorChosen));
+                        Street target = gameState.getFieldController().getStreetFromString(whereToSell);
+                        if (target.isHotel()) {
                             gameState.getFieldController().sellBuilding(gameState.getFieldController().getStreetFromString(whereToSell), 0);
                             gameState.getGuiController().guiRemoveHotel(gameState.getFieldController().getStreetFromString(whereToSell));
-                            gameState.getGuiController().updatePlayer(currentPlayer);
-                        } else if (gameState.getFieldController().getStreetFromString(whereToSell).getHouseAmount() >= 1) {
-                            int maxHouse = gameState.getFieldController().getStreetFromString(whereToSell).getHouseAmount();
-                            gameState.getFieldController().sellBuilding(gameState.getFieldController().getStreetFromString(whereToSell), gameState.getGuiController().sellAmount(0, maxHouse));
-                            gameState.getGuiController().guiAddHouse(gameState.getFieldController().getStreetFromString(whereToSell), (maxHouse - gameState.getFieldController().getStreetFromString(whereToSell).getHouseAmount()));
-                            gameState.getGuiController().updatePlayer(currentPlayer);
+                        } else {
+                            gameState.getGuiController().guiAddHouse(target, -1);
                         }
+                        currentPlayer.setBalance(target.getHousePrice()/2);
                     }
+                    gameState.getGuiController().updatePlayer(currentPlayer);
                 }
             }
         }
