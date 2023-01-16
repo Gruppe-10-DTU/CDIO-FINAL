@@ -99,7 +99,6 @@ public class Street extends Property {
                             gameState.getGuiController().updatePlayer(currentPlayer);
                         }
                     }
-
                 }
             }
         }
