@@ -148,8 +148,8 @@ public class GUIController {
         } else if (property instanceof Brewery) {
             int breweriesOwned = fieldController.breweriesOwned(property.getOwner(), property.getID()) - 1;
             if (breweriesOwned > 0) {
-                field.setRent("Dit terningslag \ngange " + ((Brewery) property).getRent1());
-            } else field.setRent("Dit terningslag \ngange " + ((Brewery) property).getRent0());
+                field.setRent(((Brewery) property).getRent1() + " gange terningslag");
+            } else field.setRent(((Brewery) property).getRent0() + " gange terningslag");
         }
         field.setOwnerName(property.getOwner().getIdentifier());
         if (property.getOwner() == null) {
