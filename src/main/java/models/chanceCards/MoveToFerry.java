@@ -18,7 +18,7 @@ public class MoveToFerry extends ChanceCard{
     public void chanceEffect(IGameStateDTO gameState){
         gameState.getGuiController().showChanceCard(this.description);
         Player player = gameState.getActivePlayer();
-        int distToFerry = gameState.getFieldController().distToFirstFerry(player);
+        int distToFerry = gameState.getFieldController().distToFirstFerry(player, gameState.isReverse());
 
         if(PASS_START_BONUS) {
             gameState.getPlayerController().playerMove(player, distToFerry);

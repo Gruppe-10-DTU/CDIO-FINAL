@@ -8,6 +8,7 @@ import models.Player;
 import models.dto.GameStateDTO;
 import models.fields.Property;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -52,5 +53,26 @@ class MoveToFerryTest {
         assertEquals(32000, gameState.getActivePlayer().getBalance());
         assertEquals(32000,gameState.getOtherPlayers().get(0).getBalance());
 
+    }
+    @Test
+    @DisplayName("Game in reverse")
+    void ChanceEffectReverse(){
+        gameState.setReverse(true);
+
+        //Checks with rent multiplier
+        gameState.getActivePlayer().setLocation(22);
+        ((Property)gameState.getFieldController().getField(15)).setOwner(gameState.getOtherPlayers().get(0));
+        card1.chanceEffect(gameState);
+        assertEquals(15, gameState.getActivePlayer().getLocation());
+        assertEquals(29000, gameState.getActivePlayer().getBalance());
+        assertEquals(31000,gameState.getOtherPlayers().get(0).getBalance());
+
+        //Checks passing start and with no rent multiplier (note other player has 2 ferries in this test)
+        gameState.getActivePlayer().setLocation(3);
+        ((Property)gameState.getFieldController().getField(35)).setOwner(gameState.getOtherPlayers().get(0));
+        card2.chanceEffect(gameState);
+        assertEquals(35,gameState.getActivePlayer().getLocation());
+        assertEquals(32000, gameState.getActivePlayer().getBalance());
+        assertEquals(32000,gameState.getOtherPlayers().get(0).getBalance());
     }
 }

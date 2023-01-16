@@ -51,4 +51,20 @@ class MoveXStepsTest {
         card3.chanceEffect(gameState);
         assertEquals(39,gameState.getActivePlayer().getLocation());
     }
+    @Test
+    @DisplayName("game in reverse mode")
+    void chanceEffectReverse(){
+        gameState.setReverse(true);
+        gameState.getActivePlayer().setLocation(2);
+        card1.chanceEffect(gameState);
+        assertEquals(39,gameState.getActivePlayer().getLocation());
+
+        gameState.getActivePlayer().setLocation(17);
+        card2.chanceEffect(gameState);
+        assertEquals(20,gameState.getActivePlayer().getLocation());
+
+        gameState.getActivePlayer().setLocation(33);
+        card3.chanceEffect(gameState);
+        assertEquals(36,gameState.getActivePlayer().getLocation());
+    }
 }
