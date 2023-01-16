@@ -133,7 +133,7 @@ public class GameController implements ActionListener {
                                fieldController.addBuilding(fieldController.getStreetFromString(whereToBuild));
                                guiController.guiAddHouse(fieldController.getStreetFromString(whereToBuild), fieldController.getStreetFromString(whereToBuild).getHouseAmount());
                                guiController.updatePlayer(player);
-                           }else if(fieldController.getStreetFromString(whereToBuild).getHousePrice()*5 <= player.getBalance() && fieldController.getStreetFromString(whereToBuild).getHouseAmount() == 4 && fieldController.getHotelPool() > 0) {
+                           }else if(fieldController.getStreetFromString(whereToBuild).getHousePrice()<= player.getBalance() && fieldController.getStreetFromString(whereToBuild).getHouseAmount() == 4 && fieldController.getHotelPool() > 0) {
                                fieldController.addBuilding(fieldController.getStreetFromString(whereToBuild));
                                guiController.guiAddHotel(fieldController.getStreetFromString(whereToBuild));
                                guiController.updatePlayer(player);
