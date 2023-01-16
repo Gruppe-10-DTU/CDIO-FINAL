@@ -214,24 +214,9 @@ class FieldControllerTest {
     }
 
     @Test
-    void countHouse() {
+    void sellEqual() {
         fieldcontroller.fieldArrayList.remove(9);
-        //Misleading name. It doesn't count the total amount of houses, it counts how many properties the player owns, that still has houses left.
-        for(Object field : fieldcontroller.fieldArrayList){
-            if(field instanceof Street){
-                ((Street) field).setOwner(mockPlayer1);
-            }
-        }
-        ((Street) fieldcontroller.getField(2)).setHouseAmount(1);
-        assertEquals(1,fieldcontroller.countHouse(fieldcontroller.ownsColourGroup(mockPlayer1)));
-        ((Street) fieldcontroller.getField(3)).setHouseAmount(1);
-        assertEquals(2,fieldcontroller.countHouse(fieldcontroller.ownsColourGroup(mockPlayer1)));
-    }
-
-    @Test
-    void checkSell() {
-        fieldcontroller.fieldArrayList.remove(9);
-        //Might seem a bit redundant however, it used to check if the chosen color has any houses left and sort by those that still have.
+        //Sells a house from a curated selection, curated by the max amount of house on colour group.
         for(Object field : fieldcontroller.fieldArrayList){
             if(field instanceof Street){
                 ((Street) field).setOwner(mockPlayer1);
