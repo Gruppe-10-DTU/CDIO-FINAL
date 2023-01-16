@@ -6,7 +6,6 @@ import models.fields.*;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
 public class GUIConverter {
 

@@ -1,7 +1,6 @@
 package models;
 
 import models.chanceCards.GetOutOfJail;
-import models.dto.IGameStateDTO;
 
 import java.util.ArrayList;
 
@@ -14,28 +13,18 @@ public class Player {
     private String identifier;
     private Character character;
     private int location = 0;
+
+    private int previousLocation = -1;
     private ArrayList<GetOutOfJail> getOutOfJail = new ArrayList<>();
     private int roundsInJail;
     /**
+     * Defauld balance of player is 30,000
      * @param iD   id of the player
      * @param name name
-     * @default Balance is set to 30000, soldSign set to 12, location set to 0, character not set
      */
     public Player(int iD, String name){
         this.iD = iD;
         this.identifier = name;
-        balance = new Balance(30000);
-    }
-    /**
-     * @param iD        id of the player
-     * @param name      name
-     * @param character The player character
-     * @default Balance is set to 30000, location set to 0 and soldSign set to 12
-     */
-    public Player(int iD, String name, Character character){
-        this.iD = iD;
-        this.identifier = name;
-        this.character = character;
         balance = new Balance(30000);
     }
 
@@ -80,20 +69,6 @@ public class Player {
     // getter
     public String getIdentifier() {
         return identifier;
-    }
-
-    /**
-     * @param newIdentifier Set name of player
-     */
-    // setter
-    public void setIdentifier(String newIdentifier) {
-        this.identifier = newIdentifier;
-    }
-    /**
-     * @param character New character
-     */
-    public void setCharacter(Character character) {
-        this.character = character;
     }
 
     /**
@@ -145,5 +120,13 @@ public class Player {
     }
     public void stayInJail(){
         this.roundsInJail++;
+    }
+
+    public void setPreviousLocation(int previousLocation) {
+        this.previousLocation = previousLocation;
+    }
+
+    public int getPreviousLocation() {
+        return previousLocation;
     }
 }

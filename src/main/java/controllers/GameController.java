@@ -16,7 +16,6 @@ import java.util.List;
 public class GameController implements ActionListener {
     private DiceHolder diceHolder;
     private int turnCounter = 0;
-    private boolean isOver = false;
     private Language language;
     private GUIController guiController;
     private PlayerController playerController;
@@ -24,6 +23,8 @@ public class GameController implements ActionListener {
     private FieldController fieldController;
     private Deck deck;
     private Popup p;
+
+    private boolean reverse;
 
     private boolean looper = false;
 
@@ -40,7 +41,7 @@ public class GameController implements ActionListener {
         gameState = new GameStateDTO(guiController);
         gameState.setFieldController(fieldController);
         gameState.setPlayerController(playerController);
-        gameState.setChancecardDeck(deck);
+        gameState.setChanceCardDeck(deck);
         gameState.setDiceHolder(diceHolder);
         this.initialize();
     }
@@ -78,10 +79,12 @@ public class GameController implements ActionListener {
     }
 
     public void startGame(){
+        reverse = guiController.getUserLeftButtonPressed("Hvilken retning skal spillet gå", "Mod uret", "Med uret");
+        gameState.setReverse(reverse);
+
         guiController.setPlayers(playerController.getPlayers());
 
         int playerAmount = playerController.getPlayers().length;
-        int jailCounter = 0;
         do {
             //Håndterer problemet med at fjerne en spiller.
             while((currentPlayer = playerController.getPlayerById(turnCounter % playerAmount))==null){
@@ -162,9 +165,9 @@ public class GameController implements ActionListener {
                     fieldController.jailPlayer(currentPlayer);
                     diceHolder.setSameRolls(0);
                 } else {
-                    boolean overStart = player.getLocation() + diceHolder.sum() > StartValues.getInstance().getValue("boardSize");
-                    playerController.playerMove(player, diceHolder.sum());
-                    guiController.movePlayer(player);
+                    boolean overStart = player.getLocation() + diceHolder.sum(reverse) > StartValues.getInstance().getValue("boardSize");
+                    playerController.playerMove(player, diceHolder.sum(reverse));
+                    guiController.movePlayer(player, reverse);
                     if (overStart) {
                         guiController.displayMsg(language.getLanguageValue("passStart", String.valueOf(StartValues.getInstance().getValue("passStartBonus"))));
                     }

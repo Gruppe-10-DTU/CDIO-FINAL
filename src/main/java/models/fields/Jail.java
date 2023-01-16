@@ -1,7 +1,6 @@
 package models.fields;
 
 import controllers.DiceHolder;
-import controllers.FieldController;
 import models.Player;
 import models.dto.IGameStateDTO;
 import ui.GUIController;
@@ -22,7 +21,7 @@ public class Jail extends Field {
     }
 
     /**
-     * @param player
+     * @param player the player in question
      * @return True: if player is in the jail array / False if player is not in the jail array
      */
     public boolean isInJail (Player player) {
@@ -43,8 +42,7 @@ public class Jail extends Field {
      * Remove a player from the jail array
      */
     public void setInJailRemove(Player player) {
-        int index = inJail.indexOf(player);
-        inJail.remove(index);
+        inJail.remove(player);
     }
 
     @Override
@@ -65,8 +63,6 @@ public class Jail extends Field {
         } else {
             choice = io.getOutOfJailOptions(false, false);
         }
-
-        FieldController fieldController = gameState.getFieldController();
 
         switch (choice) {
             case "pay":
@@ -89,8 +85,8 @@ public class Jail extends Field {
                         diceHolder.incrementSameRolls();
 
                         /* OUTPUT MESSAGE To USER */
-                        gameState.getPlayerController().playerMove(player, diceHolder.sum());
-                        gameState.getGuiController().movePlayer(player);
+                        gameState.getPlayerController().playerMove(player, diceHolder.sum(gameState.isReverse()));
+                        gameState.getGuiController().movePlayer(player, gameState.isReverse());
                         gameState.getFieldController().landOnField(gameState);
 
                         break;

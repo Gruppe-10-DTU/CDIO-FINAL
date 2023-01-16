@@ -7,6 +7,7 @@ import models.Player;
 import models.chanceCards.Deck;
 import ui.GUIController;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 
 public class GameStateDTO implements IGameStateDTO {
@@ -17,7 +18,17 @@ public class GameStateDTO implements IGameStateDTO {
     private FieldController fieldController;
 
     private PlayerController playerController;
-    private Deck chancecardDeck;
+    private Deck chanceCardDeck;
+
+    private boolean reverse;
+
+    public void setReverse(boolean reverse) {
+        this.reverse = reverse;
+    }
+
+    public boolean isReverse() {
+        return reverse;
+    }
 
     public PlayerController getPlayerController() {
         return playerController;
@@ -69,12 +80,12 @@ public class GameStateDTO implements IGameStateDTO {
         return activePlayer;
     }
 
-    public void setChancecardDeck(Deck chancecardDeck) {
-        this.chancecardDeck = chancecardDeck;
+    public void setChanceCardDeck(Deck chanceCardDeck) {
+        this.chanceCardDeck = chanceCardDeck;
     }
 
     public Deck getChanceCardDeck(){
-        return this.chancecardDeck;
+        return this.chanceCardDeck;
     }
 
     @Override

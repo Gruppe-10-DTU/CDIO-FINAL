@@ -11,7 +11,7 @@ public class MoveToField extends ChanceCard{
     private final boolean PASS_START_BONUS;
 
     /**
-     * Constructor for the Chancecards that move the player to a specific field.
+     * Constructor for the Chance-cards that move the player to a specific field.
      * @param Name        Must match a key in the language hashmap
      * @param Description Must be imported from the language hashmap
      * @param FIELD_ID   The name of the field to move to
@@ -35,12 +35,12 @@ public class MoveToField extends ChanceCard{
             }else {
                 gameState.getFieldController().landOnField(gameState);
             }
-            gameState.getGuiController().movePlayer(activePlayer);
+            gameState.getGuiController().movePlayer(activePlayer, gameState.isReverse());
         }else{
             int spacesToMove = FIELD_ID - activePlayer.getLocation();
             if(spacesToMove < 0) spacesToMove += StartValues.getInstance().getValue("boardSize");
             playerController.playerMove(activePlayer,spacesToMove);
-            gameState.getGuiController().movePlayer(activePlayer);
+            gameState.getGuiController().movePlayer(activePlayer, gameState.isReverse());
             gameState.getFieldController().landOnField(gameState);
         }
         gameState.getChanceCardDeck().returnToDeck(this);

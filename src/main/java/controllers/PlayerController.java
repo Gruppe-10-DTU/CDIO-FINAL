@@ -2,7 +2,6 @@ package controllers;
 
 import models.*;
 import models.Character;
-import models.fields.Street;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -25,7 +24,7 @@ public class PlayerController {
      *
      */
     public void addPlayer(int player, String characterName, String name, int color){
-        Character ch = new Character(characterName, "", color);
+        Character ch = new Character(characterName, color);
         Player playerNow = new Player(player,name,StartValues.getInstance().getValue("startingMoney"), ch);
         availablePlayers.put(player, playerNow);
     }
@@ -44,22 +43,28 @@ public class PlayerController {
      * Player-class input : Designate what player you want to move.
      * @param spaces
      * Moves designated player x amount of spaces from current position.
-     * @return
      */
     public Player playerMove(Player player, int spaces){
         int oldLocation = player.getLocation();
-        if(spaces + oldLocation < 0){
-            spaces += StartValues.getInstance().getValue("boardSize");
-        }
-        if(oldLocation + spaces >= StartValues.getInstance().getValue("boardSize")){
+        //if(spaces + oldLocation < 0){
+            //spaces += StartValues.getInstance().getValue("boardSize");
+        //}
+        if(oldLocation + spaces >= StartValues.getInstance().getValue("boardSize")) {
             player.setLocation(oldLocation, spaces);
-            player.setLocation(player.getLocation(),- StartValues.getInstance().getValue("boardSize"));
+            player.setPreviousLocation(player.getLocation());
+            player.setLocation(player.getLocation(), -StartValues.getInstance().getValue("boardSize"));
             player.setBalance(StartValues.getInstance().getValue("passStartBonus"));
-
+        } else if (oldLocation + spaces < 0) {
+            spaces += StartValues.getInstance().getValue("boardSize");
+            player.setPreviousLocation(player.getLocation());
+            player.setLocation(oldLocation, spaces);
+            if (player.getPreviousLocation() > 0) {
+                player.setBalance(StartValues.getInstance().getValue("passStartBonus"));
+            }
         }else{
+            player.setPreviousLocation(player.getLocation());
             player.setLocation(oldLocation,spaces);
         }
-        return player;
     }
 
     /**

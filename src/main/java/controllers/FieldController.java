@@ -19,7 +19,7 @@ public class FieldController {
 
 
     /**
-     * The constructer recieves the language and constructs an arraylist of field objects in the corect language
+     * The constructor receives the language and constructs an arraylist of field objects in the correct language
      */
     public FieldController(Language language) {
         this.language = language;
@@ -122,7 +122,7 @@ public class FieldController {
     }
 
     /**
-     * Recieves a player, locates the jail field, moves the player and jails them
+     * Receives a player, locates the jail field, moves the player and jails them
      */
     public void jailPlayer(Player player) {
         /*
@@ -143,14 +143,14 @@ public class FieldController {
         }
     }
 
-    public void landOnField(IGameStateDTO gamestate) {
-        landOnField(gamestate, 1);
+    public void landOnField(IGameStateDTO gameState) {
+        landOnField(gameState, 1);
     }
 
-    public void landOnField(IGameStateDTO gamestate, int rentMultiplier) {
-        Field currentField = fieldArrayList.get(gamestate.getActivePlayer().getLocation());
+    public void landOnField(IGameStateDTO gameState, int rentMultiplier) {
+        Field currentField = fieldArrayList.get(gameState.getActivePlayer().getLocation());
 
-        currentField.fieldEffect(gamestate, rentMultiplier);
+        currentField.fieldEffect(gameState, rentMultiplier);
     }
 
     public int playerPropertyValues(Player player) {
@@ -239,10 +239,9 @@ public class FieldController {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < fieldArrayList.size(); i++) {
-            sb.append("Field" + i + ": " + fieldArrayList.get(i).getName() + ", ");
+            sb.append("Field").append(i).append(": ").append(fieldArrayList.get(i).getName()).append(", ");
         }
-        String str = sb.toString();
-        return str;
+        return sb.toString();
     }
 
     public boolean isJailed(Player player) {
@@ -301,6 +300,35 @@ public class FieldController {
         return sort;
     }
 
+    public int countHouse(Map<String, Street[]> countHouses) {
+        int counter = 0;
+        for (Map.Entry<String, Street[]> entry : countHouses.entrySet()) {
+            for (int i = 0; i < entry.getValue().length; i++) {
+                if (entry.getValue()[i].getHouseAmount() > 0) {
+                    counter++;
+                }
+            }
+        }
+        return counter;
+    }
+
+    public Map<String, Street[]> checkSell(Map<String, Street[]> checkProps){
+        ArrayList<Street> sortedStreet = new ArrayList<>();
+        for (Map.Entry<String, Street[]> entry : checkProps.entrySet()) {
+            for (int i = 0; i < entry.getValue().length; i++) {
+                if (entry.getValue()[i].getHouseAmount() > 0){
+                    sortedStreet.add(entry.getValue()[i]);
+                }
+            }
+
+            if (!sortedStreet.isEmpty()) {
+                checkProps.replace(entry.getKey(), sortedStreet.toArray(Street[]::new));
+                sortedStreet.clear();
+            }
+        }
+        return checkProps;
+    }
+
     public void addBuilding(Street property) {
         if(property.getHouseAmount() < 4) {
             property.setHouseAmount(property.getHouseAmount() + 1);
@@ -337,6 +365,18 @@ public class FieldController {
 
     public void setHotelPool(int hotelPool) {
         this.hotelPool = hotelPool;
+    }
+    public void sellBuilding(Street property, int amountToSell){
+        if(property.isHotel()){
+            property.setHouseAmount(property.getHouseAmount()-5);
+            property.getOwner().setBalance((property.getHousePrice()/2)*5);
+            property.setHotel(false);
+            setHotelPool(hotelPool+1);
+        }else {
+            property.setHouseAmount(property.getHouseAmount() - amountToSell);
+            property.getOwner().setBalance((property.getHousePrice()/2)*amountToSell);
+            setHousePool(housePool+amountToSell);
+        }
     }
 
     public int[] housesAndHotelsOwned (Player player){
