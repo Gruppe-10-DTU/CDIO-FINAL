@@ -24,7 +24,7 @@ class DieTest {
         }
         for (int i = 1; i < rollCount.length; i++) {
             float rollFrequency = rollCount[i] / 100_000F;
-            assertTrue(rollFrequency < 1.05/6.0 && rollFrequency > 0.95/6.0);
+            assertTrue(rollFrequency <= 1.05/6.0 && rollFrequency >= 0.95/6.0);
         }
     }
 }
