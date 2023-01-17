@@ -280,4 +280,23 @@ public class AcceptanceTest {
         gc.takeTurn(pc.getPlayerById(1));
         gui.displayMsg("Testen er ovre");
     }
+
+    @Test
+    public void AK21() {
+        pc.addPlayer(0,"UFO","renter",2);
+        pc.addPlayer(1,"UFO","owner",1);
+        gui.setPlayers(pc.getPlayers());
+        Street street1 = (Street) fc.getField(1);
+        street1.setOwner(pc.getPlayerById(1));
+        Street street2 = (Street) fc.getField(3);
+        street2.setOwner((pc.getPlayerById(1)));
+
+        gui.updatePlayer(pc.getPlayerById(0));
+        gui.updateBoard(pc, fc);
+
+        dH.setRolls(2,1);
+        pc.getPlayerById(0).setLocation(3);
+        gc.takeTurn(pc.getPlayerById(0));
+        gui.displayMsg("Test er ovre");
+    }
 }
