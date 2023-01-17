@@ -20,8 +20,8 @@ class JailTest {
     @BeforeEach
     void setUp() {
         playerController = new PlayerController();
-        playerController.addPlayer(0,"car","player1",0);
-        playerController.addPlayer(1,"car", "player2", 1);
+        playerController.addPlayer(0,"car","player1",4);
+        playerController.addPlayer(1,"car", "player2", 5);
         fieldController = new FieldController(new Language());
         jail = (Jail) fieldController.getField(10);
 

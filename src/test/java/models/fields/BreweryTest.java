@@ -23,7 +23,7 @@ class BreweryTest {
         fieldController = new FieldController(language);
         guiController = new GUIControllerStub();
         playerController = new PlayerController();
-        playerController.addPlayer(0, "car", "test1",1);
+        playerController.addPlayer(0, "car", "test1",0);
         playerController.addPlayer(1, "car", "test2",1);
         cheatDiceHolder = new CheatDiceHolder();
         cheatDiceHolder.setRolls(4, 4);
