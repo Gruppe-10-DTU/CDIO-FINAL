@@ -405,6 +405,7 @@ public class FieldController {
                     gameState.getGuiController().guiAddHouse(target, target.getHouseAmount()-1);
                 }
                 affectedPlayer.setBalance(target.getHousePrice()/2);
+                gameState.getGuiController().updatePlayer(affectedPlayer);
             }
         }
         return true;
