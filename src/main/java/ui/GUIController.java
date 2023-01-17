@@ -60,7 +60,6 @@ public class GUIController {
         gui_players = GUIConverter.playerToGUI(players);
         for (GUI_Player player : gui_players) {
             gui.addPlayer(player);
-            // player.getCar().setPosition(gui.getFields()[0]);
         }
     }
 

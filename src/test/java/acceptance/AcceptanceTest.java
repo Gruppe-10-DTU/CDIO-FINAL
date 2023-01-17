@@ -371,5 +371,26 @@ public class AcceptanceTest {
         gui.displayMsg("Test er ovre");
     }
 
+    @Test
+    void AK37(){
+        pc.addPlayer(0,"UFO","renter",2);
+        pc.addPlayer(1,"UFO","dead",3);
+        pc.getPlayerById(1).setBalance(-30000);
+
+        Street grey1 = (Street) fc.getField(16);
+        grey1.setOwner(pc.getPlayerById(1));
+        gui.updateField(grey1,fc);
+        Street grey2 = (Street) fc.getField(18);
+        grey2.setOwner(pc.getPlayerById(1));
+        gui.updateField(grey2,fc);
+        Street grey3 = (Street) fc.getField(19);
+        grey3.setOwner(pc.getPlayerById(1));
+        gui.updateField(grey3,fc);
+
+        dH.setRolls(1,2);
+        gc.startGame();
+        gui.displayMsg("Test er ovre");
+    }
+
 
 }
