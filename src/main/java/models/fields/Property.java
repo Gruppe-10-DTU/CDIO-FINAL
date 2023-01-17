@@ -1,12 +1,9 @@
 package models.fields;
 
 import models.Player;
-import models.dto.GameStateDTO;
 import models.dto.IGameStateDTO;
 import org.apache.commons.lang.ArrayUtils;
 import models.Language;
-
-import java.util.Map;
 
 public abstract class Property extends Field{
     protected int price;

@@ -8,7 +8,6 @@ import models.Player;
 import models.chanceCards.Deck;
 import ui.GUIController;
 
-import java.security.PublicKey;
 import java.util.ArrayList;
 
 public class GameStateDTO implements IGameStateDTO {
