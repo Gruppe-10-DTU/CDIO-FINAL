@@ -18,7 +18,6 @@ public class GameController implements ActionListener {
     private int turnCounter = 0;
     private GUIController guiController;
     private PlayerController playerController;
-    private Player currentPlayer;
     private FieldController fieldController;
     private Deck deck;
     private Popup p;
@@ -77,10 +76,12 @@ public class GameController implements ActionListener {
     }
 
     public void startGame(){
-        reverse = guiController.getUserLeftButtonPressed(Language.getInstance().getLanguageValue("chooseDirection"), Language.getInstance().getLanguageValue("clockwise"), Language.getInstance().getLanguageValue("counterClockwise"));
+        reverse = guiController.getUserLeftButtonPressed(Language.getInstance().getLanguageValue("chooseDirection"), Language.getInstance().getLanguageValue("counterClockwise"), Language.getInstance().getLanguageValue("clockwise"));
         gameState.setReverse(reverse);
 
         guiController.setPlayers(playerController.getPlayers());
+
+        Player currentPlayer;
 
         int playerAmount = playerController.getPlayers().length;
         do {
@@ -111,32 +112,36 @@ public class GameController implements ActionListener {
         Map<String,Street[]> ownsGroup = fieldController.ownsColourGroup(player);
         Map<String,Street[]> placesToBuild = fieldController.buildEqual(ownsGroup);
         //Tjek huskøb
-        if(placesToBuild.size() >= 1) {
+        if(placesToBuild.size() >= 1 && (fieldController.getHousePool() != 0 && fieldController.getHotelPool() != 0)) {
             looper = guiController.getUserLeftButtonPressed(Language.getInstance().getLanguageValue("canBuild", player.getIdentifier()), Language.getInstance().getLanguageValue( "ja"), Language.getInstance().getLanguageValue("nej"));
             boolean loopdeloop = true;
             //Hvor kan der bygges?
             while (looper && placesToBuild.size() >= 1) {
                 if (!loopdeloop) {
-                    looper = guiController.getUserLeftButtonPressed(Language.getInstance().getLanguageValue("canBuild", player.getIdentifier(), currentPlayer.getIdentifier()), Language.getInstance().getLanguageValue( "ja"), Language.getInstance().getLanguageValue("nej"));
+                    looper = guiController.getUserLeftButtonPressed(Language.getInstance().getLanguageValue("canBuild", player.getIdentifier(), player.getIdentifier()), Language.getInstance().getLanguageValue( "ja"), Language.getInstance().getLanguageValue("nej"));
                     if(!looper) break;
                 }
                 loopdeloop = false;
                     String colorChosen = guiController.selectColorBuild(Language.getInstance().getLanguageValue("chooseColorOptions"), placesToBuild.keySet().toArray(String[]::new));
                     String whereToBuild = guiController.selectBuild(Language.getInstance().getLanguageValue("selectBuildingText","" + placesToBuild.get(colorChosen)[0].getHousePrice()), placesToBuild.get(colorChosen));
-                    if (player.getBalance() < fieldController.getStreetFromString(whereToBuild).getHousePrice()) {
+                    Street street = fieldController.getStreetFromString(whereToBuild);
+                    if (player.getBalance() < street.getHousePrice()) {
                         looper = guiController.getUserLeftButtonPressed(Language.getInstance().getLanguageValue("lackingFunds"), Language.getInstance().getLanguageValue( "ja"), Language.getInstance().getLanguageValue("nej"));
                     } else {
-                        if (fieldController.getStreetFromString(whereToBuild).getHousePrice() <= player.getBalance() && fieldController.getStreetFromString(whereToBuild).getHouseAmount() < 5) {
-                           if(fieldController.getStreetFromString(whereToBuild).getHouseAmount() < 4 && fieldController.getHousePool() > 0) {
-                               fieldController.addBuilding(fieldController.getStreetFromString(whereToBuild));
-                               guiController.guiAddHouse(fieldController.getStreetFromString(whereToBuild), fieldController.getStreetFromString(whereToBuild).getHouseAmount());
+                        if (street.getHousePrice() <= player.getBalance() && street.getHouseAmount() < 5) {
+                           if(street.getHouseAmount() < 4 && fieldController.getHousePool() > 0) {
+                               fieldController.addBuilding(street);
+                               guiController.guiAddHouse(street, street.getHouseAmount());
                                guiController.updatePlayer(player);
-                           }else if(fieldController.getStreetFromString(whereToBuild).getHousePrice()<= player.getBalance() && fieldController.getStreetFromString(whereToBuild).getHouseAmount() == 4 && fieldController.getHotelPool() > 0) {
-                               fieldController.addBuilding(fieldController.getStreetFromString(whereToBuild));
-                               guiController.guiAddHotel(fieldController.getStreetFromString(whereToBuild));
+                           } else if (street.getHouseAmount() < 4 && fieldController.getHousePool() == 0) {
+                               guiController.displayMsg(Language.getInstance().getLanguageValue("noMoreHouse"));
+                           } else if(street.getHousePrice()<= player.getBalance() && street.getHouseAmount() == 4 && fieldController.getHotelPool() > 0) {
+                               fieldController.addBuilding(street);
+                               guiController.guiAddHotel(street);
                                guiController.updatePlayer(player);
+                           }else{
+                               guiController.displayMsg(Language.getInstance().getLanguageValue("noMoreHotel"));
                            }
-
                         } else {
                             looper = guiController.getUserLeftButtonPressed(Language.getInstance().getLanguageValue("lackingFunds"), Language.getInstance().getLanguageValue( "ja"), Language.getInstance().getLanguageValue("nej"));
                         }
@@ -160,7 +165,7 @@ public class GameController implements ActionListener {
                 }
                 if (diceHolder.getSameRolls() == 3) {
                     guiController.displayMsg(Language.getInstance().getLanguageValue("3doubles"));
-                    fieldController.jailPlayer(currentPlayer);
+                    fieldController.jailPlayer(player);
                     diceHolder.setSameRolls(0);
                 } else {
                     boolean overStart = player.getLocation() + diceHolder.sum(reverse) > StartValues.getInstance().getValue("boardSize");

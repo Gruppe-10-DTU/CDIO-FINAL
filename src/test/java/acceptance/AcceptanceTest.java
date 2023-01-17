@@ -1,8 +1,11 @@
 package acceptance;
 import controllers.*;
+import models.Language;
+import models.chanceCards.ChanceCard;
 import models.chanceCards.Deck;
 import models.chanceCards.GetOutOfJail;
 import models.dto.GameStateDTO;
+import models.dto.IGameStateDTO;
 import models.fields.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -205,12 +208,10 @@ public class AcceptanceTest {
 
     @Test
     void AK20(){
-        pc.addPlayer(0,"UFO","StatiskSkat",2);
-        pc.addPlayer(1,"UFO","DynamiskSkat",3);
-        pc.getPlayerById(0).setLocation(34);
-        pc.getPlayerById(1).setBalance(-29999);
+        pc.addPlayer(0,"UFO","Skat",2);
+        gui.setPlayers(pc.getPlayers());
         dH.setRolls(1,3);
-        gc.startGame();
+        gc.takeTurn(pc.getPlayerById(0));
         gui.displayMsg("Testen er nu overstået");
     }
 
@@ -226,6 +227,31 @@ public class AcceptanceTest {
     }
 
     @Test
+    void AK30(){
+        pc.addPlayer(0,"UFO","kort",2);
+        pc.addPlayer(1,"UFO","AndreKort",3);
+        Deck deck = new Deck();
+        gs.setChanceCardDeck(deck);
+        deck.rigDeck(44);
+        gui.setPlayers(pc.getPlayers());
+        dH.setRolls(1,1);
+        gc.takeTurn(pc.getPlayerById(0));
+        dH.setRolls(2,3);
+        gc.takeTurn(pc.getPlayerById(0));
+
+        ChanceCard card;
+        for (int i = 0; i < 60; i++) {
+            card = deck.drawCard();
+            gui.showChanceCard(card.getName());
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            deck.returnToDeck(card);
+        }
+    }
+    @Test
     void AK31(){
         pc.addPlayer(0,"UFO","fængsel",2);
         pc.addPlayer(1,"UFO","taber",3);
@@ -238,9 +264,10 @@ public class AcceptanceTest {
     }
 
     @Test
-    void AK22(){
+    void AK22_34(){
         pc.addPlayer(0,"UFO","BuildHouseTest",2);
         pc.addPlayer(1,"UFO","Dummy1",3);
+
         gui.setPlayers(pc.getPlayers());
         gui.updatePlayer(pc.getPlayerById(0));
         pc.getPlayerById(0).setLocation(39);
@@ -274,8 +301,9 @@ public class AcceptanceTest {
         gc.takeTurn(pc.getPlayerById(1));
         gc.takeTurn(pc.getPlayerById(1));
         gc.takeTurn(pc.getPlayerById(0));
-        pc.getPlayerById(1).setBalance(-pc.getPlayerById(1).getBalance());
         gc.takeTurn(pc.getPlayerById(1));
+        pc.getPlayerById(0).setBalance(-pc.getPlayerById(0).getBalance());
+        gc.takeTurn(pc.getPlayerById(0));
         gui.displayMsg("Testen er ovre");
     }
 
@@ -340,6 +368,27 @@ public class AcceptanceTest {
 
         dH.setRolls(2,1);
         gc.takeTurn(pc.getPlayerById(0));
+        gui.displayMsg("Test er ovre");
+    }
+
+    @Test
+    void AK37(){
+        pc.addPlayer(0,"UFO","renter",2);
+        pc.addPlayer(1,"UFO","dead",3);
+        pc.getPlayerById(1).setBalance(-30000);
+
+        Street grey1 = (Street) fc.getField(16);
+        grey1.setOwner(pc.getPlayerById(1));
+        gui.updateField(grey1,fc);
+        Street grey2 = (Street) fc.getField(18);
+        grey2.setOwner(pc.getPlayerById(1));
+        gui.updateField(grey2,fc);
+        Street grey3 = (Street) fc.getField(19);
+        grey3.setOwner(pc.getPlayerById(1));
+        gui.updateField(grey3,fc);
+
+        dH.setRolls(1,2);
+        gc.startGame();
         gui.displayMsg("Test er ovre");
     }
 

@@ -72,15 +72,18 @@ public abstract class Property extends Field{
         //Previous player. One player have to buy the property
         int k= -1;
         int bid = 0;
+        int breakoutCounter = 0;
         do{
             if(players[index].getBalance()>bid && gameStateDTO.getGuiController().getUserLeftButtonPressed(Language.getInstance().getLanguageValue("auctionAction",players[index].getIdentifier()),Language.getInstance().getLanguageValue("ja"), Language.getInstance().getLanguageValue("nej"))){
                 bid = gameStateDTO.getGuiController().getBid(Language.getInstance().getLanguageValue("landOnFieldAuction","" + bid),  bid + 1, players[index].getBalance());
                 k=index;
             }
             index = (index + 1) % players.length;
-        }while(k!=index);
-
-        players[index].setBalance(-bid);
-        this.owner = players[index];
+            breakoutCounter++;
+        }while(k!=index && breakoutCounter<5000);
+        if(bid!=0) {
+            players[index].setBalance(-bid);
+            this.owner = players[index];
+        }
     }
 }
