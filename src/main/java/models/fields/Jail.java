@@ -1,6 +1,7 @@
 package models.fields;
 
 import controllers.DiceHolder;
+import models.Language;
 import models.Player;
 import models.dto.IGameStateDTO;
 import ui.GUIController;
@@ -75,6 +76,7 @@ public class Jail extends Field {
                 break;
             case "roll":
                 for (int i = 0; i < 3; i++) {
+                    gameState.getGuiController().getRoll(Language.getInstance().getLanguageValue("rollText", player.getIdentifier()), Language.getInstance().getLanguageValue("rollButton"));
                     DiceHolder diceHolder = gameState.getDiceHolder();
                     diceHolder.roll();
                     int[] jailRoll = diceHolder.getRolls();
