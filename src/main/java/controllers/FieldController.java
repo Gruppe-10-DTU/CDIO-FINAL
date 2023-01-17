@@ -389,8 +389,7 @@ public class FieldController {
         while(!affectedPlayer.setBalance(price)){
             Map<String, Street[]> buildingsToSell = propertyWithBuilding(ownsGroup);
             if (buildingsToSell.size() == 0) {
-                gameState.getGuiController().displayMsg(Language.getInstance().getLanguageValue("disqualified"));
-                gameState.getPlayerController().removePlayer(affectedPlayer.getID());
+
                 return false;
             } else {
                 //Find the properties the player can sell for
