@@ -281,4 +281,21 @@ class FieldControllerTest {
             }
         }
     }
+
+    @Test
+    void BuyAndSellBuildingTest() {
+        Player player = playerController.getPlayerById(0);
+        Street street = (Street) fieldcontroller.getField(2);
+        street.setOwner(player);
+
+        assertEquals(0, ((Street) fieldcontroller.getField(2)).getHouseAmount());
+
+        fieldcontroller.addBuilding(street);
+
+        assertEquals(1, ((Street) fieldcontroller.getField(2)).getHouseAmount());
+
+        fieldcontroller.sellBuilding(street,1);
+
+        assertEquals(0, ((Street) fieldcontroller.getField(2)).getHouseAmount());
+    }
 }
