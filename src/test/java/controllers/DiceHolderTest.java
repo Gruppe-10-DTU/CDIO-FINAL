@@ -14,6 +14,17 @@ class DiceHolderTest {
         diceHolder = new DiceHolder();
     }
     @Test
+    @DisplayName("equal rolls follow statistical probability within 5%")
+    void rollEqualtest(){
+        diceHolder.setSameRolls(0);
+        for (int i = 0; i < 100_000; i++) {
+            diceHolder.roll();
+            if (diceHolder.isEqual()) diceHolder.setSameRolls(diceHolder.getSameRolls()+1);
+        }
+        double rollFrequency = diceHolder.getSameRolls() / 100_000D;
+        assertTrue(rollFrequency < 6*1.05/36.0 && rollFrequency > 6*0.95/36.0);
+    }
+    @Test
     @DisplayName("rolls follow normal distribution within 5%")
     void normalDistrbutionRolls() {
         int[] rolls = new int[13];
@@ -29,6 +40,14 @@ class DiceHolderTest {
             assertTrue(rollFrequency <= normalDistribution[i] * deviance[0]);
             assertTrue(rollFrequency >= normalDistribution[i] * deviance[1]);
 
+        }
+    }
+    @Test
+    @DisplayName("Game in reverse always return negative values")
+    void rollingReverse(){
+        for (int i = 0; i < 100_000; i++) {
+            diceHolder.roll();
+            assertTrue(diceHolder.sum(true) < 0);
         }
     }
 }
