@@ -22,9 +22,7 @@ public class FieldController {
     public FieldController() {
         String path = "/GamePack/fields.csv";
 
-        CSVReader csvReader = null;
-
-        csvReader = new CSVReader(path, ",", true);
+        CSVReader csvReader = new CSVReader(path, ",", true);
         ArrayList<ArrayList<String>> fieldData = csvReader.getDataAsArrList();
 
         createFieldArray(fieldData);
