@@ -398,12 +398,11 @@ public class FieldController {
                 String whereToSell = gameState.getGuiController().selectBuild(Language.getInstance().getLanguageValue("buildingPrice", Integer.toString( sellPrice),Integer.toString( sellPrice*5)), buildingsToSell.get(colorChosen));
                 Street target = getStreetFromString(whereToSell);
                 if (target.isHotel()) {
-                    sellBuilding(getStreetFromString(whereToSell), 0);
                     gameState.getGuiController().guiRemoveHotel(getStreetFromString(whereToSell));
                 } else {
                     gameState.getGuiController().guiAddHouse(target, target.getHouseAmount()-1);
                 }
-                affectedPlayer.setBalance(target.getHousePrice()/2);
+                sellBuilding(target, 1);
                 gameState.getGuiController().updatePlayer(affectedPlayer);
             }
         }
