@@ -1,9 +1,11 @@
 package acceptance;
 import controllers.*;
 import models.Language;
+import models.chanceCards.ChanceCard;
 import models.chanceCards.Deck;
 import models.chanceCards.GetOutOfJail;
 import models.dto.GameStateDTO;
+import models.dto.IGameStateDTO;
 import models.fields.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
@@ -226,6 +228,31 @@ public class AcceptanceTest {
         gui.displayMsg("Testen er nu overstået");
     }
 
+    @Test
+    void AK30(){
+        pc.addPlayer(0,"UFO","kort",2);
+        pc.addPlayer(1,"UFO","AndreKort",3);
+        Deck deck = new Deck();
+        gs.setChanceCardDeck(deck);
+        deck.rigDeck(44);
+        gui.setPlayers(pc.getPlayers());
+        dH.setRolls(1,1);
+        gc.takeTurn(pc.getPlayerById(0));
+        dH.setRolls(2,3);
+        gc.takeTurn(pc.getPlayerById(0));
+
+        ChanceCard card;
+        for (int i = 0; i < 60; i++) {
+            card = deck.drawCard();
+            gui.showChanceCard(card.getName());
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            deck.returnToDeck(card);
+        }
+    }
     @Test
     void AK31(){
         pc.addPlayer(0,"UFO","fængsel",2);
