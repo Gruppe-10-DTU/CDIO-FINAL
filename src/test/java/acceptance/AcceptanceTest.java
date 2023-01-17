@@ -1,6 +1,5 @@
 package acceptance;
 import controllers.*;
-import models.Language;
 import models.chanceCards.Deck;
 import models.chanceCards.GetOutOfJail;
 import models.dto.GameStateDTO;
@@ -144,7 +143,7 @@ public class AcceptanceTest {
         dH.setRolls(1,1);
         ToJail toJail = (ToJail) fc.getField(30);
         Jail jail = (Jail) fc.getField(10);
-        pc.getPlayerById(0).addGetOutOfJail(new GetOutOfJail("outofjail","outofjail"));
+        pc.getPlayerById(0).addGetOutOfJail(new GetOutOfJail("outOfJail","outOfJail"));
         gui.updatePlayer(pc.getPlayerById(0));
         gc.takeTurn(pc.getPlayerById(0));
         gui.updatePlayer(pc.getPlayerById(0));

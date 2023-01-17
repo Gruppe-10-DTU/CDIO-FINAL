@@ -4,7 +4,6 @@ import models.Language;
 import models.Player;
 import models.dto.IGameStateDTO;
 import models.fields.*;
-import org.apache.commons.codec.language.bm.Lang;
 
 import java.util.*;
 
@@ -23,9 +22,7 @@ public class FieldController {
     public FieldController() {
         String path = "/GamePack/fields.csv";
 
-        CSVReader csvReader = null;
-
-        csvReader = new CSVReader(path, ",", true);
+        CSVReader csvReader = new CSVReader(path, ",", true);
         ArrayList<ArrayList<String>> fieldData = csvReader.getDataAsArrList();
 
         createFieldArray(fieldData);
@@ -70,7 +67,7 @@ public class FieldController {
                     jail.setID(Integer.parseInt(fieldData.get(i).get(1)));
                     jail.setName(language.getLanguageValue("fieldName" + i));
                     break;
-                case "tojail":
+                case "toJail":
                     ToJail toJail = new ToJail();
                     fieldArrayList.add(toJail);
                     toJail.setID(Integer.parseInt(fieldData.get(i).get(1)));

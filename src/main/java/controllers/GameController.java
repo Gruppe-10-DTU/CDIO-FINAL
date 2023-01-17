@@ -3,7 +3,6 @@ package controllers;
 import models.chanceCards.*;
 import models.*;
 import models.dto.GameStateDTO;
-import models.dto.IGameStateDTO;
 import models.fields.Street;
 import ui.GUIController;
 

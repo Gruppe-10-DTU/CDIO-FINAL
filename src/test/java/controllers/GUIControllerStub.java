@@ -115,14 +115,6 @@ public class GUIControllerStub extends ui.GUIController {
 
     }
 
-    /**
-     * @param emtpyFieldChoice Text to display
-     * @param properties       The choices you have
-     */
-    @Override
-    public int getPropertyChoice(String emtpyFieldChoice, Street[] properties) {
-        return 23;
-    }
 
     public void showChanceCard(String message){
 
