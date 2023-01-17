@@ -41,7 +41,7 @@ public class Tax extends Field{
                 }
             }else{
                 int totalAmount = Math.round((gameState.getFieldController().playerPropertyValues(currentPlayer) + currentPlayer.getBalance())*(priceProcent/100.0f));
-                if(currentPlayer.setBalance(totalAmount*-1)){
+                if(currentPlayer.setBalance(totalAmount*-1) ||  gameState.getFieldController().sell(currentPlayer,-totalAmount, gameState)){
                     gameState.getGuiController().displayMsg("Du betalte "+totalAmount+" i skat for dine ejendomme.");
                 }else{
                     //Auktion

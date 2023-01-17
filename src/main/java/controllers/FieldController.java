@@ -413,7 +413,7 @@ public class FieldController {
                     sellBuilding(getStreetFromString(whereToSell), 0);
                     gameState.getGuiController().guiRemoveHotel(getStreetFromString(whereToSell));
                 } else {
-                    gameState.getGuiController().guiAddHouse(target, -1);
+                    gameState.getGuiController().guiAddHouse(target, target.getHouseAmount()-1);
                 }
                 affectedPlayer.setBalance(target.getHousePrice()/2);
             }

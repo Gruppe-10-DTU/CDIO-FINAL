@@ -21,7 +21,7 @@ public class Street extends Property {
     @Override
     protected int getRentAmount(IGameStateDTO gameState) {
         Map<String, Street[]> ownsGroup = gameState.getFieldController().ownsColourGroup(owner);
-        if(ownsGroup.containsKey(this.color)){
+        if(ownsGroup.containsKey(this.color) && houseAmount == 0){
             return rent[houseAmount]*2;
         }
         return rent[houseAmount];
