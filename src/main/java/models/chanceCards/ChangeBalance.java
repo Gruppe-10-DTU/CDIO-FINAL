@@ -11,8 +11,8 @@ public class ChangeBalance extends ChanceCard{
 
     /**
      * Constructor for the ChanceCards that have an effect on the player's money.
-     * @param Name        Must match a key in the language hashmap
-     * @param Description Must be imported from the language hashmap
+     * @param name        Must match a key in the language hashmap
+     * @param description Must be imported from the language hashmap
      */
     public ChangeBalance(String name, String description, int effect, boolean fromOthers) {
         super(name, description);
