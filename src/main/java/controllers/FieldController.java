@@ -11,8 +11,6 @@ public class FieldController {
 
     protected ArrayList<Field> fieldArrayList = new ArrayList<>();
 
-    private Language language;
-
     private int housePool = StartValues.getInstance().getValue("housePool");
 
     private int hotelPool = StartValues.getInstance().getValue("hotelPool");
@@ -21,9 +19,7 @@ public class FieldController {
     /**
      * The constructor receives the language and constructs an arraylist of field objects in the correct language
      */
-    public FieldController(Language language) {
-        this.language = language;
-
+    public FieldController() {
         String path = "/GamePack/fields.csv";
 
         CSVReader csvReader = null;
@@ -32,9 +28,6 @@ public class FieldController {
         ArrayList<ArrayList<String>> fieldData = csvReader.getDataAsArrList();
 
         createFieldArray(fieldData);
-    }
-
-    public FieldController() {
     }
 
     protected void createFieldArray(ArrayList<ArrayList<String>> fieldData) {
@@ -401,13 +394,14 @@ public class FieldController {
         while(!affectedPlayer.setBalance(price)){
             Map<String, Street[]> buildingsToSell = propertyWithBuilding(ownsGroup);
             if (buildingsToSell.size() == 0) {
-                gameState.getGuiController().displayMsg("You cannot pay the rent, and therefore you are disqualified from the game.");
+                gameState.getGuiController().displayMsg(Language.getInstance().getLanguageValue("disqualified"));
                 gameState.getPlayerController().removePlayer(affectedPlayer.getID());
                 return false;
             } else {
                 //Find the properties the player can sell for
-                String colorChosen = gameState.getGuiController().selectColorBuild("Choose where you want to sell buildings from", buildingsToSell.keySet().toArray(String[]::new));
-                String whereToSell = gameState.getGuiController().selectBuild("Sell building. 1 house sells for: " + buildingsToSell.get(colorChosen)[0].getHousePrice() / 2 + "", buildingsToSell.get(colorChosen));
+                String colorChosen = gameState.getGuiController().selectColorBuild(Language.getInstance().getLanguageValue("sellBuildingText"), buildingsToSell.keySet().toArray(String[]::new));
+                int sellPrice =  buildingsToSell.get(colorChosen)[0].getHousePrice() / 2;
+                String whereToSell = gameState.getGuiController().selectBuild(Language.getInstance().getLanguageValue("buildingPrice", Integer.toString( sellPrice),Integer.toString( sellPrice*5)), buildingsToSell.get(colorChosen));
                 Street target = getStreetFromString(whereToSell);
                 if (target.isHotel()) {
                     sellBuilding(getStreetFromString(whereToSell), 0);

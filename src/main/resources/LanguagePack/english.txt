@@ -162,3 +162,5 @@ landOnChance=De er landet på prøv lykken, og må derfor trække et chancekort.
 landOnFreeParking=De er landet på gratis parkering.
 landOnFieldPlayerBankrupt=You have landed on {0} owned by {1}. You cannot afford rent.
 disqualified=You cannot afford your charge, and therefore you are disqualified from the game.
+sellBuildingText=Choose where you want to sell buildings from
+buildingPrice=A house sells for {0}. A hotel sells for {1}

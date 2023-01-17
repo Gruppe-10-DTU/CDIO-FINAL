@@ -31,7 +31,7 @@ public class GameController implements ActionListener {
     private GameStateDTO gameState;
 
     public GameController() {
-        fieldController = new FieldController(Language.getInstance());
+        fieldController = new FieldController();
         guiController = new GUIController(fieldController.getFieldList(), Language.getInstance());
         deck = new Deck(Language.getInstance());
         diceHolder = new DiceHolder(StartValues.getInstance().getValue("diceAmount"));

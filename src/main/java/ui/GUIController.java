@@ -264,11 +264,6 @@ public class GUIController {
     public String selectColorBuild(String chooseColorOptions, String[] color){
         return gui.getUserSelection(chooseColorOptions,color);
     }
-    public int sellAmount(int minHouse, int maxHouse){
-        return gui.getUserInteger("How many buildings do you wish to sell?", minHouse, maxHouse);
-    }
-
-
 
     public void removePlayer(Player player, Property[] properties) {
         gui_players[player.getID()].getCar().setPosition(null);
