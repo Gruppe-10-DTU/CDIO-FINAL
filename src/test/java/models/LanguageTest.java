@@ -10,7 +10,8 @@ class LanguageTest {
 
     @BeforeEach
     void setUp() {
-        language = new Language("da");
+        language = Language.getInstance();
+        language.updateLanguage("da");
     }
 
     @Test
