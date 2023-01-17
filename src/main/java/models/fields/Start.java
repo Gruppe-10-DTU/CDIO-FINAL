@@ -1,5 +1,7 @@
 package models.fields;
 
+import controllers.StartValues;
+import models.Language;
 import models.dto.IGameStateDTO;
 
 public class Start extends Field{
@@ -8,7 +10,7 @@ public class Start extends Field{
     public void fieldEffect(IGameStateDTO gameState, int rentMultiplier){
 
         //Key fieldLandStart
-        gameState.getGuiController().displayMsg("Du er landet på start. Tillykke med de gratis penge");
+        gameState.getGuiController().displayMsg(Language.getInstance().getLanguageValue("landOnStart", "" + StartValues.getInstance().getValue("startingMoney")));
 
     }
 }

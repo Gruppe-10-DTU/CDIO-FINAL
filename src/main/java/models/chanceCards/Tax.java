@@ -1,5 +1,6 @@
 package models.chanceCards;
 
+import models.Language;
 import models.Player;
 import models.dto.IGameStateDTO;
 
@@ -27,7 +28,7 @@ public class Tax extends ChanceCard {
         if (player.setBalance(totalTax) || gameState.getFieldController().sell(player,totalTax, gameState)) {
             gameState.getGuiController().updatePlayer(player);
         } else {
-            gameState.getGuiController().displayMsg("Du kan ikke betale din afgift");
+            gameState.getGuiController().displayMsg(Language.getInstance().getLanguageValue("disqualified"));
             //Optional house selling
             gameState.getPlayerController().removePlayer(player.getID());
         }

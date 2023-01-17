@@ -3,9 +3,10 @@ package models.fields;
 import models.Player;
 import models.dto.GameStateDTO;
 import models.dto.IGameStateDTO;
+import models.Language;
+
 
 public class Brewery extends Property{
-
     private int rent0;
     private int rent1;
 

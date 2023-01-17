@@ -20,9 +20,9 @@ class JailTest {
     @BeforeEach
     void setUp() {
         playerController = new PlayerController();
-        playerController.addPlayer(0,"car","player1",4);
-        playerController.addPlayer(1,"car", "player2", 5);
-        fieldController = new FieldController(new Language());
+        playerController.addPlayer(0,"car","player1",0);
+        playerController.addPlayer(1,"car", "player2", 1);
+        fieldController = new FieldController();
         jail = (Jail) fieldController.getField(10);
 
     }
@@ -64,7 +64,7 @@ class JailTest {
         gameState.setPlayerController(playerController);
         gameState.setFieldController(fieldController);
         gameState.setDiceHolder(new CheatDiceHolder(2));
-        gameState.setChanceCardDeck(new Deck(new Language()));
+        gameState.setChanceCardDeck(new Deck());
         gameState.setActivePlayer(playerController.getPlayerById(0));
 
 

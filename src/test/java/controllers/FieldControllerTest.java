@@ -26,8 +26,7 @@ class FieldControllerTest {
 
     @BeforeEach
     void setUp() {
-        Language language = new Language();
-        fieldcontroller = new FieldController(language);
+        fieldcontroller = new FieldController();
         guiController = new GUIControllerStub();
         playerController = new PlayerController();
         playerController.addPlayer(0, "car", "test1",1);
@@ -280,5 +279,22 @@ class FieldControllerTest {
                 assertNull(((Property) field).getOwner());
             }
         }
+    }
+
+    @Test
+    void BuyAndSellBuildingTest() {
+        Player player = playerController.getPlayerById(0);
+        Street street = (Street) fieldcontroller.getField(2);
+        street.setOwner(player);
+
+        assertEquals(0, ((Street) fieldcontroller.getField(2)).getHouseAmount());
+
+        fieldcontroller.addBuilding(street);
+
+        assertEquals(1, ((Street) fieldcontroller.getField(2)).getHouseAmount());
+
+        fieldcontroller.sellBuilding(street,1);
+
+        assertEquals(0, ((Street) fieldcontroller.getField(2)).getHouseAmount());
     }
 }

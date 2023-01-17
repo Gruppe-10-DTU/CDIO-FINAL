@@ -18,7 +18,6 @@ import java.util.Arrays;
 
 public class GUIController {
     private GUI gui;
-    private Language language;
     private GUI_Player[] gui_players;
     public GUIController(){
     }
@@ -27,9 +26,8 @@ public class GUIController {
      * Create a gui with custom fields
      * @param fieldList List of fields
      */
-    public GUIController(ArrayList<Field> fieldList, Language language){
+    public GUIController(ArrayList<Field> fieldList){
         gui = new GUI(GUIConverter.fieldListToGUI(fieldList));
-        this.language = language;
     }
     public int getBid(String msg, int min, int max){
         return gui.getUserInteger(msg, min, max);
@@ -211,10 +209,10 @@ public class GUIController {
 
 
     public String getOutOfJailOptions(boolean canPay, boolean hasChanceCard) {
-        String message = language.getLanguageValue("getOutOfJail");
-        String pay = language.getLanguageValue("payOutOfJail");
-        String roll = language.getLanguageValue("rollOutOfJail");
-        String card = language.getLanguageValue("cardOutOfJail");
+        String message = Language.getInstance().getLanguageValue("getOutOfJail");
+        String pay = Language.getInstance().getLanguageValue("payOutOfJail");
+        String roll = Language.getInstance().getLanguageValue("rollOutOfJail");
+        String card = Language.getInstance().getLanguageValue("cardOutOfJail");
         String choice;
         if (canPay && hasChanceCard) {
             choice = gui.getUserSelection(message, roll, pay, card);
@@ -236,7 +234,7 @@ public class GUIController {
         }
     }
     public void getOutOfJailRollAgain(){
-        String msg = language.getLanguageValue("getOutOfJailRollAgain");
+        String msg = Language.getInstance().getLanguageValue("getOutOfJailRollAgain");
         gui.getUserButtonPressed(msg,"ok");
     }
 
@@ -264,11 +262,6 @@ public class GUIController {
     public String selectColorBuild(String chooseColorOptions, String[] color){
         return gui.getUserSelection(chooseColorOptions,color);
     }
-    public int sellAmount(int minHouse, int maxHouse){
-        return gui.getUserInteger("How many buildings do you wish to sell?", minHouse, maxHouse);
-    }
-
-
 
     public void removePlayer(Player player, Property[] properties) {
         gui_players[player.getID()].getCar().setPosition(null);

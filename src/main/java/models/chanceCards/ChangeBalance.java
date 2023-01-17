@@ -1,5 +1,6 @@
 package models.chanceCards;
 
+import models.Language;
 import models.Player;
 import models.dto.IGameStateDTO;
 
@@ -32,7 +33,7 @@ public class ChangeBalance extends ChanceCard{
             }
         }else total = effect;
         if (!currentPlayer.setBalance(total) || !gameState.getFieldController().sell(currentPlayer, effect, gameState)) {
-            gameState.getGuiController().displayMsg("Du har ikke penge nok til at betale bøden og må derfor forlade spillet");
+            gameState.getGuiController().displayMsg(Language.getInstance().getLanguageValue("disqualified"));
             gameState.getPlayerController().removePlayer(currentPlayer.getID());
         }
         gameState.getChanceCardDeck().returnToDeck(this);

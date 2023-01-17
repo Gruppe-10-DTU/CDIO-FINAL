@@ -28,8 +28,8 @@ class MoveXStepsTest {
         gameState = new GameStateDTO(player1,otherPlayers);
         gameState.setPlayerController(new PlayerController());
         gameState.setGuiController(new GUIControllerStub());
-        gameState.setFieldController(new FieldController(new Language()));
-        gameState.setChanceCardDeck(new Deck(new Language()));
+        gameState.setFieldController(new FieldController());
+        gameState.setChanceCardDeck(new Deck());
         card1 = new MoveXSteps("card1", "",3);
         card2 = new MoveXSteps("card2", "",-3);
         card3 = new MoveXSteps("card3", "",-3);

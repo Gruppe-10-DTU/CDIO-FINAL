@@ -18,8 +18,7 @@ class StreetTest {
 
     @BeforeEach
      void beforeAll() {
-        Language language = new Language();
-        fieldController = new FieldController(language);
+        fieldController = new FieldController();
         guiController = new GUIControllerStub();
         playerController = new PlayerController();
         playerController.addPlayer(0, "car", "test1",1);

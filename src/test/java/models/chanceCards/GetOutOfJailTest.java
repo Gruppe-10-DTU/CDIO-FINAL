@@ -26,7 +26,7 @@ class GetOutOfJailTest {
         gameState = new GameStateDTO(player1,otherPlayers);
         gameState.setPlayerController(new PlayerController());
         gameState.setGuiController(new GUIControllerStub());
-        gameState.setFieldController(new FieldController(new Language()));
+        gameState.setFieldController(new FieldController());
         card = new GetOutOfJail("card1", "");
     }
 

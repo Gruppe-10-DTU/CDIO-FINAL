@@ -4,14 +4,13 @@ import models.Language;
 import models.Player;
 import models.dto.IGameStateDTO;
 import models.fields.*;
+import org.apache.commons.codec.language.bm.Lang;
 
 import java.util.*;
 
 public class FieldController {
 
     protected ArrayList<Field> fieldArrayList = new ArrayList<>();
-
-    private Language language;
 
     private int housePool = StartValues.getInstance().getValue("housePool");
 
@@ -21,9 +20,7 @@ public class FieldController {
     /**
      * The constructor receives the language and constructs an arraylist of field objects in the correct language
      */
-    public FieldController(Language language) {
-        this.language = language;
-
+    public FieldController() {
         String path = "/GamePack/fields.csv";
 
         CSVReader csvReader = null;
@@ -34,11 +31,8 @@ public class FieldController {
         createFieldArray(fieldData);
     }
 
-    public FieldController() {
-    }
-
     protected void createFieldArray(ArrayList<ArrayList<String>> fieldData) {
-
+        Language language = Language.getInstance();
         for (int i = 0; i < fieldData.size(); i++) {
             String fieldType = fieldData.get(i).get(2);
 
@@ -47,14 +41,13 @@ public class FieldController {
                     Start start = new Start();
                     fieldArrayList.add(start);
                     start.setID(Integer.parseInt(fieldData.get(i).get(1)));
-                    start.setName(fieldData.get(i).get(0));
-                    //start.setName(language.getLanguageValue("fieldName" + i));
+                    start.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "street":
                     Street street = new Street();
                     fieldArrayList.add(street);
                     street.setID(Integer.parseInt(fieldData.get(i).get(1)));
-                    street.setName(fieldData.get(i).get(0));
+                    street.setName(language.getLanguageValue("fieldName" + i));
                     street.setPrice(fieldData.get(i).get(3));
                     street.setHousePrice(Integer.parseInt(fieldData.get(i).get(4)));
                     street.setRent(0, Integer.parseInt(fieldData.get(i).get(5)));
@@ -64,34 +57,30 @@ public class FieldController {
                     street.setRent(4, Integer.parseInt(fieldData.get(i).get(9)));
                     street.setRent(5, Integer.parseInt(fieldData.get(i).get(10)));
                     street.setColor(fieldData.get(i).get(11));
-                    //property.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "chance":
                     Chance chance = new Chance();
                     fieldArrayList.add(chance);
                     chance.setID(Integer.parseInt(fieldData.get(i).get(1)));
-                    chance.setName(fieldData.get(i).get(0));
-                    //chance.setName(language.getLanguageValue("fieldName" + i));
+                    chance.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "jail":
                     Jail jail = new Jail(Integer.parseInt(fieldData.get(i).get(3)));
                     fieldArrayList.add(jail);
                     jail.setID(Integer.parseInt(fieldData.get(i).get(1)));
-                    jail.setName(fieldData.get(i).get(0));
-                    //jail.setName(language.getLanguageValue("fieldName" + i));
+                    jail.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "tojail":
                     ToJail toJail = new ToJail();
                     fieldArrayList.add(toJail);
                     toJail.setID(Integer.parseInt(fieldData.get(i).get(1)));
-                    toJail.setName(fieldData.get(i).get(0));
-                    //toJail.setName(language.getLanguageValue("fieldName" + i));
+                    toJail.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "brewery":
                     Brewery brewery = new Brewery();
                     fieldArrayList.add(brewery);
                     brewery.setID(Integer.parseInt(fieldData.get(i).get(1)));
-                    brewery.setName(fieldData.get(i).get(0));
+                    brewery.setName(language.getLanguageValue("fieldName" + i));
                     brewery.setPrice(Integer.parseInt(fieldData.get(i).get(3)));
                     brewery.setRent0(Integer.parseInt(fieldData.get(i).get(5)));
                     brewery.setRent1(Integer.parseInt(fieldData.get(i).get(6)));
@@ -100,7 +89,7 @@ public class FieldController {
                     Ferry ferry = new Ferry();
                     fieldArrayList.add(ferry);
                     ferry.setID(Integer.parseInt(fieldData.get(i).get(1)));
-                    ferry.setName(fieldData.get(i).get(0));
+                    ferry.setName(language.getLanguageValue("fieldName" + i));
                     ferry.setPrice(Integer.parseInt(fieldData.get(i).get(3)));
                     ferry.setRent(0, Integer.parseInt(fieldData.get(i).get(5)));
                     ferry.setRent(1, Integer.parseInt(fieldData.get(i).get(6)));
@@ -111,10 +100,10 @@ public class FieldController {
                     Refuge refuge = new Refuge();
                     fieldArrayList.add(refuge);
                     refuge.setID(Integer.parseInt(fieldData.get(i).get(1)));
-                    refuge.setName(fieldData.get(i).get(0));
+                    refuge.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "tax":
-                    Tax tax = new Tax(fieldData.get(i).get(0), Integer.parseInt(fieldData.get(i).get(1)), Integer.parseInt(fieldData.get(i).get(3)), Integer.parseInt(fieldData.get(i).get(4)));
+                    Tax tax = new Tax(language.getLanguageValue("fieldName" + i), Integer.parseInt(fieldData.get(i).get(1)), Integer.parseInt(fieldData.get(i).get(3)), Integer.parseInt(fieldData.get(i).get(4)));
                     fieldArrayList.add(tax);
                     break;
             }
@@ -133,12 +122,10 @@ public class FieldController {
          */
         for (Object field : fieldArrayList) {
             if (field instanceof Jail) {
-                if (((Jail) field).getName().equals("I fængsel/På besøg")) {
-                    ((Jail) field).setInJailAdd(player);
-                    int jailLocation = ((Jail) field).getID();
-                    player.setLocation(jailLocation);
-                    break;
-                }
+                ((Jail) field).setInJailAdd(player);
+                int jailLocation = ((Jail) field).getID();
+                player.setLocation(jailLocation);
+                break;
             }
         }
     }
@@ -329,6 +316,7 @@ public class FieldController {
         } else if (property.getHouseAmount() == 4) {
             property.setHouseAmount(property.getHouseAmount() + 1);
             property.getOwner().setBalance(-property.getHousePrice());
+            setHousePool(getHousePool() + 4);
             property.setHotel(true);
             setHotelPool(getHotelPool() - 1);
         }
@@ -401,13 +389,14 @@ public class FieldController {
         while(!affectedPlayer.setBalance(price)){
             Map<String, Street[]> buildingsToSell = propertyWithBuilding(ownsGroup);
             if (buildingsToSell.size() == 0) {
-                gameState.getGuiController().displayMsg("You cannot pay the rent, and therefore you are disqualified from the game.");
+                gameState.getGuiController().displayMsg(Language.getInstance().getLanguageValue("disqualified"));
                 gameState.getPlayerController().removePlayer(affectedPlayer.getID());
                 return false;
             } else {
                 //Find the properties the player can sell for
-                String colorChosen = gameState.getGuiController().selectColorBuild("Choose where you want to sell buildings from", buildingsToSell.keySet().toArray(String[]::new));
-                String whereToSell = gameState.getGuiController().selectBuild("Sell building. 1 house sells for: " + buildingsToSell.get(colorChosen)[0].getHousePrice() / 2 + "", buildingsToSell.get(colorChosen));
+                String colorChosen = gameState.getGuiController().selectColorBuild(Language.getInstance().getLanguageValue("sellBuildingText"), buildingsToSell.keySet().toArray(String[]::new));
+                int sellPrice =  buildingsToSell.get(colorChosen)[0].getHousePrice() / 2;
+                String whereToSell = gameState.getGuiController().selectBuild(Language.getInstance().getLanguageValue("buildingPrice", Integer.toString( sellPrice),Integer.toString( sellPrice*5)), buildingsToSell.get(colorChosen));
                 Street target = getStreetFromString(whereToSell);
                 if (target.isHotel()) {
                     sellBuilding(getStreetFromString(whereToSell), 0);

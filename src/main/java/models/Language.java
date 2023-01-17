@@ -1,28 +1,38 @@
 package models;
 
+import controllers.StartValues;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Language {
 
     private HashMap<String, String> languageValues;
 
-    public Language() {
-        updateLanguage("English");
-    }
-    public Language(String language){
-        updateLanguage(language);
+    private static Language instance = new Language();
+
+    private Language(){
+        updateLanguage(System.getProperty("user.language"));
     }
 
-    //Returns the value to the requestes key, kan add extra string if the value includes {0}
+    public static Language getInstance(){
+        return instance;
+    }
+
+    //Returns the value to the requestes key, can add extra string if the value includes {0}
     public String getLanguageValue(String key, String...txt) {
         String value = languageValues.get(key);
-        value = value.replace("{0}", txt[0]);
+        for (int i = 0; i < txt.length ; i++) {
+            value = value.replace("{"+i+"}",txt[i]);
+        }
         return value;
     }
+
     public String getLanguageValue(String key) {
         return languageValues.get(key);
     }

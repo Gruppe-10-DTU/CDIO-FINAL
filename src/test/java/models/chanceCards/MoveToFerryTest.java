@@ -29,8 +29,8 @@ class MoveToFerryTest {
         gameState = new GameStateDTO(player1, otherPlayers);
         gameState.setPlayerController(new PlayerController());
         gameState.setGuiController(new GUIControllerStub());
-        gameState.setFieldController(new FieldController(new Language()));
-        gameState.setChanceCardDeck(new Deck(new Language()));
+        gameState.setFieldController(new FieldController());
+        gameState.setChanceCardDeck(new Deck());
         card1 = new MoveToFerry("", "",2,true);
         card2 = new MoveToFerry("", "",1,true);
     }
