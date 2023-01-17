@@ -3,6 +3,7 @@ package controllers;
 import models.chanceCards.*;
 import models.*;
 import models.dto.GameStateDTO;
+import models.dto.IGameStateDTO;
 import models.fields.Street;
 import ui.GUIController;
 
@@ -43,6 +44,7 @@ public class GameController implements ActionListener {
         gameState.setPlayerController(playerController);
         gameState.setChanceCardDeck(deck);
         gameState.setDiceHolder(diceHolder);
+        gameState.setGameController(this);
         this.initialize();
     }
 
@@ -208,6 +210,8 @@ public class GameController implements ActionListener {
         p2.add(b);
         p.show();
     }
+
+
 
 }
 
