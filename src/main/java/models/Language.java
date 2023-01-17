@@ -1,5 +1,7 @@
 package models;
 
+import controllers.StartValues;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,11 +14,14 @@ public class Language {
 
     private HashMap<String, String> languageValues;
 
-    public Language() {
-        updateLanguage("English");
+    private static Language instance = new Language();
+
+    private Language(){
+        updateLanguage("Danish");
     }
-    public Language(String language){
-        updateLanguage(language);
+
+    public static Language getInstance(){
+        return instance;
     }
 
     //Returns the value to the requestes key, can add extra string if the value includes {0}
