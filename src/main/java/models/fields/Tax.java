@@ -2,6 +2,7 @@ package models.fields;
 
 import models.Player;
 import models.dto.IGameStateDTO;
+import models.Language;
 
 public class Tax extends Field{
 
@@ -26,26 +27,26 @@ public class Tax extends Field{
         Player currentPlayer = gameState.getActivePlayer();
         if(priceProcent==0){
             if(currentPlayer.setBalance(priceValue*-1)){
-                gameState.getGuiController().displayMsg("Du skal betale skal på "+priceValue);
+                gameState.getGuiController().displayMsg(Language.getInstance().getLanguageValue("landOnExtraTax","" + priceValue));
             }else{
                 gameState.getPlayerController().removePlayer(currentPlayer.getID());
             }
         }else{
-            if(gameState.getGuiController().getUserLeftButtonPressed("Du skal betale ejendomsskat. Vil du betale 4000 eller 10% af din ejendomsværdi?", "4000", "10%")){
+            if(gameState.getGuiController().getUserLeftButtonPressed(Language.getInstance().getLanguageValue("landOnIncomeTax"), "4000", "10%")){
                 if(currentPlayer.setBalance(priceValue*-1) || gameState.getFieldController().sell(currentPlayer, priceValue, gameState)){
-                    gameState.getGuiController().displayMsg("Du betalte "+priceValue+" i skat.");
+                    gameState.getGuiController().displayMsg(Language.getInstance().getLanguageValue("payIncomeTaxFlat","" + priceValue));
                 }else{
                     //Auktion
-                    gameState.getGuiController().displayMsg("Du havde ikke råd til at betale og bliver fjernet");
+                    gameState.getGuiController().displayMsg(Language.getInstance().getLanguageValue("disqualified"));
                     gameState.getPlayerController().removePlayer(currentPlayer.getID());
                 }
             }else{
                 int totalAmount = Math.round((gameState.getFieldController().playerPropertyValues(currentPlayer) + currentPlayer.getBalance())*(priceProcent/100.0f));
                 if(currentPlayer.setBalance(totalAmount*-1) ||  gameState.getFieldController().sell(currentPlayer,-totalAmount, gameState)){
-                    gameState.getGuiController().displayMsg("Du betalte "+totalAmount+" i skat for dine ejendomme.");
+                    gameState.getGuiController().displayMsg(Language.getInstance().getLanguageValue("payIncomeTaxPercentage","" + totalAmount));
                 }else{
                     //Auktion
-                    gameState.getGuiController().displayMsg("Du havde ikke råd til at betale og bliver fjernet");
+                    gameState.getGuiController().displayMsg(Language.getInstance().getLanguageValue("disqualified"));
                     gameState.getPlayerController().removePlayer(currentPlayer.getID());
                 }
             }

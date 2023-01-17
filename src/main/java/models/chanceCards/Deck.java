@@ -13,7 +13,7 @@ public class Deck {
     /**
      * Constructs deck from chanceCards.csv file in resources using custom CSVReader
      */
-    public Deck(Language language) {
+    public Deck() {
         final String DELIMITER = ",";
 
         CSVReader reader = new CSVReader("/GamePack/chancecards.final.csv", DELIMITER, true);
@@ -30,7 +30,7 @@ public class Deck {
 
         this.deck = new ArrayList<>();
         for (ArrayList<String> element: cardData) {
-            String description = language.getLanguageValue("cc" + element.get(name));
+            String description = Language.getInstance().getLanguageValue("cc" + element.get(name));
             switch (element.get(type)) {
                 case "Tax":
                     deck.add(new Tax(

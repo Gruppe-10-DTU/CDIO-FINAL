@@ -17,7 +17,6 @@ import java.util.List;
 public class GameController implements ActionListener {
     private DiceHolder diceHolder;
     private int turnCounter = 0;
-    private Language language;
     private GUIController guiController;
     private PlayerController playerController;
     private Player currentPlayer;
@@ -32,10 +31,9 @@ public class GameController implements ActionListener {
     private GameStateDTO gameState;
 
     public GameController() {
-        language = new Language(System.getProperty("user.language"));
-        fieldController = new FieldController(language);
-        guiController = new GUIController(fieldController.getFieldList(), language);
-        deck = new Deck(language);
+        fieldController = new FieldController();
+        guiController = new GUIController(fieldController.getFieldList());
+        deck = new Deck();
         diceHolder = new DiceHolder(StartValues.getInstance().getValue("diceAmount"));
         playerController = new PlayerController();
         deck.shuffle();
@@ -48,8 +46,7 @@ public class GameController implements ActionListener {
         this.initialize();
     }
 
-    public GameController(GameStateDTO gameState, Language language, Deck deck) {
-        this.language = language;
+    public GameController(GameStateDTO gameState, Deck deck) {
         this.playerController = gameState.getPlayerController();
         this.fieldController = gameState.getFieldController();
         this.guiController = gameState.getGuiController();
@@ -62,18 +59,18 @@ public class GameController implements ActionListener {
     public void initialize() {
         String name;
         String tokens = "Car,Tractor,Racecar,UFO";
-        StringBuilder sb = new StringBuilder(language.getLanguageValue("colors"));
+        StringBuilder sb = new StringBuilder(Language.getInstance().getLanguageValue("colors"));
         List colors = Arrays.stream(String.valueOf(sb).split(",")).toList();
-        int playerAmount = guiController.playerAmount(language.getLanguageValue("playerAmount"));
+        int playerAmount = guiController.playerAmount(Language.getInstance().getLanguageValue("playerAmount"));
         for (int i = 0; i < playerAmount; i++) {
-            name = guiController.getName(language.getLanguageValue("inputName"));
+            name = guiController.getName(Language.getInstance().getLanguageValue("inputName"));
             while (!playerController.playerUnique(name)) {
-                guiController.displayMsg(language.getLanguageValue("nameNotUnique"));
-                name = guiController.getName(language.getLanguageValue("inputName"));
+                guiController.displayMsg(Language.getInstance().getLanguageValue("nameNotUnique"));
+                name = guiController.getName(Language.getInstance().getLanguageValue("inputName"));
             }
 
-            String character = guiController.selectCharacter(language.getLanguageValue("selectCharacter"), tokens);
-            String color = guiController.selectCharacter(language.getLanguageValue("colorText"), String.valueOf(sb));
+            String character = guiController.selectCharacter(Language.getInstance().getLanguageValue("selectCharacter"), tokens);
+            String color = guiController.selectCharacter(Language.getInstance().getLanguageValue("colorText"), String.valueOf(sb));
             sb.delete(sb.indexOf(color), sb.indexOf(color) + color.length() + 1);
 
             playerController.addPlayer(i, character, name, colors.indexOf(color));
@@ -81,7 +78,7 @@ public class GameController implements ActionListener {
     }
 
     public void startGame(){
-        reverse = guiController.getUserLeftButtonPressed("Hvilken retning skal spillet gå", "Mod uret", "Med uret");
+        reverse = guiController.getUserLeftButtonPressed(Language.getInstance().getLanguageValue("chooseDirection"), Language.getInstance().getLanguageValue("clockwise"), Language.getInstance().getLanguageValue("counterClockwise"));
         gameState.setReverse(reverse);
 
         guiController.setPlayers(playerController.getPlayers());
@@ -116,19 +113,19 @@ public class GameController implements ActionListener {
         Map<String,Street[]> placesToBuild = fieldController.buildEqual(ownsGroup);
         //Tjek huskøb
         if(placesToBuild.size() >= 1) {
-            looper = guiController.getUserLeftButtonPressed(language.getLanguageValue("canBuild", player.getIdentifier()), "Ja", "Nej");
+            looper = guiController.getUserLeftButtonPressed(Language.getInstance().getLanguageValue("canBuild", player.getIdentifier()), Language.getInstance().getLanguageValue( "ja"), Language.getInstance().getLanguageValue("nej"));
             boolean loopdeloop = true;
             //Hvor kan der bygges?
             while (looper && placesToBuild.size() >= 1) {
                 if (!loopdeloop) {
-                    looper = guiController.getUserLeftButtonPressed(language.getLanguageValue("canBuild", player.getIdentifier()), "Ja", "Nej");
+                    looper = guiController.getUserLeftButtonPressed(Language.getInstance().getLanguageValue("canBuild", player.getIdentifier()), Language.getInstance().getLanguageValue( "ja"), Language.getInstance().getLanguageValue("nej"));
                     if(!looper) break;
                 }
                 loopdeloop = false;
-                    String colorChosen = guiController.selectColorBuild(language.getLanguageValue("chooseColorOptions"), placesToBuild.keySet().toArray(String[]::new));
-                    String whereToBuild = guiController.selectBuild(language.getLanguageValue("selectBuildingText","" + placesToBuild.get(colorChosen)[0].getHousePrice()), placesToBuild.get(colorChosen));
+                    String colorChosen = guiController.selectColorBuild(Language.getInstance().getLanguageValue("chooseColorOptions"), placesToBuild.keySet().toArray(String[]::new));
+                    String whereToBuild = guiController.selectBuild(Language.getInstance().getLanguageValue("selectBuildingText","" + placesToBuild.get(colorChosen)[0].getHousePrice()), placesToBuild.get(colorChosen));
                     if (player.getBalance() < fieldController.getStreetFromString(whereToBuild).getHousePrice()) {
-                        looper = guiController.getUserLeftButtonPressed(language.getLanguageValue("lackingFunds"), "Ja", "Nej");
+                        looper = guiController.getUserLeftButtonPressed(Language.getInstance().getLanguageValue("lackingFunds"), Language.getInstance().getLanguageValue( "ja"), Language.getInstance().getLanguageValue("nej"));
                     } else {
                         if (fieldController.getStreetFromString(whereToBuild).getHousePrice() <= player.getBalance() && fieldController.getStreetFromString(whereToBuild).getHouseAmount() < 5) {
                            if(fieldController.getStreetFromString(whereToBuild).getHouseAmount() < 4 && fieldController.getHousePool() > 0) {
@@ -142,7 +139,7 @@ public class GameController implements ActionListener {
                            }
 
                         } else {
-                            looper = guiController.getUserLeftButtonPressed(language.getLanguageValue("lackingFunds"), "Ja", "Nej");
+                            looper = guiController.getUserLeftButtonPressed(Language.getInstance().getLanguageValue("lackingFunds"), Language.getInstance().getLanguageValue( "ja"), Language.getInstance().getLanguageValue("nej"));
                         }
                     }
                     placesToBuild = fieldController.buildEqual(fieldController.ownsColourGroup(player));
@@ -154,7 +151,7 @@ public class GameController implements ActionListener {
                 fieldController.landOnField(gameState);
             }
             if (!(fieldController.isJailed(player))) {
-                guiController.getRoll(language.getLanguageValue("rollText", player.getIdentifier()), language.getLanguageValue("rollButton"));
+                guiController.getRoll(Language.getInstance().getLanguageValue("rollText", player.getIdentifier()), Language.getInstance().getLanguageValue("rollButton"));
                 diceHolder.roll();
                 guiController.displayDice(diceHolder.getRolls());
                 if (diceHolder.isEqual()) {
@@ -163,7 +160,7 @@ public class GameController implements ActionListener {
                     diceHolder.setSameRolls(0);
                 }
                 if (diceHolder.getSameRolls() == 3) {
-                    guiController.displayMsg("Ulovligheder! De har rullet ens 3 gange i træk og skal derfor i fængsel.");
+                    guiController.displayMsg(Language.getInstance().getLanguageValue("3doubles"));
                     fieldController.jailPlayer(currentPlayer);
                     diceHolder.setSameRolls(0);
                 } else {
@@ -171,7 +168,7 @@ public class GameController implements ActionListener {
                     playerController.playerMove(player, diceHolder.sum(reverse));
                     guiController.movePlayer(player, reverse);
                     if (overStart) {
-                        guiController.displayMsg(language.getLanguageValue("passStart", String.valueOf(StartValues.getInstance().getValue("passStartBonus"))));
+                        guiController.displayMsg(Language.getInstance().getLanguageValue("passStart", String.valueOf(StartValues.getInstance().getValue("passStartBonus"))));
                     }
                     fieldController.landOnField(gameState);
                 }
@@ -197,15 +194,15 @@ public class GameController implements ActionListener {
     }
     public void winMsg() {
         String winner = playerController.getPlayers()[0].getIdentifier();
-        guiController.displayMsgNoBtn(language.getLanguageValue("winner") + " " + winner);
+        guiController.displayMsgNoBtn(Language.getInstance().getLanguageValue("winner") + " " + winner);
         JFrame f = new JFrame("popup");
-        JLabel l = new JLabel(language.getLanguageValue("winner") + " " + winner);
+        JLabel l = new JLabel(Language.getInstance().getLanguageValue("winner") + " " + winner);
         PopupFactory pf = new PopupFactory();
         JPanel p2 = new JPanel();
         p2.setBackground(Color.red);
         p2.add(l);
         p = pf.getPopup(f, p2, 180, 100);
-        JButton b = new JButton(language.getLanguageValue("endGame"));
+        JButton b = new JButton(Language.getInstance().getLanguageValue("endGame"));
         b.addActionListener(this);
         p2.add(b);
         p.show();

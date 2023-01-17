@@ -1,5 +1,6 @@
 package models.chanceCards;
 
+import models.Language;
 import models.dto.IGameStateDTO;
 import models.Player;
 
@@ -18,7 +19,7 @@ public class Grant extends ChanceCard{
         Player player = gameState.getActivePlayer();
         int playerWorth = player.getBalance() + gameState.getFieldController().playerPropertyValues(player);
         if(playerWorth < netWorth){
-            gameState.getGuiController().displayMsg("Du modtager matador-legatet");
+            gameState.getGuiController().displayMsg(Language.getInstance().getLanguageValue("grant"));
             player.setBalance(bonus);
         }
         gameState.getGuiController().updatePlayer(player);

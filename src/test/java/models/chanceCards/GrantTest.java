@@ -29,8 +29,8 @@ class GrantTest {
         gameState = new GameStateDTO(player1,otherPlayers);
         gameState.setPlayerController(new PlayerController());
         gameState.setGuiController(new GUIControllerStub());
-        gameState.setFieldController(new FieldController(new Language()));
-        gameState.setChanceCardDeck(new Deck(new Language()));
+        gameState.setFieldController(new FieldController());
+        gameState.setChanceCardDeck(new Deck());
         card1 = new Grant("", "",15000,40000);
         card2 = new Grant("", "",15000,40000);
     }

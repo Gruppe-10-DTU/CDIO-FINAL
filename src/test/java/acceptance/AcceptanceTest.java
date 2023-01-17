@@ -16,7 +16,6 @@ public class AcceptanceTest {
     private GameStateDTO gs;
     private PlayerController pc;
     private FieldController fc;
-    private Language language;
     private CheatDiceHolder dH;
     private Deck deck;
     private GUIController gui;
@@ -25,9 +24,8 @@ public class AcceptanceTest {
 
     @BeforeEach
     public void beforeEach() {
-        language = new Language();
-        fc = new FieldController(language);
-        gui = new GUIController(fc.getFieldList(), language);
+        fc = new FieldController();
+        gui = new GUIController(fc.getFieldList());
         gs = new GameStateDTO(gui);
 
         gs.setFieldController(fc);
@@ -35,8 +33,8 @@ public class AcceptanceTest {
         gs.setDiceHolder(dH);
         pc = new PlayerController();
         gs.setPlayerController(pc);
-        deck = new Deck(language);
-        gc = new GameController(gs, language, deck);
+        deck = new Deck();
+        gc = new GameController(gs, deck);
     }
     @Test
     public void AK5_6(){
@@ -106,6 +104,7 @@ public class AcceptanceTest {
     public void AK11_12(){
         pc.addPlayer(0,"UFO","buyBrewery/Docks-Test",2);
         pc.addPlayer(1,"UFO","Dummy1",2);
+        gs.setReverse(false);
 
         gui.setPlayers(pc.getPlayers());
         Brewery brew = (Brewery) fc.getField(12);
@@ -186,7 +185,7 @@ public class AcceptanceTest {
         gui.setPlayers(pc.getPlayers());
 
         Chance chance = (Chance) fc.getField(2);
-        Deck deck = new Deck(language);
+        Deck deck = new Deck();
         gs.setChanceCardDeck(deck);
         dH.setRolls(1,1);
         gc.takeTurn(pc.getPlayerById(0));

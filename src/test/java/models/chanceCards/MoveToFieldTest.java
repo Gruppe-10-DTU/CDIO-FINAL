@@ -30,8 +30,8 @@ class MoveToFieldTest {
         gameState = new GameStateDTO(player1,otherPlayers);
         gameState.setPlayerController(new PlayerController());
         gameState.setGuiController(new GUIControllerStub());
-        gameState.setFieldController(new FieldController(new Language()));
-        gameState.setChanceCardDeck(new Deck(new Language()));
+        gameState.setFieldController(new FieldController());
+        gameState.setChanceCardDeck(new Deck());
         card1 = new MoveToField("", "",true,37);
         card2 = new MoveToField("", "",true,24);
         card3 = new MoveToField("GoToJail", "",false,10);

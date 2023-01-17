@@ -7,7 +7,7 @@ public class Chance extends Field {
 
     @Override
     public void fieldEffect(IGameStateDTO gameState, int rentMultiplier){
-        gameState.getGuiController().displayMsg("Du er landet på Prøv Lykken, og må derfor trække et kort.");
+        gameState.getGuiController().displayMsg(language.getInstance().getLanguageValue("landOnChance"));
         ChanceCard drawnCard = gameState.getChanceCardDeck().drawCard();
         drawnCard.chanceEffect(gameState);
     }

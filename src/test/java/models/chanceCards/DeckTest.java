@@ -13,7 +13,7 @@ class DeckTest {
 
     @BeforeEach
     void setup(){
-        deck = new Deck(new Language());
+        deck = new Deck();
     }
 
 
@@ -22,7 +22,7 @@ class DeckTest {
      */
     @Test
     void shuffleChangesDeckOrder() {
-        Deck controlDeck = new Deck(new Language());
+        Deck controlDeck = new Deck();
         deck.shuffle();
         int count = 0;
         for (int i = 0; i < deck.getDeckSize(); i++) {
