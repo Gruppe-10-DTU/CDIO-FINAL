@@ -24,7 +24,7 @@ public class Language {
         return instance;
     }
 
-    //Returns the value to the requestes key, can add extra string if the value includes {0}
+    //Returns the value to the requested key, can add extra string if the value includes {0}
     public String getLanguageValue(String key, String...txt) {
         String value = languageValues.get(key);
         for (int i = 0; i < txt.length ; i++) {

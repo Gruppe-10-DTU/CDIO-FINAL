@@ -42,7 +42,7 @@ class StreetTest {
     }
 
     @Test
-    void steetEffectGetRent() {
+    void streetEffectGetRent() {
         Street street = (Street) fieldController.getField(1);
         street.setOwner(playerController.getPlayerById(1));
         street.fieldEffect(gameStateDTO);

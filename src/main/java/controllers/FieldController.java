@@ -70,7 +70,7 @@ public class FieldController {
                     jail.setID(Integer.parseInt(fieldData.get(i).get(1)));
                     jail.setName(language.getLanguageValue("fieldName" + i));
                     break;
-                case "tojail":
+                case "toJail":
                     ToJail toJail = new ToJail();
                     fieldArrayList.add(toJail);
                     toJail.setID(Integer.parseInt(fieldData.get(i).get(1)));

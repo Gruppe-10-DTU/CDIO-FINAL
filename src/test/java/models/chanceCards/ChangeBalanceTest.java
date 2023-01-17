@@ -45,7 +45,7 @@ class ChangeBalanceTest {
         assertEquals(startMoney, gameState.getActivePlayer().getBalance());
     }
     @Test
-    @DisplayName("Changebalance money from other players")
+    @DisplayName("ChangeBalance money from other players")
     void chanceEffectFromOthers() {
         card1 = new ChangeBalance("", "",1000,true);
         card1.chanceEffect(gameState);

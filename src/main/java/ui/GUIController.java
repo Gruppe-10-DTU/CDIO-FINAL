@@ -88,7 +88,7 @@ public class GUIController {
 
     /**
      * Update the player to move to a new field
-     * @param player Player to be moved. Simulates movement by moving the gui mirror of player 1 stpe at a time.
+     * @param player Player to be moved. Simulates movement by moving the gui mirror of player 1 step at a time.
      */
     public void movePlayer(Player player, boolean reverse){
         int direction = reverse ? -1 : 1;
@@ -181,7 +181,7 @@ public class GUIController {
     }
 
     /**
-     * Iterates thrhrough every player and every field and updates the gui
+     * Iterates through every player and every field and updates the gui
      * @param playerController provides the players
      * @param fieldController provides the fields
      */
@@ -204,7 +204,7 @@ public class GUIController {
      *
      * @param canPay boolean representing if the player can afford to pay to get out of jail.
      * @param hasChanceCard boolean representing if the player has a get out of jail card
-     * @return the updated gamestate
+     * @return the updated game state
      */
 
 

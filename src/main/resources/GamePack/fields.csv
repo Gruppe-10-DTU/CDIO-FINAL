@@ -22,14 +22,14 @@ Strandvejen,19,street,4000,2000,350,1600,4400,12000,16000,20000,grey
 Parkering,20,refugee,,,,,,,,,
 Trianglen,21,street,4400,3000,350,1800,5000,14000,17500,21000,red
 Prøv lykken,22,chance,,,,,,,,,
-Øserbrogade,23,street,4400,3000,350,1800,5000,14000,17500,21000,red
+Østerbrogade,23,street,4400,3000,350,1800,5000,14000,17500,21000,red
 Grønningen,24,street,4800,3000,400,2000,6000,15000,18500,22000,red
 Gedser - Rostock,25,ferry,4000,,500,1000,2000,4000,,,
 Bredgade,26,street,5200,3000,450,2200,6600,16000,19500,23000,white
 Kgs. Nytorv,27,street,5200,3000,450,2200,6600,16000,19500,23000,white
 Coca Cola,28,brewery,3000,,100,200,,,,,
 Østergade,29,street,5600,3000,500,2400,7200,17000,20500,24000,white
-Fængsel,30,tojail,0,,,,,,,,
+Fængsel,30,toJail,0,,,,,,,,
 Amagertorv,31,street,6000,4000,550,2600,7800,18000,22000,25000,yellow
 Vimmelskaftet,32,street,6000,4000,550,2600,7800,18000,22000,25000,yellow
 Prøv lykken,33,chance,,,,,,,,,

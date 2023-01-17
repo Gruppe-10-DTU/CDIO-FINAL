@@ -45,7 +45,7 @@ class FerryTest {
     }
 
     @Test
-    void steetEffectGetRent() {
+    void streetEffectGetRent() {
         Ferry ferry = (Ferry) fieldController.getField(5);
         ferry.setOwner(playerController.getPlayerById(1));
         ferry.fieldEffect(gameStateDTO);
@@ -75,7 +75,7 @@ class FerryTest {
     }
 
     @Test
-    void steetEffectGetRent2Owned() {
+    void streetEffectGetRent2Owned() {
         Ferry ferry1 = (Ferry) fieldController.getField(5);
         ferry1.setOwner(playerController.getPlayerById(1));
         Ferry ferry2 = (Ferry) fieldController.getField(15);
@@ -88,7 +88,7 @@ class FerryTest {
     }
 
     @Test
-    void steetEffectGetRent4Owned() {
+    void streetEffectGetRent4Owned() {
         Ferry ferry1 = (Ferry) fieldController.getField(5);
         ferry1.setOwner(playerController.getPlayerById(1));
         Ferry ferry2 = (Ferry) fieldController.getField(15);
