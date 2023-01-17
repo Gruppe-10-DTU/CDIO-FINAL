@@ -77,14 +77,13 @@ public class FieldController {
                     ToJail toJail = new ToJail();
                     fieldArrayList.add(toJail);
                     toJail.setID(Integer.parseInt(fieldData.get(i).get(1)));
-                    toJail.setName(fieldData.get(i).get(0));
-                    //toJail.setName(language.getLanguageValue("fieldName" + i));
+                    toJail.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "brewery":
                     Brewery brewery = new Brewery();
                     fieldArrayList.add(brewery);
                     brewery.setID(Integer.parseInt(fieldData.get(i).get(1)));
-                    brewery.setName(fieldData.get(i).get(0));
+                    brewery.setName(language.getLanguageValue("fieldName" + i));
                     brewery.setPrice(Integer.parseInt(fieldData.get(i).get(3)));
                     brewery.setRent0(Integer.parseInt(fieldData.get(i).get(5)));
                     brewery.setRent1(Integer.parseInt(fieldData.get(i).get(6)));
@@ -126,12 +125,10 @@ public class FieldController {
          */
         for (Object field : fieldArrayList) {
             if (field instanceof Jail) {
-                if (((Jail) field).getName().equals("I fængsel/På besøg")) {
-                    ((Jail) field).setInJailAdd(player);
-                    int jailLocation = ((Jail) field).getID();
-                    player.setLocation(jailLocation);
-                    break;
-                }
+                ((Jail) field).setInJailAdd(player);
+                int jailLocation = ((Jail) field).getID();
+                player.setLocation(jailLocation);
+                break;
             }
         }
     }
