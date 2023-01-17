@@ -1,5 +1,4 @@
 package models.fields;
-import models.Player;
 import models.dto.IGameStateDTO;
 
 import java.util.Map;

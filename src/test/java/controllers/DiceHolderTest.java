@@ -15,7 +15,7 @@ class DiceHolderTest {
     }
     @Test
     @DisplayName("equal rolls follow statistical probability within 5%")
-    void rollEqualtest(){
+    void rollEqualTest(){
         diceHolder.setSameRolls(0);
         for (int i = 0; i < 100_000; i++) {
             diceHolder.roll();
@@ -26,7 +26,7 @@ class DiceHolderTest {
     }
     @Test
     @DisplayName("rolls follow normal distribution within 5%")
-    void normalDistrbutionRolls() {
+    void normalDistributionRolls() {
         int[] rolls = new int[13];
         double dataSize = 100_000D;
         double[] deviance = {1.05, 0.95};

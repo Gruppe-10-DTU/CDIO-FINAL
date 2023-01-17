@@ -87,7 +87,7 @@ public class GUIController {
 
     /**
      * Update the player to move to a new field
-     * @param player Player to be moved. Simulates movement by moving the gui mirror of player 1 stpe at a time.
+     * @param player Player to be moved. Simulates movement by moving the gui mirror of player 1 step at a time.
      */
     public void movePlayer(Player player, boolean reverse){
         int direction = reverse ? -1 : 1;
@@ -170,17 +170,9 @@ public class GUIController {
         gui.getUserButtonPressed(rollText, rollButton);
     }
 
-    /**
-     * @param emtpyFieldChoice Text to display
-     * @param properties The choices you have
-     */
-    public int getPropertyChoice(String emtpyFieldChoice, Street[] properties) {
-        String choice = gui.getUserSelection(emtpyFieldChoice, Arrays.stream(properties).map(Field::getName).toArray(String[]::new));
-        return Arrays.stream(properties).filter(field->field.getName()==choice).findFirst().get().getID();
-    }
 
     /**
-     * Iterates thrhrough every player and every field and updates the gui
+     * Iterates through every player and every field and updates the gui
      * @param playerController provides the players
      * @param fieldController provides the fields
      */
@@ -203,7 +195,7 @@ public class GUIController {
      *
      * @param canPay boolean representing if the player can afford to pay to get out of jail.
      * @param hasChanceCard boolean representing if the player has a get out of jail card
-     * @return the updated gamestate
+     * @return the updated game state
      */
 
 
@@ -240,10 +232,6 @@ public class GUIController {
     public String selectBuild(String selectBuild, Street[] choices){
         String[] strings = Arrays.stream(choices).map((x -> x.getName())).toArray(String[]::new);
         return gui.getUserSelection(selectBuild, strings);
-    }
-
-    public String amountOfHouses(String amountOfHouses){
-        return gui.getUserString(amountOfHouses);
     }
 
     public void guiAddHouse(Street property, int amount){

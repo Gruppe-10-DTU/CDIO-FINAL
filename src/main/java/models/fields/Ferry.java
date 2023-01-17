@@ -1,6 +1,5 @@
 package models.fields;
 
-import models.Player;
 import models.dto.IGameStateDTO;
 
 public class Ferry extends Property{

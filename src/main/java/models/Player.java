@@ -18,7 +18,7 @@ public class Player {
     private ArrayList<GetOutOfJail> getOutOfJail = new ArrayList<>();
     private int roundsInJail;
     /**
-     * Defauld balance of player is 30,000
+     * Default balance of player is 30,000
      * @param iD   id of the player
      * @param name name
      */

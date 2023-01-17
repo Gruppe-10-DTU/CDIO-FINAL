@@ -3,7 +3,6 @@ package models.fields;
 import controllers.FieldController;
 import controllers.GUIControllerStub;
 import controllers.PlayerController;
-import models.Language;
 import models.dto.GameStateDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,7 +41,7 @@ class StreetTest {
     }
 
     @Test
-    void steetEffectGetRent() {
+    void streetEffectGetRent() {
         Street street = (Street) fieldController.getField(1);
         street.setOwner(playerController.getPlayerById(1));
         street.fieldEffect(gameStateDTO);

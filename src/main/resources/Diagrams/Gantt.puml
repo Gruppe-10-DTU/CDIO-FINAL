@@ -44,7 +44,7 @@ Project starts the 2nd of january 2023
 [Land på felt (K6)] as [K6] lasts 2 days
 [K6] is 100% complete
 
-[Træk changsekort (K18)] as [K18] lasts 1 days
+[Træk chancekort (K18)] as [K18] lasts 1 days
 [K18] is 100% complete
 
 [Spiller penge (K7)] as [K7] lasts 1 days
@@ -123,8 +123,8 @@ Project starts the 2nd of january 2023
 [K20] is colored in Lavender/Yellow
 [K20] is 100% complete
 
-[Changce kort, resten (K18)] as [K18.2] starts 2023-01-13
-[Changce kort, resten (K18)] as [K18.2] ends 2023-01-16
+[Chance kort, resten (K18)] as [K18.2] starts 2023-01-13
+[Chance kort, resten (K18)] as [K18.2] ends 2023-01-16
 [K18.2] is colored in Lavender/Orange
 [K18.2] is 100% complete
 
@@ -165,8 +165,8 @@ Project starts the 2nd of january 2023
 [K33] is colored in Lavender/Teal
 [K33] is 100% complete
 
-[Forbered acceptencetest] as [test] starts 2023-01-16
-[Forbered acceptencetest] as [test] ends 2023-01-17
+[Forbered acceptance test] as [test] starts 2023-01-16
+[Forbered acceptance test] as [test] ends 2023-01-17
 [test] is 75% complete
 
 [MVP]->[K19]

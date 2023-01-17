@@ -1,6 +1,5 @@
 package controllers;
 
-import models.Language;
 import models.Player;
 import models.dto.GameStateDTO;
 import models.fields.*;
@@ -187,7 +186,7 @@ class FieldControllerTest {
     @Test
     void ownsColourGroup() {
         fieldcontroller.fieldArrayList.remove(9);
-        //Note to whoever reads this. This method _ONLY_ works if the amount of fields is devisable by 5. That's why we remove a field.
+        //Note to whoever reads this. This method _ONLY_ works if the amount of fields is divisible by 5. That's why we remove a field.
         for(Object field : fieldcontroller.fieldArrayList){
             if(field instanceof Street){
                 ((Street) field).setOwner(mockPlayer1);

@@ -17,7 +17,7 @@ class DieTest {
     }
 
     @Test
-    @DisplayName("the die rolls within 5% of statistical probabiliy")
+    @DisplayName("the die rolls within 5% of statistical probability")
     void roll() {
         for (int i = 0; i < 100_000; i++) {
             rollCount[die.roll()]++;

@@ -146,7 +146,7 @@ public class AcceptanceTest {
         dH.setRolls(1,1);
         ToJail toJail = (ToJail) fc.getField(30);
         Jail jail = (Jail) fc.getField(10);
-        pc.getPlayerById(0).addGetOutOfJail(new GetOutOfJail("outofjail","outofjail"));
+        pc.getPlayerById(0).addGetOutOfJail(new GetOutOfJail("outOfJail","outOfJail"));
         gui.updatePlayer(pc.getPlayerById(0));
         gc.takeTurn(pc.getPlayerById(0));
         gui.updatePlayer(pc.getPlayerById(0));
@@ -286,7 +286,6 @@ public class AcceptanceTest {
     void AK26(){
         pc.addPlayer(0,"UFO","OwnerOfBigProperties",2);
         pc.addPlayer(1,"UFO","bankruptPlayer",3);
-        pc.getPlayerById(1).setBalance(-6900);
         gui.setPlayers(pc.getPlayers());
 
         pc.getPlayerById(0).setLocation(39);
