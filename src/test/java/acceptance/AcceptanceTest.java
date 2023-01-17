@@ -295,8 +295,55 @@ public class AcceptanceTest {
         gui.updateBoard(pc, fc);
 
         dH.setRolls(2,1);
-        pc.getPlayerById(0).setLocation(3);
+        //pc.getPlayerById(0).setLocation(3);
         gc.takeTurn(pc.getPlayerById(0));
         gui.displayMsg("Test er ovre");
     }
+
+    @Test
+    public void AK23() {
+        pc.addPlayer(0,"UFO","renter",2);
+        gui.setPlayers(pc.getPlayers());
+        Street blue1 = (Street) fc.getField(1);
+        blue1.setOwner(pc.getPlayerById(0));
+        blue1.setHouseAmount(4);
+        Street blue2 = (Street) fc.getField(3);
+        blue2.setOwner(pc.getPlayerById(0));
+        blue2.setHouseAmount(3);
+        Street pink1 = (Street) fc.getField(6);
+        pink1.setOwner(pc.getPlayerById(0));
+        pink1.setHouseAmount(4);
+        Street pink2 = (Street) fc.getField(8);
+        pink2.setOwner(pc.getPlayerById(0));
+        pink2.setHouseAmount(4);
+        Street pink3 = (Street) fc.getField(9);
+        pink3.setOwner(pc.getPlayerById(0));
+        pink3.setHouseAmount(4);
+        Street green1 = (Street) fc.getField(11);
+        green1.setOwner(pc.getPlayerById(0));
+        green1.setHouseAmount(4);
+        Street green2 = (Street) fc.getField(13);
+        green2.setOwner(pc.getPlayerById(0));
+        green2.setHouseAmount(4);
+        Street green3 = (Street) fc.getField(14);
+        green3.setOwner(pc.getPlayerById(0));
+        green3.setHouseAmount(4);
+        Street grey1 = (Street) fc.getField(16);
+        grey1.setOwner(pc.getPlayerById(0));
+        Street grey2 = (Street) fc.getField(18);
+        grey2.setOwner(pc.getPlayerById(0));
+        Street grey3 = (Street) fc.getField(19);
+        grey3.setOwner(pc.getPlayerById(0));
+
+        fc.setHousePool(1);
+
+        gui.updatePlayer(pc.getPlayerById(0));
+        gui.updateBoard(pc, fc);
+
+        dH.setRolls(2,1);
+        gc.takeTurn(pc.getPlayerById(0));
+        gui.displayMsg("Test er ovre");
+    }
+
+
 }
