@@ -4,6 +4,7 @@ import models.Player;
 import models.dto.GameStateDTO;
 import models.dto.IGameStateDTO;
 import org.apache.commons.lang.ArrayUtils;
+import models.Language;
 
 import java.util.Map;
 
@@ -29,8 +30,7 @@ public abstract class Property extends Field{
         Player currentPlayer = gameState.getActivePlayer();
         if (owner == null) {
             if (currentPlayer.getBalance() >= price) {
-                String msg = "Du er landet på " + name + " Vil du købe den for " + price + "kr";
-                boolean wantToBuy = gameState.getGuiController().getUserLeftButtonPressed(msg, "Ja", "Nej");
+                boolean wantToBuy = gameState.getGuiController().getUserLeftButtonPressed(Language.getInstance().getLanguageValue("landOnField",name,"" + price), Language.getInstance().getLanguageValue("ja"), Language.getInstance().getLanguageValue("nej"));
 
                 if (wantToBuy) {
                     owner = currentPlayer;
@@ -40,8 +40,7 @@ public abstract class Property extends Field{
                 }
             } else {
                 //Player cant buy (possibly give the player an option to sell other values and then buy?)
-                String msg = "Du er landet på " + name + " Til en værdi af " + price + "og har desværre ikke råd til at købe den";
-                gameState.getGuiController().displayMsg(msg);
+                gameState.getGuiController().displayMsg(Language.getInstance().getLanguageValue("landOnFieldNoFunds",name,""+price));
 
                 this.auction(gameState);
             }
@@ -50,22 +49,18 @@ public abstract class Property extends Field{
             int rentToPay = getRentAmount(gameState)*rentMultiplier;
 
             if (owner == currentPlayer) {
-                String msg = "Du er landet på din egen grund";
-                gameState.getGuiController().displayMsg(msg);
+                gameState.getGuiController().displayMsg(Language.getInstance().getLanguageValue("ownField"));
 
             } else if (gameState.getFieldController().isJailed(owner)) {
-                String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " men da ejeren er i fængsel betales ingen leje ";
-                gameState.getGuiController().displayMsg(msg);
+                gameState.getGuiController().displayMsg(Language.getInstance().getLanguageValue("landOnFieldOwnerJailed",name,owner.getIdentifier()));
 
             } else if (currentPlayer.setBalance(-rentToPay) || gameState.getFieldController().sell(currentPlayer, -rentToPay, gameState)) {
-                String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " betal leje " + rentToPay;
-                gameState.getGuiController().displayMsg(msg);
+                gameState.getGuiController().displayMsg(Language.getInstance().getLanguageValue("landOnFieldOwned",name,owner.getIdentifier(),"" + rentToPay));
 
                 owner.setBalance(rentToPay);
                 gameState.getGuiController().updatePlayer(owner);
             } else {
-                String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " du har ikke råd til at betale lejen";
-                gameState.getGuiController().displayMsg(msg);
+                gameState.getGuiController().displayMsg(Language.getInstance().getLanguageValue("landOnFieldPlayerBankrupt",name,owner.getIdentifier()));
                 //Cant pay the rent
 
                 gameState.getPlayerController().removePlayer(currentPlayer.getID());
@@ -81,8 +76,8 @@ public abstract class Property extends Field{
         int k= -1;
         int bid = 0;
         do{
-            if(players[index].getBalance()>bid && gameStateDTO.getGuiController().getUserLeftButtonPressed(players[index].getIdentifier() + " do you want to bid?", "yes", "no")){
-                bid = gameStateDTO.getGuiController().getBid("Hvor meget vil du byde? Sidste bud var " + bid, bid + 1, players[index].getBalance());
+            if(players[index].getBalance()>bid && gameStateDTO.getGuiController().getUserLeftButtonPressed(Language.getInstance().getLanguageValue("auctionAction",players[index].getIdentifier()),Language.getInstance().getLanguageValue("ja"), Language.getInstance().getLanguageValue("nej"))){
+                bid = gameStateDTO.getGuiController().getBid(Language.getInstance().getLanguageValue("landOnFieldAuction","" + bid),  bid + 1, players[index].getBalance());
                 k=index;
             }
             index = (index + 1) % players.length;
