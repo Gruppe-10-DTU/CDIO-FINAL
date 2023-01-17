@@ -210,7 +210,7 @@ public class GUIController {
 
     public String getOutOfJailOptions(boolean canPay, boolean hasChanceCard) {
         String message = Language.getInstance().getLanguageValue("getOutOfJail");
-        String pay = Language.getInstance().getLanguageValue("payOutOfJail");
+        String pay = Language.getInstance().getLanguageValue("payOutOfJail", "1000");
         String roll = Language.getInstance().getLanguageValue("rollOutOfJail");
         String card = Language.getInstance().getLanguageValue("cardOutOfJail");
         String choice;
