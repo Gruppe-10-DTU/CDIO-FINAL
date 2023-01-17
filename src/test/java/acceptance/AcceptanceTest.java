@@ -302,6 +302,7 @@ public class AcceptanceTest {
         gc.takeTurn(pc.getPlayerById(1));
         gc.takeTurn(pc.getPlayerById(0));
         gc.takeTurn(pc.getPlayerById(1));
+        pc.getPlayerById(0).setBalance(-pc.getPlayerById(0).getBalance());
         gc.takeTurn(pc.getPlayerById(0));
         gui.displayMsg("Testen er ovre");
     }
