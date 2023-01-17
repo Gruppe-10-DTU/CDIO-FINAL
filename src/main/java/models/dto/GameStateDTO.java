@@ -2,6 +2,7 @@ package models.dto;
 
 import controllers.DiceHolder;
 import controllers.FieldController;
+import controllers.GameController;
 import controllers.PlayerController;
 import models.Player;
 import models.chanceCards.Deck;
@@ -19,6 +20,7 @@ public class GameStateDTO implements IGameStateDTO {
 
     private PlayerController playerController;
     private Deck chanceCardDeck;
+    private GameController gameController;
 
     private boolean reverse;
 
@@ -95,5 +97,13 @@ public class GameStateDTO implements IGameStateDTO {
 
     public void setOtherPlayers(ArrayList<Player> otherPlayers) {
         this.otherPlayers = otherPlayers;
+    }
+
+    public GameController getGameController() {
+        return gameController;
+    }
+
+    public void setGameController(GameController gameController) {
+        this.gameController = gameController;
     }
 }

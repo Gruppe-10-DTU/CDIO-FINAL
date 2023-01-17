@@ -5,21 +5,21 @@ import models.Player;
 
 public class Grant extends ChanceCard{
 
-    private final int BONUS;
-    private final int NET_WORTH;
-    public Grant(String NAME, String Description, int MaximumPlayerWorth, int AwardsBonus) {
-        super(NAME, Description);
-        this.BONUS = AwardsBonus;
-        this.NET_WORTH = MaximumPlayerWorth;
+    private final int bonus;
+    private final int netWorth;
+    public Grant(String name, String description, int netWorth, int bonus) {
+        super(name, description);
+        this.bonus = bonus;
+        this.netWorth = netWorth;
     }
     @Override
     public void chanceEffect(IGameStateDTO gameState){
         gameState.getGuiController().showChanceCard(this.description);
         Player player = gameState.getActivePlayer();
         int playerWorth = player.getBalance() + gameState.getFieldController().playerPropertyValues(player);
-        if(playerWorth < NET_WORTH){
+        if(playerWorth < netWorth){
             gameState.getGuiController().displayMsg("Du modtager matador-legatet");
-            player.setBalance(BONUS);
+            player.setBalance(bonus);
         }
         gameState.getGuiController().updatePlayer(player);
         gameState.getChanceCardDeck().returnToDeck(this);

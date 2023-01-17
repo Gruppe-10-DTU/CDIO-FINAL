@@ -42,9 +42,9 @@ class FieldControllerTest {
         CSVMock.add(new ArrayList<>(Arrays.asList("Helsingør - Helsingborg","0","ferry","4000","","500","1000","2000","4000","","","")));
         CSVMock.add(new ArrayList<>(Arrays.asList("Start","1","start","","","","","","","","","")));
         CSVMock.add(new ArrayList<>(Arrays.asList("Rødovrevej","2","street","1200","1000","50","250","750","2250","4000","6000","blue")));
-        CSVMock.add(new ArrayList<>(Arrays.asList("Hvidovrevej","5","street","1200","1000","50","250","400","750","2250","6000","blue")));
-        CSVMock.add(new ArrayList<>(Arrays.asList("Prøv lykken","3","chance","","","","","","","","","")));
-        CSVMock.add(new ArrayList<>(Arrays.asList("I fængsel/På besøg","4","jail","1000","","","","","","","","")));
+        CSVMock.add(new ArrayList<>(Arrays.asList("Hvidovrevej","3","street","1200","1000","50","250","400","750","2250","6000","blue")));
+        CSVMock.add(new ArrayList<>(Arrays.asList("Prøv lykken","4","chance","","","","","","","","","")));
+        CSVMock.add(new ArrayList<>(Arrays.asList("I fængsel/På besøg","5","jail","1000","","","","","","","","")));
         CSVMock.add(new ArrayList<>(Arrays.asList("Fængsel","6","jail","0","","","","","","","","")));
         CSVMock.add(new ArrayList<>(Arrays.asList("Amagertorv","7","street","6000","4000","550","2600","7800","18000","22000","25000","yellow")));
         CSVMock.add(new ArrayList<>(Arrays.asList("Vimmelskaftet","8","street","6000","4000","550","2600","7800","18000","22000","25000","yellow")));
@@ -214,33 +214,18 @@ class FieldControllerTest {
     }
 
     @Test
-    void countHouse() {
+    void sellProperty() {
         fieldcontroller.fieldArrayList.remove(9);
-        //Misleading name. It doesn't count the total amount of houses, it counts how many properties the player owns, that still has houses left.
+        //Sells a house from a curated selection, curated by the max amount of house on colour group.
         for(Object field : fieldcontroller.fieldArrayList){
             if(field instanceof Street){
                 ((Street) field).setOwner(mockPlayer1);
             }
         }
         ((Street) fieldcontroller.getField(2)).setHouseAmount(1);
-        assertEquals(1,fieldcontroller.countHouse(fieldcontroller.ownsColourGroup(mockPlayer1)));
+        assertEquals(1,fieldcontroller.propertyWithBuilding(fieldcontroller.ownsColourGroup(mockPlayer1)).get("blue").length);
         ((Street) fieldcontroller.getField(3)).setHouseAmount(1);
-        assertEquals(2,fieldcontroller.countHouse(fieldcontroller.ownsColourGroup(mockPlayer1)));
-    }
-
-    @Test
-    void checkSell() {
-        fieldcontroller.fieldArrayList.remove(9);
-        //Might seem a bit redundant however, it used to check if the chosen color has any houses left and sort by those that still have.
-        for(Object field : fieldcontroller.fieldArrayList){
-            if(field instanceof Street){
-                ((Street) field).setOwner(mockPlayer1);
-            }
-        }
-        ((Street) fieldcontroller.getField(2)).setHouseAmount(1);
-       assertEquals(1,fieldcontroller.checkSell(fieldcontroller.ownsColourGroup(mockPlayer1)).get("blue").length);
-        ((Street) fieldcontroller.getField(3)).setHouseAmount(1);
-        assertEquals(2,fieldcontroller.checkSell(fieldcontroller.ownsColourGroup(mockPlayer1)).get("blue").length);
+        assertEquals(2,fieldcontroller.propertyWithBuilding(fieldcontroller.ownsColourGroup(mockPlayer1)).get("blue").length);
     }
 
     @Test

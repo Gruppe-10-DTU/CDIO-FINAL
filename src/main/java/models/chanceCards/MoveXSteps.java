@@ -6,18 +6,18 @@ import models.dto.IGameStateDTO;
 
 public class MoveXSteps extends ChanceCard{
 
-    private final int MAX_STEPS;
+    private final int maxSteps;
 
     /**
      *
-     * @param Name card name
-     * @param Description card text
-     * @param StepsToMove how many steps the card moves the player
+     * @param name card name
+     * @param description card text
+     * @param maxSteps how many steps the card moves the player
      */
-         public MoveXSteps(String Name, String Description, int StepsToMove) {
-        super(Name, Description);
+         public MoveXSteps(String name, String description, int maxSteps) {
+        super(name, description);
 
-        this.MAX_STEPS = StepsToMove;
+        this.maxSteps = maxSteps;
     }
 
     @Override
@@ -27,8 +27,8 @@ public class MoveXSteps extends ChanceCard{
         PlayerController playerController = gameState.getPlayerController();
         Player activePlayer = gameState.getActivePlayer();
         gameState.getGuiController().showChanceCard(this.description);
-        playerController.playerMove(activePlayer, this.MAX_STEPS * direction);
-        if (MAX_STEPS < 0) {
+        playerController.playerMove(activePlayer, this.maxSteps * direction);
+        if (maxSteps < 0) {
             gameState.getGuiController().movePlayer(activePlayer, !gameState.isReverse());
         } else {
             gameState.getGuiController().movePlayer(activePlayer, gameState.isReverse());

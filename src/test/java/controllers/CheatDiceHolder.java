@@ -20,6 +20,12 @@ public class CheatDiceHolder extends DiceHolder{
     }
 
     @Override
+    public int sum(boolean reverse) {
+        int sum = Arrays.stream(rolls).sum();
+        return (reverse) ? sum*-1 : sum;
+    }
+
+    @Override
     public int[] getRolls() {
         return this.rolls;
     }

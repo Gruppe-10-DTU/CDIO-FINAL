@@ -174,7 +174,7 @@ public class FieldController {
         return fieldArrayList;
     }
 
-    public int distToFirstFerry(Player player, boolean gameInReverse){
+    public int distToFirstFerry(Player player, boolean gameInReverse) {
         int boardSize = StartValues.getInstance().getValue("boardSize");
         int direction = 1;
         if (gameInReverse) direction *= -1;
@@ -263,7 +263,7 @@ public class FieldController {
                     localData.clear();
                     break;
                 } else {
-                    if(fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).getOwner() == player) {
+                    if (fieldArrayList.get(k) instanceof Street && ((Street) fieldArrayList.get(k)).getOwner() == player) {
                         localData.add((Street) fieldArrayList.get(k));
                     }
                 }
@@ -288,7 +288,7 @@ public class FieldController {
                     minVal = entry.getValue()[i].getHouseAmount();
                 }
             }
-            if(minVal != 5){
+            if (minVal != 5) {
                 for (int i = 0; i < entry.getValue().length; i++) {
                     if (entry.getValue()[i].getHouseAmount() == minVal) {
                         sortedStreet.add(entry.getValue()[i]);
@@ -303,57 +303,47 @@ public class FieldController {
         return buildingMap;
     }
 
-    public int countHouse(Map<String, Street[]> countHouses) {
-        int counter = 0;
-        for (Map.Entry<String, Street[]> entry : countHouses.entrySet()) {
-            for (int i = 0; i < entry.getValue().length; i++) {
-                if (entry.getValue()[i].getHouseAmount() > 0) {
-                    counter++;
-                }
-            }
-        }
-        return counter;
-    }
-
-    public Map<String, Street[]> checkSell(Map<String, Street[]> checkProps){
+    public Map<String, Street[]> propertyWithBuilding(Map<String, Street[]> checkProps) {
+        int minVal = 0;
         ArrayList<Street> sortedStreet = new ArrayList<>();
+        HashMap<String, Street[]> buildingMap = new HashMap<>();
         for (Map.Entry<String, Street[]> entry : checkProps.entrySet()) {
             for (int i = 0; i < entry.getValue().length; i++) {
-                if (entry.getValue()[i].getHouseAmount() > 0){
+                if (entry.getValue()[i].getHouseAmount() != minVal) {
                     sortedStreet.add(entry.getValue()[i]);
                 }
             }
-
             if (!sortedStreet.isEmpty()) {
-                checkProps.replace(entry.getKey(), sortedStreet.toArray(Street[]::new));
+                buildingMap.put(entry.getKey(), sortedStreet.toArray(Street[]::new));
                 sortedStreet.clear();
             }
         }
-        return checkProps;
+        return buildingMap;
     }
 
     public void addBuilding(Street property) {
-        if(property.getHouseAmount() < 4) {
+        if (property.getHouseAmount() < 4) {
             property.setHouseAmount(property.getHouseAmount() + 1);
             property.getOwner().setBalance(-property.getHousePrice());
-            setHousePool(getHousePool()-1);
-        }else if(property.getHouseAmount() == 4){
-            property.setHouseAmount(property.getHouseAmount()+1);
+            setHousePool(getHousePool() - 1);
+        } else if (property.getHouseAmount() == 4) {
+            property.setHouseAmount(property.getHouseAmount() + 1);
             property.getOwner().setBalance(-property.getHousePrice());
             property.setHotel(true);
-            setHotelPool(getHotelPool()-1);
+            setHotelPool(getHotelPool() - 1);
         }
     }
 
-    public Street getStreetFromString(String street){
+    public Street getStreetFromString(String street) {
         Street field = null;
         for (int i = 0; i < fieldArrayList.size(); i++) {
-            if(fieldArrayList.get(i).getName().equals(street)){
+            if (fieldArrayList.get(i).getName().equals(street)) {
                 field = (Street) fieldArrayList.get(i);
             }
         }
         return field;
     }
+
     public int getHousePool() {
         return housePool;
     }
@@ -369,24 +359,25 @@ public class FieldController {
     public void setHotelPool(int hotelPool) {
         this.hotelPool = hotelPool;
     }
-    public void sellBuilding(Street property, int amountToSell){
-        if(property.isHotel()){
-            property.setHouseAmount(property.getHouseAmount()-5);
-            property.getOwner().setBalance((property.getHousePrice()/2)*5);
+
+    public void sellBuilding(Street property, int amountToSell) {
+        if (property.isHotel()) {
+            property.setHouseAmount(property.getHouseAmount() - 5);
+            property.getOwner().setBalance((property.getHousePrice() / 2) * 5);
             property.setHotel(false);
-            setHotelPool(hotelPool+1);
-        }else {
+            setHotelPool(hotelPool + 1);
+        } else {
             property.setHouseAmount(property.getHouseAmount() - amountToSell);
-            property.getOwner().setBalance((property.getHousePrice()/2)*amountToSell);
-            setHousePool(housePool+amountToSell);
+            property.getOwner().setBalance((property.getHousePrice() / 2) * amountToSell);
+            setHousePool(housePool + amountToSell);
         }
     }
 
-    public int[] housesAndHotelsOwned (Player player){
+    public int[] housesAndHotelsOwned(Player player) {
         int houses = 0;
         int hotels = 0;
         for (Field field : fieldArrayList) {
-            if (field instanceof Street && ((Street) field).getOwner() != null &&((Street) field).getOwner().equals(player)){
+            if (field instanceof Street && ((Street) field).getOwner() != null && ((Street) field).getOwner().equals(player)) {
                 if (((Street) field).isHotel()) hotels++;
                 else houses += ((Street) field).getHouseAmount();
             }
@@ -394,16 +385,40 @@ public class FieldController {
         return new int[]{houses, hotels};
     }
 
-    public Property[] removePlayer(Player player){
+    public Property[] removePlayer(Player player) {
         ArrayList<Property> properties = new ArrayList<>();
-        for (Field field: fieldArrayList
-             ) {
-            if(field instanceof Property && ((Property) field).getOwner() == player){
+        for (Field field : fieldArrayList
+        ) {
+            if (field instanceof Property && ((Property) field).getOwner() == player) {
                 ((Property) field).setOwner(null);
                 properties.add((Property) field);
             }
         }
         return properties.toArray(Property[]::new);
+    }
+    public boolean sell(Player affectedPlayer, int price, IGameStateDTO gameState){
+        Map<String, Street[]> ownsGroup = ownsColourGroup(affectedPlayer);
+        while(!affectedPlayer.setBalance(price)){
+            Map<String, Street[]> buildingsToSell = propertyWithBuilding(ownsGroup);
+            if (buildingsToSell.size() == 0) {
+                gameState.getGuiController().displayMsg("You cannot pay the rent, and therefore you are disqualified from the game.");
+                gameState.getPlayerController().removePlayer(affectedPlayer.getID());
+                return false;
+            } else {
+                //Find the properties the player can sell for
+                String colorChosen = gameState.getGuiController().selectColorBuild("Choose where you want to sell buildings from", buildingsToSell.keySet().toArray(String[]::new));
+                String whereToSell = gameState.getGuiController().selectBuild("Sell building. 1 house sells for: " + buildingsToSell.get(colorChosen)[0].getHousePrice() / 2 + "", buildingsToSell.get(colorChosen));
+                Street target = getStreetFromString(whereToSell);
+                if (target.isHotel()) {
+                    sellBuilding(getStreetFromString(whereToSell), 0);
+                    gameState.getGuiController().guiRemoveHotel(getStreetFromString(whereToSell));
+                } else {
+                    gameState.getGuiController().guiAddHouse(target, target.getHouseAmount()-1);
+                }
+                affectedPlayer.setBalance(target.getHousePrice()/2);
+            }
+        }
+        return true;
     }
 }
 
