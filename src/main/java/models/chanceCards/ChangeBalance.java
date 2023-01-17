@@ -2,24 +2,21 @@ package models.chanceCards;
 
 import models.Player;
 import models.dto.IGameStateDTO;
-import models.fields.Street;
-
-import java.util.Map;
 
 public class ChangeBalance extends ChanceCard{
 
-    private final int EFFECT;
-    private final boolean FROM_OTHERS;
+    private final int effect;
+    private final boolean fromOthers;
 
     /**
      * Constructor for the ChanceCards that have an effect on the player's money.
      * @param Name        Must match a key in the language hashmap
      * @param Description Must be imported from the language hashmap
      */
-    public ChangeBalance(String Name, String Description, int EFFECT, boolean FromOtherPlayers) {
-        super(Name, Description);
-        this.EFFECT = EFFECT;
-        this.FROM_OTHERS = FromOtherPlayers;
+    public ChangeBalance(String name, String description, int effect, boolean fromOthers) {
+        super(name, description);
+        this.effect = effect;
+        this.fromOthers = fromOthers;
     }
 
     @Override
@@ -27,14 +24,14 @@ public class ChangeBalance extends ChanceCard{
         Player currentPlayer = gameState.getActivePlayer();
         int total = 0;
         gameState.getGuiController().showChanceCard(description);
-        if (FROM_OTHERS) {
+        if (fromOthers) {
             for (Player otherPlayer : gameState.getOtherPlayers()) {
-                if (otherPlayer.setBalance(EFFECT * -1) || gameState.getFieldController().sell(otherPlayer, EFFECT, gameState)){
-                    total += EFFECT;
+                if (otherPlayer.setBalance(effect * -1) || gameState.getFieldController().sell(otherPlayer, effect, gameState)){
+                    total += effect;
                 }
             }
-        }else total = EFFECT;
-        if (!currentPlayer.setBalance(total) || !gameState.getFieldController().sell(currentPlayer, EFFECT, gameState)) {
+        }else total = effect;
+        if (!currentPlayer.setBalance(total) || !gameState.getFieldController().sell(currentPlayer, effect, gameState)) {
             gameState.getGuiController().displayMsg("Du har ikke penge nok til at betale bøden og må derfor forlade spillet");
             gameState.getPlayerController().removePlayer(currentPlayer.getID());
         }

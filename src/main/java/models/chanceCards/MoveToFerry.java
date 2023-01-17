@@ -5,13 +5,13 @@ import models.dto.IGameStateDTO;
 
 public class MoveToFerry extends ChanceCard{
 
-    private final int RENT_MULTIPLIER;
-    private final boolean PASS_START_BONUS;
+    private final int rentMultiplier;
+    private final boolean passStartBonus;
 
-    public MoveToFerry(String NAME, String Description, int RentMultiplier, boolean PassStartBonus) {
-        super(NAME, Description);
-        this.RENT_MULTIPLIER = RentMultiplier;
-        this.PASS_START_BONUS = PassStartBonus;
+    public MoveToFerry(String name, String description, int rentMultiplier, boolean passStartBonus) {
+        super(name, description);
+        this.rentMultiplier = rentMultiplier;
+        this.passStartBonus = passStartBonus;
     }
 
     @Override
@@ -20,16 +20,16 @@ public class MoveToFerry extends ChanceCard{
         Player player = gameState.getActivePlayer();
         int distToFerry = gameState.getFieldController().distToFirstFerry(player, gameState.isReverse());
 
-        if(PASS_START_BONUS) {
+        if(passStartBonus) {
             gameState.getPlayerController().playerMove(player, distToFerry);
         }else player.setLocation(player.getLocation() + distToFerry);
 
         gameState.getGuiController().movePlayer(player, gameState.isReverse());
 
-        if(RENT_MULTIPLIER == 1){
+        if(rentMultiplier == 1){
             gameState.getFieldController().landOnField(gameState);
         }else {
-            gameState.getFieldController().landOnField(gameState, RENT_MULTIPLIER);
+            gameState.getFieldController().landOnField(gameState, rentMultiplier);
         }
         gameState.getChanceCardDeck().returnToDeck(this);
     }
