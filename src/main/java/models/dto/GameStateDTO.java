@@ -98,9 +98,6 @@ public class GameStateDTO implements IGameStateDTO {
         this.otherPlayers = otherPlayers;
     }
 
-    public GameController getGameController() {
-        return gameController;
-    }
 
     public void setGameController(GameController gameController) {
         this.gameController = gameController;

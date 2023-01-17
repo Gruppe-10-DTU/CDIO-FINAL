@@ -171,14 +171,6 @@ public class GUIController {
         gui.getUserButtonPressed(rollText, rollButton);
     }
 
-    /**
-     * @param emtpyFieldChoice Text to display
-     * @param properties The choices you have
-     */
-    public int getPropertyChoice(String emtpyFieldChoice, Street[] properties) {
-        String choice = gui.getUserSelection(emtpyFieldChoice, Arrays.stream(properties).map(Field::getName).toArray(String[]::new));
-        return Arrays.stream(properties).filter(field->field.getName()==choice).findFirst().get().getID();
-    }
 
     /**
      * Iterates through every player and every field and updates the gui
@@ -241,10 +233,6 @@ public class GUIController {
     public String selectBuild(String selectBuild, Street[] choices){
         String[] strings = Arrays.stream(choices).map((x -> x.getName())).toArray(String[]::new);
         return gui.getUserSelection(selectBuild, strings);
-    }
-
-    public String amountOfHouses(String amountOfHouses){
-        return gui.getUserString(amountOfHouses);
     }
 
     public void guiAddHouse(Street property, int amount){
