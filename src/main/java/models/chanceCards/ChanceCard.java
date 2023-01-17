@@ -9,7 +9,7 @@ public abstract class ChanceCard {
     /**
      * Super constructor
      * @param name        Must match a key in the language hashmap
-     * @param Description Must be imported from the language hashmap
+     * @param description Must be imported from the language hashmap
      */
     public ChanceCard(String name, String description){
         this.name = name;
