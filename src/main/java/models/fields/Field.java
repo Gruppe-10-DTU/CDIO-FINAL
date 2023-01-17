@@ -1,7 +1,9 @@
 package models.fields;
 import models.dto.IGameStateDTO;
+import models.Language;
 
 public abstract class Field {
+    protected Language language;
     protected String name;
     protected int iD;
 

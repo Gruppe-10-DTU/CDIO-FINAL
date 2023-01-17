@@ -79,7 +79,7 @@ public class GameController implements ActionListener {
     }
 
     public void startGame(){
-        reverse = guiController.getUserLeftButtonPressed("Hvilken retning skal spillet gå", "Mod uret", "Med uret");
+        reverse = guiController.getUserLeftButtonPressed(Language.getInstance().getLanguageValue("chooseDirection"), Language.getInstance().getLanguageValue("clockwise"), Language.getInstance().getLanguageValue("counterClockwise"));
         gameState.setReverse(reverse);
 
         guiController.setPlayers(playerController.getPlayers());
@@ -114,19 +114,19 @@ public class GameController implements ActionListener {
         Map<String,Street[]> placesToBuild = fieldController.buildEqual(ownsGroup);
         //Tjek huskøb
         if(placesToBuild.size() >= 1) {
-            looper = guiController.getUserLeftButtonPressed(language.getLanguageValue("canBuild", player.getIdentifier()), "Ja", "Nej");
+            looper = guiController.getUserLeftButtonPressed(Language.getInstance().getLanguageValue("canBuild", player.getIdentifier()), Language.getInstance().getLanguageValue( "ja"), Language.getInstance().getLanguageValue("nej"));
             boolean loopdeloop = true;
             //Hvor kan der bygges?
             while (looper && placesToBuild.size() >= 1) {
                 if (!loopdeloop) {
-                    looper = guiController.getUserLeftButtonPressed(language.getLanguageValue("canBuild", player.getIdentifier()), "Ja", "Nej");
+                    looper = guiController.getUserLeftButtonPressed(Language.getInstance().getLanguageValue("canBuild", player.getIdentifier()), Language.getInstance().getLanguageValue( "ja"), Language.getInstance().getLanguageValue("nej"));
                     if(!looper) break;
                 }
                 loopdeloop = false;
                     String colorChosen = guiController.selectColorBuild(language.getLanguageValue("chooseColorOptions"), placesToBuild.keySet().toArray(String[]::new));
                     String whereToBuild = guiController.selectBuild(language.getLanguageValue("selectBuildingText","" + placesToBuild.get(colorChosen)[0].getHousePrice()), placesToBuild.get(colorChosen));
                     if (player.getBalance() < fieldController.getStreetFromString(whereToBuild).getHousePrice()) {
-                        looper = guiController.getUserLeftButtonPressed(language.getLanguageValue("lackingFunds"), "Ja", "Nej");
+                        looper = guiController.getUserLeftButtonPressed(Language.getInstance().getLanguageValue("lackingFunds"), Language.getInstance().getLanguageValue( "ja"), Language.getInstance().getLanguageValue("nej"));
                     } else {
                         if (fieldController.getStreetFromString(whereToBuild).getHousePrice() <= player.getBalance() && fieldController.getStreetFromString(whereToBuild).getHouseAmount() < 5) {
                            if(fieldController.getStreetFromString(whereToBuild).getHouseAmount() < 4 && fieldController.getHousePool() > 0) {
@@ -140,7 +140,7 @@ public class GameController implements ActionListener {
                            }
 
                         } else {
-                            looper = guiController.getUserLeftButtonPressed(language.getLanguageValue("lackingFunds"), "Ja", "Nej");
+                            looper = guiController.getUserLeftButtonPressed(Language.getInstance().getLanguageValue("lackingFunds"), Language.getInstance().getLanguageValue( "ja"), Language.getInstance().getLanguageValue("nej"));
                         }
                     }
                     placesToBuild = fieldController.buildEqual(fieldController.ownsColourGroup(player));
@@ -161,7 +161,7 @@ public class GameController implements ActionListener {
                     diceHolder.setSameRolls(0);
                 }
                 if (diceHolder.getSameRolls() == 3) {
-                    guiController.displayMsg("Ulovligheder! De har rullet ens 3 gange i træk og skal derfor i fængsel.");
+                    guiController.displayMsg(Language.getInstance().getLanguageValue("3doubles"));
                     fieldController.jailPlayer(currentPlayer);
                     diceHolder.setSameRolls(0);
                 } else {

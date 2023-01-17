@@ -106,6 +106,7 @@ public class AcceptanceTest {
     public void AK11_12(){
         pc.addPlayer(0,"UFO","buyBrewery/Docks-Test",2);
         pc.addPlayer(1,"UFO","Dummy1",2);
+        gs.setReverse(false);
 
         gui.setPlayers(pc.getPlayers());
         Brewery brew = (Brewery) fc.getField(12);

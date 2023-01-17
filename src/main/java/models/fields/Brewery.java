@@ -2,9 +2,10 @@ package models.fields;
 
 import models.Player;
 import models.dto.IGameStateDTO;
+import models.Language;
+
 
 public class Brewery extends Property{
-
     private int rent0;
     private int rent1;
 
@@ -32,8 +33,8 @@ public class Brewery extends Property{
         if (owner == null) {
 
             if (currentPlayer.getBalance() > price) {
-                String msg = "Du er landet på " + name + " Vil du købe den for " + price + "kr";
-                boolean wantToBuy = gameState.getGuiController().getUserLeftButtonPressed(msg, "Ja", "Nej");
+                String msg = Language.getInstance().getLanguageValue(Language.getInstance().getLanguageValue("landOnField", name) + price);
+                boolean wantToBuy = gameState.getGuiController().getUserLeftButtonPressed(msg, Language.getInstance().getLanguageValue("ja"), Language.getInstance().getLanguageValue("nej"));
 
                 if (wantToBuy) {
                     owner = currentPlayer;
@@ -43,7 +44,7 @@ public class Brewery extends Property{
                 }
             } else {
                 //Player cant buy (possibly give the player an option to sell other values and then buy?)
-                String msg = "Du er landet på " + name + " Til en værdi af " + price + "og har desværre ikke råd til at købe den";
+                String msg = Language.getInstance().getLanguageValue("landOnFieldsNoFunds",name);
 
                 gameState.getGuiController().displayMsg(msg);
                 this.auction(gameState);
@@ -62,13 +63,13 @@ public class Brewery extends Property{
             }
 
             if (owner == currentPlayer) {
-                String msg = "Du er landet på din egen grund";
+                String msg = Language.getInstance().getLanguageValue("ownField");
                 gameState.getGuiController().displayMsg(msg);
             } else if (gameState.getFieldController().isJailed(owner)) {
-                String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " men da ejeren er i fængsel betales ingen leje ";
+                String msg = Language.getInstance().getLanguageValue("landOnFieldOwnerJailed", name, owner.getIdentifier());
                 gameState.getGuiController().displayMsg(msg);
             } else if (currentPlayer.getBalance() >= rentToPay) {
-                String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " betal leje " + rentToPay;
+                String msg = Language.getInstance().getLanguageValue("landOnFieldOwned", name, owner.getIdentifier(), "" + rentToPay);
                 gameState.getGuiController().displayMsg(msg);
 
                 currentPlayer.setBalance(-rentToPay);
@@ -76,13 +77,13 @@ public class Brewery extends Property{
                 gameState.getGuiController().updatePlayer(owner);
             } else {
                 //Cant pay the rent
-                String msg = "Du er landet på " + name + "Der ejes af " + owner.getIdentifier() + " du har ikke råd til at betale lejen";
+                String msg =  Language.getInstance().getLanguageValue("landOnFieldPlayerBankrupt",name,owner.getIdentifier());
                 gameState.getGuiController().displayMsg(msg);
 
                 //Cant pay the rent
                 while (currentPlayer.getBalance() < rentToPay) {
                     if (gameState.getFieldController().countHouse(gameState.getFieldController().ownsColourGroup(currentPlayer)) == 0) {
-                        gameState.getGuiController().displayMsg("You cannot pay the rent, and therefore you are disqualified from the game.");
+                        gameState.getGuiController().displayMsg(Language.getInstance().getLanguageValue("disqualified"));
                         owner.setBalance(currentPlayer.getBalance());
                         currentPlayer.setBalance(-currentPlayer.getBalance());
                         gameState.getGuiController().updatePlayer(currentPlayer);

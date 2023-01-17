@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Language {
@@ -17,12 +19,15 @@ public class Language {
         updateLanguage(language);
     }
 
-    //Returns the value to the requestes key, kan add extra string if the value includes {0}
+    //Returns the value to the requestes key, can add extra string if the value includes {0}
     public String getLanguageValue(String key, String...txt) {
         String value = languageValues.get(key);
-        value = value.replace("{0}", txt[0]);
+        for (int i = 0; i < txt.length ; i++) {
+            value = value.replace("{"+i+"}",txt[i]);
+        }
         return value;
     }
+
     public String getLanguageValue(String key) {
         return languageValues.get(key);
     }
