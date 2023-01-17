@@ -9,8 +9,8 @@ public class GetOutOfJail extends ChanceCard{
      * @param Name        Must match a key in the language hashmap
      * @param Description Must be imported from the language hashmap
      */
-    public GetOutOfJail(String Name, String Description) {
-        super(Name, Description);
+    public GetOutOfJail(String name, String description) {
+        super(name, description);
     }
 
     @Override

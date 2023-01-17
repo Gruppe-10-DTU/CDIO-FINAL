@@ -7,19 +7,19 @@ import models.dto.IGameStateDTO;
 
 public class MoveToField extends ChanceCard{
 
-    private final int FIELD_ID;
-    private final boolean PASS_START_BONUS;
+    private final int fieldId;
+    private final boolean passStartBonus;
 
     /**
      * Constructor for the Chance-cards that move the player to a specific field.
-     * @param Name        Must match a key in the language hashmap
-     * @param Description Must be imported from the language hashmap
-     * @param FIELD_ID   The name of the field to move to
+     * @param name        Must match a key in the language hashmap
+     * @param description Must be imported from the language hashmap
+     * @param fieldId   The name of the field to move to
      */
-    public MoveToField(String Name, String Description, boolean PassStartBonus, int FIELD_ID) {
-        super(Name, Description);
-        this.PASS_START_BONUS = PassStartBonus;
-        this.FIELD_ID = FIELD_ID;
+    public MoveToField(String name, String description, boolean passStartBonus, int fieldId) {
+        super(name, description);
+        this.passStartBonus = passStartBonus;
+        this.fieldId = fieldId;
     }
 
     @Override
@@ -29,9 +29,9 @@ public class MoveToField extends ChanceCard{
         PlayerController playerController = gameState.getPlayerController();
         Player activePlayer = gameState.getActivePlayer();
 
-        if(!(PASS_START_BONUS)){
-            activePlayer.setLocation(FIELD_ID);
-            if(FIELD_ID == 10){
+        if(!(passStartBonus)){
+            activePlayer.setLocation(fieldId);
+            if(fieldId == 10){
                 gameState.getFieldController().jailPlayer(activePlayer);
             }else {
                 gameState.getFieldController().landOnField(gameState);
@@ -39,12 +39,12 @@ public class MoveToField extends ChanceCard{
             gameState.getGuiController().movePlayer(activePlayer, gameState.isReverse());
         }else {
             int spacesToMove;
-            if (gameState.isReverse() && FIELD_ID > activePlayer.getLocation()) {
-                spacesToMove = (FIELD_ID - (boardSize + activePlayer.getLocation()));
-            } else if (!gameState.isReverse() && FIELD_ID < activePlayer.getLocation()) {
-                spacesToMove = (FIELD_ID + boardSize) - activePlayer.getLocation();
+            if (gameState.isReverse() && fieldId > activePlayer.getLocation()) {
+                spacesToMove = (fieldId - (boardSize + activePlayer.getLocation()));
+            } else if (!gameState.isReverse() && fieldId < activePlayer.getLocation()) {
+                spacesToMove = (fieldId + boardSize) - activePlayer.getLocation();
             } else {
-                spacesToMove = (FIELD_ID - activePlayer.getLocation());
+                spacesToMove = (fieldId - activePlayer.getLocation());
             }
             playerController.playerMove(activePlayer, spacesToMove);
             gameState.getGuiController().movePlayer(activePlayer, gameState.isReverse());
