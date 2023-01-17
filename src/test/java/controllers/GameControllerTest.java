@@ -14,28 +14,26 @@ class GameControllerTest {
     PlayerController pc;
     FieldController fieldController;
     GUIControllerStub gui;
-    Language language;
     Deck deck;
     GameStateDTO gameState;
 
     @BeforeEach
     void setUp() {
-        language = new Language();
-        fieldController = new FieldController(language);
+        fieldController = new FieldController();
         gui = new GUIControllerStub(fieldController.getFieldList());
         gameState = new GameStateDTO(gui);
         diceHolder = new CheatDiceHolder(2);
         gameState.setDiceHolder(diceHolder);
         pc = new PlayerController();
         gameState.setPlayerController(pc);
-        deck = new Deck(language);
+        deck = new Deck();
         gameState.setChanceCardDeck(deck);
         gameState.setFieldController(fieldController);
         for (int i = 0; i < gui.playerAmount("test"); i++) {
             pc.addPlayer(i, gui.selectCharacter("test", "test"), gui.getName("test"),0);
         }
 
-        gameController = new GameController(gameState, language, deck);
+        gameController = new GameController(gameState, deck);
     }
 
     @Test

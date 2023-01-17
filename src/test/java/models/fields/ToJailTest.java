@@ -3,7 +3,6 @@ package models.fields;
 import controllers.FieldController;
 import controllers.GUIControllerStub;
 import controllers.PlayerController;
-import models.Language;
 import models.dto.GameStateDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,7 +18,7 @@ class ToJailTest {
         PlayerController playerController = new PlayerController();
         playerController.addPlayer(0,"car","player1",0);
         playerController.addPlayer(1,"car", "player2", 1);
-        FieldController fieldController = new FieldController(new Language());
+        FieldController fieldController = new FieldController();
         gameState = new GameStateDTO(new GUIControllerStub());
         gameState.setPlayerController(playerController);
         gameState.setFieldController(fieldController);

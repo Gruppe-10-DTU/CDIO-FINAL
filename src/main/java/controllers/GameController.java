@@ -32,8 +32,8 @@ public class GameController implements ActionListener {
 
     public GameController() {
         fieldController = new FieldController();
-        guiController = new GUIController(fieldController.getFieldList(), Language.getInstance());
-        deck = new Deck(Language.getInstance());
+        guiController = new GUIController(fieldController.getFieldList());
+        deck = new Deck();
         diceHolder = new DiceHolder(StartValues.getInstance().getValue("diceAmount"));
         playerController = new PlayerController();
         deck.shuffle();

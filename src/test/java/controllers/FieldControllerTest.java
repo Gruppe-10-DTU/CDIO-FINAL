@@ -26,8 +26,7 @@ class FieldControllerTest {
 
     @BeforeEach
     void setUp() {
-        Language language = new Language();
-        fieldcontroller = new FieldController(language);
+        fieldcontroller = new FieldController();
         guiController = new GUIControllerStub();
         playerController = new PlayerController();
         playerController.addPlayer(0, "car", "test1",1);
