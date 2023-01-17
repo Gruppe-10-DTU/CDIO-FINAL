@@ -208,12 +208,10 @@ public class AcceptanceTest {
 
     @Test
     void AK20(){
-        pc.addPlayer(0,"UFO","StatiskSkat",2);
-        pc.addPlayer(1,"UFO","DynamiskSkat",3);
-        pc.getPlayerById(0).setLocation(34);
-        pc.getPlayerById(1).setBalance(-29999);
+        pc.addPlayer(0,"UFO","Skat",2);
+        gui.setPlayers(pc.getPlayers());
         dH.setRolls(1,3);
-        gc.startGame();
+        gc.takeTurn(pc.getPlayerById(0));
         gui.displayMsg("Testen er nu overstået");
     }
 
@@ -288,6 +286,7 @@ public class AcceptanceTest {
     void AK26(){
         pc.addPlayer(0,"UFO","OwnerOfBigProperties",2);
         pc.addPlayer(1,"UFO","bankruptPlayer",3);
+        pc.getPlayerById(1).setBalance(-6900);
         gui.setPlayers(pc.getPlayers());
 
         pc.getPlayerById(0).setLocation(39);
@@ -303,8 +302,8 @@ public class AcceptanceTest {
         gc.takeTurn(pc.getPlayerById(1));
         gc.takeTurn(pc.getPlayerById(1));
         gc.takeTurn(pc.getPlayerById(0));
-        pc.getPlayerById(1).setBalance(-pc.getPlayerById(1).getBalance());
         gc.takeTurn(pc.getPlayerById(1));
+        gc.takeTurn(pc.getPlayerById(0));
         gui.displayMsg("Testen er ovre");
     }
 
