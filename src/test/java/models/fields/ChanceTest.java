@@ -21,8 +21,8 @@ class ChanceTest {
         Deck deck = new Deck();
         FieldController fieldController = new FieldController();
         PlayerController playerController = new PlayerController();
-        playerController.addPlayer(0,"car","player1",0);
-        playerController.addPlayer(1,"car", "player2", 1);
+        playerController.addPlayer(0,"car","player1",2);
+        playerController.addPlayer(1,"car", "player2", 3);
         GUIControllerStub guiControllerStub = new GUIControllerStub();
         guiControllerStub.setButtonClicked(true);
         gameState = new GameStateDTO(guiControllerStub);
