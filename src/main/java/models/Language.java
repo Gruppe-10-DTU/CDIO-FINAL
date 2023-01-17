@@ -17,7 +17,7 @@ public class Language {
     private static Language instance = new Language();
 
     private Language(){
-        updateLanguage("Danish");
+        updateLanguage(System.getProperty("user.language"));
     }
 
     public static Language getInstance(){

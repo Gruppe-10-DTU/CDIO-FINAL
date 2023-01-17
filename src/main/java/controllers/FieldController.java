@@ -4,6 +4,7 @@ import models.Language;
 import models.Player;
 import models.dto.IGameStateDTO;
 import models.fields.*;
+import org.apache.commons.codec.language.bm.Lang;
 
 import java.util.*;
 
@@ -31,7 +32,7 @@ public class FieldController {
     }
 
     protected void createFieldArray(ArrayList<ArrayList<String>> fieldData) {
-
+        Language language = Language.getInstance();
         for (int i = 0; i < fieldData.size(); i++) {
             String fieldType = fieldData.get(i).get(2);
 
@@ -40,14 +41,13 @@ public class FieldController {
                     Start start = new Start();
                     fieldArrayList.add(start);
                     start.setID(Integer.parseInt(fieldData.get(i).get(1)));
-                    start.setName(fieldData.get(i).get(0));
-                    //start.setName(language.getLanguageValue("fieldName" + i));
+                    start.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "street":
                     Street street = new Street();
                     fieldArrayList.add(street);
                     street.setID(Integer.parseInt(fieldData.get(i).get(1)));
-                    street.setName(fieldData.get(i).get(0));
+                    street.setName(language.getLanguageValue("fieldName" + i));
                     street.setPrice(fieldData.get(i).get(3));
                     street.setHousePrice(Integer.parseInt(fieldData.get(i).get(4)));
                     street.setRent(0, Integer.parseInt(fieldData.get(i).get(5)));
@@ -57,21 +57,18 @@ public class FieldController {
                     street.setRent(4, Integer.parseInt(fieldData.get(i).get(9)));
                     street.setRent(5, Integer.parseInt(fieldData.get(i).get(10)));
                     street.setColor(fieldData.get(i).get(11));
-                    //property.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "chance":
                     Chance chance = new Chance();
                     fieldArrayList.add(chance);
                     chance.setID(Integer.parseInt(fieldData.get(i).get(1)));
-                    chance.setName(fieldData.get(i).get(0));
-                    //chance.setName(language.getLanguageValue("fieldName" + i));
+                    chance.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "jail":
                     Jail jail = new Jail(Integer.parseInt(fieldData.get(i).get(3)));
                     fieldArrayList.add(jail);
                     jail.setID(Integer.parseInt(fieldData.get(i).get(1)));
-                    jail.setName(fieldData.get(i).get(0));
-                    //jail.setName(language.getLanguageValue("fieldName" + i));
+                    jail.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "tojail":
                     ToJail toJail = new ToJail();
@@ -92,7 +89,7 @@ public class FieldController {
                     Ferry ferry = new Ferry();
                     fieldArrayList.add(ferry);
                     ferry.setID(Integer.parseInt(fieldData.get(i).get(1)));
-                    ferry.setName(fieldData.get(i).get(0));
+                    ferry.setName(language.getLanguageValue("fieldName" + i));
                     ferry.setPrice(Integer.parseInt(fieldData.get(i).get(3)));
                     ferry.setRent(0, Integer.parseInt(fieldData.get(i).get(5)));
                     ferry.setRent(1, Integer.parseInt(fieldData.get(i).get(6)));
@@ -103,10 +100,10 @@ public class FieldController {
                     Refuge refuge = new Refuge();
                     fieldArrayList.add(refuge);
                     refuge.setID(Integer.parseInt(fieldData.get(i).get(1)));
-                    refuge.setName(fieldData.get(i).get(0));
+                    refuge.setName(language.getLanguageValue("fieldName" + i));
                     break;
                 case "tax":
-                    Tax tax = new Tax(fieldData.get(i).get(0), Integer.parseInt(fieldData.get(i).get(1)), Integer.parseInt(fieldData.get(i).get(3)), Integer.parseInt(fieldData.get(i).get(4)));
+                    Tax tax = new Tax(language.getLanguageValue("fieldName" + i), Integer.parseInt(fieldData.get(i).get(1)), Integer.parseInt(fieldData.get(i).get(3)), Integer.parseInt(fieldData.get(i).get(4)));
                     fieldArrayList.add(tax);
                     break;
             }
