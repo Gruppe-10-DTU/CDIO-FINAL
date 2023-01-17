@@ -19,7 +19,6 @@ public class GameController implements ActionListener {
     private int turnCounter = 0;
     private GUIController guiController;
     private PlayerController playerController;
-    private Player currentPlayer;
     private FieldController fieldController;
     private Deck deck;
     private Popup p;
@@ -83,6 +82,8 @@ public class GameController implements ActionListener {
 
         guiController.setPlayers(playerController.getPlayers());
 
+        Player currentPlayer;
+
         int playerAmount = playerController.getPlayers().length;
         do {
             //Håndterer problemet med at fjerne en spiller.
@@ -118,7 +119,7 @@ public class GameController implements ActionListener {
             //Hvor kan der bygges?
             while (looper && placesToBuild.size() >= 1) {
                 if (!loopdeloop) {
-                    looper = guiController.getUserLeftButtonPressed(Language.getInstance().getLanguageValue("canBuild", player.getIdentifier(), currentPlayer.getIdentifier()), Language.getInstance().getLanguageValue( "ja"), Language.getInstance().getLanguageValue("nej"));
+                    looper = guiController.getUserLeftButtonPressed(Language.getInstance().getLanguageValue("canBuild", player.getIdentifier(), player.getIdentifier()), Language.getInstance().getLanguageValue( "ja"), Language.getInstance().getLanguageValue("nej"));
                     if(!looper) break;
                 }
                 loopdeloop = false;
@@ -161,7 +162,7 @@ public class GameController implements ActionListener {
                 }
                 if (diceHolder.getSameRolls() == 3) {
                     guiController.displayMsg(Language.getInstance().getLanguageValue("3doubles"));
-                    fieldController.jailPlayer(currentPlayer);
+                    fieldController.jailPlayer(player);
                     diceHolder.setSameRolls(0);
                 } else {
                     boolean overStart = player.getLocation() + diceHolder.sum(reverse) > StartValues.getInstance().getValue("boardSize");

@@ -266,9 +266,10 @@ public class AcceptanceTest {
     }
 
     @Test
-    void AK22(){
+    void AK22_34(){
         pc.addPlayer(0,"UFO","BuildHouseTest",2);
         pc.addPlayer(1,"UFO","Dummy1",3);
+
         gui.setPlayers(pc.getPlayers());
         gui.updatePlayer(pc.getPlayerById(0));
         pc.getPlayerById(0).setLocation(39);
