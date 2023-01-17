@@ -1,29 +1,36 @@
 package models.chanceCards;
 
-import models.dto.GameStateDTO;
-import org.apache.commons.lang.NotImplementedException;
+import models.Player;
+import models.dto.IGameStateDTO;
 
 public class MoveToFerry extends ChanceCard{
 
-    private final int RENT_MULTIPLIER;
-    private final boolean PASS_START_BONUS;
+    private final int rentMultiplier;
+    private final boolean passStartBonus;
 
-    public MoveToFerry(String NAME, String Description, int RentMultiplier, boolean PassStartBonus) {
-        super(NAME, Description);
-        this.RENT_MULTIPLIER = RentMultiplier;
-        this.PASS_START_BONUS = PassStartBonus;
+    public MoveToFerry(String name, String description, int rentMultiplier, boolean passStartBonus) {
+        super(name, description);
+        this.rentMultiplier = rentMultiplier;
+        this.passStartBonus = passStartBonus;
     }
 
     @Override
-    public GameStateDTO chanceEffect(GameStateDTO gameState){
-        throw new NotImplementedException();
-    }
+    public void chanceEffect(IGameStateDTO gameState){
+        gameState.getGuiController().showChanceCard(this.description);
+        Player player = gameState.getActivePlayer();
+        int distToFerry = gameState.getFieldController().distToFirstFerry(player, gameState.isReverse());
 
-    public int getRENT_MULTIPLIER() {
-        return RENT_MULTIPLIER;
-    }
+        if(passStartBonus) {
+            gameState.getPlayerController().playerMove(player, distToFerry);
+        }else player.setLocation(player.getLocation() + distToFerry);
 
-    public boolean getPASS_START_BONUS() {
-        return PASS_START_BONUS;
+        gameState.getGuiController().movePlayer(player, gameState.isReverse());
+
+        if(rentMultiplier == 1){
+            gameState.getFieldController().landOnField(gameState);
+        }else {
+            gameState.getFieldController().landOnField(gameState, rentMultiplier);
+        }
+        gameState.getChanceCardDeck().returnToDeck(this);
     }
 }

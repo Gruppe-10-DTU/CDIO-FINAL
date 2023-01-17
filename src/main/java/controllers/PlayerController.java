@@ -2,7 +2,6 @@ package controllers;
 
 import models.*;
 import models.Character;
-import models.fields.Street;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -12,11 +11,7 @@ public class PlayerController {
     //make int Amount variable until GUI controller complete
     public PlayerController() {
     }
-   private  LinkedHashMap<Integer, Player> availablePlayers = new LinkedHashMap<>();
-
-    public LinkedHashMap<Integer, Player> getAvailablePlayers() {
-        return availablePlayers;
-    }
+    private  LinkedHashMap<Integer, Player> availablePlayers = new LinkedHashMap<>();
 
     /**
      * Adds a new player to the game.
@@ -29,7 +24,7 @@ public class PlayerController {
      *
      */
     public void addPlayer(int player, String characterName, String name, int color){
-        Character ch = new Character(characterName, "", color);
+        Character ch = new Character(characterName, color);
         Player playerNow = new Player(player,name,StartValues.getInstance().getValue("startingMoney"), ch);
         availablePlayers.put(player, playerNow);
     }
@@ -48,22 +43,28 @@ public class PlayerController {
      * Player-class input : Designate what player you want to move.
      * @param spaces
      * Moves designated player x amount of spaces from current position.
-     * @return
      */
-    public Player playerMove(Player player, int spaces){
+    public void playerMove(Player player, int spaces){
         int oldLocation = player.getLocation();
-        if(spaces + oldLocation < 0){
-            spaces += StartValues.getInstance().getValue("boardSize");
-        }
-        if(oldLocation + spaces >= StartValues.getInstance().getValue("boardSize")){
+        //if(spaces + oldLocation < 0){
+            //spaces += StartValues.getInstance().getValue("boardSize");
+        //}
+        if(oldLocation + spaces >= StartValues.getInstance().getValue("boardSize")) {
             player.setLocation(oldLocation, spaces);
-            player.setLocation(player.getLocation(),- StartValues.getInstance().getValue("boardSize"));
+            player.setPreviousLocation(player.getLocation());
+            player.setLocation(player.getLocation(), -StartValues.getInstance().getValue("boardSize"));
             player.setBalance(StartValues.getInstance().getValue("passStartBonus"));
-
+        } else if (oldLocation + spaces < 0) {
+            spaces += StartValues.getInstance().getValue("boardSize");
+            player.setPreviousLocation(player.getLocation());
+            player.setLocation(oldLocation, spaces);
+            if (player.getPreviousLocation() > 0) {
+                player.setBalance(StartValues.getInstance().getValue("passStartBonus"));
+            }
         }else{
+            player.setPreviousLocation(player.getLocation());
             player.setLocation(oldLocation,spaces);
         }
-        return player;
     }
 
     /**
@@ -81,8 +82,6 @@ public class PlayerController {
     public ArrayList<Player> otherPlayers(int playerId){
         return availablePlayers.values().stream().filter(x-> x.getID() != playerId).collect(Collectors.toCollection(ArrayList::new));
     }
-
-
     /**
      * Compares player name and checks if it is unique.
      * @param name Name of new player
@@ -97,27 +96,4 @@ public class PlayerController {
         }
         return true;
     }
-
-
-
-
-    /**
-     * Checks if given player can afford to pay rent of specified square, then transfers money.
-     * @param player : Player-class. Who is renting the place?
-     * @param property : Property-class. Property in mention.
-     * @return
-     */
-    public boolean getRent(Player player, Street property, boolean doubleRent) {
-        int rent = doubleRent ? property.getPrice() * 2 : property.getPrice();
-        if (property.getOwner() == player) {
-            return true;
-        } else {
-            if (player.setBalance(-rent)) {
-                property.getOwner().setBalance(rent);
-                return true;
-            }
-            return false;
-        }
-    }
-
 }

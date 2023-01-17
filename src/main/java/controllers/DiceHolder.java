@@ -8,6 +8,7 @@ public class DiceHolder {
     //Private values of class. Not allowed to change values during game outside of this class
     private Die[] dice;
     private int[] rolls;
+    private int sameRolls = 0;
 
     //Default constructor for the game. Takes 2 dice
     public DiceHolder() {
@@ -20,7 +21,7 @@ public class DiceHolder {
 
     //Constructor with n amount of dice, in case customer wants to change the game
     public DiceHolder(int diceAmt) {
-        //Instanciate dice
+        //Instance dice
         dice = new Die[diceAmt];
         for (int i = 0; i < diceAmt; i++) {
             dice[i] = new Die();
@@ -41,16 +42,45 @@ public class DiceHolder {
     }
 
     //Get total value of last roll
+    public int sum(boolean reverse) {
+        int totalValue = 0;
+        for (int roll : rolls) {
+            totalValue += roll;
+        }
+        if (reverse) {
+            totalValue = totalValue * -1;
+        }
+        return totalValue;
+    }
+
     public int sum() {
         int totalValue = 0;
         for (int roll : rolls) {
             totalValue += roll;
         }
+
         return totalValue;
+    }
+
+    //See if the n die are equal
+    public boolean isEqual() {
+        return Arrays.stream(rolls).distinct().count() == 1;
     }
 
     @Override
     public String toString() {
         return Arrays.toString(rolls);
+    }
+
+    public int getSameRolls() {
+        return sameRolls;
+    }
+
+    public void setSameRolls(int sameRolls) {
+        this.sameRolls = sameRolls;
+    }
+
+    public void incrementSameRolls() {
+        this.sameRolls++;
     }
 }

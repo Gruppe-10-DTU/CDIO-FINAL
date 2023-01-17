@@ -1,7 +1,7 @@
 package models.fields;
 
 import controllers.*;
-import models.Language;
+import models.chanceCards.Deck;
 import models.chanceCards.GetOutOfJail;
 import models.dto.GameStateDTO;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +21,7 @@ class JailTest {
         playerController = new PlayerController();
         playerController.addPlayer(0,"car","player1",0);
         playerController.addPlayer(1,"car", "player2", 1);
-        fieldController = new FieldController(new Language());
+        fieldController = new FieldController();
         jail = (Jail) fieldController.getField(10);
 
     }
@@ -59,12 +59,12 @@ class JailTest {
     @Test
     @DisplayName("Check that the player can be released if they are jailed")
     void fieldEffect() {
-        gameState = new GameStateDTO(playerController.getPlayerById(0), playerController.otherPlayers(1));
+        gameState = new GameStateDTO(new GUIControllerStub());
         gameState.setPlayerController(playerController);
-        GUIControllerStub guiControllerStub = new GUIControllerStub();
         gameState.setFieldController(fieldController);
-        gameState.setGuiController(guiControllerStub);
         gameState.setDiceHolder(new CheatDiceHolder(2));
+        gameState.setChanceCardDeck(new Deck());
+        gameState.setActivePlayer(playerController.getPlayerById(0));
 
 
         /*      Check the pay out of jail option    */
@@ -85,10 +85,10 @@ class JailTest {
 
         /*      Checks the card option              */
         gameState.getFieldController().jailPlayer(gameState.getActivePlayer());
-        gameState.getActivePlayer().setGetOutOfJail(new GetOutOfJail("GetOutOfJail", "Get Out of jail free"));
+        gameState.getActivePlayer().addGetOutOfJail(new GetOutOfJail("GetOutOfJail", "Get Out of jail free"));
         jail.fieldEffect(gameState);
         assertFalse(jail.isInJail(gameState.getActivePlayer()));
-        assertNull(gameState.getActivePlayer().getGetOutOfJail());
+        assertFalse(gameState.getActivePlayer().hasGetOutOfJail());
 
 
     }

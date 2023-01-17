@@ -3,16 +3,26 @@ package controllers;
 import java.util.Arrays;
 
 public class CheatDiceHolder extends DiceHolder{
-    int nextRoll;
     int[] rolls;
+    private int isEqualAmount = -1;
 
     public void setRolls(int... rolls){
         this.rolls = rolls;
     }
 
+    public void setIsEqualAmount(int isEqualAmount) {
+        this.isEqualAmount = isEqualAmount;
+    }
+
     @Override
     public void roll() {
 
+    }
+
+    @Override
+    public int sum(boolean reverse) {
+        int sum = Arrays.stream(rolls).sum();
+        return (reverse) ? sum*-1 : sum;
     }
 
     @Override
@@ -33,5 +43,10 @@ public class CheatDiceHolder extends DiceHolder{
     @Override
     public int sum() {
         return Arrays.stream(rolls).sum();
+    }
+
+    @Override
+    public boolean isEqual() {
+        return 0<this.isEqualAmount--;
     }
 }

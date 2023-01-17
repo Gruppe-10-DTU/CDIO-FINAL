@@ -1,10 +1,7 @@
 package models.fields;
 
 import controllers.*;
-import models.Language;
-import models.Player;
 import models.dto.GameStateDTO;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,11 +18,10 @@ class BreweryTest {
 
     @BeforeEach
     void beforeEach() {
-        Language language = new Language();
-        fieldController = new FieldController(language);
+        fieldController = new FieldController();
         guiController = new GUIControllerStub();
         playerController = new PlayerController();
-        playerController.addPlayer(0, "car", "test1",1);
+        playerController.addPlayer(0, "car", "test1",0);
         playerController.addPlayer(1, "car", "test2",1);
         cheatDiceHolder = new CheatDiceHolder();
         cheatDiceHolder.setRolls(4, 4);
@@ -34,6 +30,7 @@ class BreweryTest {
         gameStateDTO.setActivePlayer(playerController.getPlayerById(0));
         gameStateDTO.setPlayerController(playerController);
         gameStateDTO.setDiceHolder(cheatDiceHolder);
+        gameStateDTO.setFieldController(fieldController);
     }
 
     @Test
@@ -56,7 +53,6 @@ class BreweryTest {
         assertNotEquals(brewery.getOwner().getIdentifier(), gameStateDTO.getActivePlayer().getIdentifier());
         assertEquals(30000-brewery.getRent0()*cheatDiceHolder.sum(), gameStateDTO.getActivePlayer().getBalance());
         assertEquals(30000+brewery.getRent0()*cheatDiceHolder.sum(), brewery.getOwner().getBalance());
-
     }
 
     @Test
@@ -75,6 +71,20 @@ class BreweryTest {
         assertEquals(1, playerController.getPlayers().length);
         assertNull(playerController.getPlayerById(0));
 
+    }
+
+    @Test
+    void breweryEffectGetRent2Owned() {
+        Brewery brewery1 = (Brewery) fieldController.getField(12);
+        brewery1.setOwner(playerController.getPlayerById(1));
+        Brewery brewery2 = (Brewery) fieldController.getField(28);
+        brewery2.setOwner(playerController.getPlayerById(1));
+
+        brewery1.fieldEffect(gameStateDTO);
+
+        assertNotEquals(brewery1.getOwner().getIdentifier(), gameStateDTO.getActivePlayer().getIdentifier());
+        assertEquals(30000-brewery1.getRent1()*cheatDiceHolder.sum(), gameStateDTO.getActivePlayer().getBalance());
+        assertEquals(30000+brewery1.getRent1()*cheatDiceHolder.sum(), brewery1.getOwner().getBalance());
     }
 
 }

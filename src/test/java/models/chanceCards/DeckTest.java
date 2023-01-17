@@ -1,12 +1,19 @@
 package models.chanceCards;
 
-import models.Language;
 import models.chanceCards.Deck;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class DeckTest {
+    Deck deck;
+
+    @BeforeEach
+    void setup(){
+        deck = new Deck();
+    }
 
 
     /**
@@ -14,17 +21,15 @@ class DeckTest {
      */
     @Test
     void shuffleChangesDeckOrder() {
-        Language language = new Language();
-        Deck deck1 = new Deck(language);
-        Deck deck2 = new Deck(language);
-        deck2.shuffle();
+        Deck controlDeck = new Deck();
+        deck.shuffle();
         int count = 0;
-        for (int i = 0; i < deck1.getDeckSize(); i++) {
-            String name1 = deck1.drawCard().getName();
-            String name2 = deck2.drawCard().getName();
+        for (int i = 0; i < deck.getDeckSize(); i++) {
+            String name1 = deck.drawCard().getName();
+            String name2 = controlDeck.drawCard().getName();
             if(name1.equals(name2)) count++;
         }
-        assertTrue(count <= (deck1.getDeckSize()/5));
+        assertTrue(count <= (deck.getDeckSize()/5));
     }
 
     /**
@@ -32,10 +37,24 @@ class DeckTest {
      */
     @Test
     void drawCardReturnsAnObject() {
-        Language language = new Language();
-        Deck deck = new Deck(language);
         for (int i = 0; i < deck.getDeckSize(); i++) {
             assertNotNull(deck.drawCard());
         }
+    }
+    @Test
+    @DisplayName("Drawing card removes it from deck")
+    void drawCardRemovesCardFromDeck(){
+        int startSize = deck.getDeckSize();
+        deck.drawCard();
+        assertTrue(startSize > deck.getDeckSize());
+    }
+
+    @Test
+    @DisplayName("Cards can be returned to deck")
+    void returnToDeck(){
+        ChanceCard card = new GetOutOfJail("Test", "test");
+        int startSize = deck.getDeckSize();
+        deck.returnToDeck(card);
+        assertTrue(startSize < deck.getDeckSize());
     }
 }

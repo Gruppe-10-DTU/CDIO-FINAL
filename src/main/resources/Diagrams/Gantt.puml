@@ -36,26 +36,25 @@ Project starts the 2nd of january 2023
 
 
 [Gå i fængsel (K13)] as [K13] lasts 1 days
-[K13] is 90% complete
+[K13] is 100% complete
 
 [Kom ud af fængsel (K14)] as [K14] lasts 1 days
-[K14] is 90% complete
+[K14] is 100% complete
 
 [Land på felt (K6)] as [K6] lasts 2 days
 [K6] is 100% complete
 
-[Træk changsekort (K18)] as [K18] lasts 1 days
+[Træk chancekort (K18)] as [K18] lasts 1 days
 [K18] is 100% complete
 
 [Spiller penge (K7)] as [K7] lasts 1 days
 [K7] is 100% complete
 
 [Køb grund (K8)] as [K8] lasts 1 days
-[K8] is 90% complete
-
+[K8] is 100% complete
 
 [Betal leje (K9)] as [K9] lasts 1 days
-[K9] is 90% complete
+[K9] is 100% complete
 
 [Køb rederi (K11)] as [K11] lasts 1 days
 [K11] is 100% complete
@@ -109,65 +108,83 @@ Project starts the 2nd of january 2023
 [MVP completed] happens 2023-01-11
 
 [MVP præsentation] as [MVP] starts 2023-01-11
-[MVP] is 0% complete
+[MVP] is colored in Lavender/LightBlue
+[MVP] is 100% complete
 
-[Land på felt, skat og afgift (K6)] as [K6.2] lasts 1 days
-[K6.2] is 0% complete
+[Ekstra tur (K19)] as [K19] lasts 1 days
+[K19] is colored in Lavender/Yellow
+[K19] is 100% complete
 
-[Changce kort, resten (K18)] as [K18.2] lasts 2 days
-[K18.2] is 0% complete
+[Fængsel på 3. dobbeltslag (K31)] as [K31] starts 2023-01-16
+[K31] is colored in Lavender/Teal
+[K31] is 100% complete
 
-[Leje bonus (K19)] as [K19] lasts 1 days
-[K19] is 0% complete
+[Land på felt, skat og afgift (K20)] as [K20] lasts 1 days
+[K20] is colored in Lavender/Yellow
+[K20] is 100% complete
 
-[Købe huse (K20)] as [K20] lasts 2 days
-[K20] is 0% complete
+[Chance kort, resten (K18)] as [K18.2] starts 2023-01-13
+[Chance kort, resten (K18)] as [K18.2] ends 2023-01-16
+[K18.2] is colored in Lavender/Orange
+[K18.2] is 100% complete
 
-[købe sidste hus (K21)] as [K21] lasts 1 days
-[K21] is 0% complete
+[Leje bonus (K21)] as [K21] lasts 1 days
+[K21] is colored in Lavender/Yellow
+[K21] is 100% complete
 
-[Sælge huse (K24)] as [K24] lasts 1 days
-[K24] is 0% complete
+[Købe huse (K22)] as [K22] lasts 2 days
+[K22] is colored in Lavender/Yellow
+[K22] is 100% complete
 
-[købe huse udenfor tur (K28)] as [K28] lasts 1 days
-[K28] is 0% complete
+[købe sidste hus (K23)] as [K23] lasts 1 days
+[K23] is colored in Lavender/Yellow
+[K23] is 100% complete
 
-[Pantsæt grund (K22)] as [K22] starts 2023-01-16
-[K22] is 0% complete
+[Køb hotel (K34)] as [K34] lasts 1 days
+[K34] is colored in Lavender/Teal
+[K34] is 100% complete
 
-[Sælg grund (K23)] as [K23] starts 2023-01-13
-[K23] is 0% complete
+[Sælge huse (K26)] as [K26] lasts 1 days
+[K26] is colored in Lavender/Orange
+[K26] is 90% complete
 
-[Ekstra tur (K25)] as [K25] lasts 1 days
-[K25] is 0% complete
+[Spillet har 2 out-of-jail kort (K30)] as [K30] lasts 1 days
+[K30] is colored in Lavender/Yellow
+[K30] is 100% complete
 
-[Bortaktioner grunde (K26)] as [K26] starts 2023-01-13
-[Bortaktioner grunde (K26)] as [K26] ends 2023-01-16
-[K26] is 0% complete
+[Bortaktioner grunde (K27)] as [K27] starts 2023-01-13
+[Bortaktioner grunde (K27)] as [K27] ends 2023-01-16
+[K27] is colored in Lavender/Teal
+[K27] is 100% complete
 
-[Skift sprog (K27)] as [K27] starts 2023-01-17
-[K27] is 0% complete
+[Ejendomspris i GUI (K32)] as [K32] starts 2023-01-16
+[K32] is colored in Lavender/Teal
+[K32] is 100% complete
 
-[Forbered acceptencetest] as [test] starts 2023-01-16
-[Forbered acceptencetest] as [test] ends 2023-01-17
-[test] is 0% complete
+[Ejer i GUI (K33)] as [K33] starts 2023-01-17
+[K33] is colored in Lavender/Teal
+[K33] is 100% complete
 
-[MVP]-[#FF0000]->[K19]
-[MVP]->[K18.2]
-[MVP]->[K6.2]
-[MVP]->[K22]
-[MVP]->[K23]
-[MVP]->[K25]
-[MVP]->[K26]
+[Forbered acceptance test] as [test] starts 2023-01-16
+[Forbered acceptance test] as [test] ends 2023-01-17
+[test] is 75% complete
+
+[MVP]->[K19]
+[MVP]->[K20]
+[MVP]-[#FF0000]->[K21]
+[MVP]->[K30]
+[MVP]->[K32]
+[MVP]->[K33]
 [MVP]->[K27]
+[MVP]->[K18.2]
 [MVP]->[test]
 
-[K19]-[#FF0000]->[K20]
+[K21]-[#FF0000]->[K22]
+[K22]-[#FF0000]->[K23]
+[K22]->[K34]
+[K22]->[K26]
 
-[K20]-[#FF0000]->[K21]
-[K20]-[#FF0000]->[K24]
-[K20]->[K28]
-
+[K19]->[K31]
 
 [Code freeze] happens 2023-01-18
 

@@ -2,7 +2,7 @@ package controllers;
 
 import models.Player;
 import models.fields.Field;
-import models.fields.Start;
+import models.fields.Property;
 import models.fields.Street;
 
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ public class GUIControllerStub extends ui.GUIController {
     public String[] names = {"test1","test2", "test3", "test4", "Test5"};
     public String[] characters = {"Car", "Tractor", "Racecar", "UFO"};
     int playerIndex = 0;
-    private boolean buttonClicked;
+    private boolean buttonClicked = true;
 
     public void setButtonClicked(boolean buttonClicked) {
         this.buttonClicked = buttonClicked;
@@ -38,7 +38,7 @@ public class GUIControllerStub extends ui.GUIController {
      */
     @Override
     public int playerAmount(String playerAmountText) {
-        return 1;
+        return 2;
     }
 
     @Override
@@ -82,7 +82,7 @@ public class GUIControllerStub extends ui.GUIController {
      * @param player Player to be moved
      */
     @Override
-    public void movePlayer(Player player) {
+    public void movePlayer(Player player, boolean reverse) {
 
     }
 
@@ -111,18 +111,10 @@ public class GUIControllerStub extends ui.GUIController {
      * @param property Property to be changed
      */
     @Override
-    public void updateField(Street property) {
+    public void updateField(Property property, FieldController fieldController) {
 
     }
 
-    /**
-     * @param emtpyFieldChoice Text to display
-     * @param properties       The choices you have
-     */
-    @Override
-    public int getPropertyChoice(String emtpyFieldChoice, Street[] properties) {
-        return 23;
-    }
 
     public void showChanceCard(String message){
 
@@ -142,5 +134,15 @@ public class GUIControllerStub extends ui.GUIController {
         if(canPay) return "pay";
         else if (hasChanceCard) return "card";
         else return "roll";
+    }
+
+    @Override
+    public void displayMsgNoBtn(String msg) {
+
+    }
+
+    @Override
+    public int getBid(String msg, int min, int max) {
+        return min;
     }
 }

@@ -1,9 +1,9 @@
 package models.fields;
 
 import controllers.DiceHolder;
-import controllers.FieldController;
+import models.Language;
 import models.Player;
-import models.dto.GameStateDTO;
+import models.dto.IGameStateDTO;
 import ui.GUIController;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class Jail extends Field {
     }
 
     /**
-     * @param player
+     * @param player the player in question
      * @return True: if player is in the jail array / False if player is not in the jail array
      */
     public boolean isInJail (Player player) {
@@ -43,64 +43,64 @@ public class Jail extends Field {
      * Remove a player from the jail array
      */
     public void setInJailRemove(Player player) {
-        int index = inJail.indexOf(player);
-        inJail.remove(index);
+        inJail.remove(player);
     }
 
     @Override
-    public GameStateDTO fieldEffect(GameStateDTO gameState){
-        if(!(this.isInJail(gameState.getActivePlayer()))) return gameState;
+    public void fieldEffect(IGameStateDTO gameState, int rentMultiplier){
+        if(!(this.isInJail(gameState.getActivePlayer()))) return;
 
         Player player = gameState.getActivePlayer();
         GUIController io = gameState.getGuiController();
 
         String choice;
 
-        if(player.getGetOutOfJail() != null && (player.getBalance() + getOutOfJailPrice) > 0) {
+        if(player.hasGetOutOfJail() && (player.getBalance() + getOutOfJailPrice) > 0) {
             choice = io.getOutOfJailOptions(true, true);
         }else if(player.getBalance() >= getOutOfJailPrice * -1){
             choice = io.getOutOfJailOptions(true,false);
-        } else if (player.getGetOutOfJail() != null) {
+        } else if (player.hasGetOutOfJail()) {
             choice = io.getOutOfJailOptions(false, true);
         } else {
             choice = io.getOutOfJailOptions(false, false);
         }
 
-        FieldController fieldController = gameState.getFieldController();
-
         switch (choice) {
             case "pay":
                 player.setBalance(getOutOfJailPrice);
                 player.setRoundsInJail(0);
-                fieldController.freePlayer(player);
+                this.setInJailRemove(player);
 
                 /* OUTPUT MESSAGE To USER */
 
                 break;
             case "roll":
                 for (int i = 0; i < 3; i++) {
+                    gameState.getGuiController().getRoll(Language.getInstance().getLanguageValue("rollText", player.getIdentifier()), Language.getInstance().getLanguageValue("rollButton"));
                     DiceHolder diceHolder = gameState.getDiceHolder();
                     diceHolder.roll();
                     int[] jailRoll = diceHolder.getRolls();
                     io.displayDice(jailRoll);
                     if (jailRoll[0] == jailRoll[1]){
                         player.setRoundsInJail(0);
-                        fieldController.freePlayer(player);
+                        this.setInJailRemove(player);
+                        diceHolder.incrementSameRolls();
 
                         /* OUTPUT MESSAGE To USER */
+                        gameState.getPlayerController().playerMove(player, diceHolder.sum(gameState.isReverse()));
+                        gameState.getGuiController().movePlayer(player, gameState.isReverse());
+                        gameState.getFieldController().landOnField(gameState);
 
                         break;
                     }else if (jailRoll[0] != jailRoll[1] && i != 2) {
                         io.getOutOfJailRollAgain();
                     }
                 }
-                player.setRoundsInJail(player.getRoundsInJail() + 1);
+                player.stayInJail();
                 break;
             case "card":
-                player.setRoundsInJail(0);
-                player.setGetOutOfJail(null);
-                fieldController.freePlayer(player);
-
+                player.useGetOutOfJail().chanceEffect(gameState);
+                setInJailRemove(player);
                 /* OUTPUT MESSAGE To USER */
 
                 break;
@@ -108,11 +108,9 @@ public class Jail extends Field {
         if(player.getRoundsInJail() >= 3){
             player.setBalance(getOutOfJailPrice);
             player.setRoundsInJail(0);
-            fieldController.freePlayer(player);
+            this.setInJailRemove(player);
 
             /* OUTPUT MESSAGE To USER */
-
         }
-        return  gameState;
     }
 }
