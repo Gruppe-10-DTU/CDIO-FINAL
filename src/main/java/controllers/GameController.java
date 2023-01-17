@@ -76,7 +76,7 @@ public class GameController implements ActionListener {
     }
 
     public void startGame(){
-        reverse = guiController.getUserLeftButtonPressed(Language.getInstance().getLanguageValue("chooseDirection"), Language.getInstance().getLanguageValue("clockwise"), Language.getInstance().getLanguageValue("counterClockwise"));
+        reverse = guiController.getUserLeftButtonPressed(Language.getInstance().getLanguageValue("chooseDirection"), Language.getInstance().getLanguageValue("counterClockwise"), Language.getInstance().getLanguageValue("clockwise"));
         gameState.setReverse(reverse);
 
         guiController.setPlayers(playerController.getPlayers());
