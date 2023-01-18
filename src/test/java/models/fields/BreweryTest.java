@@ -1,10 +1,7 @@
 package models.fields;
 
 import controllers.*;
-import models.Language;
-import models.Player;
 import models.dto.GameStateDTO;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,11 +18,10 @@ class BreweryTest {
 
     @BeforeEach
     void beforeEach() {
-        Language language = new Language();
-        fieldController = new FieldController(language);
+        fieldController = new FieldController();
         guiController = new GUIControllerStub();
         playerController = new PlayerController();
-        playerController.addPlayer(0, "car", "test1",1);
+        playerController.addPlayer(0, "car", "test1",0);
         playerController.addPlayer(1, "car", "test2",1);
         cheatDiceHolder = new CheatDiceHolder();
         cheatDiceHolder.setRolls(4, 4);

@@ -1,7 +1,9 @@
 package models.chanceCards;
 
-import controllers.*;
-import models.Language;
+import controllers.FieldController;
+import controllers.GUIControllerStub;
+import controllers.PlayerController;
+import controllers.StartValues;
 import models.Player;
 import models.dto.GameStateDTO;
 import models.fields.Jail;
@@ -27,8 +29,8 @@ class MoveToFieldTest {
         gameState = new GameStateDTO(player1,otherPlayers);
         gameState.setPlayerController(new PlayerController());
         gameState.setGuiController(new GUIControllerStub());
-        gameState.setFieldController(new FieldController(new Language()));
-        gameState.setChancecardDeck(new Deck(new Language()));
+        gameState.setFieldController(new FieldController());
+        gameState.setChanceCardDeck(new Deck());
         card1 = new MoveToField("", "",true,37);
         card2 = new MoveToField("", "",true,24);
         card3 = new MoveToField("GoToJail", "",false,10);
@@ -39,19 +41,47 @@ class MoveToFieldTest {
     void chanceEffect() {
         gameState.getActivePlayer().setLocation(2);
         int expectedBalance = gameState.getActivePlayer().getBalance();
-        GameStateDTO newState = card1.chanceEffect(gameState);
+        card1.chanceEffect(gameState);
         assertEquals(37,gameState.getActivePlayer().getLocation());
-        //assertEquals(expectedBalance,gameState.getActivePlayer().getBalance());
+        //Felt 37 koster 7000
+        assertEquals(expectedBalance - 7000, gameState.getActivePlayer().getBalance());
 
         gameState.getActivePlayer().setLocation(39);
         expectedBalance = gameState.getActivePlayer().getBalance() + StartValues.getInstance().getValue("passStartBonus");
-        newState = card2.chanceEffect(gameState);
+        card2.chanceEffect(gameState);
         assertEquals(24,gameState.getActivePlayer().getLocation());
-        //assertEquals(expectedBalance,gameState.getActivePlayer().getBalance());
+        //Felt 24 koster 4800
+        assertEquals(expectedBalance - 4800,gameState.getActivePlayer().getBalance());
 
         gameState.getActivePlayer().setLocation(24);
         expectedBalance = gameState.getActivePlayer().getBalance();
-        newState = card3.chanceEffect(gameState);
+        card3.chanceEffect(gameState);
+        assertEquals(10,gameState.getActivePlayer().getLocation());
+        assertEquals(expectedBalance,gameState.getActivePlayer().getBalance());
+        Jail jail = (Jail) gameState.getFieldController().getField(10);
+        assertTrue(jail.isInJail(gameState.getActivePlayer()));
+    }
+    @Test
+    @DisplayName("game in reverse")
+    void chanceEffectReverse() {
+        gameState.setReverse(true);
+        gameState.getActivePlayer().setLocation(2);
+        int expectedBalance = gameState.getActivePlayer().getBalance();
+        card1.chanceEffect(gameState);
+        assertEquals(37,gameState.getActivePlayer().getLocation());
+        //Felt 37 koster 7000 + der modtages 4000 for at passere start
+        assertEquals(expectedBalance - 3000, gameState.getActivePlayer().getBalance());
+
+        gameState.getActivePlayer().setLocation(39);
+        expectedBalance = gameState.getActivePlayer().getBalance();
+        card2.chanceEffect(gameState);
+        assertEquals(24,gameState.getActivePlayer().getLocation());
+        //Felt 24 koster 4800
+        assertEquals(expectedBalance - 4800,gameState.getActivePlayer().getBalance());
+
+        gameState.getActivePlayer().setLocation(24);
+        expectedBalance = gameState.getActivePlayer().getBalance();
+        card3.chanceEffect(gameState);
         assertEquals(10,gameState.getActivePlayer().getLocation());
         assertEquals(expectedBalance,gameState.getActivePlayer().getBalance());
         Jail jail = (Jail) gameState.getFieldController().getField(10);

@@ -1,9 +1,9 @@
 package models.fields;
 
 import controllers.DiceHolder;
-import controllers.FieldController;
+import models.Language;
 import models.Player;
-import models.dto.GameStateDTO;
+import models.dto.IGameStateDTO;
 import ui.GUIController;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ public class Jail extends Field {
     }
 
     /**
-     * @param player
+     * @param player the player in question
      * @return True: if player is in the jail array / False if player is not in the jail array
      */
     public boolean isInJail (Player player) {
@@ -43,13 +43,12 @@ public class Jail extends Field {
      * Remove a player from the jail array
      */
     public void setInJailRemove(Player player) {
-        int index = inJail.indexOf(player);
-        inJail.remove(index);
+        inJail.remove(player);
     }
 
     @Override
-    public GameStateDTO fieldEffect(GameStateDTO gameState){
-        if(!(this.isInJail(gameState.getActivePlayer()))) return gameState;
+    public void fieldEffect(IGameStateDTO gameState, int rentMultiplier){
+        if(!(this.isInJail(gameState.getActivePlayer()))) return;
 
         Player player = gameState.getActivePlayer();
         GUIController io = gameState.getGuiController();
@@ -66,8 +65,6 @@ public class Jail extends Field {
             choice = io.getOutOfJailOptions(false, false);
         }
 
-        FieldController fieldController = gameState.getFieldController();
-
         switch (choice) {
             case "pay":
                 player.setBalance(getOutOfJailPrice);
@@ -79,6 +76,7 @@ public class Jail extends Field {
                 break;
             case "roll":
                 for (int i = 0; i < 3; i++) {
+                    gameState.getGuiController().getRoll(Language.getInstance().getLanguageValue("rollText", player.getIdentifier()), Language.getInstance().getLanguageValue("rollButton"));
                     DiceHolder diceHolder = gameState.getDiceHolder();
                     diceHolder.roll();
                     int[] jailRoll = diceHolder.getRolls();
@@ -86,8 +84,12 @@ public class Jail extends Field {
                     if (jailRoll[0] == jailRoll[1]){
                         player.setRoundsInJail(0);
                         this.setInJailRemove(player);
+                        diceHolder.incrementSameRolls();
 
                         /* OUTPUT MESSAGE To USER */
+                        gameState.getPlayerController().playerMove(player, diceHolder.sum(gameState.isReverse()));
+                        gameState.getGuiController().movePlayer(player, gameState.isReverse());
+                        gameState.getFieldController().landOnField(gameState);
 
                         break;
                     }else if (jailRoll[0] != jailRoll[1] && i != 2) {
@@ -97,8 +99,8 @@ public class Jail extends Field {
                 player.stayInJail();
                 break;
             case "card":
-                player.useGetOutOfJail(gameState);
-
+                player.useGetOutOfJail().chanceEffect(gameState);
+                setInJailRemove(player);
                 /* OUTPUT MESSAGE To USER */
 
                 break;
@@ -109,8 +111,6 @@ public class Jail extends Field {
             this.setInJailRemove(player);
 
             /* OUTPUT MESSAGE To USER */
-
         }
-        return  gameState;
     }
 }

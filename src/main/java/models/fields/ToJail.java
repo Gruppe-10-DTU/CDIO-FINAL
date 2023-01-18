@@ -1,12 +1,14 @@
 package models.fields;
 
-import models.dto.GameStateDTO;
+import models.dto.IGameStateDTO;
+import models.Language;
 
 public class ToJail extends Field {
 
     @Override
-    public GameStateDTO fieldEffect(GameStateDTO gameState) {
+    public void fieldEffect(IGameStateDTO gameState, int rentMultiplier) {
+        gameState.getGuiController().displayMsg(Language.getInstance().getLanguageValue("landOnGoToJail"));
         gameState.getFieldController().jailPlayer(gameState.getActivePlayer());
-        return gameState;
+        gameState.getGuiController().movePlayer(gameState.getActivePlayer(), gameState.isReverse());
     }
 }

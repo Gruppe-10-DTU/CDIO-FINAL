@@ -1,11 +1,10 @@
 package controllers;
 
-import models.Language;
+import models.chanceCards.Deck;
 import models.dto.GameStateDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static junit.framework.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameControllerTest {
@@ -14,33 +13,31 @@ class GameControllerTest {
     PlayerController pc;
     FieldController fieldController;
     GUIControllerStub gui;
-    Language language;
     Deck deck;
     GameStateDTO gameState;
 
     @BeforeEach
     void setUp() {
-        language = new Language();
-        fieldController = new FieldController(language);
+        fieldController = new FieldController();
         gui = new GUIControllerStub(fieldController.getFieldList());
         gameState = new GameStateDTO(gui);
         diceHolder = new CheatDiceHolder(2);
         gameState.setDiceHolder(diceHolder);
         pc = new PlayerController();
         gameState.setPlayerController(pc);
-        deck = new Deck(language);
-        gameState.setChancecardDeck(deck);
+        deck = new Deck();
+        gameState.setChanceCardDeck(deck);
         gameState.setFieldController(fieldController);
         for (int i = 0; i < gui.playerAmount("test"); i++) {
             pc.addPlayer(i, gui.selectCharacter("test", "test"), gui.getName("test"),0);
         }
 
-        gameController = new GameController(gameState, language, deck);
+        gameController = new GameController(gameState, deck);
     }
 
     @Test
     void win() {
-        for (int i = pc.getAvailablePlayers().size(); i > 1 ; i--) {
+        for (int i = pc.getPlayers().length; i > 1 ; i--) {
             assertNotEquals(true,gameController.win());
             pc.removePlayer(i);
         }

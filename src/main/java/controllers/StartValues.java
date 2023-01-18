@@ -6,7 +6,7 @@ import java.util.Properties;
 
 public class StartValues {
     private Properties properties;
-    private static StartValues instance = new StartValues() ;
+    private static StartValues instance = new StartValues();
 
     private StartValues(){
         try (InputStream input = this.getClass().getClassLoader().getResourceAsStream("GamePack/config.properties")) {

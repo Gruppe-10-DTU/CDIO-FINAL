@@ -1,23 +1,14 @@
 package controllers;
 
-import models.Language;
 import models.Player;
 import models.dto.GameStateDTO;
-import models.fields.Field;
-import models.fields.Jail;
 import models.fields.*;
-
-import models.fields.Start;
-import models.fields.Street;
-import models.fields.Ferry;
 import org.junit.jupiter.api.BeforeEach;
 
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class FieldControllerTest {
@@ -34,8 +25,7 @@ class FieldControllerTest {
 
     @BeforeEach
     void setUp() {
-        Language language = new Language();
-        fieldcontroller = new FieldController(language);
+        fieldcontroller = new FieldController();
         guiController = new GUIControllerStub();
         playerController = new PlayerController();
         playerController.addPlayer(0, "car", "test1",1);
@@ -50,9 +40,9 @@ class FieldControllerTest {
         CSVMock.add(new ArrayList<>(Arrays.asList("Helsingør - Helsingborg","0","ferry","4000","","500","1000","2000","4000","","","")));
         CSVMock.add(new ArrayList<>(Arrays.asList("Start","1","start","","","","","","","","","")));
         CSVMock.add(new ArrayList<>(Arrays.asList("Rødovrevej","2","street","1200","1000","50","250","750","2250","4000","6000","blue")));
-        CSVMock.add(new ArrayList<>(Arrays.asList("Prøv lykken","3","chance","","","","","","","","","")));
-        CSVMock.add(new ArrayList<>(Arrays.asList("I fængsel/På besøg","4","jail","1000","","","","","","","","")));
-        CSVMock.add(new ArrayList<>(Arrays.asList("Hvidovrevej","5","street","1200","1000","50","250","400","750","2250","6000","blue")));
+        CSVMock.add(new ArrayList<>(Arrays.asList("Hvidovrevej","3","street","1200","1000","50","250","400","750","2250","6000","blue")));
+        CSVMock.add(new ArrayList<>(Arrays.asList("Prøv lykken","4","chance","","","","","","","","","")));
+        CSVMock.add(new ArrayList<>(Arrays.asList("I fængsel/På besøg","5","jail","1000","","","","","","","","")));
         CSVMock.add(new ArrayList<>(Arrays.asList("Fængsel","6","jail","0","","","","","","","","")));
         CSVMock.add(new ArrayList<>(Arrays.asList("Amagertorv","7","street","6000","4000","550","2600","7800","18000","22000","25000","yellow")));
         CSVMock.add(new ArrayList<>(Arrays.asList("Vimmelskaftet","8","street","6000","4000","550","2600","7800","18000","22000","25000","yellow")));
@@ -67,7 +57,6 @@ class FieldControllerTest {
 
     @Test
     void construct() {
-
         assertEquals(11, gameStateDTO.getFieldController().fieldArrayList.size());
     }
 
@@ -89,33 +78,6 @@ class FieldControllerTest {
             }
         }
         assertEquals(jailIndex, mockPlayer1.getLocation());
-    }
-
-
-    @Test
-    void FreePlayer() {
-        //Jail the player
-        gameStateDTO.getFieldController().jailPlayer(mockPlayer1);
-
-        for (Object field : gameStateDTO.getFieldController().fieldArrayList) {
-            if ( field instanceof Jail) {
-
-                //Check that player was jailed
-                assertTrue(((Jail) field).getInJail().contains(mockPlayer1));
-                break;
-            }
-        }
-
-        //Free the player
-        gameStateDTO.getFieldController().freePlayer(mockPlayer1);
-
-        for (Object field : gameStateDTO.getFieldController().fieldArrayList) {
-            if ( field instanceof Jail) {
-                //Check that player is no longer jailed
-                assertFalse(((Jail) field).getInJail().contains(mockPlayer1));
-                break;
-            }
-        }
     }
 
     @Test
@@ -220,4 +182,118 @@ class FieldControllerTest {
         assertEquals(22200, fieldcontroller.playerPropertyValues(mockPlayer2));
     }
 
+
+    @Test
+    void ownsColourGroup() {
+        fieldcontroller.fieldArrayList.remove(9);
+        //Note to whoever reads this. This method _ONLY_ works if the amount of fields is divisible by 5. That's why we remove a field.
+        for(Object field : fieldcontroller.fieldArrayList){
+            if(field instanceof Street){
+                ((Street) field).setOwner(mockPlayer1);
+            }
+        }
+        assertEquals(2, fieldcontroller.ownsColourGroup(mockPlayer1).size());
+    }
+
+    @Test
+    void buildEqual() {
+        fieldcontroller.fieldArrayList.remove(9);
+        for(Object field : fieldcontroller.fieldArrayList){
+            if(field instanceof Street){
+                ((Street) field).setOwner(mockPlayer1);
+            }
+        }
+        assertEquals(2,fieldcontroller.buildEqual(fieldcontroller.ownsColourGroup(mockPlayer1)).get("blue").length);
+        ((Street) fieldcontroller.getField(2)).setHouseAmount(1);
+        assertEquals(1,fieldcontroller.buildEqual(fieldcontroller.ownsColourGroup(mockPlayer1)).get("blue").length);
+        ((Street) fieldcontroller.getField(3)).setHouseAmount(1);
+        assertEquals(2,fieldcontroller.buildEqual(fieldcontroller.ownsColourGroup(mockPlayer1)).get("blue").length);
+
+    }
+
+    @Test
+    void sellProperty() {
+        fieldcontroller.fieldArrayList.remove(9);
+        //Sells a house from a curated selection, curated by the max amount of house on colour group.
+        for(Object field : fieldcontroller.fieldArrayList){
+            if(field instanceof Street){
+                ((Street) field).setOwner(mockPlayer1);
+            }
+        }
+        ((Street) fieldcontroller.getField(2)).setHouseAmount(1);
+        assertEquals(1,fieldcontroller.propertyWithBuilding(fieldcontroller.ownsColourGroup(mockPlayer1)).get("blue").length);
+        ((Street) fieldcontroller.getField(3)).setHouseAmount(1);
+        assertEquals(2,fieldcontroller.propertyWithBuilding(fieldcontroller.ownsColourGroup(mockPlayer1)).get("blue").length);
+    }
+
+    @Test
+    void addBuilding() {
+        fieldcontroller.fieldArrayList.remove(9);
+        for(Object field : fieldcontroller.fieldArrayList){
+            if(field instanceof Street){
+                ((Street) field).setOwner(mockPlayer1);
+            }
+        }
+        fieldcontroller.addBuilding(((Street) fieldcontroller.getField(2)));
+        //Test to see if houses are correct
+        assertEquals(1,((Street) fieldcontroller.getField(2)).getHouseAmount());
+        //Test to see if we actually withdrew any money from the player
+        assertEquals(29000,((Street) fieldcontroller.getField(2)).getOwner().getBalance());
+        //Test to see if house pool is decreased
+        assertEquals(31,fieldcontroller.getHousePool());
+    }
+
+    @Test
+    void sellBuilding() {
+        fieldcontroller.fieldArrayList.remove(9);
+        for(Object field : fieldcontroller.fieldArrayList){
+            if(field instanceof Street){
+                ((Street) field).setOwner(mockPlayer1);
+            }
+        }
+        ((Street) fieldcontroller.getField(2)).setHouseAmount(3);
+        //Test to see if houses are being removed from the field when sold.
+        fieldcontroller.sellBuilding(((Street) fieldcontroller.getField(2)),1);
+        assertEquals(2,((Street) fieldcontroller.getField(2)).getHouseAmount());
+        fieldcontroller.sellBuilding((Street) fieldcontroller.getField(2),2);
+        assertEquals(0,((Street) fieldcontroller.getField(2)).getHouseAmount());
+        //Test to see if player balance is increased when selling houses. Formula for selling houses is: (price/2)*amountToSell
+        assertEquals(31500,((Street) fieldcontroller.getField(2)).getOwner().getBalance());
+        //Test to see if housing pool is increased again.
+        assertEquals(35,fieldcontroller.getHousePool());
+    }
+    @Test
+    void testRemovePlayerFromProperties() {
+        Player player = playerController.getPlayerById(0);
+        for (Object field : fieldcontroller.fieldArrayList) {
+            if ( field instanceof Property) {
+               ((Property) field).setOwner(player);
+            }
+        }
+
+        fieldcontroller.removePlayer(player);
+
+        for (Object field : fieldcontroller.fieldArrayList) {
+            if ( field instanceof Property) {
+                assertNull(((Property) field).getOwner());
+            }
+        }
+    }
+
+    @Test
+    void BuyAndSellBuildingTest() {
+        Player player = playerController.getPlayerById(0);
+        Street street = (Street) fieldcontroller.getField(2);
+        street.setOwner(player);
+
+        assertEquals(0, ((Street) fieldcontroller.getField(2)).getHouseAmount());
+
+        fieldcontroller.addBuilding(street);
+
+        assertEquals(1, ((Street) fieldcontroller.getField(2)).getHouseAmount());
+
+        fieldcontroller.sellBuilding(street,1);
+
+        assertEquals(0, ((Street) fieldcontroller.getField(2)).getHouseAmount());
+    }
 }

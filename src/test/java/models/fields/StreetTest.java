@@ -3,10 +3,7 @@ package models.fields;
 import controllers.FieldController;
 import controllers.GUIControllerStub;
 import controllers.PlayerController;
-import models.Language;
-import models.Player;
 import models.dto.GameStateDTO;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -20,8 +17,7 @@ class StreetTest {
 
     @BeforeEach
      void beforeAll() {
-        Language language = new Language();
-        fieldController = new FieldController(language);
+        fieldController = new FieldController();
         guiController = new GUIControllerStub();
         playerController = new PlayerController();
         playerController.addPlayer(0, "car", "test1",1);
@@ -45,7 +41,7 @@ class StreetTest {
     }
 
     @Test
-    void steetEffectGetRent() {
+    void streetEffectGetRent() {
         Street street = (Street) fieldController.getField(1);
         street.setOwner(playerController.getPlayerById(1));
         street.fieldEffect(gameStateDTO);
@@ -65,8 +61,7 @@ class StreetTest {
 
         street.fieldEffect(gameStateDTO);
 
-        assertEquals(1, playerController.getPlayers().length);
-        assertNull(playerController.getPlayerById(0));
+        assertEquals(30000, playerController.getPlayerById(0).getBalance());
     }
 
     @Test
@@ -97,6 +92,5 @@ class StreetTest {
         assertEquals(30000-pinkStreet3.getRent()[0]*2, gameStateDTO.getActivePlayer().getBalance());
         assertEquals(30000+pinkStreet3.getRent()[0]*2, pinkStreet3.getOwner().getBalance());
 
-        assertEquals(30000, playerController.getPlayerById(0).getBalance());
     }
 }

@@ -3,10 +3,7 @@ package models.fields;
 import controllers.FieldController;
 import controllers.GUIControllerStub;
 import controllers.PlayerController;
-import models.Language;
-import models.Player;
 import models.dto.GameStateDTO;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,8 +18,7 @@ class FerryTest {
 
     @BeforeEach
     void beforeAll() {
-        Language language = new Language();
-        fieldController = new FieldController(language);
+        fieldController = new FieldController();
         guiController = new GUIControllerStub();
         playerController = new PlayerController();
         playerController.addPlayer(0, "car", "test1",1);
@@ -48,7 +44,7 @@ class FerryTest {
     }
 
     @Test
-    void steetEffectGetRent() {
+    void streetEffectGetRent() {
         Ferry ferry = (Ferry) fieldController.getField(5);
         ferry.setOwner(playerController.getPlayerById(1));
         ferry.fieldEffect(gameStateDTO);
@@ -78,7 +74,7 @@ class FerryTest {
     }
 
     @Test
-    void steetEffectGetRent2Owned() {
+    void streetEffectGetRent2Owned() {
         Ferry ferry1 = (Ferry) fieldController.getField(5);
         ferry1.setOwner(playerController.getPlayerById(1));
         Ferry ferry2 = (Ferry) fieldController.getField(15);
@@ -91,7 +87,7 @@ class FerryTest {
     }
 
     @Test
-    void steetEffectGetRent4Owned() {
+    void streetEffectGetRent4Owned() {
         Ferry ferry1 = (Ferry) fieldController.getField(5);
         ferry1.setOwner(playerController.getPlayerById(1));
         Ferry ferry2 = (Ferry) fieldController.getField(15);

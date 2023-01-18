@@ -44,7 +44,7 @@ Project starts the 2nd of january 2023
 [Land på felt (K6)] as [K6] lasts 2 days
 [K6] is 100% complete
 
-[Træk changsekort (K18)] as [K18] lasts 1 days
+[Træk chancekort (K18)] as [K18] lasts 1 days
 [K18] is 100% complete
 
 [Spiller penge (K7)] as [K7] lasts 1 days
@@ -109,7 +109,7 @@ Project starts the 2nd of january 2023
 
 [MVP præsentation] as [MVP] starts 2023-01-11
 [MVP] is colored in Lavender/LightBlue
-[MVP] is 0% complete
+[MVP] is 100% complete
 
 [Ekstra tur (K19)] as [K19] lasts 1 days
 [K19] is colored in Lavender/Yellow
@@ -117,36 +117,36 @@ Project starts the 2nd of january 2023
 
 [Fængsel på 3. dobbeltslag (K31)] as [K31] starts 2023-01-16
 [K31] is colored in Lavender/Teal
-[K31] is 1000% complete
+[K31] is 100% complete
 
 [Land på felt, skat og afgift (K20)] as [K20] lasts 1 days
 [K20] is colored in Lavender/Yellow
 [K20] is 100% complete
 
-[Changce kort, resten (K18)] as [K18.2] starts 2023-01-13
-[Changce kort, resten (K18)] as [K18.2] ends 2023-01-16
+[Chance kort, resten (K18)] as [K18.2] starts 2023-01-13
+[Chance kort, resten (K18)] as [K18.2] ends 2023-01-16
 [K18.2] is colored in Lavender/Orange
-[K18.2] is 0% complete
+[K18.2] is 100% complete
 
 [Leje bonus (K21)] as [K21] lasts 1 days
 [K21] is colored in Lavender/Yellow
-[K21] is 50% complete
+[K21] is 100% complete
 
 [Købe huse (K22)] as [K22] lasts 2 days
 [K22] is colored in Lavender/Yellow
-[K22] is 50% complete
+[K22] is 100% complete
 
 [købe sidste hus (K23)] as [K23] lasts 1 days
 [K23] is colored in Lavender/Yellow
-[K23] is 0% complete
+[K23] is 100% complete
 
 [Køb hotel (K34)] as [K34] lasts 1 days
 [K34] is colored in Lavender/Teal
-[K34] is 0% complete
+[K34] is 100% complete
 
 [Sælge huse (K26)] as [K26] lasts 1 days
 [K26] is colored in Lavender/Orange
-[K26] is 0% complete
+[K26] is 90% complete
 
 [Spillet har 2 out-of-jail kort (K30)] as [K30] lasts 1 days
 [K30] is colored in Lavender/Yellow
@@ -155,7 +155,7 @@ Project starts the 2nd of january 2023
 [Bortaktioner grunde (K27)] as [K27] starts 2023-01-13
 [Bortaktioner grunde (K27)] as [K27] ends 2023-01-16
 [K27] is colored in Lavender/Teal
-[K27] is 75% complete
+[K27] is 100% complete
 
 [Ejendomspris i GUI (K32)] as [K32] starts 2023-01-16
 [K32] is colored in Lavender/Teal
@@ -165,9 +165,9 @@ Project starts the 2nd of january 2023
 [K33] is colored in Lavender/Teal
 [K33] is 100% complete
 
-[Forbered acceptencetest] as [test] starts 2023-01-16
-[Forbered acceptencetest] as [test] ends 2023-01-17
-[test] is 0% complete
+[Forbered acceptance test] as [test] starts 2023-01-16
+[Forbered acceptance test] as [test] ends 2023-01-17
+[test] is 75% complete
 
 [MVP]->[K19]
 [MVP]->[K20]
@@ -179,15 +179,12 @@ Project starts the 2nd of january 2023
 [MVP]->[K18.2]
 [MVP]->[test]
 
-
 [K21]-[#FF0000]->[K22]
 [K22]-[#FF0000]->[K23]
 [K22]->[K34]
 [K22]->[K26]
 
-
 [K19]->[K31]
-
 
 [Code freeze] happens 2023-01-18
 

@@ -3,7 +3,6 @@ package models.chanceCards;
 import controllers.FieldController;
 import controllers.GUIControllerStub;
 import controllers.PlayerController;
-import models.Language;
 import models.Player;
 import models.dto.GameStateDTO;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +25,7 @@ class GetOutOfJailTest {
         gameState = new GameStateDTO(player1,otherPlayers);
         gameState.setPlayerController(new PlayerController());
         gameState.setGuiController(new GUIControllerStub());
-        gameState.setFieldController(new FieldController(new Language()));
+        gameState.setFieldController(new FieldController());
         card = new GetOutOfJail("card1", "");
     }
 

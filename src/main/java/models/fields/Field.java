@@ -1,9 +1,9 @@
 package models.fields;
-import gui_fields.GUI_Field;
-import models.Player;
-import models.dto.GameStateDTO;
+import models.dto.IGameStateDTO;
+import models.Language;
 
 public abstract class Field {
+    protected Language language;
     protected String name;
     protected int iD;
 
@@ -23,5 +23,9 @@ public abstract class Field {
         return iD;
     }
 
-    public abstract GameStateDTO fieldEffect(GameStateDTO gameState);
+    public void fieldEffect(IGameStateDTO gameState) {
+        fieldEffect(gameState, 1);
+    }
+
+    public abstract void fieldEffect(IGameStateDTO gameState, int rentMultiplier);
 }

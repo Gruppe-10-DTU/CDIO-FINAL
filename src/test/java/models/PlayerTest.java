@@ -44,17 +44,15 @@ public class PlayerTest extends TestCase {
     @Test
     @DisplayName("Player can use get out of jail card")
     public void useGetOutOfJail(){
-        Language language = new Language();
         GameStateDTO gameState = new GameStateDTO(player, new ArrayList<>(1));
         gameState.setGuiController(new GUIControllerStub());
-        gameState.setFieldController(new FieldController(language));
-        gameState.setChancecardDeck(new Deck(language));
+        gameState.setFieldController(new FieldController());
+        gameState.setChanceCardDeck(new Deck());
         GetOutOfJail card = new GetOutOfJail("GET_OUT_OF_JAIL_1", "Get Out of Jail card");
         player.addGetOutOfJail(card);
         gameState.getFieldController().jailPlayer(player);
         assertTrue(player.hasGetOutOfJail());
-        player.useGetOutOfJail(gameState);
+        assertEquals(card, player.useGetOutOfJail());
         assertFalse(player.hasGetOutOfJail());
-        assertFalse(gameState.getFieldController().isJailed(player));
     }
 }

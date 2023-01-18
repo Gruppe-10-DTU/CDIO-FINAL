@@ -10,19 +10,25 @@ public class Language {
 
     private HashMap<String, String> languageValues;
 
-    public Language() {
-        updateLanguage("English");
-    }
-    public Language(String language){
-        updateLanguage(language);
+    private static Language instance = new Language();
+
+    private Language(){
+        updateLanguage(System.getProperty("user.language"));
     }
 
-    //Returns the value to the requestes key, kan add extra string if the value includes {0}
+    public static Language getInstance(){
+        return instance;
+    }
+
+    //Returns the value to the requested key, can add extra string if the value includes {0}
     public String getLanguageValue(String key, String...txt) {
         String value = languageValues.get(key);
-        value = value.replace("{0}", txt[0]);
+        for (int i = 0; i < txt.length ; i++) {
+            value = value.replace("{"+i+"}",txt[i]);
+        }
         return value;
     }
+
     public String getLanguageValue(String key) {
         return languageValues.get(key);
     }
@@ -38,13 +44,13 @@ public class Language {
                 target = "/LanguagePack/danish.txt";
                 break;
             default:
-                target = "/LanguagePack/english.txt";
+                target = "/LanguagePack/danish.txt";
                 break;
         }
         Class c = this.getClass();
         InputStream file = c.getResourceAsStream(target);
 
-        languageValues = new HashMap<String, String>();
+        languageValues = new HashMap<>();
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(file));
             String line;
@@ -55,6 +61,7 @@ public class Language {
                 }
             }
         } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

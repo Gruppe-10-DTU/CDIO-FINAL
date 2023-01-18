@@ -1,7 +1,6 @@
 package models.chanceCards;
 
-import models.Language;
-import controllers.Deck;
+import models.chanceCards.Deck;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,7 +12,7 @@ class DeckTest {
 
     @BeforeEach
     void setup(){
-        deck = new Deck(new Language());
+        deck = new Deck();
     }
 
 
@@ -22,7 +21,7 @@ class DeckTest {
      */
     @Test
     void shuffleChangesDeckOrder() {
-        Deck controlDeck = new Deck(new Language());
+        Deck controlDeck = new Deck();
         deck.shuffle();
         int count = 0;
         for (int i = 0; i < deck.getDeckSize(); i++) {
@@ -54,7 +53,7 @@ class DeckTest {
     @DisplayName("Cards can be returned to deck")
     void returnToDeck(){
         ChanceCard card = new GetOutOfJail("Test", "test");
-        int startSize = deck.getDeckSize();;
+        int startSize = deck.getDeckSize();
         deck.returnToDeck(card);
         assertTrue(startSize < deck.getDeckSize());
     }

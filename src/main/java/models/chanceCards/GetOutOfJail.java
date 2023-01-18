@@ -1,27 +1,25 @@
 package models.chanceCards;
 
-import models.dto.GameStateDTO;
+import models.dto.IGameStateDTO;
 
 public class GetOutOfJail extends ChanceCard{
 
     /**
      * Constructor for the get out of jail free card
-     * @param Name        Must match a key in the language hashmap
-     * @param Description Must be imported from the language hashmap
+     * @param name        Must match a key in the language hashmap
+     * @param description Must be imported from the language hashmap
      */
-    public GetOutOfJail(String Name, String Description) {
-        super(Name, Description);
+    public GetOutOfJail(String name, String description) {
+        super(name, description);
     }
 
     @Override
-    public GameStateDTO chanceEffect(GameStateDTO gameState){
+    public void chanceEffect(IGameStateDTO gameState){
         if (gameState.getFieldController().isJailed(gameState.getActivePlayer())) {
-            gameState.getFieldController().freePlayer(gameState.getActivePlayer());
-            gameState.getChancecardDeck().returnToDeck(this);
+            gameState.getChanceCardDeck().returnToDeck(this);
         }else{
             gameState.getGuiController().showChanceCard(this.description);
             gameState.getActivePlayer().addGetOutOfJail(this);
         }
-        return gameState;
     }
 }

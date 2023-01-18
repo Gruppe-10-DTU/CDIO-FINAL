@@ -82,7 +82,7 @@ public class GUIControllerStub extends ui.GUIController {
      * @param player Player to be moved
      */
     @Override
-    public void movePlayer(Player player) {
+    public void movePlayer(Player player, boolean reverse) {
 
     }
 
@@ -111,18 +111,10 @@ public class GUIControllerStub extends ui.GUIController {
      * @param property Property to be changed
      */
     @Override
-    public void updateField(Property property) {
+    public void updateField(Property property, FieldController fieldController) {
 
     }
 
-    /**
-     * @param emtpyFieldChoice Text to display
-     * @param properties       The choices you have
-     */
-    @Override
-    public int getPropertyChoice(String emtpyFieldChoice, Street[] properties) {
-        return 23;
-    }
 
     public void showChanceCard(String message){
 

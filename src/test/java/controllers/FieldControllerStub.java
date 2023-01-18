@@ -1,10 +1,14 @@
 package controllers;
 
 
-import models.Language;
 import models.Player;
 
 public class FieldControllerStub extends FieldController {
+    private int propertyValue;
+
+    public void setPropertyValue(int propertyValue) {
+        this.propertyValue = propertyValue;
+    }
 
     public FieldControllerStub(){
 
@@ -18,6 +22,6 @@ public class FieldControllerStub extends FieldController {
      */
     @Override
     public int playerPropertyValues(Player player) {
-        return 3000;
+        return propertyValue;
     }
 }

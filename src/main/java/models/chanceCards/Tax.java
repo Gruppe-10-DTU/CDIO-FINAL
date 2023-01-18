@@ -1,30 +1,37 @@
 package models.chanceCards;
 
-import models.dto.GameStateDTO;
-import org.apache.commons.lang.NotImplementedException;
+import models.Language;
+import models.Player;
+import models.dto.IGameStateDTO;
 
 public class Tax extends ChanceCard {
 
-    private final int HOUSE_TAX;
-    private final int HOTEL_TAX;
+    private final int houseTax;
+    private final int hotelTax;
 
 
-    public Tax (String Name, String Description, int Value_1, int Value_2){
-        super(Name, Description);
-        this.HOUSE_TAX = Value_1;
-        this.HOTEL_TAX = Value_2;
+    public Tax(String name, String description, int houseTax, int hotelTax) {
+        super(name, description);
+        this.houseTax = houseTax;
+        this.hotelTax = hotelTax;
     }
 
     @Override
-    public GameStateDTO chanceEffect(GameStateDTO gameState){
-        throw new NotImplementedException();
-    }
+    public void chanceEffect(IGameStateDTO gameState) {
+        gameState.getGuiController().showChanceCard(description);
+        Player player = gameState.getActivePlayer();
+        int[] buildingsOwned = gameState.getFieldController().housesAndHotelsOwned(player);
+        int houseTax = buildingsOwned[0] * this.houseTax;
+        int hotelTax = buildingsOwned[1] * this.hotelTax;
+        int totalTax = (houseTax + hotelTax) * -1;
 
-    public int getHOUSE_TAX() {
-        return HOUSE_TAX;
-    }
-
-    public int getHOTEL_TAX() {
-        return HOTEL_TAX;
+        if (player.setBalance(totalTax) || gameState.getFieldController().sell(player,totalTax, gameState)) {
+            gameState.getGuiController().updatePlayer(player);
+        } else {
+            gameState.getGuiController().displayMsg(Language.getInstance().getLanguageValue("disqualified"));
+            //Optional house selling
+            gameState.getPlayerController().removePlayer(player.getID());
+        }
+        gameState.getChanceCardDeck().returnToDeck(this);
     }
 }

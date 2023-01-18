@@ -9,16 +9,15 @@ import java.util.ArrayList;
 public class Deck {
 
     private ArrayList<ChanceCard> deck;
-    private CSVReader reader;
 
 
     /**
      * Constructs deck from chanceCards.csv file in resources using custom CSVReader
      */
-    public Deck(Language language) {
+    public Deck() {
         final String DELIMITER = ",";
 
-        reader = new CSVReader("/GamePack/chancecards.csv", DELIMITER, true);
+        CSVReader reader = new CSVReader("/GamePack/chancecards.final.csv", DELIMITER, true);
 
         ArrayList<ArrayList<String>> cardData = reader.getDataAsArrList();
 
@@ -32,7 +31,7 @@ public class Deck {
 
         this.deck = new ArrayList<>();
         for (ArrayList<String> element: cardData) {
-            String description = language.getLanguageValue("cc" + element.get(name));
+            String description = Language.getInstance().getLanguageValue("cc" + element.get(name));
             switch (element.get(type)) {
                 case "Tax":
                     deck.add(new Tax(
@@ -89,7 +88,6 @@ public class Deck {
                     break;
             }
         }
-        reader = null;
     }
 
     /**

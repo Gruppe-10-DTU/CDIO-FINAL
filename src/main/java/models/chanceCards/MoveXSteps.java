@@ -2,37 +2,38 @@ package models.chanceCards;
 
 import controllers.PlayerController;
 import models.Player;
-import models.dto.GameStateDTO;
+import models.dto.IGameStateDTO;
 
 public class MoveXSteps extends ChanceCard{
 
-    private final int MAX_STEPS;
+    private final int maxSteps;
 
     /**
      *
-     * @param Name
-     * @param Description
-     * @param StepsToMove
+     * @param name card name
+     * @param description card text
+     * @param maxSteps how many steps the card moves the player
      */
-     public MoveXSteps(String Name, String Description, int StepsToMove) {
-        super(Name, Description);
+         public MoveXSteps(String name, String description, int maxSteps) {
+        super(name, description);
 
-        this.MAX_STEPS = StepsToMove;
+        this.maxSteps = maxSteps;
     }
 
     @Override
-    public GameStateDTO chanceEffect(GameStateDTO gameState){
+    public void chanceEffect(IGameStateDTO gameState) {
+        int direction = 1;
+        if (gameState.isReverse()) direction = -1;
         PlayerController playerController = gameState.getPlayerController();
         Player activePlayer = gameState.getActivePlayer();
         gameState.getGuiController().showChanceCard(this.description);
-        playerController.playerMove(activePlayer, this.MAX_STEPS);
+        playerController.playerMove(activePlayer, this.maxSteps * direction);
+        if (maxSteps < 0) {
+            gameState.getGuiController().movePlayer(activePlayer, !gameState.isReverse());
+        } else {
+            gameState.getGuiController().movePlayer(activePlayer, gameState.isReverse());
+        }
         gameState.getFieldController().landOnField(gameState);
-        gameState.getChancecardDeck().returnToDeck(this);
-        return gameState;
-    }
-
-
-    public int getMaxSteps() {
-        return MAX_STEPS;
+        gameState.getChanceCardDeck().returnToDeck(this);
     }
 }

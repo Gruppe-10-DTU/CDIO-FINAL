@@ -3,7 +3,6 @@ package controllers;
 import java.util.Arrays;
 
 public class CheatDiceHolder extends DiceHolder{
-    int nextRoll;
     int[] rolls;
     private int isEqualAmount = -1;
 
@@ -18,6 +17,12 @@ public class CheatDiceHolder extends DiceHolder{
     @Override
     public void roll() {
 
+    }
+
+    @Override
+    public int sum(boolean reverse) {
+        int sum = Arrays.stream(rolls).sum();
+        return (reverse) ? sum*-1 : sum;
     }
 
     @Override

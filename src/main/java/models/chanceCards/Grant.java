@@ -1,28 +1,28 @@
 package models.chanceCards;
 
-import models.dto.GameStateDTO;
-import org.apache.commons.lang.NotImplementedException;
+import models.Language;
+import models.dto.IGameStateDTO;
+import models.Player;
 
 public class Grant extends ChanceCard{
 
-    private final int BONUS;
-    private final int NET_WORTH;
-    public Grant(String NAME, String Description, int MaximumPlayerWorth, int AwardsBonus) {
-        super(NAME, Description);
-        this.BONUS = AwardsBonus;
-        this.NET_WORTH = MaximumPlayerWorth;
+    private final int bonus;
+    private final int netWorth;
+    public Grant(String name, String description, int netWorth, int bonus) {
+        super(name, description);
+        this.bonus = bonus;
+        this.netWorth = netWorth;
     }
-
-    public int getBONUS() {
-        return BONUS;
-    }
-
-    public int getNET_WORTH() {
-        return NET_WORTH;
-    }
-
     @Override
-    public GameStateDTO chanceEffect(GameStateDTO gameState){
-        throw new NotImplementedException();
+    public void chanceEffect(IGameStateDTO gameState){
+        gameState.getGuiController().showChanceCard(this.description);
+        Player player = gameState.getActivePlayer();
+        int playerWorth = player.getBalance() + gameState.getFieldController().playerPropertyValues(player);
+        if(playerWorth < netWorth){
+            gameState.getGuiController().displayMsg(Language.getInstance().getLanguageValue("grant"));
+            player.setBalance(bonus);
+        }
+        gameState.getGuiController().updatePlayer(player);
+        gameState.getChanceCardDeck().returnToDeck(this);
     }
 }

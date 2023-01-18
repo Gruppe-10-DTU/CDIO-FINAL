@@ -2,6 +2,7 @@ package models.dto;
 
 import controllers.DiceHolder;
 import controllers.FieldController;
+import controllers.GameController;
 import controllers.PlayerController;
 import models.Player;
 import controllers.Deck;
@@ -9,7 +10,7 @@ import ui.GUIController;
 
 import java.util.ArrayList;
 
-public class GameStateDTO {
+public class GameStateDTO implements IGameStateDTO {
     private Player activePlayer;
     private ArrayList<Player> otherPlayers;
     private GUIController guiController;
@@ -17,7 +18,18 @@ public class GameStateDTO {
     private FieldController fieldController;
 
     private PlayerController playerController;
-    private Deck chancecardDeck;
+    private Deck chanceCardDeck;
+    private GameController gameController;
+
+    private boolean reverse;
+
+    public void setReverse(boolean reverse) {
+        this.reverse = reverse;
+    }
+
+    public boolean isReverse() {
+        return reverse;
+    }
 
     public PlayerController getPlayerController() {
         return playerController;
@@ -65,25 +77,29 @@ public class GameStateDTO {
         this.activePlayer = activePlayer;
     }
 
-    public void setOtherPlayers(ArrayList<Player> otherPlayers) {
-        this.otherPlayers = otherPlayers;
-    }
-
     public Player getActivePlayer() {
         return activePlayer;
     }
 
+    public void setChanceCardDeck(Deck chanceCardDeck) {
+        this.chanceCardDeck = chanceCardDeck;
+    }
+
+    public Deck getChanceCardDeck(){
+        return this.chanceCardDeck;
+    }
+
+    @Override
     public ArrayList<Player> getOtherPlayers() {
         return otherPlayers;
     }
 
-    public void setChancecardDeck(Deck chancecardDeck) {
-        this.chancecardDeck = chancecardDeck;
-    }
-
-    public Deck getChancecardDeck(){
-        return this.chancecardDeck;
+    public void setOtherPlayers(ArrayList<Player> otherPlayers) {
+        this.otherPlayers = otherPlayers;
     }
 
 
+    public void setGameController(GameController gameController) {
+        this.gameController = gameController;
+    }
 }
