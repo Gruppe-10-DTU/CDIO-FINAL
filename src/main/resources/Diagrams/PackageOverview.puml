@@ -1,65 +1,108 @@
 @startuml
+@startuml
 skinparam linetype polyline
+skinparam linetype ortho
+left to right direction
 
-package Models{
-    class Player
-    class Character
-    package fields{
-        abstract Field
-        class Property
-        class Jail
-        Property -up-|> Field
-        Jail -|> Field
-
-    }
-    class Balance
-    package chanceCards {
-        class Deck
-    }
-    class Die
-    class Language
-
-    Player *-- Balance
-    Player *-- Character
-    Property "1" -- "0..1" Player
-    Jail "1" -- "0..4" Player
+interface ActionListener {
 }
 
-package controllers {
-    class GameController
-    class FieldController
-    class PlayerController
-    class DieHolder
-    class GUIConverter
-    class CSVReader
+class controllers.GUIConverter {
+}
+class controllers.GameController {
+
+}
+class controllers.FieldController {
+
+}
+class models.Language {
+
+}
+abstract class models.ChanceCard {
+
 }
 
-package ui {
-    class GUIController
+class models.Player {
+
 }
 
-Language -[hidden]--- Die
-Deck -[hidden]- Player
-Die -[hidden]- Player
+class ui.guiController{
 
-DieHolder o-down- "1..*" Die
-PlayerController o-- "2..4" Player
-FieldController o--- "1..*" Field
-GameController o--- "1" Language
+}
 
-GameController o- "1" Deck
+class controllers.PlayerController {
 
-GameController o-up- GUIController
-GUIController -down- GUIConverter
+}
+class controllers.DiceHolder {
 
-Language .-up-> GUIController
-Language .--> Deck
-Language .-up-> FieldController
+}
+class controllers.StartValues {
+}
 
-CSVReader .--> Deck
-CSVReader .--> FieldController
+class models.Character {
 
-class Start
-GameController -up-* Start
+}
 
+abstract class models.Field {
+
+}
+
+class models.Balance {
+}
+
+class models.Die {
+}
+interface models.dto.IGameStateDTO {
+}
+class models.dto.GameStateDTO {
+}
+class controllers.Deck {
+}
+
+class controllers.CSVReader {
+}
+
+'Models ejere
+models.Player o-down- models.Character
+models.Player o- models.Balance
+models.Player -- models.ChanceCard
+
+controllers.PlayerController <.. models.Language : use
+ui.guiController <.. models.Language : use
+controllers.FieldController <.. models.Language : use
+
+'Controllers ejere
+controllers.DiceHolder"1" o- "2"models.Die
+controllers.PlayerController "1" o- "3..6" models.Player
+controllers.FieldController"1 #" o- "40" models.Field
+controllers.Deck"1" o-- "45" models.ChanceCard
+
+models.dto.IGameStateDTO <|.. models.dto.GameStateDTO
+models.dto.IGameStateDTO -- controllers.PlayerController
+models.dto.IGameStateDTO -- controllers.FieldController
+models.dto.IGameStateDTO -- controllers.Deck
+models.dto.IGameStateDTO -- controllers.DiceHolder
+models.dto.IGameStateDTO -- ui.guiController
+models.dto.IGameStateDTO -- models.Player
+
+controllers.GameController <|.. ActionListener
+controllers.GameController o- controllers.PlayerController
+controllers.GameController o- controllers.FieldController
+controllers.GameController o- controllers.Deck
+controllers.GameController o- controllers.DiceHolder
+controllers.GameController o- models.dto.GameStateDTO
+controllers.GameController o- ui.guiController
+
+
+
+controllers.FieldController -- controllers.CSVReader
+controllers.Deck -- controllers.CSVReader
+
+controllers.PlayerController <.. controllers.StartValues : use
+ui.guiController <.. controllers.StartValues : use
+ui.guiController <.. controllers.GUIConverter : use
+
+
+models.dto.IGameStateDTO -- models.Field
+models.dto.IGameStateDTO -- models.ChanceCard
 @enduml

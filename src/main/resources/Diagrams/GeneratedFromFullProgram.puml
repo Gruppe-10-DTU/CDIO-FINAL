@@ -1,0 +1,254 @@
+@startuml
+class models.Character {
+- String name
+- Color color
++ String getName()
++ Color getColor()
+}
+
+class ui.GUIController {
+- GUI gui
+- GUI_Player[] gui_players
++ int getBid(String,int,int)
++ int playerAmount(String)
++ String selectCharacter(String,String)
++ void setPlayers(Player[])
++ void displayMsg(String)
++ String getName(String)
++ void updatePlayer(Player)
++ void movePlayer(Player,boolean)
++ void displayDice(int[])
++ void updateField(Property,FieldController)
++ void displayMsgNoBtn(String)
++ void showChanceCard(String)
++ void endGame()
++ void getRoll(String,String)
++ void updateBoard(PlayerController,FieldController)
++ Boolean getUserLeftButtonPressed(java.lang.String,java.lang.String,java.lang.String)
++ String getOutOfJailOptions(boolean,boolean)
++ void getOutOfJailRollAgain()
++ String selectBuild(String,Street[])
++ void guiAddHouse(Street,int)
++ void guiAddHotel(Street)
++ void guiRemoveHotel(Street)
++ String selectColorBuild(String,String[])
++ void removePlayer(Player,Property[])
+}
+class controllers.Deck {
+- ArrayList<ChanceCard> deck
++ void shuffle()
++ ChanceCard drawCard()
++ int getDeckSize()
++ void returnToDeck(ChanceCard)
++ void rigDeck(int)
+}
+
+class controllers.GUIConverter {
++ {static} GUI_Player[] playerToGUI(Player[])
++ {static} GUI_Field[] fieldListToGUI(ArrayList<Field>)
+}
+class controllers.GameController {
+- DiceHolder diceHolder
+- int turnCounter
+- GUIController guiController
+- PlayerController playerController
+- FieldController fieldController
+- Deck deck
+- Popup p
+- boolean reverse
+- boolean looper
+- GameStateDTO gameState
++ void initialize()
++ void startGame()
++ void takeTurn(Player)
++ void actionPerformed(ActionEvent)
++ boolean win()
++ void winMsg()
+}
+class controllers.FieldController {
+# ArrayList<Field> fieldArrayList
+- int housePool
+- int hotelPool
+# void createFieldArray(ArrayList<ArrayList<String>>)
++ void jailPlayer(Player)
++ void landOnField(IGameStateDTO)
++ void landOnField(IGameStateDTO,int)
++ int playerPropertyValues(Player)
++ Field getField(int)
++ ArrayList<Field> getFieldList()
++ int distToFirstFerry(Player,boolean)
++ int ferrysOwned(Player,int,int)
++ int breweriesOwned(Player,int)
++ String toString()
++ boolean isJailed(Player)
++ Map<String,Street[]> ownsColourGroup(Player)
++ Map<String,Street[]> buildEqual(Map<String,Street[]>)
++ Map<String,Street[]> propertyWithBuilding(Map<String,Street[]>)
++ void addBuilding(Street)
++ Street getStreetFromString(String)
++ int getHousePool()
++ int getHotelPool()
++ void setHousePool(int)
++ void setHotelPool(int)
++ void sellBuilding(Street,int)
++ int[] housesAndHotelsOwned(Player)
++ Property[] removePlayer(Player)
++ boolean sell(Player,int,IGameStateDTO)
+}
+class models.Language {
+- HashMap<String,String> languageValues
+- {static} Language instance
++ {static} Language getInstance()
++ String getLanguageValue(String,String)
++ String getLanguageValue(String)
++ void updateLanguage(String)
+}
+abstract class models.chanceCards.ChanceCard {
+# String name
+# String description
++ {abstract}void chanceEffect(IGameStateDTO)
++ String getName()
+}
+
+class models.Player {
+- int iD
+- Balance balance
+- String identifier
+- Character character
+- int location
+- int previousLocation
+- ArrayList<GetOutOfJail> getOutOfJail
+- int roundsInJail
++ int getBalance()
++ boolean setBalance(int)
++ String getIdentifier()
++ Character getCharacter()
++ int getLocation()
++ void setLocation(int,int)
++ int getID()
++ void setLocation(int)
++ boolean hasGetOutOfJail()
++ void addGetOutOfJail(GetOutOfJail)
++ GetOutOfJail useGetOutOfJail()
++ int getRoundsInJail()
++ void setRoundsInJail(int)
++ void stayInJail()
++ void setPreviousLocation(int)
++ int getPreviousLocation()
+}
+
+abstract class models.fields.Field {
+# Language language
+# String name
+# int iD
++ void setName(String)
++ String getName()
++ void setID(int)
++ int getID()
++ void fieldEffect(IGameStateDTO)
++ {abstract}void fieldEffect(IGameStateDTO,int)
+}
+
+
+class controllers.PlayerController {
+- LinkedHashMap<Integer,Player> availablePlayers
++ void addPlayer(int,String,String,int)
++ void removePlayer(int)
++ void playerMove(Player,int)
++ Player getPlayerById(int)
++ Player[] getPlayers()
++ ArrayList<Player> otherPlayers(int)
++ boolean playerUnique(String)
+}
+class controllers.DiceHolder {
+- Die[] dice
+- int[] rolls
+- int sameRolls
++ int[] getRolls()
++ void roll()
+- void rollDie()
++ int sum(boolean)
++ int sum()
++ boolean isEqual()
++ String toString()
++ int getSameRolls()
++ void setSameRolls(int)
++ void incrementSameRolls()
+}
+class controllers.StartValues {
+- Properties properties
+- {static} StartValues instance
++ {static} StartValues getInstance()
++ int getValue(String)
+}
+
+class models.Balance {
+- int balance
++ int getBalance()
++ void setBalance(int)
+}
+
+class models.Die {
+- int sides
++ int roll()
+}
+
+interface models.dto.IGameStateDTO {
+~ Player getActivePlayer()
+~ GUIController getGuiController()
+~ FieldController getFieldController()
+~ PlayerController getPlayerController()
+~ DiceHolder getDiceHolder()
+~ Deck getChanceCardDeck()
+~ ArrayList<Player> getOtherPlayers()
+~ boolean isReverse()
+}
+class models.dto.GameStateDTO {
+- Player activePlayer
+- ArrayList<Player> otherPlayers
+- GUIController guiController
+- FieldController fieldController
+- PlayerController playerController
+- Deck chanceCardDeck
+- GameController gameController
+- boolean reverse
+- DiceHolder diceHolder
++ void setReverse(boolean)
++ boolean isReverse()
++ PlayerController getPlayerController()
++ void setPlayerController(PlayerController)
++ void setFieldController(FieldController)
++ FieldController getFieldController()
++ void setDiceHolder(DiceHolder)
++ DiceHolder getDiceHolder()
++ void setGuiController(GUIController)
++ GUIController getGuiController()
++ void setActivePlayer(Player)
++ Player getActivePlayer()
++ void setChanceCardDeck(Deck)
++ Deck getChanceCardDeck()
++ ArrayList<Player> getOtherPlayers()
++ void setOtherPlayers(ArrayList<Player>)
++ void setGameController(GameController)
+}
+
+
+class controllers.CSVReader {
+- String DELIMITER
+- BufferedReader reader
+- String[] headers
+- String file
+- ArrayList<ArrayList<String>> fileAsArrList
++ ArrayList<ArrayList<String>> getDataAsArrList()
++ String toString()
++ String[][] getData()
++ String[] getHeaders()
++ int getHeaderIndex(String)
+}
+
+
+
+
+
+
+@enduml

@@ -1,15 +1,11 @@
 @startuml
 skinparam linetype polyline
 skinparam linetype ortho
+
 left to right direction
 
 interface ActionListener {
     actionPerformed(e : ActionEvent)
-}
-class models.Character {
-- name : String
-- color : Color
-- setColor(colorIndex : int) : Color
 }
 
 class controllers.GUIConverter {
@@ -17,15 +13,8 @@ class controllers.GUIConverter {
 + {static} fieldListToGUI(fields: Field[]) : GUI_Field[]
 }
 class controllers.GameController {
-- diceHolder : DiceHolder
-- turnCounter : int
-- guiController : GUIController
-- playerController : PlayerController
-- fieldController : FieldController
-- deck : Deck
 - p : Popup
 - looper : boolean
-- gameState : GameStateDTO
 + initialize()
 + startGame()
 + takeTurn(player: Player)
@@ -34,8 +23,6 @@ class controllers.GameController {
 + winMsg()
 }
 class controllers.FieldController {
-# fieldArrayList : Field[]
-- Language language
 - housePool : int = 32
 - hotelPool : int = 12
 # createFieldArray(fieldData : String[][])
@@ -77,9 +64,7 @@ abstract class models.ChanceCard {
 
 class models.Player {
 - iD : int
-- balance : Balance
 - identifier : String
-- character : Character
 - location : int
 - previousLocation : int
 - getOutOfJail : GetOutOfJail[]
@@ -120,15 +105,6 @@ class ui.guiController{
 + removePlayer(player : Player, properties : Property[])
 }
 
-
-abstract class models.Field {
-# name : String
-# iD : int
-# language : Language
-+ fieldEffect(gameStateDTO : IGameStateDTO)
-+ {abstract} fieldEffect(gameStateDTO : GameStateDTO, rentMultiplier : int) : GameStateDTO
-}
-
 class controllers.PlayerController {
 - availablePlayers : LinkedHashMap<Integer,Player>
 + addPlayer(id: int,characterName : String,name : String, color : int)
@@ -140,7 +116,6 @@ class controllers.PlayerController {
 + playerUnique(name : String) : boolean
 }
 class controllers.DiceHolder {
-- dice : Die[]
 - rolls : int[]
 - sameRolls : int
 + roll()
@@ -155,6 +130,20 @@ class controllers.StartValues {
 - properties : Properties
 - {static} instance : StartValues
 + getValue(key : String) : int
+}
+
+class models.Character {
+- name : String
+- color : Color
+- setColor(colorIndex : int) : Color
+}
+
+abstract class models.Field {
+# name : String
+# iD : int
+# language : Language
++ fieldEffect(gameStateDTO : IGameStateDTO)
++ {abstract} fieldEffect(gameStateDTO : GameStateDTO, rentMultiplier : int) : GameStateDTO
 }
 
 class models.Balance {
@@ -201,31 +190,26 @@ class controllers.CSVReader {
 - headers : String[]
 - file : String
 - fileAsArrList : String[][]
-+ getDataAsArrList() : String[][]
 + toString(): String
 + getHeaderIndex(key: String): int
 }
 
 'Models ejere
-models.Player o- models.Character
+models.Player o-down- models.Character
 models.Player o- models.Balance
 models.Player -- models.ChanceCard
+
+controllers.PlayerController <.right. models.Language : use
+ui.guiController <.right. models.Language : use
+controllers.FieldController <.right. models.Language : use
 
 'Controllers ejere
 controllers.DiceHolder"1" o- "2"models.Die
 controllers.PlayerController "1" o- "3..6" models.Player
-controllers.FieldController"1" o- "40" models.Field
-controllers.Deck"1" o- "45" models.ChanceCard
+controllers.FieldController"1 #" o- "40" models.Field
+controllers.Deck"1" o-right- "45" models.ChanceCard
 
-controllers.GameController <|.. ActionListener
-controllers.GameController -- controllers.PlayerController
-controllers.GameController -- controllers.FieldController
-controllers.GameController -- controllers.Deck
-controllers.GameController -- controllers.DiceHolder
-controllers.GameController -- models.dto.GameStateDTO
-controllers.GameController -- ui.guiController
-
-models.dto.IGameStateDTO <|.. models.dto.GameStateDTO
+models.dto.IGameStateDTO <|.right. models.dto.GameStateDTO
 models.dto.IGameStateDTO -- controllers.PlayerController
 models.dto.IGameStateDTO -- controllers.FieldController
 models.dto.IGameStateDTO -up- controllers.Deck
@@ -233,17 +217,22 @@ models.dto.IGameStateDTO -- controllers.DiceHolder
 models.dto.IGameStateDTO -- ui.guiController
 models.dto.IGameStateDTO -- models.Player
 
+controllers.GameController <|.left. ActionListener
+controllers.GameController o- controllers.PlayerController
+controllers.GameController o- controllers.FieldController
+controllers.GameController o- controllers.Deck
+controllers.GameController o- controllers.DiceHolder
+controllers.GameController o- models.dto.GameStateDTO
+controllers.GameController o- ui.guiController
+
+
+
 controllers.FieldController -- controllers.CSVReader
 controllers.Deck -- controllers.CSVReader
 
 controllers.PlayerController <.. controllers.StartValues : use
 ui.guiController <.. controllers.StartValues : use
 ui.guiController <.. controllers.GUIConverter : use
-
-
-controllers.PlayerController <.. models.Language : use
-ui.guiController <.. models.Language : use
-controllers.FieldController <.. models.Language : use
 
 
 models.dto.IGameStateDTO -- models.Field
