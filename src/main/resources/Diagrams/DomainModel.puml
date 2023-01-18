@@ -3,24 +3,24 @@ skinparam linetype polyline
 skinparam linetype ortho
 
 Class Player {
- String name
- Int balance
+ name
+ balance
 }
 
 Class Field {
- String name
+ name
 }
 
 Class ChanceCard{
- String name
+ name
 }
 Class Die {
- Int faceValue
+ faceValue
 }
 
 
 Player "3..6" -- "1" Game
-Game "1" -- "37" ChanceCard
+Game "1" -- "45" ChanceCard
 Game "1" -- "40" Field
 Game"1" -- "2" Die
 @enduml
