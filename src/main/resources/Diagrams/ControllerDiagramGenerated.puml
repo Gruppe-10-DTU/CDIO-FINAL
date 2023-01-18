@@ -1,8 +1,15 @@
 @startuml
+skinparam linetype polyline
+skinparam linetype ortho
+left to right direction
+
+interface ActionListener {
+    actionPerformed(e : ActionEvent)
+}
 class models.Character {
-- name: String
-- image: String
-- color: Color
+- name : String
+- color : Color
+- setColor(colorIndex : int) : Color
 }
 
 class controllers.GUIConverter {
@@ -12,11 +19,8 @@ class controllers.GUIConverter {
 class controllers.GameController {
 - diceHolder : DiceHolder
 - turnCounter : int
-- isOver : boolean
-- language : Language
 - guiController : GUIController
 - playerController : PlayerController
-- currentPlayer : Player
 - fieldController : FieldController
 - deck : Deck
 - p : Popup
@@ -34,33 +38,41 @@ class controllers.FieldController {
 - Language language
 - housePool : int = 32
 - hotelPool : int = 12
-# createFieldArray(ArrayList<ArrayList<String>>)
+# createFieldArray(fieldData : String[][])
 + jailPlayer(player : Player)
-+ freePlayer(player : Player)
 + landOnField(gameStateDTO : GameStateDTO) : GameStateDTO
++ landOnField(gameStateDTO : GameStateDTO, rentMultiplier : inter) : GameStateDTO
 + playerPropertyValues(player : Player) : int
 + getField(id : int) : Field
-
-+ ferrysOwned(player : Player,int,int) : int
-+ breweriesOwned(player : Player,int) : int
++ int distToFirstFerry(player : Player, gameInReverse : boolean)
++ ferrysOwned(player : Player, startField : int, ferrys : int) : int
++ breweriesOwned(player : Player,fieldId : int) : int
 + toString() : String
 + isJailed(player : Player) : boolean
 + addHouse(street: Street)
 + addHotel(street: Street)
 + getStreetFromString(name: String) : Street
-+ Map<String,Street[]> ownsColourGroup(player : Player)
-+ Map<String,Street[]> buildEqual(ownedGroups: Map<String,Street[]>)
++ ownsColourGroup(player : Player) : Map<String,Street[]>
++ buildEqual(sort : Map<String,Street[]>) : Map<String,Street[]>
++ propertyWithBuilding(checkProps : Map<String,Street[]>) : Map<String,Street[]>
++ addBuilding(property : Street)
++ getStreetFromString(street : String) : Street
++ void sellBuilding(property : Street, amountToSell : int)
++ housesAndHotelsOwned(player : Player) : int[]
++ removePlayer(player : Player) : Property[]
++ boolean sell(player : Player, price : int, gameState : IGameStateDTO)
 }
 class models.Language {
-- HashMap<String,String> languageValues
-+ String getLanguageValue(key : String,valueInsert : String) : String
-+ String getLanguageValue(key: String) : String
-+ updateLanguage(languageCode: String)
+- languageValues : HashMap<String,String>
+- {static} instance : Language = Language()
++ String getLanguageValue(key : String, values : String[])
++ String getLanguageValue(key : String)
++ updateLanguage(language : String)
 }
 abstract class models.ChanceCard {
-# String NAME
+# String name
 # String description
-+ {abstract} chanceEffect(gameStateDTO : GameStateDTO) : GameStateDTO
++ {abstract} chanceEffect(gameStateDTO : IGameStateDTO) : GameStateDTO
 }
 
 class models.Player {
@@ -69,33 +81,62 @@ class models.Player {
 - identifier : String
 - character : Character
 - location : int
+- previousLocation : int
 - getOutOfJail : GetOutOfJail[]
 - roundsInJail : int
-
 + setLocation(oldValue: int, increase: int)
 + hasGetOutOfJail() : boolean
-+ addGetOutOfJail(GetOutOfJail)
-+ useGetOutOfJail(GameStateDTO)
++ addGetOutOfJail(getOutOfJail : GetOutOfJail)
++ useGetOutOfJail()
 + stayInJail()
 }
 
 class ui.guiController{
+- gui : GUI
+- gui_players : GUI_Player[]
++ getBid(msg : String,min : int, max : int) : int
++ playerAmount(playerAmountText : String) : int
++ selectCharacter(character : String, choices : String) : String
++ getName(getNameText : String) : String
++ getUserLeftButtonPressed(message : String, trueButton : String, falseButton : String) : boolean
++ getOutOfJailOptions(canPay : boolean, hasChanceCard : boolean) : String
++ selectBuild(selectBuild : String,choices : Street[]) : String
++ selectColorBuild(chooseColorOptions : String,color : String[]) : String
++ setPlayers(players : Player[])
++ displayMsg(msg : String)
++ updatePlayer(player : Player)
++ movePlayer(player : Player, reverse : boolean)
++ displayDice(rolls : int[])
++ updateField(property : Property, fieldController : FieldController)
++ displayMsgNoBtn(msg : String)
++ showChanceCard(message : String)
++ endGame()
++ getRoll(rollText : String, rollButton : String)
++ updateBoard(playerController : PlayerController,fieldController : FieldController)
++ getOutOfJailRollAgain()
++ guiAddHouse(property : Street,amount : int)
++ guiAddHotel(property : Street)
++ guiRemoveHotel(property : Street)
++ removePlayer(player : Player, properties : Property[])
 }
+
 
 abstract class models.Field {
 # name : String
 # iD : int
-+ {abstract} fieldEffect(gameStateDTO : GameStateDTO) : GameStateDTO
+# language : Language
++ fieldEffect(gameStateDTO : IGameStateDTO)
++ {abstract} fieldEffect(gameStateDTO : GameStateDTO, rentMultiplier : int) : GameStateDTO
 }
 
 class controllers.PlayerController {
 - availablePlayers : LinkedHashMap<Integer,Player>
-+ getAvailablePlayers() : LinkedHashMap<Integer,Player>
 + addPlayer(id: int,characterName : String,name : String, color : int)
 + removePlayer(id : int)
 + playerMove(player : Player,spaces : int) : Player
 + getPlayerById(id : int) : Player
 + otherPlayers(id : int) : Player[]
++ otherPlayers(playerId : int) : Player[]
 + playerUnique(name : String) : boolean
 }
 class controllers.DiceHolder {
@@ -105,9 +146,10 @@ class controllers.DiceHolder {
 + roll()
 - rollDie()
 + sum() : int
++ sum(reverse : boolean) : int
 + isEqual() : boolean
 + toString() : String
-+ void incrementSameRolls()
++ incrementSameRolls()
 }
 class controllers.StartValues {
 - properties : Properties
@@ -117,26 +159,35 @@ class controllers.StartValues {
 
 class models.Balance {
 - balance : int
-+ checkBalance() : boolean
 }
 
 class models.Die {
 - sides : int
 + roll() : int
 }
-
+interface models.dto.IGameStateDTO {
++ getActivePlayer() : Player
++ getGuiController() : GUIController
++ getFieldController() : FieldController
++ getPlayerController() : PlayerController
++ getDiceHolder() : DiceHolder
++ getChanceCardDeck() : Deck
++ getOtherPlayers() : Player[]
++ isReverse() : boolean
+}
 class models.dto.GameStateDTO {
 - activePlayer: Player
 - otherPlayers: Player[]
 - guiController: GUIController
 - fieldController: FieldController
 - playerController: PlayerController
+- gameController : GameController
 - chancecardDeck: Deck
 - diceHolder: DiceHolder
+- reverse : boolean
 }
 class controllers.Deck {
 - deck : Card[]
-- reader : CSVReader
 + shuffle()
 + drawCard() : ChanceCard
 + getDeckSize() : int
@@ -158,27 +209,43 @@ class controllers.CSVReader {
 'Models ejere
 models.Player o- models.Character
 models.Player o- models.Balance
-models.Player o- models.ChanceCard
+models.Player -- models.ChanceCard
 
 'Controllers ejere
 controllers.DiceHolder"1" o- "2"models.Die
 controllers.PlayerController "1" o- "3..6" models.Player
 controllers.FieldController"1" o- "40" models.Field
-'Game controller
-controllers.GameController o- controllers.PlayerController
-controllers.GameController o- controllers.FieldController
-controllers.GameController o- controllers.Deck
-controllers.GameController o- controllers.DiceHolder
-controllers.GameController o- models.dto.GameStateDTO
-controllers.GameController o- ui.guiController : controllers.GUIConverter
-(controllers.GameController, ui.guiController) .. controllers.GUIConverter
+controllers.Deck"1" o- "45" models.ChanceCard
+
+controllers.GameController <|.. ActionListener
+controllers.GameController -- controllers.PlayerController
+controllers.GameController -- controllers.FieldController
+controllers.GameController -- controllers.Deck
+controllers.GameController -- controllers.DiceHolder
+controllers.GameController -- models.dto.GameStateDTO
+controllers.GameController -- ui.guiController
+
+models.dto.IGameStateDTO <|.. models.dto.GameStateDTO
+models.dto.IGameStateDTO -- controllers.PlayerController
+models.dto.IGameStateDTO -- controllers.FieldController
+models.dto.IGameStateDTO -up- controllers.Deck
+models.dto.IGameStateDTO -- controllers.DiceHolder
+models.dto.IGameStateDTO -- ui.guiController
+models.dto.IGameStateDTO -- models.Player
 
 controllers.FieldController -- controllers.CSVReader
 controllers.Deck -- controllers.CSVReader
 
 controllers.PlayerController <.. controllers.StartValues : use
 ui.guiController <.. controllers.StartValues : use
+ui.guiController <.. controllers.GUIConverter : use
 
-models.dto.GameStateDTO -- models.Field
-models.dto.GameStateDTO -- models.ChanceCard
+
+controllers.PlayerController <.. models.Language : use
+ui.guiController <.. models.Language : use
+controllers.FieldController <.. models.Language : use
+
+
+models.dto.IGameStateDTO -- models.Field
+models.dto.IGameStateDTO -- models.ChanceCard
 @enduml
