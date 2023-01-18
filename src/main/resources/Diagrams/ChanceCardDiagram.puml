@@ -1,0 +1,56 @@
+@startuml
+skinparam linetype polyline
+skinparam linetype ortho
+scale 500 width
+left to right direction
+
+abstract class models.chanceCards.ChanceCard {
+# name : String
+# description : String
++ {abstract} chanceEffect(gameStateDTO : IGameStateDTO) : GameStateDTO
+}
+
+class models.chanceCards.Grant {
+- bonus : int
+- netWorth : int
++ chanceEffect(gameState : IGameStateDTO)
+}
+
+class models.chanceCards.ChangeBalance {
+- effect : int
+- fromOthers : boolean
++ chanceEffect(gameState : IGameStateDTO)
+}
+class models.chanceCards.MoveToField {
+- fieldId : int
+- passStartBonus : boolean
++ chanceEffect(gameState : IGameStateDTO)
+}
+class models.chanceCards.MoveXSteps {
+- maxSteps : int
++ chanceEffect(gameState : IGameStateDTO)
+}
+
+class models.chanceCards.MoveToFerry {
+- rentMultiplier : int
+- passStartBonus : boolean
++ chanceEffect(gameState : IGameStateDTO)
+}
+class models.chanceCards.GetOutOfJail {
++ chanceEffect(gameState : IGameStateDTO)
+}
+
+class models.chanceCards.Tax {
+- houseTax : int
+- hotelTax : int
++ chanceEffect(gameState : IGameStateDTO)
+}
+
+models.chanceCards.ChanceCard <|-- models.chanceCards.Grant
+models.chanceCards.ChanceCard <|-left- models.chanceCards.MoveToField
+models.chanceCards.ChanceCard <|-- models.chanceCards.ChangeBalance
+models.chanceCards.ChanceCard <|-- models.chanceCards.MoveToFerry
+models.chanceCards.ChanceCard <|-- models.chanceCards.GetOutOfJail
+models.chanceCards.ChanceCard <|-right- models.chanceCards.Tax
+models.chanceCards.ChanceCard <|-- models.chanceCards.MoveXSteps
+@enduml

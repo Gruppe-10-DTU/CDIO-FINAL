@@ -1,0 +1,74 @@
+@startuml
+skinparam linetype polyline
+skinparam linetype ortho
+scale 500 width
+left to right direction
+
+abstract class models.fields.Field {
+# language : Language
+# name : String
+# iD : int
++ fieldEffect(gameStateDTO : IGameStateDTO)
++ {abstract} fieldEffect(gameStateDTO : GameStateDTO, rentMultiplier : int) : GameStateDTO
+}
+
+class models.fields.Brewery {
+- rent0 : int
+- rent1 : int
+}
+class models.fields.Empty {
+}
+class models.fields.Ferry {
+- int[] rent
++ int[] getRent()
++ void setRent(index : int, rentAmount : int)
+}
+class models.fields.Start {
+}
+class models.fields.Refuge {
+}
+
+class models.fields.ToJail {
+}
+
+abstract class models.fields.Property {
+# price : int
+# owner : Player
+# void auction(gameState : IGameStateDTO)
+# {abstract} getRentAmount(gameState : IGameStateDTO) : int
+}
+class models.fields.Chance {
+}
+class models.fields.Jail {
+- inJail : Player[]
+- getOutOfJailPrice : int
++ isInJail(player : Player) : boolean
++ setInJailAdd(player : Player)
++ setInJailRemove(player : Player)
+}
+class models.fields.Street {
+- color : String
+- housePrice : int
+- houseAmount : int
+- hotel : boolean
+- rent : int[]
++ void setRent(index : int, rentMultiplier : int)
++ isHotel() : boolean
+}
+
+class models.fields.Tax {
+- priceValue : int
+- priceProcent : int
+}
+models.fields.Field <|-left models.fields.Property
+models.fields.Property <|-left- models.fields.Brewery
+models.fields.Property <|-left- models.fields.Ferry
+models.fields.Property <|-- models.fields.Street
+models.fields.Field <|-- models.fields.Empty
+models.fields.Field <|-- models.fields.Refuge
+models.fields.Field <|-- models.fields.Start
+models.fields.Field <|-- models.fields.ToJail
+models.fields.Field <|-- models.fields.Tax
+models.fields.Field <|-- models.fields.Chance
+models.fields.Field <|-right- models.fields.Jail
+@enduml
