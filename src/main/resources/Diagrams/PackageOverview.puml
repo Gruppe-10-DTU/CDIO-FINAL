@@ -7,7 +7,7 @@ left to right direction
 package models {
 
     package fields{
-        class Field
+        abstract class Field
     }
     package chanceCards{
         class Deck {
