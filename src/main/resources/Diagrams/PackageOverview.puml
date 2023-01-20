@@ -4,6 +4,23 @@ skinparam linetype polyline
 skinparam linetype ortho
 left to right direction
 
+package models {
+
+    package fields{
+        class Field
+    }
+    package chanceCards{
+        class Deck {
+        }
+        abstract class ChanceCard {}
+
+    }
+    package dto {
+        interface IGameStateDTO{}
+        class GameStateDTO {}
+    }
+
+}
 interface ActionListener {
 }
 
@@ -16,9 +33,6 @@ class controllers.FieldController {
 
 }
 class models.Language {
-
-}
-abstract class models.ChanceCard {
 
 }
 
@@ -43,21 +57,14 @@ class models.Character {
 
 }
 
-abstract class models.Field {
 
-}
 
 class models.Balance {
 }
 
 class models.Die {
 }
-interface models.dto.IGameStateDTO {
-}
-class models.dto.GameStateDTO {
-}
-class controllers.Deck {
-}
+
 
 class controllers.CSVReader {
 }
@@ -65,7 +72,7 @@ class controllers.CSVReader {
 'Models ejere
 models.Player o-down- models.Character
 models.Player o- models.Balance
-models.Player -- models.ChanceCard
+models.Player -- ChanceCard
 
 controllers.PlayerController <.. models.Language : use
 ui.guiController <.. models.Language : use
@@ -74,35 +81,35 @@ controllers.FieldController <.. models.Language : use
 'Controllers ejere
 controllers.DiceHolder"1" o- "2"models.Die
 controllers.PlayerController "1" o- "3..6" models.Player
-controllers.FieldController"1 #" o- "40" models.Field
-controllers.Deck"1" o-- "45" models.ChanceCard
+controllers.FieldController"1 #" o- "40" Field
+Deck"1" o-- "46" ChanceCard
 
-models.dto.IGameStateDTO <|.. models.dto.GameStateDTO
-models.dto.IGameStateDTO -- controllers.PlayerController
-models.dto.IGameStateDTO -- controllers.FieldController
-models.dto.IGameStateDTO -- controllers.Deck
-models.dto.IGameStateDTO -- controllers.DiceHolder
-models.dto.IGameStateDTO -- ui.guiController
-models.dto.IGameStateDTO -- models.Player
+IGameStateDTO <|.. GameStateDTO
+IGameStateDTO -- controllers.PlayerController
+IGameStateDTO -- controllers.FieldController
+IGameStateDTO -- Deck
+IGameStateDTO -- controllers.DiceHolder
+IGameStateDTO -- ui.guiController
+IGameStateDTO -- models.Player
 
-controllers.GameController <|.. ActionListener
+controllers.GameController <|.up. ActionListener
 controllers.GameController o- controllers.PlayerController
 controllers.GameController o- controllers.FieldController
-controllers.GameController o- controllers.Deck
+controllers.GameController o- Deck
 controllers.GameController o- controllers.DiceHolder
-controllers.GameController o- models.dto.GameStateDTO
+controllers.GameController o- GameStateDTO
 controllers.GameController o- ui.guiController
 
 
 
 controllers.FieldController -- controllers.CSVReader
-controllers.Deck -- controllers.CSVReader
+Deck -- controllers.CSVReader
 
 controllers.PlayerController <.. controllers.StartValues : use
 ui.guiController <.. controllers.StartValues : use
 ui.guiController <.. controllers.GUIConverter : use
 
 
-models.dto.IGameStateDTO -- models.Field
-models.dto.IGameStateDTO -- models.ChanceCard
+IGameStateDTO -- Field
+IGameStateDTO -- ChanceCard
 @enduml

@@ -56,7 +56,7 @@ class models.Language {
 + String getLanguageValue(key : String)
 + updateLanguage(language : String)
 }
-abstract class models.ChanceCard {
+abstract class models.chanceCards.ChanceCard {
 # String name
 # String description
 + {abstract} chanceEffect(gameStateDTO : IGameStateDTO) : GameStateDTO
@@ -138,7 +138,7 @@ class models.Character {
 - setColor(colorIndex : int) : Color
 }
 
-abstract class models.Field {
+abstract class models.fields.Field {
 # name : String
 # iD : int
 # language : Language
@@ -175,7 +175,7 @@ class models.dto.GameStateDTO {
 - diceHolder: DiceHolder
 - reverse : boolean
 }
-class controllers.Deck {
+class models.chanceCards.Deck {
 - deck : Card[]
 + shuffle()
 + drawCard() : ChanceCard
@@ -206,13 +206,13 @@ controllers.FieldController <.right. models.Language : use
 'Controllers ejere
 controllers.DiceHolder"1" o- "2"models.Die
 controllers.PlayerController "1" o- "3..6" models.Player
-controllers.FieldController"1 #" o- "40" models.Field
-controllers.Deck"1" o-right- "45" models.ChanceCard
+controllers.FieldController"1 #" o- "40" models.fields.Field
+models.chanceCards.Deck"1" o-right- "46" models.chanceCards.ChanceCard
 
 models.dto.IGameStateDTO <|.right. models.dto.GameStateDTO
 models.dto.IGameStateDTO -- controllers.PlayerController
 models.dto.IGameStateDTO -- controllers.FieldController
-models.dto.IGameStateDTO -up- controllers.Deck
+models.dto.IGameStateDTO -up- models.chanceCards.Deck
 models.dto.IGameStateDTO -- controllers.DiceHolder
 models.dto.IGameStateDTO -- ui.guiController
 models.dto.IGameStateDTO -- models.Player
@@ -228,13 +228,13 @@ controllers.GameController o- ui.guiController
 
 
 controllers.FieldController -- controllers.CSVReader
-controllers.Deck -- controllers.CSVReader
+models.chanceCards -- controllers.CSVReader
 
 controllers.PlayerController <.. controllers.StartValues : use
 ui.guiController <.. controllers.StartValues : use
 ui.guiController <.. controllers.GUIConverter : use
 
 
-models.dto.IGameStateDTO -- models.Field
-models.dto.IGameStateDTO -- models.ChanceCard
+models.dto.IGameStateDTO -- models.fields.Field
+models.dto.IGameStateDTO -- models.chanceCards.ChanceCard
 @enduml

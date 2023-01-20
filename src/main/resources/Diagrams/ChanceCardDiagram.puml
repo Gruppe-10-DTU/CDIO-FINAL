@@ -3,7 +3,14 @@ skinparam linetype polyline
 skinparam linetype ortho
 scale 500 width
 left to right direction
-
+class models.chanceCards.Deck {
+- deck : Card[]
++ shuffle()
++ drawCard() : ChanceCard
++ getDeckSize() : int
++ returnToDeck(chanceCard : ChanceCard)
++ rigDeck(offset : int)
+}
 abstract class models.chanceCards.ChanceCard {
 # name : String
 # description : String
@@ -45,7 +52,7 @@ class models.chanceCards.Tax {
 - hotelTax : int
 + chanceEffect(gameState : IGameStateDTO)
 }
-
+models.chanceCards.Deck o-- models.chanceCards.ChanceCard
 models.chanceCards.ChanceCard <|-- models.chanceCards.Grant
 models.chanceCards.ChanceCard <|-left- models.chanceCards.MoveToField
 models.chanceCards.ChanceCard <|-- models.chanceCards.ChangeBalance
